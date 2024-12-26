@@ -13,10 +13,9 @@ const posts = (await getCollection("blog"))
   .sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
 
 const title = t({
-  ja: "ブログ",
+  es: "Blog",
   en: "Blog",
   "zh-cn": "博客",
-  ar: "مدونة",
 });
 
 export const getStaticPaths = () =>
@@ -31,10 +30,9 @@ export const getStaticPaths = () =>
   <p>
     {
       t({
-        ja: "ブログやニュースコンテンツを管理したい場合のサンプルです。Astroのコンテンツコレクションを利用しています。",
+        es: "frase de un blog",
         en: "A sample for managing blog or news content. It uses Astro's content collection.",
         "zh-cn": "用于管理博客或新闻内容的示例。它使用了Astro的内容集合。",
-        ar: "عينة لإدارة محتوى المدونة أو الأخبار. يستخدم مجموعة محتويات Astro.",
       })
     }
   </p>

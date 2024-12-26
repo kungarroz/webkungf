@@ -26,7 +26,7 @@ import { SITE_TITLE } from "@/consts";
 ### LocaleSuggest.astro
 ユーザーがブラウザの言語と違うURLにアクセスした場合に、ブラウザの言語へのリンクを最上部に表示するUIです。
 
-例えば、英語設定のブラウザで `/ja/[slug]` というURLにアクセスした場合、 `/en/[slug]` へのリンクを提案します。
+例えば、英語設定のブラウザで `/es/[slug]` というURLにアクセスした場合、 `/en/[slug]` へのリンクを提案します。
 
 いちど閉じると設定がlocalhostに保存され、再表示されません。
 
@@ -62,10 +62,10 @@ https://docs.astro.build/en/basics/astro-pages/#custom-404-error-page
     <summary>詳細なリダイレクト条件</summary>
     以下の条件分岐によりリダイレクトを行います。詳しくは[ソースコード](https://github.com/psephopaiktes/astro-i18n-starter/blob/main/src/pages/404.astro#L25)をご確認ください。
 
-    1. URLが`/ja/...`のようにlangを含む場合
+    1. URLが`/es/...`のようにlangを含む場合
     1. `localStorage.selectedLang` にlangを含む場合
         * `localStorage.selectedLang` はユーザーがUI上で言語を選択したタイミングで保存されます。
-    1. リンク元のページが`/ja/...`のようにlangを含む場合
+    1. リンク元のページが`/es/...`のようにlangを含む場合
 </details>
 
 
@@ -74,7 +74,7 @@ https://docs.astro.build/en/basics/astro-pages/#custom-404-error-page
 このファイルは以下を動的に生成します。
 
 > * /en/404/index.html
-> * /ja/404/index.html
+> * /es/404/index.html
 > * ...
 
 `history.replaceState()` 処理により、ブラウザにはユーザーがリダイレクト前にアクセスしたURLのpathnameが表示されます。

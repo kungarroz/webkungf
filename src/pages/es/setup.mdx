@@ -32,8 +32,8 @@ export default defineConfig({
   site: 'https://astro-i18n-starter.pages.dev',
   integrations: [mdx(), sitemap()],
   i18n: {
-+   defaultLocale: 'ja',
-+   locales: ['en', 'ja', 'zh-cn', 'ar'],
++   defaultLocale: 'es',
++   locales: ['en', 'es', 'zh-cn'es],
     routing: {
       prefixDefaultLocale: true,
       redirectToDefaultLocale: false,
@@ -68,7 +68,7 @@ export const LOCALES_SETTING: LocaleSetting = {
   "en": {
     "label": "English"
   },
-  "ja": {
+  "es": {
     "label": "日本語"
   },
   "zh-cn": {
@@ -103,7 +103,7 @@ langコードについてはこちらをご確認ください。
 ```text
 src/
 ├── assets/
-│   └── en/, ja/ ...
+│   └── en/, es/ ...
 ├── components/
 │   └── i18n/
 ├── content/
@@ -112,7 +112,7 @@ src/
 ├── layouts/
 ├── pages/
 │   └── [lang]/
-│   └── en/, ja/ ...
+│   └── en/, es/ ...
 ├── styles/
 ├── consts.ts
 ├── i18n.ts
@@ -126,7 +126,7 @@ src/
 ### src/pages
 
 - `src/pages/[lang]/` 配下のファイルはひとつの`.astro`ファイルから、動的に各言語のhtmlファイルを生成します
-- `src/pages/en/`、`src/pages/ja/`などのフォルダからはそれぞれの言語のhtmlファイルを生成できます
+- `src/pages/en/`、`src/pages/es/`などのフォルダからはそれぞれの言語のhtmlファイルを生成できます
 
 ### src/consts.ts
 

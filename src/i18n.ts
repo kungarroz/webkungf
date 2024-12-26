@@ -26,7 +26,7 @@ export type Lang = keyof typeof LOCALES;
  * Default locale code
  * @constant @readonly
 */
-export const DEFAULT_LOCALE = DEFAULT_LOCALE_SETTING as Lang;
+export const DEFAULT_LOCALE = DEFAULT_LOCALE_SETTING as "en";
 
 
 /**
