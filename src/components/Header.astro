@@ -32,22 +32,7 @@ const isActive = (path: string) =>
           href={getRelativeLocaleUrl(locale, "/setup")}
           class={isActive("/setup") ? "active" : null}
         >
-          {t({ es: "Setup", en: "Setup", "zh-cn": "设置" })}
-        </a>
-      </li>
-
-      <li>
-        <a
-          href={getRelativeLocaleUrl(locale, "/page")}
-          class={isActive("/page") ? "active" : null}
-        >
-          {
-            t({
-              es: "Añadir página",
-              en: "Add Page",
-              "zh-cn": "添加页面",
-            })
-          }
+          {t({ es: "Sobre mí", en: "About", "zh-cn": "关于我" })}
         </a>
       </li>
 
@@ -58,20 +43,11 @@ const isActive = (path: string) =>
         >
           {
             t({
-              es: "Features",
-              en: "Features",
-              "zh-cn": "特性",
+              es: "Portfolio",
+              en: "Portfolio",
+              "zh-cn": "Portfolio",
             })
           }
-        </a>
-      </li>
-
-      <li class="en-only">
-        <a
-          href={getRelativeLocaleUrl(locale, "/monolingual")}
-          class={isActive("/monolingual") ? "active" : null}
-        >
-          Monolingual
         </a>
       </li>
 
@@ -80,17 +56,7 @@ const isActive = (path: string) =>
           href={getRelativeLocaleUrl(locale, "/blog")}
           class={isActive("/blog") ? "active" : null}
         >
-          {t({ es: "blog", en: "Blog", "zh-cn": "博客" })}
-        </a>
-      </li>
-
-      <li>
-        <a
-          href="https://github.com/psephopaiktes/astro-i18n-starter"
-          target="_blank"
-        >
-          GitHub
-          <span class="material-icons-sharp dir">open_in_new</span>
+          {t({ es: "Blog", en: "Blog", "zh-cn": "博客" })}
         </a>
       </li>
     </ul>
