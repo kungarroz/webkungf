@@ -4,7 +4,7 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'webfinal-theta.vercel.app',
+  site: 'https://webfinal-git-main-arrozibericos-projects.vercel.app',
   integrations: [mdx(), sitemap()],
   i18n: {
     defaultLocale: 'en',
