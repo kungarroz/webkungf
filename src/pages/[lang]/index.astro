@@ -4,11 +4,6 @@ import Layout from "@/layouts/Base.astro";
 const t = useTranslations(Astro.currentLocale as Lang);
 import { getRelativeLocaleUrl } from "astro:i18n";
 
-import heroImageEn from "@/assets/en/hero.svg";
-import heroImageEs from "@/assets/es/hero.svg";
-import heroImageZhCn from "@/assets/zh-cn/hero.svg";
-import { Image } from "astro:assets";
-
 const locale = Astro.currentLocale as Lang;
 
 export const getStaticPaths = () =>
@@ -18,187 +13,77 @@ export const getStaticPaths = () =>
 ---
 
 <Layout>
-  <Image
-    src={locale === "es"
-      ? heroImageEs
-      : locale === "zh-cn"
-        ? heroImageZhCn
-          : heroImageEn}
-    alt={t({
-      es: "Hola",
-      en: "Hello",
-      "zh-cn": "你好",
-    })}
-    loading="eager"
-  />
-
-  <p>
-    <em>
-      {
-        t({
-          es: "Una chapa aqui",
-          en: "i18n Starter is a simple Astro theme for creating multilingual websites. It supports i18n feature from Astro v4.0.",
-          "zh-cn":
-            "i18n Starter 是一个用于创建多语言网站的简单 Astro 主题。它支持 Astro v4.0 的 i18n 功能。",
-        })
-      }
-    </em>
-  </p>
-
-  <p>
-    <a
-      href={`https://docs.astro.build/${locale}/guides/internationalization/`}
-      target="_blank"
-    >
-      Internationalization (i18n) Routing | Astro Docs
-      <span class="material-icons-sharp dir">open_in_new</span>
-    </a>
-  </p>
-
-  <p>
-    {
-      t({
-        es: "otra chapa。",
-        en: "Basically, only the subdirectory URL scheme is supported. It is managed by the URL as follows for each language. The root URL is redirected to the specified default language.",
-        "zh-cn":
-          "基本上，只支持子目录 URL 方案。 它由以下 URL 为每种语言进行管理。 根 URL 将重定向到指定的默认语言。",
-      })
-    }
-  </p>
-
-  <ul>
-    <li>example.com/en/</li>
-    <li>example.com/ja/</li>
-  </ul>
-
-  <h2>
-    {
-      t({
-        es: "FEature",
-        en: "Feature",
-        "zh-cn": "特点",
-      })
-    }
-  </h2>
-
-  <ul>
-    <li>
-      {
-        t({
-          es: "no se que de astro",
-          en: "support for Astro's official i18n feature",
-          "zh-cn": "支持 Astro 官方的 i18n 功能",
-        })
-      }
-    </li>
-    <li>
-      {
-        t({
-          es: "metodos de nose que",
-          en: "Various management methods for multilingual pages",
-          "zh-cn": "多语言页面的各种管理方法",
-        })
-      }
-    </li>
-    <li>Vanilla CSS</li>
-    <li>
-      {
-        t({
-          es: "SEO friendly",
-          en: "SEO friendly",
-          "zh-cn": "SEO 友好",
-        })
-      }
-    </li>
-    <li>
-      {
-        t({
-          en: "100/100 Lighthouse performance",
-          es: "100/100 Lighthouse",
-          "zh-cn": "100/100 Lighthouse 性能",
-        })
-      }
-    </li>
-  </ul>
-
-  <h2>
-    {
-      t({
-        en: "Getting Started",
-        es: "empezar",
-        "zh-cn": "入门指南",
-      })
-    }
-  </h2>
-
-  <p>
-    {
-      t({
-        es: "no tienes ni oputa idea",
-        en: "Assumes basic knowledge of Astro.",
-        "zh-cn": "假设您具有 Astro 的基本知识。",
-      })
-    }
-  </p>
-
-  <p>
-    <a href="https://docs.astro.build/" target="_blank">
-      https://docs.astro.build/
-      <span class="material-icons-sharp dir">open_in_new</span>
-    </a>
-  </p>
-
-  <p>
-    {
-      t({
-        es: "empieza imbecil！",
-        en: "If you're okay, let's get started!",
-        "zh-cn": "如果您没问题，让我们开始吧！",
-      })
-    }
-  </p>
-
-  <p>
-    <a href={getRelativeLocaleUrl(locale, "setup")} class="start">
-      <span class="material-icons-sharp dir">arrow_forward</span>
-      {
-        t({
-          es: "start setup",
-          en: "Start Setup",
-          "zh-cn": "开始设置",
-        })
-      }
-    </a>
-  </p>
+  <div class="photo-grid">
+    <!-- Foto 1 -->
+    <div class="photo-wrapper">
+      <img src="/fotos/DSCF0173.JPG" alt="About" />
+      <div class="overlay">
+        <p>{t({ es: "Sobre mí", en: "About", "zh-cn": "关于我" })}</p>
+      </div>
+    </div>
+    <!-- Foto 2 -->
+    <div class="photo-wrapper">
+      <img src="/fotos/DSCF0188.JPG" alt="Portfolio" />
+      <div class="overlay">
+        <p>{t({ es: "Portafolio", en: "Portfolio", "zh-cn": "作品集" })}</p>
+      </div>
+    </div>
+    <!-- Foto 3 -->
+    <div class="photo-wrapper">
+      <img src="/fotos/DSCF0191.JPG" alt="Blog" />
+      <div class="overlay">
+        <p>{t({ es: "Blog", en: "Blog", "zh-cn": "博客" })}</p>
+      </div>
+    </div>
+  </div>
 </Layout>
 
 <style>
-  ul {
-    margin-block-start: var(--sp-s);
-    list-style: disc;
-    padding-inline-start: 1em;
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
   }
 
-  h2 {
-    color: var(--color-theme);
-    margin-block-start: var(--sp-l);
+  .photo-wrapper {
+    position: relative;
+    overflow: hidden;
   }
 
-  em {
+  .photo-wrapper img {
+    width: 100%;
+    height: auto;
     display: block;
-    font-style: normal;
-    font-size: 1.3em;
-    margin-block-end: var(--sp-m);
+    transition: transform 0.3s ease;
   }
 
-  .start {
-    display: block;
-    width: fit-content;
-    padding: 0.5em;
-    border-radius: 0.5em;
-    background: var(--color-main);
-    color: var(--color-base);
-    text-decoration: none;
-    letter-spacing: 0.05em;
+  .photo-wrapper:hover img {
+    transform: scale(1.1);
+  }
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .photo-wrapper:hover .overlay {
+    opacity: 1;
+  }
+
+  .overlay p {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
   }
 </style>
