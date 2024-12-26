@@ -7,7 +7,7 @@ export const LOCALES_SETTING: LocaleSetting = {
   "en": {
     "label": "English"
   },
-  "Es": {
+  "es": {
     "label": "Español"
   },
   "zh-cn": {
