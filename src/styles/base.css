@@ -2,11 +2,11 @@
 
 
 :root {
-  --color-theme: #007bff; /* Nuevo color principal */
-  --color-accent: #0056b3;
-  --color-base: #ffffff;
-  --color-main: #333333;
-  --color-caution: #dc3545;
+  --color-theme: #f7f7f7; /* Blanco pastel para el tema claro */
+  --color-accent: #d9d9d9; /* Gris claro para el acento */
+  --color-base: #ffffff; /* Fondo blanco puro */
+  --color-main: #333333; /* Texto principal oscuro */
+  --color-caution: #dc3545; /* Color de advertencia */
   background-color: var(--color-base);
 
 
@@ -36,13 +36,14 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-	--color-theme: #ffffff; /* Cambiado a blanco */
-    --color-accent: #ffffff; /* Cambiado a blanco para el acento */
-    --color-base: #1a1a1a;
-    --color-main: #ffffff;
-    --color-caution: #ff6b6b;
+    --color-theme: #e0e0e0; /* Blanco suave */
+    --color-accent: #b0b0b0; /* Gris suave para el acento */
+    --color-base: #1a1a1a; /* Fondo oscuro */
+    --color-main: #ffffff; /* Texto blanco */
+    --color-caution: #ff6b6b; /* Color de advertencia */
   }
 }
+
 
 h1,
 h2,
