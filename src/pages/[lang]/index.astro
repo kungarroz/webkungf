@@ -10,27 +10,32 @@ export const getStaticPaths = () =>
   Object.keys(LOCALES).map((lang) => ({
     params: { lang },
   }));
+
+import AstroImageAbout from "@/assets/fotos/about.jpeg";
+import AstroImageBlog from "@/assets/fotos/blog.jpeg";
+import AstroImagePort from "@/assets/fotos/portfolio.jpeg";
+
 ---
 
 <Layout>
   <div class="photo-grid">
     <!-- Foto 1 -->
     <div class="photo-wrapper">
-      <img src="@/assets/fotos/about.jpeg" alt="About" />
+      <img src={AstroImageAbout} alt="About" />
       <div class="overlay">
         <p>{t({ es: "Sobre mí", en: "About", "zh-cn": "关于我" })}</p>
       </div>
     </div>
     <!-- Foto 2 -->
     <div class="photo-wrapper">
-      <img src="@/assets/fotos/portfolio.jpeg" alt="Portfolio" />
+      <img src={AstroImagePort} alt="Portfolio" />
       <div class="overlay">
         <p>{t({ es: "Portafolio", en: "Portfolio", "zh-cn": "作品集" })}</p>
       </div>
     </div>
     <!-- Foto 3 -->
     <div class="photo-wrapper">
-      <img src="@/assets/fotos/blog.jpeg" alt="Blog" />
+      <img src={AstroImageBlog} alt="Blog" />
       <div class="overlay">
         <p>{t({ es: "Blog", en: "Blog", "zh-cn": "博客" })}</p>
       </div>
