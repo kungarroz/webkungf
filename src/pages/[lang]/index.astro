@@ -11,31 +11,27 @@ export const getStaticPaths = () =>
     params: { lang },
   }));
 
-import AstroImageAbout from "@/assets/fotos/about.jpeg";
-import AstroImageBlog from "@/assets/fotos/blog.jpeg";
-import AstroImagePort from "@/assets/fotos/portfolio.jpeg";
-
 ---
 
 <Layout>
   <div class="photo-grid">
     <!-- Foto 1 -->
     <div class="photo-wrapper">
-      <img src={AstroImageAbout} alt="About" />
+      <img src="/fotos/about.jpeg" alt="About" />
       <div class="overlay">
         <p>{t({ es: "Sobre mí", en: "About", "zh-cn": "关于我" })}</p>
       </div>
     </div>
     <!-- Foto 2 -->
     <div class="photo-wrapper">
-      <img src={AstroImagePort} alt="Portfolio" />
+      <img src="/fotos/portfolio.jpeg" alt="Portfolio" />
       <div class="overlay">
         <p>{t({ es: "Portafolio", en: "Portfolio", "zh-cn": "作品集" })}</p>
       </div>
     </div>
     <!-- Foto 3 -->
     <div class="photo-wrapper">
-      <img src={AstroImageBlog} alt="Blog" />
+      <img src="/fotos/blog.jpeg" alt="Blog" />
       <div class="overlay">
         <p>{t({ es: "Blog", en: "Blog", "zh-cn": "博客" })}</p>
       </div>
