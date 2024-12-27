@@ -36,8 +36,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-theme: #4da3ff; /* Color principal para modo oscuro */
-    --color-accent: #80bdff;
+	--color-theme: #ffffff; /* Cambiado a blanco */
+    --color-accent: #ffffff; /* Cambiado a blanco para el acento */
     --color-base: #1a1a1a;
     --color-main: #ffffff;
     --color-caution: #ff6b6b;
