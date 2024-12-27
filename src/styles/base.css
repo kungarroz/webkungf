@@ -23,11 +23,13 @@
   background-color: var(--color-base);
   accent-color: var(--color-theme);
 
-  background-image: radial-gradient(
-    color-mix(in srgb, var(--color-main) 10%, transparent) 1px,
-    var(--color-base) 1px
+background-image: 
+  radial-gradient(
+    currentColor 1px, 
+    transparent 1px
   );
-  background-size: 16px 16px;
+background-size: 16px 16px;
+opacity: 0.1;
 
   line-height: 1.6;
   font-weight: 500;
