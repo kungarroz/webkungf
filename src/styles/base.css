@@ -1,24 +1,12 @@
 /* basic page style */
 
-:lang(ar) {
-  * { letter-spacing: 0 !important; }
-}
 
 :root {
-  @media (prefers-color-scheme: dark) {
-    --color-theme: #ef4d1a;
-    --color-accent: #943e0d;
-    --color-base: #342c28;
-    --color-main: #faf9f6;
-    --color-caution: #FFAA2B;
-  }
-  @media (prefers-color-scheme: light) {
-    --color-theme: #ef4d1a;
-    --color-accent: #ffcc21;
-    --color-base: #faf9f6;
-    --color-main: #342c28;
-    --color-caution: #A80A00;
-  }
+  --color-theme: #007bff; /* Nuevo color principal */
+  --color-accent: #0056b3;
+  --color-base: #ffffff;
+  --color-main: #333333;
+  --color-caution: #dc3545;
 
   --sp-l: 64px;
   --sp-m: 32px;
@@ -47,6 +35,16 @@
   font-family: "Noto Sans", system-ui, "SF Pro Text", -apple-system, BlinkMacSystemFont, sans-serif;
   @media (width < 480px) {
     font-size: 16px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-theme: #4da3ff; /* Color principal para modo oscuro */
+    --color-accent: #80bdff;
+    --color-base: #1a1a1a;
+    --color-main: #ffffff;
+    --color-caution: #ff6b6b;
   }
 }
 
@@ -94,5 +92,27 @@ path {
   overflow: hidden;
   &:dir(rtl).dir {
     scale: -1 1;
+  }
+}
+
+.logo-container {
+  position: relative;
+}
+
+.logo {
+  width: 100px; /* Ajusta según tus necesidades */
+  height: auto;
+}
+
+.dark-logo {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  .light-logo {
+    display: none;
+  }
+  .dark-logo {
+    display: block;
   }
 }

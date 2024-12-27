@@ -7,8 +7,7 @@ import { useTranslations, type Lang } from "@/i18n";
 import { getRelativeLocaleUrl } from "astro:i18n";
 const t = useTranslations(Astro.currentLocale as Lang);
 
-import LightLogo from "@/assets/kfblack.png";
-import DarkLogo from "@/assets/kfwhite.png";
+import AstroImage from "@/assets/kfblack.png";
 
 const locale = Astro.currentLocale as Lang;
 
@@ -17,14 +16,11 @@ const isActive = (path: string) =>
 ---
 
 <header class="l-header">
-  <h1 dir="ltr">
+<h1 dir="ltr">
     <a href={getRelativeLocaleUrl(locale, "/")}>
-      <picture>
-        <source srcset={DarkLogo.src} media="(prefers-color-scheme: dark)">
-        <img src={LightLogo.src} alt="Logo" />
-      </picture>
+      <Image src={AstroImage} alt="Astro" />
     </a>
-  </h1>
+</h1>
 
   <LocaleSelect />
 
