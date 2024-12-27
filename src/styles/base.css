@@ -7,6 +7,8 @@
   --color-base: #ffffff;
   --color-main: #333333;
   --color-caution: #dc3545;
+  background-color: var(--color-base);
+
 
   --sp-l: 64px;
   --sp-m: 32px;
@@ -22,14 +24,6 @@
   color: var(--color-main);
   background-color: var(--color-base);
   accent-color: var(--color-theme);
-
-background-image: 
-  radial-gradient(
-    currentColor 1px, 
-    transparent 1px
-  );
-background-size: 16px 16px;
-opacity: 0.1;
 
   line-height: 1.6;
   font-weight: 500;
