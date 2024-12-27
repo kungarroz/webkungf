@@ -2,15 +2,15 @@
 
 :root {
   @media (prefers-color-scheme: dark) {
-    --color-theme: #ef4d1a;
-    --color-accent: #943e0d;
+    --color-theme: #2e2b28;
+    --color-accent: #6b6a68;
     --color-base: #2e2b28; /* Fondo más oscuro para esquema oscuro */
     --color-main: #faf9f6; /* Texto claro */
     --color-caution: #FFAA2B;
   }
   @media (prefers-color-scheme: light) {
-    --color-theme: #ef4d1a;
-    --color-accent: #ffcc21;
+    --color-theme: #2e2b28;
+    --color-accent: #6b6a68;
     --color-base: #f7f7f5; /* Fondo blanco suave */
     --color-main: #333333; /* Texto gris oscuro */
     --color-caution: #A80A00;
