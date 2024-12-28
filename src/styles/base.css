@@ -2,12 +2,12 @@
 
 
 :root {
-  --color-theme: #f7f7f7; /* Blanco pastel para el tema claro */
-  --color-accent: #d9d9d9; /* Gris claro para el acento */
-  --color-base: #ffffff; /* Fondo blanco puro */
-  --color-main: #333333; /* Texto principal oscuro */
-  --color-caution: #dc3545; /* Color de advertencia */
-  background-color: var(--color-base);
+  /* Tema claro: fondo blanco, texto negro */
+  --color-theme: #ffffff; /* Blanco puro para el tema */
+  --color-accent: #f0f0f0; /* Gris muy claro para acentos sutiles */
+  --color-base: #ffffff; /* Fondo blanco */
+  --color-main: #000000; /* Texto principal negro */
+  --color-caution: #ff0000; /* Rojo para advertencias */
 
 
   --sp-l: 64px;
@@ -36,11 +36,12 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-theme: #e0e0e0; /* Blanco suave */
-    --color-accent: #b0b0b0; /* Gris suave para el acento */
-    --color-base: #1a1a1a; /* Fondo oscuro */
-    --color-main: #ffffff; /* Texto blanco */
-    --color-caution: #ff6b6b; /* Color de advertencia */
+    /* Tema oscuro: fondo negro, texto blanco */
+    --color-theme: #000000; /* Negro puro para el tema */
+    --color-accent: #333333; /* Gris oscuro para acentos sutiles */
+    --color-base: #000000; /* Fondo negro */
+    --color-main: #ffffff; /* Texto principal blanco */
+    --color-caution: #ff6b6b; /* Rojo suave para advertencias */
   }
 }
 
