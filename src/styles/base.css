@@ -114,3 +114,11 @@ path {
     display: block;
   }
 }
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  max-width: 1400px; /* Ajusta este valor */
+  margin: 0 auto;
+}
