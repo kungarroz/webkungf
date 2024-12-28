@@ -1,0 +1,87 @@
+---
+// PhotoGallery component for displaying image gallery
+import { Image } from "astro:assets";
+import { useTranslations, type Lang } from "@/i18n";
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+const t = useTranslations(Astro.currentLocale as Lang);
+
+const locale = Astro.currentLocale as Lang;
+
+// Replace this with your actual image data
+const images = [
+  { src: "/path/to/image1.jpg", alt: "Image 1" },
+  { src: "/path/to/image2.jpg", alt: "Image 2" },
+  // Add more images as needed
+];
+
+const isActive = (path: string) =>
+  getRelativeLocaleUrl(locale, path) === Astro.url.pathname;
+---
+
+<div class="l-photo-gallery">
+  <h2>{t({ es: "Galería de Fotos", en: "Photo Gallery", "zh-cn": "照片库" })}</h2>
+  
+  <div class="photo-grid">
+    {images.map((image, index) => (
+      <div class="photo-wrapper">
+        <a href={getRelativeLocaleUrl(locale, `/photo/${index}`)} class={isActive(`/photo/${index}`) ? "active" : null}>
+          <Image src={image.src} alt={image.alt} />
+        </a>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .l-photo-gallery {
+    display: grid;
+    place-items: center;
+    gap: var(--sp-s);
+  }
+
+  h2 {
+    margin-block-start: var(--sp-l);
+    font-size: 32px;
+    font-family: var(--english-font);
+    font-weight: 900;
+    @media (width < 480px) {
+      font-size: 24px;
+    }
+  }
+
+  .photo-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--sp-s);
+    margin-block-start: var(--sp-s);
+  }
+
+  .photo-wrapper {
+    position: relative;
+  }
+
+  a {
+    display: block;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+
+    &:hover,
+    &:active {
+      transform: scale(1.05);
+    }
+
+    &.active {
+      pointer-events: none;
+      box-shadow: 0 0 0 2px var(--color-theme);
+    }
+  }
+
+  img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+  }
+</style>

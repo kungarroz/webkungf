@@ -24,10 +24,13 @@ export const getStaticPaths = () =>
     </div>
     <!-- Foto 2 -->
     <div class="photo-wrapper">
+<a href={getRelativeLocaleUrl(locale, "/portfolio")}>
       <img src="/fotos/portfolio.jpeg" alt="Portfolio" />
       <div class="overlay">
-        <p>{t({ es: "Portafolio", en: "Portfolio", "zh-cn": "作品集" })}</p>
+        <p>{t({ es: "Portfolio", en: "Portfolio", "zh-cn": "作品集" })}</p>
       </div>
+</a>
+
     </div>
     <!-- Foto 3 -->
     <div class="photo-wrapper">
