@@ -115,15 +115,10 @@ path {
   }
 }
 
-.main-container {
-  width: 90%; /* Esto hará que el contenido ocupe el 90% del ancho de la pantalla */
-  max-width: 1400px; /* Ajusta este valor según lo ancho que quieras que sea */
-  margin: 0 auto; /* Esto centrará el contenedor */
-}
-
 .photo-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
-  width: 100%; /* Asegura que el grid ocupe todo el ancho del contenedor */
+  max-width: 1400px; /* Ajusta este valor */
+  margin: 0 auto;
 }

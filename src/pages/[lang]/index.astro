@@ -14,6 +14,7 @@ export const getStaticPaths = () =>
 ---
 
 <Layout>
+  <div class="main-container">  // 👈 Añade esta línea
   <div class="photo-grid">
     <!-- Foto 1 -->
     <div class="photo-wrapper">
@@ -37,13 +38,22 @@ export const getStaticPaths = () =>
       </div>
     </div>
   </div>
+  </div>  // 👈 Añade esta línea
 </Layout>
 
 <style>
+
+  .main-container {
+    width: 90%;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
   .photo-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
+	width:100%;
   }
 
   .photo-wrapper {
