@@ -5,35 +5,35 @@ import { useTranslations, type Lang } from "@/i18n";
 import { getRelativeLocaleUrl } from "astro:i18n";
 
 const t = useTranslations(Astro.currentLocale as Lang);
-
 const locale = Astro.currentLocale as Lang;
 
-// Replace this with your actual image data
+// Define your image data
 const images = [
   { src: "/galeria/Gallery1.jpeg", alt: "Image 1" },
   { src: "/galeria/Gallery2.jpeg", alt: "Image 2" },
-{ src: "/galeria/Gallery3.jpeg", alt: "Image 3" },
-{ src: "/galeria/Gallery4.jpeg", alt: "Image 4" },
-{ src: "/galeria/Gallery5.jpeg", alt: "Image 5" },
-{ src: "/galeria/Gallery6.jpeg", alt: "Image 6" },
-{ src: "/galeria/Gallery7.jpeg", alt: "Image 7" },
-{ src: "/galeria/Gallery8.jpeg", alt: "Image 8" },
-{ src: "/galeria/Gallery9.jpeg", alt: "Image 9" },
-  // Add more images as needed
+  { src: "/galeria/Gallery3.jpeg", alt: "Image 3" },
+  { src: "/galeria/Gallery4.jpeg", alt: "Image 4" },
+  { src: "/galeria/Gallery5.jpeg", alt: "Image 5" },
+  { src: "/galeria/Gallery6.jpeg", alt: "Image 6" },
+  { src: "/galeria/Gallery7.jpeg", alt: "Image 7" },
+  { src: "/galeria/Gallery8.jpeg", alt: "Image 8" },
+  { src: "/galeria/Gallery9.jpeg", alt: "Image 9" },
 ];
-
-const isActive = (path: string) =>
-  getRelativeLocaleUrl(locale, path) === Astro.url.pathname;
 ---
 
 <div class="l-photo-gallery">
   <h2>{t({ es: "Galería de Fotos", en: "Photo Gallery", "zh-cn": "照片库" })}</h2>
-  
+
   <div class="photo-grid">
     {images.map((image, index) => (
       <div class="photo-wrapper">
         <a href={getRelativeLocaleUrl(locale, `/photo/${index}`)} class={isActive(`/photo/${index}`) ? "active" : null}>
-          <Image src={image.src} alt={image.alt} />
+          <Image 
+            src={image.src} 
+            alt={image.alt} 
+            width={200} 
+            height={200} 
+          />
         </a>
       </div>
     ))}
@@ -87,8 +87,8 @@ const isActive = (path: string) =>
   }
 
   img {
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
+    width: auto; /* Cambia esto si necesitas un tamaño específico */
+    height: auto; /* Cambia esto si necesitas un tamaño específico */
+    object-fit: cover; /* Mantiene la proporción de la imagen */
   }
 </style>
