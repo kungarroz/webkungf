@@ -2,11 +2,13 @@
 
 
 :root {
-  /* Tema claro: fondo blanco, texto negro */
-  --color-theme: #ffffff; /* Blanco puro para el tema */
-  --color-accent: #f0f0f0; /* Gris muy claro para acentos sutiles */
+  /* Tema claro */
+  --color-theme: #ffffff; /* Fondo principal blanco */
+  --color-accent: #f0f0f0; /* Gris muy claro para elementos de acento */
   --color-base: #ffffff; /* Fondo blanco */
   --color-main: #000000; /* Texto principal negro */
+  --color-secondary: #333333; /* Gris oscuro para elementos secundarios */
+  --color-contrast: #e0e0e0; /* Gris claro para contrastar con el blanco */
   --color-caution: #ff0000; /* Rojo para advertencias */
 
 
@@ -36,11 +38,13 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    /* Tema oscuro: fondo negro, texto blanco */
-    --color-theme: #000000; /* Negro puro para el tema */
-    --color-accent: #333333; /* Gris oscuro para acentos sutiles */
+    /* Tema oscuro */
+    --color-theme: #000000; /* Fondo principal negro */
+    --color-accent: #333333; /* Gris oscuro para elementos de acento */
     --color-base: #000000; /* Fondo negro */
     --color-main: #ffffff; /* Texto principal blanco */
+    --color-secondary: #cccccc; /* Gris claro para elementos secundarios */
+    --color-contrast: #1a1a1a; /* Gris muy oscuro para contrastar con el negro */
     --color-caution: #ff6b6b; /* Rojo suave para advertencias */
   }
 }
