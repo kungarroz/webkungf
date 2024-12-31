@@ -15,4 +15,18 @@ const blog = defineCollection({
     }),
 });
 
-export const collections = { blog };
+const albums = defineCollection({
+  type: "data",
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string().optional(),
+      cover: image(),
+    }),
+});
+
+// Combina ambas colecciones en una única exportación
+export const collections = {
+  blog,
+  albums,
+};
