@@ -1,21 +1,27 @@
 ---
-layout: "@/layouts/Article.astro"
-title: "Mi Portfolio de Fotografía"
-description: "Una colección de mis mejores fotografías"
+import { Image } from '@astrojs/image/components';
+
+// Asume que tus imágenes están en la carpeta public/images
+const images = await Astro.glob('/public/images/*.{jpg,jpeg,png,gif}');
 ---
-import PageHeadline from "@/components/PageHeadline.astro";
-import ImageGrid from "@/components/ImageGrid.astro";
 
-<PageHeadline title={frontmatter.title} />
-
-## Mi Galería de Fotos
-
-Aquí presento una selección de mis mejores trabajos fotográficos.
-
-<ImageGrid />
+<div class="image-grid">
+  {images.map((image) => (
+    <div class="image-item">
+      <Image
+        src={image.default}
+        alt="Fotografía"
+        width={600}
+        height={400}
+        fit="cover"
+        format="webp"
+        quality={80}
+      />
+    </div>
+  ))}
+</div>
 
 <style>
-{`
   .image-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -46,5 +52,4 @@ Aquí presento una selección de mis mejores trabajos fotográficos.
       grid-row: span 2;
     }
   }
-`}
 </style>
