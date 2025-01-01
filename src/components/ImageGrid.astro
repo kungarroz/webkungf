@@ -1,8 +1,8 @@
 ---
-import { Image } from '@astrojs/image/components';
+import { Image } from 'astro:assets';
 
-// Asume que tus imágenes están en la carpeta public/images
-const images = await Astro.glob('/public/images/*.{jpg,jpeg,png,gif}');
+// Importa tus imágenes desde assets/fotos
+const images = await Astro.glob('/src/assets/fotos/*.{jpg,jpeg,png,gif}');
 ---
 
 <div class="image-grid">
@@ -13,9 +13,6 @@ const images = await Astro.glob('/public/images/*.{jpg,jpeg,png,gif}');
         alt="Fotografía"
         width={600}
         height={400}
-        fit="cover"
-        format="webp"
-        quality={80}
       />
     </div>
   ))}
