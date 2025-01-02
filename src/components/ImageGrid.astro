@@ -6,16 +6,23 @@ const images = await Astro.glob('/src/assets/fotos/*.{jpg,jpeg,png,gif}');
 ---
 
 <div class="masonry-grid">
-  {images.map((image) => (
+  {images.map((image, index) => (
     <div class="masonry-item">
       <Image
         src={image.default}
-        alt="Fotografía"
+        alt={`Fotografía ${index + 1}`}
         width={400}
         height={image.default.height * (400 / image.default.width)}
+        class="gallery-image"
+        data-index={index}
       />
     </div>
   ))}
+</div>
+
+<div id="lightbox" class="lightbox">
+  <span class="close">&times;</span>
+  <img class="lightbox-content" id="lightbox-image">
 </div>
 
 <style>
@@ -33,11 +40,41 @@ const images = await Astro.glob('/src/assets/fotos/*.{jpg,jpeg,png,gif}');
     width: 100%;
     height: auto;
     display: block;
+    cursor: pointer;
     transition: transform 0.3s ease;
   }
 
   .masonry-item:hover img {
     transform: scale(1.05);
+  }
+
+  .lightbox {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+  }
+
+  .lightbox-content {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+  }
+
+  .close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
   }
 
   @media (min-width: 640px) {
@@ -58,3 +95,27 @@ const images = await Astro.glob('/src/assets/fotos/*.{jpg,jpeg,png,gif}');
     }
   }
 </style>
+
+<script>
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImage = document.getElementById('lightbox-image');
+  const images = document.querySelectorAll('.gallery-image');
+  const closeButton = document.querySelector('.close');
+
+  images.forEach(img => {
+    img.addEventListener('click', () => {
+      lightbox.style.display = 'flex';
+      lightboxImage.src = img.src;
+    });
+  });
+
+  closeButton.addEventListener('click', () => {
+    lightbox.style.display = 'none';
+  });
+
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) {
+      lightbox.style.display = 'none';
+    }
+  });
+</script>
