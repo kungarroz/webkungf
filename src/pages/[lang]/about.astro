@@ -1,24 +1,35 @@
 ---
 import Layout from "@/layouts/Article.astro";
 import PolaroidFrame from "@/components/PolaroidFrame.astro";
+import { useTranslations } from "@/i18n";
+
+export function getStaticPaths() {
+  return [
+    {params: {lang: 'en'}},
+    {params: {lang: 'es'}},
+    {params: {lang: 'zh-cn'}},
+  ];
+}
+
+const { lang } = Astro.params;
+const t = useTranslations(lang);
+
 ---
 
-<Layout title="Sobre mí" description="Fotógrafo aficionado en Guangzhou, China">
+<Layout title={t('about.title')} description={t('about.description')}>
   <div class="about-container">
     <PolaroidFrame
       src="/path/to/your/photo.jpg"
-      alt="Foto de perfil"
-      caption="Explorando Guangzhou"
+      alt={t('about.photoAlt')}
+      caption={t('about.photoCaption')}
     />
 
     <div class="about-text">
-      <h1>Sobre mí</h1>
+      <h1>{t('about.title')}</h1>
 
-      <p>Me apasiona la fotografía callejera y mi segundo hogar es Guangzhou, en el sur de China. Con mi cámara, recorro sus calles buscando esos pequeños momentos que hacen única la vida diaria: una sonrisa entre desconocidos, la luz del atardecer colándose entre los edificios o el vapor que sale de un puesto de fideos.</p>
-
-      <p>No soy ningún experto - solo alguien que disfruta capturando la vida tal como es, sin pretensiones. Mi equipo es sencillo y mi técnica también, pero lo que me mueve es compartir estas pequeñas historias visuales que encuentro en cada esquina.</p>
-
-      <p>Si te interesa ver Guangzhou a través de los ojos de un vecino más, te invito a explorar estas fotos conmigo. ¡Siempre es un placer conocer a otros apasionados de la fotografía o simplemente charlar sobre estas calles que tanto me han enseñado!</p>
+      <p>{t('about.paragraph1')}</p>
+      <p>{t('about.paragraph2')}</p>
+      <p>{t('about.paragraph3')}</p>
     </div>
   </div>
 </Layout>
