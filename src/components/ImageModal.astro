@@ -28,11 +28,12 @@
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    max-width: 80%;
+    max-width: 90%;
     max-height: 90vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
     opacity: 0;
     transform: scale(0.8);
     transition: opacity 0.3s ease, transform 0.3s ease;
@@ -51,12 +52,20 @@
 
   .close {
     position: absolute;
-    top: 10px;
-    right: 20px;
-    color: #333;
+    top: -30px;
+    right: -30px;
+    color: #fff;
     font-size: 30px;
     font-weight: bold;
     cursor: pointer;
+    background-color: rgba(0,0,0,0.5);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1;
   }
 
   @media (max-width: 1024px) {
@@ -70,25 +79,30 @@
   function setupModal() {
     if (window.innerWidth > 1024) {
       const modal = document.getElementById('imageModal') as HTMLDivElement | null;
+      const modalContent = modal?.querySelector('.modal-content') as HTMLDivElement | null;
       const modalImg = document.getElementById('modalImage') as HTMLImageElement | null;
       const closeBtn = document.querySelector('.close') as HTMLElement | null;
 
-      if (modal && modalImg && closeBtn) {
+      if (modal && modalContent && modalImg && closeBtn) {
         document.querySelectorAll('.gallery-image').forEach(img => {
           img.addEventListener('click', function(this: HTMLImageElement) {
             modal.style.display = "flex";
             modalImg.src = this.src;
             
-            // Ajustar el tamaño de la imagen
+            // Ajustar el tamaño de la imagen y el marco
             const aspectRatio = this.naturalWidth / this.naturalHeight;
             if (aspectRatio > 1) {
               // Imagen horizontal
-              modalImg.style.width = '70%'; // Ajustado al 70%
+              modalImg.style.width = '70%';
               modalImg.style.height = 'auto';
+              modalContent.style.width = 'calc(70% + 40px)'; // 20px de padding a cada lado
+              modalContent.style.height = 'auto';
             } else {
               // Imagen vertical
-              modalImg.style.height = '90vh';
+              modalImg.style.height = '80vh';
               modalImg.style.width = 'auto';
+              modalContent.style.width = 'auto';
+              modalContent.style.height = '85vh'; // Ligeramente más alto que la imagen
             }
 
             // Activar la animación
@@ -100,7 +114,7 @@
           modal.classList.remove('show');
           setTimeout(() => {
             modal.style.display = "none";
-          }, 300); // Esperar a que termine la animación
+          }, 300);
         });
 
         modal.addEventListener('click', (event) => {
