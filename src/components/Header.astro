@@ -32,35 +32,16 @@ const isActive = (path: string) =>
     <ul>
       <li>
         <a
-          href={getRelativeLocaleUrl(locale, "/setup")}
-          class={isActive("/setup") ? "active" : null}
+          href={getRelativeLocaleUrl(locale, "/about")}
+          class={isActive("/about") ? "active" : null}
         >
           {t({ es: "Sobre mí", en: "About", "zh-cn": "关于我" })}
         </a>
       </li>
 
-<li>
-  <a
-    href={getRelativeLocaleUrl(locale, "/portfolio")}
-    class={isActive("/gallery") ? "active" : null}
-  >
-    {t({ es: "Galería", en: "Gallery", "zh-cn": "画廊" })}
-  </a>
-</li>
-
-
       <li>
-        <a
-          href={getRelativeLocaleUrl(locale, "/feature")}
-          class={isActive("/feature") ? "active" : null}
-        >
-          {
-            t({
-              es: "Portfolio",
-              en: "Portfolio",
-              "zh-cn": "Portfolio",
-            })
-          }
+        <a href={getRelativeLocaleUrl(locale, "/portfolio")} class={isActive("/portfolio") ? "active" : null}>
+          {t({ es: "Portfolio", en: "Portfolio", "zh-cn": "作品集" })}
         </a>
       </li>
 
