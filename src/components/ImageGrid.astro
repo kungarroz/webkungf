@@ -12,7 +12,7 @@ const images = await Astro.glob('/src/assets/fotos/*.{jpg,jpeg,png,gif}');
         src={image.default}
         alt="Fotografía"
         width={600}
-        height={400}
+        height={image.default.height * (600 / image.default.width)}
       />
     </div>
   ))}
@@ -23,19 +23,18 @@ const images = await Astro.glob('/src/assets/fotos/*.{jpg,jpeg,png,gif}');
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     grid-gap: 1rem;
-    grid-auto-flow: dense;
+    grid-auto-rows: auto;
   }
 
   .image-item {
     overflow: hidden;
     position: relative;
-    aspect-ratio: 1 / 1;
   }
 
   .image-item img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
+    object-fit: contain;
     transition: transform 0.3s ease;
   }
 
@@ -44,6 +43,10 @@ const images = await Astro.glob('/src/assets/fotos/*.{jpg,jpeg,png,gif}');
   }
 
   @media (min-width: 768px) {
+    .image-grid {
+      grid-auto-flow: dense;
+    }
+
     .image-item:nth-child(4n+1) {
       grid-column: span 2;
       grid-row: span 2;
