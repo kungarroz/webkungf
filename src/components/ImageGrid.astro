@@ -98,16 +98,16 @@ const images = await Astro.glob('/src/assets/fotos/*.{jpg,jpeg,png,gif}');
 
 <script>
   document.addEventListener('astro:page-load', () => {
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImage = document.getElementById('lightbox-image');
+    const lightbox = document.getElementById('lightbox') as HTMLDivElement | null;
+    const lightboxImage = document.getElementById('lightbox-image') as HTMLImageElement | null;
     const images = document.querySelectorAll('.gallery-image');
-    const closeButton = document.querySelector('.close');
+    const closeButton = document.querySelector('.close') as HTMLElement | null;
 
     if (lightbox && lightboxImage && closeButton) {
       images.forEach(img => {
         img.addEventListener('click', () => {
           lightbox.style.display = 'flex';
-          if (img instanceof HTMLImageElement) {
+          if (img instanceof HTMLImageElement && lightboxImage instanceof HTMLImageElement) {
             lightboxImage.src = img.src;
           }
         });
@@ -125,3 +125,4 @@ const images = await Astro.glob('/src/assets/fotos/*.{jpg,jpeg,png,gif}');
     }
   });
 </script>
+
