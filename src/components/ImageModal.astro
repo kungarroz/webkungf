@@ -4,7 +4,7 @@
 
 <div id="imageModal" class="modal">
   <span class="close">&times;</span>
-  <img class="modal-content" id="modalImage">
+  <img class="modal-content" id="modalImage" alt="Modal Image">
 </div>
 
 <style>
@@ -40,24 +40,34 @@
 </style>
 
 <script>
-  const modal = document.getElementById('imageModal');
-  const modalImg = document.getElementById('modalImage');
-  const closeBtn = document.getElementsByClassName('close')[0];
+  function setupModal() {
+    const modal = document.getElementById('imageModal') as HTMLDivElement | null;
+    const modalImg = document.getElementById('modalImage') as HTMLImageElement | null;
+    const closeBtn = document.querySelector('.close') as HTMLElement | null;
 
-  document.querySelectorAll('.gallery-image').forEach(img => {
-    img.onclick = function() {
-      modal.style.display = "block";
-      modalImg.src = this.src;
+    if (modal && modalImg && closeBtn) {
+      document.querySelectorAll('.gallery-image').forEach(img => {
+        img.addEventListener('click', function(this: HTMLImageElement) {
+          modal.style.display = "block";
+          modalImg.src = this.src;
+        });
+      });
+
+      closeBtn.addEventListener('click', () => {
+        modal.style.display = "none";
+      });
+
+      window.addEventListener('click', (event) => {
+        if (event.target === modal) {
+          modal.style.display = "none";
+        }
+      });
     }
-  });
-
-  closeBtn.onclick = function() {
-    modal.style.display = "none";
   }
 
-  window.onclick = function(event) {
-    if (event.target == modal) {
-      modal.style.display = "none";
-    }
-  }
+  // Ejecutar setupModal cuando el DOM esté listo
+  document.addEventListener('DOMContentLoaded', setupModal);
+
+  // Para compatibilidad con la navegación de Astro, también ejecutamos en astro:page-load
+  document.addEventListener('astro:page-load', setupModal);
 </script>
