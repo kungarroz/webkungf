@@ -4,6 +4,7 @@ title: "Mi Portfolio de Fotografía"
 description: "Una colección de mis mejores fotografías"
 ---
 import PageHeadline from "@/components/PageHeadline.astro";
+import ImageGrid from "@/components/ImageGrid.astro";
 
 <PageHeadline title={frontmatter.title} />
 
@@ -12,38 +13,3 @@ import PageHeadline from "@/components/PageHeadline.astro";
 Aquí presento una selección de mis mejores trabajos fotográficos.
 
 <ImageGrid />
-
-<style>
-{`
-  .image-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    grid-gap: 1rem;
-    grid-auto-flow: dense;
-  }
-
-  .image-item {
-    overflow: hidden;
-    position: relative;
-    aspect-ratio: 1 / 1;
-  }
-
-  .image-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-
-  .image-item:hover img {
-    transform: scale(1.05);
-  }
-
-  @media (min-width: 768px) {
-    .image-item:nth-child(4n+1) {
-      grid-column: span 2;
-      grid-row: span 2;
-    }
-  }
-`}
-</style>
