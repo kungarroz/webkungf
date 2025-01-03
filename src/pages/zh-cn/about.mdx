@@ -5,14 +5,14 @@ description: "Fotógrafo aficionado en Guangzhou, China"
 ---
 import PolaroidFrame from "@/components/PolaroidFrame.astro";
 
-<div className="about-container">
+<div class="about-container">
   <PolaroidFrame
-    src="/src/assets/fotos/yo.jpeg"
+    src="/fotos/yo.jpeg"
     alt="Foto de perfil"
     caption="Explorando Guangzhou"
   />
 
-  <div className="about-text">
+  <div class="about-text">
     # Sobre mí
 
     Me apasiona la fotografía callejera y mi segundo hogar es Guangzhou, en el sur de China. Con mi cámara, recorro sus calles buscando esos pequeños momentos que hacen única la vida diaria: una sonrisa entre desconocidos, la luz del atardecer colándose entre los edificios o el vapor que sale de un puesto de fideos.
@@ -23,7 +23,7 @@ import PolaroidFrame from "@/components/PolaroidFrame.astro";
   </div>
 </div>
 
-export const styles = `
+<style>
   .about-container {
     display: flex;
     flex-direction: column;
@@ -59,6 +59,4 @@ export const styles = `
       flex: 1;
     }
   }
-`;
-
-<style set:html={styles} />
+</style>

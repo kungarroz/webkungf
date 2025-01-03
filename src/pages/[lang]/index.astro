@@ -17,11 +17,14 @@ export const getStaticPaths = () =>
   <div class="photo-grid">
     <!-- Foto 1 -->
     <div class="photo-wrapper">
+<a href={getRelativeLocaleUrl(locale, "/about")}>
       <img src="/fotos/about.jpeg" alt="About" />
       <div class="overlay">
         <p>{t({ es: "Sobre mí", en: "About", "zh-cn": "关于我" })}</p>
       </div>
+</a>
     </div>
+
     <!-- Foto 2 -->
     <div class="photo-wrapper">
 <a href={getRelativeLocaleUrl(locale, "/portfolio")}>
@@ -30,8 +33,8 @@ export const getStaticPaths = () =>
         <p>{t({ es: "Portfolio", en: "Portfolio", "zh-cn": "作品集" })}</p>
       </div>
 </a>
-
     </div>
+
     <!-- Foto 3 -->
     <div class="photo-wrapper">
       <img src="/fotos/blog.jpeg" alt="Blog" />
