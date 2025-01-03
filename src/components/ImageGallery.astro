@@ -1,9 +1,10 @@
 ---
 // ImageGallery.astro
 import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 
 interface Props {
-  images: {src: string, alt: string}[];
+  images: {src: ImageMetadata; alt: string}[];
 }
 
 const { images } = Astro.props;
@@ -71,27 +72,31 @@ const { images } = Astro.props;
 
 <script>
   function setupModal() {
-    const modal = document.getElementById('imageModal');
-    const modalImg = document.getElementById('modalImage');
-    const closeBtn = document.querySelector('.close');
+    const modal = document.getElementById('imageModal') as HTMLElement | null;
+    const modalImg = document.getElementById('modalImage') as HTMLImageElement | null;
+    const closeBtn = document.querySelector('.close') as HTMLElement | null;
     const images = document.querySelectorAll('.gallery-image');
 
     images.forEach(img => {
-      img.onclick = function() {
-        modal.style.display = "block";
-        modalImg.src = this.src;
+      img.addEventListener('click', function(this: HTMLImageElement) {
+        if (modal && modalImg) {
+          modal.style.display = "block";
+          modalImg.src = this.src;
+        }
+      });
+    });
+
+    closeBtn?.addEventListener('click', () => {
+      if (modal) {
+        modal.style.display = "none";
       }
     });
 
-    closeBtn.onclick = function() {
-      modal.style.display = "none";
-    }
-
-    window.onclick = function(event) {
-      if (event.target == modal) {
+    window.addEventListener('click', (event) => {
+      if (event.target === modal && modal) {
         modal.style.display = "none";
       }
-    }
+    });
   }
 
   document.addEventListener('DOMContentLoaded', setupModal);
