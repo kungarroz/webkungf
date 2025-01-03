@@ -1,0 +1,62 @@
+---
+layout: "@/layouts/Article.astro"
+title: "Sobre mí"
+description: "Fotógrafo aficionado en Guangzhou, China"
+---
+import PolaroidFrame from "@/components/PolaroidFrame.astro";
+
+<div class="about-container">
+  <PolaroidFrame
+    src="/src/assets/fotos/yo.jpeg"
+    alt="Foto de perfil"
+    caption="Explorando Guangzhou"
+  />
+
+  <div class="about-text">
+    # Sobre mí
+
+    Me apasiona la fotografía callejera y mi segundo hogar es Guangzhou, en el sur de China. Con mi cámara, recorro sus calles buscando esos pequeños momentos que hacen única la vida diaria: una sonrisa entre desconocidos, la luz del atardecer colándose entre los edificios o el vapor que sale de un puesto de fideos.
+
+    No soy ningún experto - solo alguien que disfruta capturando la vida tal como es, sin pretensiones. Mi equipo es sencillo y mi técnica también, pero lo que me mueve es compartir estas pequeñas historias visuales que encuentro en cada esquina.
+
+    Si te interesa ver Guangzhou a través de los ojos de un vecino más, te invito a explorar estas fotos conmigo. ¡Siempre es un placer conocer a otros apasionados de la fotografía o simplemente charlar sobre estas calles que tanto me han enseñado!
+  </div>
+</div>
+
+<style>
+  .about-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .about-text {
+    text-align: justify;
+  }
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+
+  @media (min-width: 768px) {
+    .about-container {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+
+    .about-text {
+      flex: 1;
+    }
+  }
+</style>
