@@ -21,6 +21,12 @@ import PolaroidFrame from "@/components/PolaroidFrame.astro";
 
       Si te interesa ver Guangzhou a través de los ojos de un vecino más, te invito a explorar estas fotos conmigo. ¡Siempre es un placer conocer a otros apasionados de la fotografía o simplemente charlar sobre estas calles que tanto me han enseñado!
     </div>
+
+    <div className="social-links">
+      <h2>Sígueme en:</h2>
+      <a href="https://www.instagram.com/kungfundidos" target="_blank" rel="noopener noreferrer">Instagram @kungfundidos</a>
+      <a href="https://www.xiaohongshu.com/user/profile/62433dff0000000010005059" target="_blank" rel="noopener noreferrer">小红书: @山德不懂摄影</a>
+    </div>
   </div>
 </div>
 
@@ -37,7 +43,7 @@ export const styles = `
     flex-direction: column;
     align-items: center;
     gap: 2rem;
-    max-width: 800px;
+    max-width: 1000px;
     width: 100%;
   }
 
@@ -56,6 +62,27 @@ export const styles = `
     line-height: 1.6;
   }
 
+  .social-links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .social-links h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .social-links a {
+    color: #0077b5;
+    text-decoration: none;
+  }
+
+  .social-links a:hover {
+    text-decoration: underline;
+  }
+
   @media (min-width: 768px) {
     .about-container {
       flex-direction: row;
@@ -63,6 +90,11 @@ export const styles = `
     }
 
     .about-text {
+      flex: 2;
+      margin-right: 2rem;
+    }
+
+    .social-links {
       flex: 1;
     }
   }
