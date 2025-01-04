@@ -37,10 +37,12 @@ export const getStaticPaths = () =>
 
     <!-- Foto 3 -->
     <div class="photo-wrapper">
+  <a href={getRelativeLocaleUrl(locale, "/blog")}>
       <img src="/fotos/blog.jpeg" alt="Blog" />
       <div class="overlay">
         <p>{t({ es: "Blog", en: "Blog", "zh-cn": "博客" })}</p>
       </div>
+    </a>
     </div>
   </div>
 </Layout>
