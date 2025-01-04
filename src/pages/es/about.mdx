@@ -21,9 +21,39 @@ import PolaroidFrame from "@/components/PolaroidFrame.astro";
 
       <p>Si te interesa ver Guangzhou a través de los ojos de un vecino más, te invito a explorar estas fotos conmigo. ¡Siempre es un placer conocer a otros apasionados de la fotografía o simplemente charlar sobre estas calles que tanto me han enseñado!</p>
    
+  <div class="social-links">
   <h2>Sígueme en:</h2>
-      <a href="https://www.instagram.com/kungfundidos" target="_blank" rel="noopener noreferrer"><p>Instagram:</p> <p>@kungfundidos</p></a>
-      <a href="https://www.xiaohongshu.com/user/profile/62433dff0000000010005059" target="_blank" rel="noopener noreferrer"><p>小红书:</p> <p>@山德不懂摄影</p></a>
+  <table>
+    <tr>
+      <th>Plataforma</th>
+      <th>Usuario</th>
+    </tr>
+    <tr>
+      <td>
+        <a href="https://www.instagram.com/kungfundidos" target="_blank" rel="noopener noreferrer">
+          Instagram
+        </a>
+      </td>
+      <td>
+        <a href="https://www.instagram.com/kungfundidos" target="_blank" rel="noopener noreferrer">
+          @kungfundidos
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <a href="https://www.xiaohongshu.com/user/profile/62433dff0000000010005059" target="_blank" rel="noopener noreferrer">
+          小红书
+        </a>
+      </td>
+      <td>
+        <a href="https://www.xiaohongshu.com/user/profile/62433dff0000000010005059" target="_blank" rel="noopener noreferrer">
+          @山德不懂摄影
+        </a>
+      </td>
+    </tr>
+  </table>
+</div>
 
     </div>
 
@@ -61,27 +91,35 @@ export const styles = `
     margin-bottom: 1rem;
     line-height: 1.6;
   }
-
+<style>
   .social-links {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
+    margin-top: 1rem;
+    text-align: center;
   }
-
-  .social-links h2 {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
+  .social-links table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0.5rem;
   }
-
+  .social-links th, .social-links td {
+    border: 1px solid #ddd;
+    padding: 0.5rem;
+    text-align: left;
+  }
+  .social-links th {
+    background-color: #f2f2f2;
+  }
+  
   .social-links a {
-    color: #0077b5;
     text-decoration: none;
+    color: #333;
+    transition: color 0.3s ease;
   }
-
+  
   .social-links a:hover {
-    text-decoration: underline;
+    color: #0077b5;
   }
+</style>
 
   @media (min-width: 768px) {
     .about-container {
@@ -94,9 +132,7 @@ export const styles = `
       margin-right: 2rem;
     }
 
-    .social-links {
-      flex: 1;
-    }
+  
   }
 `;
 
