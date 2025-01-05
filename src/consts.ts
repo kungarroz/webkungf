@@ -11,6 +11,8 @@ export const SITE_DESCRIPTION: string | Multilingual = {
   "zh-cn": "中国的时刻",
 };
 
+export const X_ACCOUNT: string | Multilingual = "@kungfundidos";
+
 export const NOT_TRANSLATED_CAUTION: string | Multilingual = {
   en: "This page is not available in your language.",
   es: "Esta página no está disponible en su idioma.",
