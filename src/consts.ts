@@ -3,18 +3,16 @@
 
 import { type Multilingual } from "@/i18n";
 
-export const SITE_TITLE: string | Multilingual = "Astro i18n Starter";
+export const SITE_TITLE: string | Multilingual = "Kungfundidos";
 
 export const SITE_DESCRIPTION: string | Multilingual = {
-  en: "A starter template for Astro with i18n support.",
-  es: "street photo",
-  "zh-cn": "具有 i18n 支持的 Astro 入门模板。",
+  en: "Moments of China",
+  es: "Momentos de China",
+  "zh-cn": "中国的时刻",
 };
-
-export const X_ACCOUNT: string | Multilingual = "@psephopaiktes";
 
 export const NOT_TRANSLATED_CAUTION: string | Multilingual = {
   en: "This page is not available in your language.",
-  es: "no en tu idioma",
+  es: "Esta página no está disponible en su idioma.",
   "zh-cn": "此页面不支持您的语言。",
 };
