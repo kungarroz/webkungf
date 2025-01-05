@@ -65,18 +65,12 @@ const localeDescription = description || t(SITE_DESCRIPTION);
     <meta property="og:image" content={Astro.site + "ogp.png"} />
     <meta property="og:url" content={Astro.url} />
     <meta property="og:locale" content={LOCALES[locale].lang || locale} />
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content={t(X_ACCOUNT)} />
+ 
 
-    <!-- External Resource -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-    <link rel="preload" as="style" fetchpriority="high" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;800&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;800&display=swap" media="print" onload={`this.media='all'`} />
-
-    <link rel="preload" as="style" fetchpriority="high" href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp&display=swap" media="print" onload={`this.media='all'`} />
+   <!-- External Resource -->
+<link rel="preconnect" href="https://fonts.useso.com" />
+<link rel="preload" as="style" href="https://fonts.useso.com/css2?family=Noto+Sans:wght@400;800&display=swap" />
+<link rel="stylesheet" href="https://fonts.useso.com/css2?family=Noto+Sans:wght@400;800&display=swap" media="print" onload={`this.media='all'`} />
 
     <LocaleHtmlHead />
   </head>
