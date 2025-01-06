@@ -10,39 +10,38 @@ export const getStaticPaths = () =>
   Object.keys(LOCALES).map((lang) => ({
     params: { lang },
   }));
-
 ---
 
 <Layout>
   <div class="photo-grid">
     <!-- Foto 1 -->
     <div class="photo-wrapper">
-<a href={getRelativeLocaleUrl(locale, "/about")}>
-      <img src="/fotos/about.jpeg" alt="About" />
-      <div class="overlay">
-        <p>{t({ es: "Sobre mí", en: "About", "zh-cn": "关于我" })}</p>
-      </div>
-</a>
+      <a href={getRelativeLocaleUrl(locale, "/about")}>
+        <img src="/fotos/about.jpeg" alt="About" />
+        <div class="overlay">
+          <p>{t({ es: "Sobre mí", en: "About", "zh-cn": "关于我" })}</p>
+        </div>
+      </a>
     </div>
 
     <!-- Foto 2 -->
     <div class="photo-wrapper">
-<a href={getRelativeLocaleUrl(locale, "/portfolio")}>
-      <img src="/fotos/portfolio.jpeg" alt="Portfolio" />
-      <div class="overlay">
-        <p>{t({ es: "Portfolio", en: "Portfolio", "zh-cn": "作品集" })}</p>
-      </div>
-</a>
+      <a href={getRelativeLocaleUrl(locale, "/portfolio")}>
+        <img src="/fotos/portfolio.jpeg" alt="Portfolio" />
+        <div class="overlay">
+          <p>{t({ es: "Portfolio", en: "Portfolio", "zh-cn": "作品集" })}</p>
+        </div>
+      </a>
     </div>
 
     <!-- Foto 3 -->
     <div class="photo-wrapper">
-  <a href={getRelativeLocaleUrl(locale, "/blog")}>
-      <img src="/fotos/blog.jpeg" alt="Blog" />
-      <div class="overlay">
-        <p>{t({ es: "Blog", en: "Blog", "zh-cn": "博客" })}</p>
-      </div>
-    </a>
+      <a href={getRelativeLocaleUrl(locale, "/blog")}>
+        <img src="/fotos/blog.jpeg" alt="Blog" />
+        <div class="overlay">
+          <p>{t({ es: "Blog", en: "Blog", "zh-cn": "博客" })}</p>
+        </div>
+      </a>
     </div>
   </div>
 </Layout>
@@ -53,7 +52,13 @@ export const getStaticPaths = () =>
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
-	width:100%;
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .photo-grid {
+      grid-template-columns: 1fr; /* Cambia a una sola columna en dispositivos móviles */
+    }
   }
 
   .photo-wrapper {
