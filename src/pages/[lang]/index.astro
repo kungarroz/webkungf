@@ -15,7 +15,7 @@ export const getStaticPaths = () =>
 <Layout>
   <div class="photo-grid">
     <!-- Foto 1 -->
-    <div class="photo-wrapper">
+    <div class="photo-wrapper" ontouchstart="showText(event, 'about')" ontouchend="hideText(event)">
       <a href={getRelativeLocaleUrl(locale, "/about")}>
         <img src="/fotos/about.jpeg" alt="About" />
         <div class="overlay">
@@ -25,7 +25,7 @@ export const getStaticPaths = () =>
     </div>
 
     <!-- Foto 2 -->
-    <div class="photo-wrapper">
+    <div class="photo-wrapper" ontouchstart="showText(event, 'portfolio')" ontouchend="hideText(event)">
       <a href={getRelativeLocaleUrl(locale, "/portfolio")}>
         <img src="/fotos/portfolio.jpeg" alt="Portfolio" />
         <div class="overlay">
@@ -35,7 +35,7 @@ export const getStaticPaths = () =>
     </div>
 
     <!-- Foto 3 -->
-    <div class="photo-wrapper">
+    <div class="photo-wrapper" ontouchstart="showText(event, 'blog')" ontouchend="hideText(event)">
       <a href={getRelativeLocaleUrl(locale, "/blog")}>
         <img src="/fotos/blog.jpeg" alt="Blog" />
         <div class="overlay">
@@ -87,12 +87,13 @@ export const getStaticPaths = () =>
     display: flex;
     align-items: center;
     justify-content: center;
-    opacity: 0;
+    opacity: 0; /* Inicialmente oculto */
     transition: opacity 0.3s ease;
   }
 
-  .photo-wrapper:hover .overlay {
-    opacity: 1;
+  .photo-wrapper:hover .overlay,
+  .photo-wrapper.active .overlay {
+    opacity: 1; /* Muestra el texto al activar */
   }
 
   .overlay p {
@@ -103,3 +104,15 @@ export const getStaticPaths = () =>
     margin: 0;
   }
 </style>
+
+<script>
+function showText(event: TouchEvent, section: string): void {
+   const wrapper = event.currentTarget as HTMLElement; // Asegura que currentTarget sea un HTMLElement
+   wrapper.classList.add('active'); // Añade clase activa para mostrar el texto
+}
+
+function hideText(event: TouchEvent): void {
+   const wrapper = event.currentTarget as HTMLElement; // Asegura que currentTarget sea un HTMLElement
+   wrapper.classList.remove('active'); // Quita clase activa para ocultar el texto
+}
+</script>
