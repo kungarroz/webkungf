@@ -11,7 +11,7 @@ const categories = ["Retrato", "Guangzhou", "Hong Kong", "Macao"];
 // Importar todas las imágenes de las carpetas
 const images = import.meta.glob('../fotos/*/*.jpeg', { eager: true });
 
-const categorizedImages: { [key: string]: ImageType[] } = {
+const categorizedImages: Record<string, ImageType[]> = {
   "Retrato": [],
   "Guangzhou": [],
   "Hong Kong": [],
@@ -26,7 +26,7 @@ for (const path in images) {
   }
 }
 
-let selectedCategory = "Todo";
+let selectedCategory: string = "Todo";
 
 const filteredImages = selectedCategory === "Todo" 
   ? Object.values(categorizedImages).flat() 
