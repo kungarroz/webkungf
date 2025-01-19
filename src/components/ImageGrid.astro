@@ -1,61 +1,79 @@
 ---
-import { Image } from 'astro:assets';
+// ImageGrid.astro
 
-const images = await Astro.glob('/src/assets/fotos/*.{jpg,jpeg,png,gif}');
+const categories = ["Retrato", "Guangzhou", "Hong Kong", "Macao"];
+
+// Importar todas las imágenes de las carpetas
+const images = import.meta.glob('../fotos/*/*.jpeg', { eager: true });
+
+const categorizedImages = {
+  "Retrato": [],
+  "Guangzhou": [],
+  "Hong Kong": [],
+  "Macao": []
+};
+
+// Organizar las imágenes por categoría
+for (const path in images) {
+  const category = path.split('/')[2]; // Obtener la categoría del path
+  if (categorizedImages[category]) {
+    categorizedImages[category].push({ src: images[path].default, alt: `${category} image` });
+  }
+}
+
+let selectedCategory = "Todo";
+
+const filteredImages = selectedCategory === "Todo" 
+  ? Object.values(categorizedImages).flat() 
+  : categorizedImages[selectedCategory];
 ---
 
-<div class="masonry-grid">
-  {images.map((image, index) => (
-    <div class="masonry-item">
-      <img
-        src={image.default.src}
-        alt={`Fotografía ${index + 1}`}
-        width={400}
-        height={image.default.height * (400 / image.default.width)}
-        class="gallery-image"
-      />
-    </div>
-  ))}
+<div>
+  <h2>Galería de Imágenes</h2>
+
+  <div class="category-buttons">
+    <button onClick={() => selectedCategory = "Todo"}>Todo</button>
+    {categories.map(category => (
+      <button onClick={() => selectedCategory = category}>{category}</button>
+    ))}
+  </div>
+
+  <div class="photo-grid">
+    {filteredImages.map(image => (
+      <div class="photo-wrapper">
+        <img src={image.src} alt={image.alt} />
+      </div>
+    ))}
+  </div>
 </div>
 
 <style>
-  .masonry-grid {
-    column-count: 1;
-    column-gap: 1rem;
+  .category-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
   }
 
-  .masonry-item {
-    break-inside: avoid;
-    margin-bottom: 1rem;
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    width: 100%;
   }
 
-  .masonry-item img {
+  .photo-wrapper {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .photo-wrapper img {
     width: 100%;
     height: auto;
     display: block;
-    cursor: pointer;
     transition: transform 0.3s ease;
   }
 
-  .masonry-item:hover img {
-    transform: scale(1.05);
-  }
-
-  @media (min-width: 640px) {
-    .masonry-grid {
-      column-count: 2;
-    }
-  }
-
-  @media (min-width: 768px) {
-    .masonry-grid {
-      column-count: 3;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .masonry-grid {
-      column-count: 4;
-    }
+  .photo-wrapper:hover img {
+    transform: scale(1.1);
   }
 </style>
