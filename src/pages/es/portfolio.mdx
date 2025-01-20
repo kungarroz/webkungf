@@ -9,6 +9,22 @@ import ImageModal from "@/components/ImageModal.astro";
 
 <PageHeadline title={frontmatter.title} />
 
-
 <ImageGrid />
+
+<!-- Añadir el título para Retratos -->
+<h2>Retratos</h2>
+
+<!-- Crear un nuevo grid para las imágenes de retratos -->
+<ImageGrid images={[
+  '/src/assets/retrato/image97.jpeg',
+  '/src/assets/retrato/image98.jpeg',
+  '/src/assets/retrato/image99.jpeg',
+  '/src/assets/retrato/image100.jpeg',
+  '/src/assets/retrato/image101.jpeg',
+  '/src/assets/retrato/image102.jpeg',
+  '/src/assets/retrato/image103.jpeg',
+  '/src/assets/retrato/image104.jpeg',
+  '/src/assets/retrato/image105.jpeg'
+]} />
+
 <ImageModal />
