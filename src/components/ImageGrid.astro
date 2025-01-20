@@ -15,7 +15,7 @@ const filteredImages = selectedCategory === 'Todo'
 
   <div class="category-buttons">
     {categories.map(category => (
-      <button onclick={() => { selectedCategory = category; }}>{category}</button>
+      <button onclick={() => selectedCategory = category}>{category}</button>
     ))}
   </div>
 
