@@ -29,8 +29,8 @@ const filteredImages = category === 'all'
   <a href="?category=all">
     <button>Todos</button>
   </a>
-  {categories.map((category) => (
-    <a href={`?category=${category}`}>
+  {categories.map((category, index) => (
+    <a href={`?category=${category}`} key={index}>
       <button>{category}</button>
     </a>
   ))}
