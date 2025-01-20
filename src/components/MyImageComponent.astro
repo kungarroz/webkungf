@@ -24,7 +24,7 @@ const filteredImages = selectedCategory === 'Todo'
 <!-- Galería de imágenes filtradas -->
 <div class="masonry-grid">
     {filteredImages.map((image: { src: string, category: string }, index: number) => (
-        <div class="masonry-item">
+        <div class="masonry-item" key={index}>
             <img
                 src={image.src}
                 alt={`Fotografía ${index + 1}`}
