@@ -7,7 +7,10 @@ let selectedCategory = 'Todo';
 // Filtrar imágenes según la categoría seleccionada
 const filteredImages = selectedCategory === 'Todo' 
   ? images 
-  : images.filter(image => image.default.src.includes(selectedCategory));
+  : images.filter(image => {
+      const category = image.default.src.split('/').slice(-2, -1)[0]; // Obtener la categoría del path
+      return category === selectedCategory;
+    });
 ---
 
 <div>
