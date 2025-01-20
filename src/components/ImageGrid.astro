@@ -1,44 +1,21 @@
 ---
-const images = [
-  { src: '/src/assets/fotos/Retrato/image97.jpeg', category: 'Retrato' },
-  { src: '/src/assets/fotos/Retrato/image98.jpeg', category: 'Retrato' },
-  { src: '/src/assets/fotos/Guangzhou/image1.jpeg', category: 'Guangzhou' },
-  { src: '/src/assets/fotos/Guangzhou/image2.jpeg', category: 'Guangzhou' },
-  { src: '/src/assets/fotos/HongKong/image62.jpeg', category: 'Hong Kong' },
-  { src: '/src/assets/fotos/Macao/image79.jpeg', category: 'Macao' }
-];
+import { Image } from 'astro:assets';
 
-const categories = ['Todo', 'Retrato', 'Guangzhou', 'Hong Kong', 'Macao'];
-let selectedCategory = 'Todo';
-
-// Filtrar imágenes según la categoría seleccionada
-const filteredImages = selectedCategory === 'Todo' 
-  ? images 
-  : images.filter(image => image.category === selectedCategory);
+const images = await Astro.glob('/src/assets/fotos/*.{jpg,jpeg,png,gif}');
 ---
 
-<div>
-  <h2>Galería de Imágenes</h2>
-
-  <div class="category-buttons">
-    {categories.map(category => (
-      <button onclick={() => selectedCategory = category}>{category}</button>
-    ))}
-  </div>
-
-  <div class="masonry-grid">
-    {filteredImages.map((image, index) => (
-      <div class="masonry-item" key={index}>
-        <img
-          src={image.src}
-          alt={`Fotografía ${index + 1}`}
-          width={400}
-          height={300}
-          class="gallery-image"
-        />
-      </div>
-    ))}
-  </div>
+<div class="masonry-grid">
+  {images.map((image, index) => (
+    <div class="masonry-item">
+      <img
+        src={image.default.src}
+        alt={`Fotografía ${index + 1}`}
+        width={400}
+        height={image.default.height * (400 / image.default.width)}
+        class="gallery-image"
+      />
+    </div>
+  ))}
 </div>
 
 <style>
