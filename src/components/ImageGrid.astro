@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 
-const images = await Astro.glob('/src/assets/fotos/*.{jpg,jpeg,png,gif}');
+const images = await Astro.glob('/src/assets/fotos/*/*.{jpg,jpeg,png,gif}');
 
 const categories = ['Todo', 'Retrato', 'Guangzhou', 'Hong Kong', 'Macao'];
 
@@ -40,7 +40,7 @@ const filteredImages = selectedCategory === 'Todo'
 
   <div class="masonry-grid">
     {filteredImages.map((image, index) => (
-      <div class="masonry-item">
+      <div class="masonry-item" key={index}>
         <img
           src={image.default.src}
           alt={`Fotografía ${index + 1}`}
