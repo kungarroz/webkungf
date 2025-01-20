@@ -3,18 +3,19 @@ import { Image } from 'astro:assets';
 
 const images = await Astro.glob('/src/assets/fotos/*.{jpg,jpeg,png,gif}');
 
-const categories = ['Retrato', 'Guangzhou', 'Hong Kong', 'Macao'];
+const categories = ['Todo', 'Retrato', 'Guangzhou', 'Hong Kong', 'Macao'];
 
 let selectedCategory = 'Todo';
 
-const categorizedImages = {
+// Organizar las imágenes por categoría
+const categorizedImages: Record<string, typeof images> = {
   'Retrato': [],
   'Guangzhou': [],
   'Hong Kong': [],
   'Macao': []
 };
 
-// Organizar las imágenes por categoría
+// Asignar imágenes a sus categorías
 for (const image of images) {
   const category = image.default.src.split('/').slice(-2, -1)[0]; // Obtener la categoría del path
   if (categorizedImages[category]) {
@@ -32,7 +33,6 @@ const filteredImages = selectedCategory === 'Todo'
   <h2>Galería de Imágenes</h2>
 
   <div class="category-buttons">
-    <button onclick={() => { selectedCategory = 'Todo'; }}>Todo</button>
     {categories.map(category => (
       <button onclick={() => { selectedCategory = category; }}>{category}</button>
     ))}
@@ -40,7 +40,7 @@ const filteredImages = selectedCategory === 'Todo'
 
   <div class="masonry-grid">
     {filteredImages.map((image, index) => (
-      <div class="masonry-item" key={index}>
+      <div class="masonry-item">
         <img
           src={image.default.src}
           alt={`Fotografía ${index + 1}`}
