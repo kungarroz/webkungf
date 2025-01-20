@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 
 // Obtener todas las imágenes dentro de las carpetas específicas de portfolio
-const images = await Astro.glob('/src/assets/fotos/portfolio/*/*.{jpg,jpeg,png,gif}');
+const images = await Astro.glob('/src/assets/fotos/portfolio/**/*.{jpg,jpeg,png,gif}');
 
 // Extraer los nombres de las carpetas para los filtros
 const categories = [...new Set(images.map((image) => {
