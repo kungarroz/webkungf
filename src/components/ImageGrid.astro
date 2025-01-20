@@ -34,13 +34,13 @@ const filteredImages = selectedCategory === 'Todo'
 
   <div class="category-buttons">
     {categories.map(category => (
-      <button onclick={() => selectedCategory = category}>{category}</button>
+      <button onclick={() => { selectedCategory = category; }}>{category}</button>
     ))}
   </div>
 
   <div class="masonry-grid">
     {filteredImages.map((image, index) => (
-      <div class="masonry-item" key={index}>
+      <div class="masonry-item">
         <img
           src={image.default.src}
           alt={`Fotografía ${index + 1}`}
