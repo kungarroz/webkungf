@@ -1,32 +1,32 @@
 ---
 const images = await Astro.glob('/src/assets/fotos/*/*.{jpg,jpeg,png,gif}');
-
 const categories = ['Todo', 'Retrato', 'Guangzhou', 'Hong Kong', 'Macao'];
-let selectedCategory = 'Todo';
-
-const getFilteredImages = () => {
-  return selectedCategory === 'Todo'
-    ? images
-    : images.filter(image => {
-        const category = image.default.src.split('/').slice(-2, -1)[0];
-        return category === selectedCategory;
-      });
-};
 ---
+<script>
+  let selectedCategory = 'Todo';
+
+  // Función para filtrar imágenes según la categoría seleccionada
+  const filterImages = () => {
+    if (selectedCategory === 'Todo') return images;
+    return images.filter(image => {
+      const category = image.default.src.split('/').slice(-2, -1)[0]; // Obtener categoría del path
+      return category === selectedCategory;
+    });
+  };
+</script>
+
 <div>
   <h2>Galería de Imágenes</h2>
 
   <!-- Botones de categorías -->
   <div class="category-buttons">
-    {categories.map((category, index) => (
+    {categories.map(category => (
       <button
-        class={selectedCategory === category ? 'active' : ''}
-        on:click={() => {
+        class={`category-button ${selectedCategory === category ? 'active' : ''}`}
+        onclick={() => {
           selectedCategory = category;
-          const filteredImages = getFilteredImages(); // Actualizar la galería
-          Astro.refresh(filteredImages); // Recargar la vista
+          document.getElementById('gallery').innerHTML = renderGallery(); // Renderizar la galería
         }}
-        key={index}
       >
         {category}
       </button>
@@ -34,20 +34,32 @@ const getFilteredImages = () => {
   </div>
 
   <!-- Galería -->
-  <div class="masonry-grid">
-    {getFilteredImages().map((image, index) => (
-      <div class="masonry-item">
-        <img
-          src={image.default.src}
-          alt={`Fotografía ${index + 1}`}
-          width={400}
-          height={(image.default.height * (400 / image.default.width)) || 300}
-          class="gallery-image"
-        />
-      </div>
-    ))}
+  <div id="gallery" class="masonry-grid">
+    {renderGallery()}
   </div>
 </div>
+
+<script>
+  // Función para renderizar la galería según las imágenes filtradas
+  const renderGallery = () => {
+    const filteredImages = filterImages();
+    return filteredImages
+      .map(
+        (image, index) => `
+        <div class="masonry-item">
+          <img
+            src="${image.default.src}"
+            alt="Fotografía ${index + 1}"
+            width="400"
+            height="${(image.default.height * (400 / image.default.width)) || 300}"
+            class="gallery-image"
+          />
+        </div>
+      `
+      )
+      .join('');
+  };
+</script>
 
 <style>
   .category-buttons {
@@ -56,7 +68,7 @@ const getFilteredImages = () => {
     gap: 0.5rem;
   }
 
-  button {
+  .category-button {
     padding: 0.5rem 1rem;
     background-color: #f0f0f0;
     border: none;
@@ -64,12 +76,12 @@ const getFilteredImages = () => {
     transition: background-color 0.2s ease;
   }
 
-  button.active {
+  .category-button.active {
     background-color: #007bff;
     color: white;
   }
 
-  button:hover {
+  .category-button:hover {
     background-color: #0056b3;
     color: white;
   }
