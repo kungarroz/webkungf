@@ -24,27 +24,5 @@ import ImageModal from "@/components/ImageModal.astro";
 </div>
 
 <ImageGrid />
-<ImageModal />
+<ImageModal/>
 
-<style>
-  .portrait-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1rem;
-    margin-top: 1rem; /* Espacio superior */
-  }
-
-  .portrait-grid img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px; /* Bordes redondeados */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
-    cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-  }
-
-  .portrait-grid img:hover {
-    transform: scale(1.05); /* Efecto de escalado al pasar el mouse */
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2); /* Sombra más intensa al pasar el mouse */
-  }
-</style>
