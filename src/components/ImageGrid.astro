@@ -40,7 +40,7 @@ const filteredImages = selectedCategory === 'Todo'
 
   <div class="masonry-grid">
     {filteredImages.map((image, index) => (
-      <div class="masonry-item" key={index}>
+      <div class="masonry-item">
         <img
           src={image.default.src}
           alt={`Fotografía ${index + 1}`}
