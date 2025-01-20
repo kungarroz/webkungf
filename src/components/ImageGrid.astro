@@ -1,128 +1,85 @@
 ---
-const images = await Astro.glob('/src/assets/fotos/*/*.{jpg,jpeg,png,gif}');
-const categories = ['Todo', 'Retrato', 'Guangzhou', 'Hong Kong', 'Macao'];
+import { Image } from "astro:assets";
+
+let selectedCategory = ""; // Definimos una variable inicial para la categoría seleccionada
+
+// Función para filtrar las imágenes según la categoría seleccionada
+function filterImages(images) {
+  return images.filter((image) => {
+    return selectedCategory === "" || image.category === selectedCategory;
+  });
+}
+
+// Función para renderizar la galería de imágenes
+function renderGallery(images) {
+  const filteredImages = filterImages(images);
+  return filteredImages
+    .map(
+      (image, index) => `
+        <div class="image-card" key=${index}>
+          <img src="${image.src}" alt="${image.alt}" />
+        </div>
+      `
+    )
+    .join("");
+}
+
+// Lista de imágenes de ejemplo
+const images = [
+  { src: "/path/to/image1.jpg", alt: "Image 1", category: "nature" },
+  { src: "/path/to/image2.jpg", alt: "Image 2", category: "architecture" },
+  // Agrega más imágenes aquí
+];
+
+const categories = ["", "nature", "architecture"]; // Categorías disponibles
 ---
-<script>
-  let selectedCategory = 'Todo';
 
-  // Función para filtrar imágenes según la categoría seleccionada
-  const filterImages = () => {
-    if (selectedCategory === 'Todo') return images;
-    return images.filter(image => {
-      const category = image.default.src.split('/').slice(-2, -1)[0]; // Obtener categoría del path
-      return category === selectedCategory;
-    });
-  };
-</script>
-
-<div>
-  <h2>Galería de Imágenes</h2>
-
-  <!-- Botones de categorías -->
-  <div class="category-buttons">
-    {categories.map(category => (
+<div id="gallery">
+  <div class="categories">
+    {categories.map((category) => (
       <button
-        class={`category-button ${selectedCategory === category ? 'active' : ''}`}
+        class={`category-button ${
+          selectedCategory === category ? "active" : ""
+        }`}
         onclick={() => {
           selectedCategory = category;
-          document.getElementById('gallery').innerHTML = renderGallery(); // Renderizar la galería
+          document.getElementById("gallery").innerHTML = renderGallery(images);
         }}
       >
-        {category}
+        {category || "All"}
       </button>
     ))}
   </div>
 
-  <!-- Galería -->
-  <div id="gallery" class="masonry-grid">
-    {renderGallery()}
+  <div id="image-grid" class="image-grid">
+    {renderGallery(images)}
   </div>
 </div>
 
-<script>
-  // Función para renderizar la galería según las imágenes filtradas
-  const renderGallery = () => {
-    const filteredImages = filterImages();
-    return filteredImages
-      .map(
-        (image, index) => `
-        <div class="masonry-item">
-          <img
-            src="${image.default.src}"
-            alt="Fotografía ${index + 1}"
-            width="400"
-            height="${(image.default.height * (400 / image.default.width)) || 300}"
-            class="gallery-image"
-          />
-        </div>
-      `
-      )
-      .join('');
-  };
-</script>
-
 <style>
-  .category-buttons {
-    margin-bottom: 1rem;
+  .categories {
     display: flex;
-    gap: 0.5rem;
+    gap: 1rem;
+    margin-bottom: 1rem;
   }
-
   .category-button {
     padding: 0.5rem 1rem;
-    background-color: #f0f0f0;
-    border: none;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    border: 1px solid #ccc;
+    background: white;
   }
-
   .category-button.active {
-    background-color: #007bff;
+    background: #0070f3;
     color: white;
   }
-
-  .category-button:hover {
-    background-color: #0056b3;
-    color: white;
+  .image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
   }
-
-  .masonry-grid {
-    column-count: 1;
-    column-gap: 1rem;
-  }
-
-  .masonry-item {
-    break-inside: avoid;
-    margin-bottom: 1rem;
-  }
-
-  .masonry-item img {
+  .image-card img {
     width: 100%;
     height: auto;
     display: block;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-  }
-
-  .masonry-item:hover img {
-    transform: scale(1.05);
-  }
-
-  @media (min-width: 640px) {
-    .masonry-grid {
-      column-count: 2;
-    }
-  }
-
-  @media (min-width: 768px) {
-    .masonry-grid {
-      column-count: 3;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .masonry-grid {
-      column-count: 4;
-    }
   }
 </style>
