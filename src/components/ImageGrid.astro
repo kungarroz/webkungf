@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+
 const guangzhouImages = await Astro.glob('/src/assets/fotos/Guangzhou/*.{jpg,jpeg,png,gif}');
 const hongKongImages = await Astro.glob('/src/assets/fotos/HongKong/*.{jpg,jpeg,png,gif}');
 const macaoImages = await Astro.glob('/src/assets/fotos/Macao/*.{jpg,jpeg,png,gif}');
@@ -8,7 +10,7 @@ const retratoImages = await Astro.glob('/src/assets/fotos/Retrato/*.{jpg,jpeg,pn
 <div class="masonry-grid">
   <h2>Guangzhou</h2>
   {guangzhouImages.map((image, index) => (
-    <div class="masonry-item" key={index}>
+    <div class="masonry-item" key={index.toString()}>
       <img
         src={image.default.src}
         alt={`Fotografía ${index + 1} de Guangzhou`}
@@ -21,7 +23,7 @@ const retratoImages = await Astro.glob('/src/assets/fotos/Retrato/*.{jpg,jpeg,pn
 
   <h2>Hong Kong</h2>
   {hongKongImages.map((image, index) => (
-    <div class="masonry-item" key={index}>
+    <div class="masonry-item" key={index.toString()}>
       <img
         src={image.default.src}
         alt={`Fotografía ${index + 1} de Hong Kong`}
@@ -34,7 +36,7 @@ const retratoImages = await Astro.glob('/src/assets/fotos/Retrato/*.{jpg,jpeg,pn
 
   <h2>Macao</h2>
   {macaoImages.map((image, index) => (
-    <div class="masonry-item" key={index}>
+    <div class="masonry-item" key={index.toString()}>
       <img
         src={image.default.src}
         alt={`Fotografía ${index + 1} de Macao`}
@@ -47,7 +49,7 @@ const retratoImages = await Astro.glob('/src/assets/fotos/Retrato/*.{jpg,jpeg,pn
 
   <h2>Retrato</h2>
   {retratoImages.map((image, index) => (
-    <div class="masonry-item" key={index}>
+    <div class="masonry-item" key={index.toString()}>
       <img
         src={image.default.src}
         alt={`Fotografía ${index + 1} de Retrato`}
