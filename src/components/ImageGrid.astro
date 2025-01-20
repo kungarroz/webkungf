@@ -1,113 +1,23 @@
 ---
-import { Image } from 'astro:assets';
+import MyImageComponent from './MyImageComponent.astro';
+import { images } from '../data/images.js'; // Asegúrate de que este archivo contenga tus imágenes
 
-// Obtener todas las imágenes dentro de las carpetas específicas de portfolio
-const images = await Astro.glob('/fotos/portfolio/**/*.{jpg,jpeg,png,gif}');
-
-// Extraer los nombres de las carpetas para los filtros
-const categories = [...new Set(images.map((image) => {
-  const pathParts = image.default.src.split('/');
-  return pathParts[pathParts.length - 2]; // Obtener el nombre de la carpeta (Guangzhou, Hongkong, etc.)
-}))];
-
-// Obtener la categoría seleccionada de los query params (por defecto 'all')
-const category = Astro.url.searchParams.get('category') || 'all';
-
-// Filtrar las imágenes según la categoría seleccionada
-const filteredImages = category === 'all'
-  ? images
-  : images.filter((image) => {
-    const imagePathParts = image.default.src.split('/');
-    const imageCategory = imagePathParts[imagePathParts.length - 2]; // Carpeta de la imagen
-    return imageCategory === category; // Comparar la categoría de la imagen
-  });
+const categories = ['Todo', 'Retrato', 'Guangzhou', 'Hong Kong', 'Macao'];
+let selectedCategory = 'Todo';
 ---
 
-<!-- Botones de filtro -->
-<div class="filter-container">
-  <a href="?category=all">
-    <button>Todos</button>
-  </a>
-  {categories.map((category) => (
-    <a href={`?category=${category}`}>
-      <button>{category}</button>
-    </a>
-  ))}
-</div>
+<div>
+   <h2>Galería de Imágenes</h2>
 
-<!-- Galería de imágenes filtradas -->
-<div class="masonry-grid">
-  {filteredImages.map((image, index) => (
-    <div class="masonry-item">
-      <img
-        src={image.default.src}
-        alt={`Fotografía ${index + 1}`}
-        width={400}
-        height={image.default.height * (400 / image.default.width)}
-        class="gallery-image"
-      />
-    </div>
-  ))}
+   <div class="category-buttons">
+       {categories.map(category => (
+           <button onclick={() => selectedCategory = category}>{category}</button>
+       ))}
+   </div>
+
+   <MyImageComponent images={images} selectedCategory={selectedCategory} />
 </div>
 
 <style>
-  .filter-container {
-    margin-bottom: 1rem;
-    text-align: center;
-  }
-
-  .filter-container button {
-    margin: 0.5rem;
-    padding: 0.5rem 1rem;
-    border: none;
-    background-color: #007BFF;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-
-  .filter-container button:hover {
-    background-color: #0056b3;
-  }
-
-  .masonry-grid {
-    column-count: 1;
-    column-gap: 1rem;
-  }
-
-  .masonry-item {
-    break-inside: avoid;
-    margin-bottom: 1rem;
-  }
-
-  .masonry-item img {
-    width: 100%;
-    height: auto;
-    display: block;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-  }
-
-  .masonry-item:hover img {
-    transform: scale(1.05);
-  }
-
-  @media (min-width: 640px) {
-    .masonry-grid {
-      column-count: 2;
-    }
-  }
-
-  @media (min-width: 768px) {
-    .masonry-grid {
-      column-count: 3;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .masonry-grid {
-      column-count: 4;
-    }
-  }
+   /* Agrega tus estilos aquí */
 </style>
