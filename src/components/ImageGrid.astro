@@ -1,4 +1,3 @@
----
 const guangzhouImages = await Astro.glob('/src/assets/fotos/portfolio/Guangzhou/*.{jpg,jpeg,png,gif}');
 const hongKongImages = await Astro.glob('/src/assets/fotos/portfolio/HongKong/*.{jpg,jpeg,png,gif}');
 const macaoImages = await Astro.glob('/src/assets/fotos/portfolio/Macao/*.{jpg,jpeg,png,gif}');
@@ -10,15 +9,14 @@ const categorizedImages = [
   { category: 'Macao', images: macaoImages },
   { category: 'Retrato', images: retratoImages }
 ];
----
 
 <div class="masonry-grid">
-  {categorizedImages.map(({ category, images }, index) => (
-    <div key={index} class="category-section">
+  {categorizedImages.map(({ category, images }) => (
+    <div class="category-section">
       <h2>{category}</h2>
       <div class="masonry-item-container">
         {images.map((image, imgIndex) => (
-          <div class="masonry-item" key={imgIndex.toString()}>
+          <div class="masonry-item">
             <img
               src={image.default.src}
               alt={`Fotografía ${imgIndex + 1} de ${category}`}
