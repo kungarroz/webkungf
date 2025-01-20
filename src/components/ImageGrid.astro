@@ -1,33 +1,13 @@
 ---
-import { Image } from 'astro:assets';
-
-// Importar todas las imágenes de las carpetas
 const images = await Astro.glob('/src/assets/fotos/*/*.{jpg,jpeg,png,gif}');
 
 const categories = ['Todo', 'Retrato', 'Guangzhou', 'Hong Kong', 'Macao'];
-
 let selectedCategory = 'Todo';
-
-// Organizar las imágenes por categoría
-const categorizedImages: Record<string, typeof images> = {
-  'Retrato': [],
-  'Guangzhou': [],
-  'Hong Kong': [],
-  'Macao': []
-};
-
-// Asignar imágenes a sus categorías
-for (const image of images) {
-  const category = image.default.src.split('/').slice(-2, -1)[0]; // Obtener la categoría del path
-  if (categorizedImages[category]) {
-    categorizedImages[category].push(image);
-  }
-}
 
 // Filtrar imágenes según la categoría seleccionada
 const filteredImages = selectedCategory === 'Todo' 
   ? images 
-  : categorizedImages[selectedCategory];
+  : images.filter(image => image.default.src.includes(selectedCategory));
 ---
 
 <div>
@@ -46,7 +26,7 @@ const filteredImages = selectedCategory === 'Todo'
           src={image.default.src}
           alt={`Fotografía ${index + 1}`}
           width={400}
-          height={image.default.height * (400 / image.default.width)}
+          height={(image.default.height * (400 / image.default.width)) || 300}
           class="gallery-image"
         />
       </div>
