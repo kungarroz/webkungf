@@ -17,9 +17,9 @@ function setActiveCategory(category: string) {
 ---
 
 <div class="filter-container">
-  <button onclick={() => setActiveCategory('all')}>Todos</button>
+  <button onClick={() => setActiveCategory('all')}>Todos</button>
   {categories.map((category: string) => (
-    <button onclick={() => setActiveCategory(category)}>{category}</button>
+    <button onClick={() => setActiveCategory(category)}>{category}</button>
   ))}
 </div>
 
