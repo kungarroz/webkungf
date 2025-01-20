@@ -26,7 +26,6 @@ for (const path in images) {
   }
 }
 
-
 let selectedCategory: string = "Todo";
 
 const filteredImages = selectedCategory === "Todo" 
@@ -38,15 +37,15 @@ const filteredImages = selectedCategory === "Todo"
   <h2>Galería de Imágenes</h2>
 
   <div class="category-buttons">
-    <button onclick={() => selectedCategory = "Todo"}>Todo</button>
+    <button onclick={() => { selectedCategory = "Todo"; }}>Todo</button>
     {categories.map(category => (
-      <button onclick={() => selectedCategory = category}>{category}</button>
+      <button onclick={() => { selectedCategory = category; }}>{category}</button>
     ))}
   </div>
 
   <div class="photo-grid">
     {filteredImages.map(image => (
-      <div class="photo-wrapper">
+      <div class="photo-wrapper" key={image.alt}>
         <img src={image.src} alt={image.alt} />
       </div>
     ))}
