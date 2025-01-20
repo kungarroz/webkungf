@@ -29,8 +29,8 @@ const filteredImages = category === 'all'
   <a href="?category=all">
     <button>Todos</button>
   </a>
-  {categories.map((category, index) => (
-    <a href={`?category=${category}`} key={index}>
+  {categories.map((category) => (
+    <a href={`?category=${category}`}>
       <button>{category}</button>
     </a>
   ))}
@@ -39,7 +39,7 @@ const filteredImages = category === 'all'
 <!-- Galería de imágenes filtradas -->
 <div class="masonry-grid">
   {filteredImages.map((image, index) => (
-    <div class="masonry-item" key={index}>
+    <div class="masonry-item">
       <img
         src={image.default.src}
         alt={`Fotografía ${index + 1}`}
