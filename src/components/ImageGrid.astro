@@ -12,9 +12,9 @@ let activeCategory = 'all';
 ---
 
 <div class="filter-container">
-  <button onClick={() => { activeCategory = 'all' }}>Todos</button>
+  <button onclick={() => { activeCategory = 'all' }}>Todos</button>
   {categories.map((category) => (
-    <button onClick={() => { activeCategory = category }}>{category}</button>
+    <button onclick={() => { activeCategory = category }}>{category}</button>
   ))}
 </div>
 
