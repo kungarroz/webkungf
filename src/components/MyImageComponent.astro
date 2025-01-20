@@ -9,20 +9,21 @@ const filteredImages = selectedCategory === 'Todo'
     : images.filter(image => image.category === selectedCategory);
 ---
 
+<!-- Botones de filtro -->
 <div class="filter-buttons">
-    <!-- Suponiendo que "categories" es un arreglo de las categorías -->
     <a href="?category=Todo">
         <button>Todo</button>
     </a>
-    {['Guangzhou', 'Hongkong', 'Macao'].map(category => (
-        <a href={`?category=${category}`} key={category}>
+    {['Guangzhou', 'Hongkong', 'Shenzhen'].map((category: string) => (
+        <a href={`?category=${category}`}>
             <button>{category}</button>
         </a>
     ))}
 </div>
 
+<!-- Galería de imágenes filtradas -->
 <div class="masonry-grid">
-    {filteredImages.map((image, index) => (
+    {filteredImages.map((image: { src: string, category: string }, index: number) => (
         <div class="masonry-item" key={index}>
             <img
                 src={image.src}
