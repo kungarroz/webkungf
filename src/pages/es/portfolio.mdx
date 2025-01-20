@@ -4,6 +4,7 @@ title: "Portfolio"
 description: "Mi portfolio de fotografía"
 ---
 import PageHeadline from "@/components/PageHeadline.astro";
+import ImageGrid from "@/components/ImageGrid.astro";
 import ImageModal from "@/components/ImageModal.astro";
 
 <PageHeadline title={frontmatter.title} />
@@ -22,6 +23,7 @@ import ImageModal from "@/components/ImageModal.astro";
   <img src="/src/assets/fotos/retrato/image105.jpeg" alt="Retrato 9" />
 </div>
 
+<ImageGrid />
 <ImageModal />
 
 <style>
