@@ -22,7 +22,7 @@ const categorizedImages: Record<string, ImageType[]> = {
 for (const path in images) {
   const category = path.split('/')[2]; // Obtener la categoría del path
   if (categorizedImages[category]) {
-    categorizedImages[category].push({ src: (images[path] as any).default, alt: `${category} image` });
+    categorizedImages[category].push({ src: (images[path] as { default: string }).default, alt: `${category} image` });
   }
 }
 
