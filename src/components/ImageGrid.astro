@@ -1,14 +1,13 @@
 ---
 import { Image } from 'astro:assets';
 
-// Obtener todas las imágenes de las carpetas
-const images = await Astro.glob('/src/assets/fotos/*/*.{jpg,jpeg,png,gif}');
+// Obtener todas las imágenes dentro de las carpetas específicas de portfolio
+const images = await Astro.glob('/src/assets/fotos/portfolio/*/*.{jpg,jpeg,png,gif}');
 
 // Extraer los nombres de las carpetas para los filtros
 const categories = [...new Set(images.map((image) => {
-  // Suponiendo que la carpeta está en el segundo nivel de la ruta (por ejemplo: /src/assets/fotos/HongKong/image1.jpg)
   const pathParts = image.default.src.split('/');
-  return pathParts[pathParts.length - 2]; // Obtener el nombre de la carpeta (HongKong, Guangzhou, etc.)
+  return pathParts[pathParts.length - 2]; // Obtener el nombre de la carpeta (Guangzhou, Hongkong, etc.)
 }))];
 
 // Obtener la categoría seleccionada de los query params (por defecto 'all')
