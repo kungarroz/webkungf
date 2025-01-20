@@ -1,46 +1,60 @@
 ---
-// Definir los tipos para las imágenes
-const guangzhouImages = await Astro.glob('/src/assets/fotos/portfolio/Guangzhou/*.{jpg,jpeg,png,gif}');
-const hongKongImages = await Astro.glob('/src/assets/fotos/portfolio/HongKong/*.{jpg,jpeg,png,gif}');
-const macaoImages = await Astro.glob('/src/assets/fotos/portfolio/Macao/*.{jpg,jpeg,png,gif}');
-const retratoImages = await Astro.glob('/src/assets/fotos/portfolio/Retrato/*.{jpg,jpeg,png,gif}');
-
-// Ajuste de tipo: transformar en la forma correcta
-const transformImages = (images) => {
-  return images.map((image) => ({
-    default: {
-      src: image,
-      height: 500,  // Asignar un valor de altura, o bien puedes obtenerlo dinámicamente si se puede
-      width: 500    // Asignar un valor de ancho, o bien puedes obtenerlo dinámicamente si se puede
-    }
-  }));
-};
-
-const categorizedImages = [
-  { category: 'Guangzhou', images: transformImages(guangzhouImages) },
-  { category: 'Hong Kong', images: transformImages(hongKongImages) },
-  { category: 'Macao', images: transformImages(macaoImages) },
-  { category: 'Retrato', images: transformImages(retratoImages) }
-];
+const guangzhouImages = await Astro.glob('/src/assets/fotos/Guangzhou/*.{jpg,jpeg,png,gif}');
+const hongKongImages = await Astro.glob('/src/assets/fotos/HongKong/*.{jpg,jpeg,png,gif}');
+const macaoImages = await Astro.glob('/src/assets/fotos/Macao/*.{jpg,jpeg,png,gif}');
+const retratoImages = await Astro.glob('/src/assets/fotos/Retrato/*.{jpg,jpeg,png,gif}');
 ---
 
 <div class="masonry-grid">
-  {categorizedImages.map(({ category, images }) => (
-    <div class="category-section" key={category}>
-      <h2>{category}</h2>
-      <div class="masonry-item-container">
-        {images.map((image, imgIndex) => (
-          <div class="masonry-item" key={imgIndex}>
-            <img
-              src={image.default.src}
-              alt={`Fotografía ${imgIndex + 1} de ${category}`}
-              width={400}
-              height={image.default.height * (400 / image.default.width)}
-              class="gallery-image"
-            />
-          </div>
-        ))}
-      </div>
+  <h2>Guangzhou</h2>
+  {guangzhouImages.map((image, index) => (
+    <div class="masonry-item" key={index}>
+      <img
+        src={image.default.src}
+        alt={`Fotografía ${index + 1} de Guangzhou`}
+        width={400}
+        height={image.default.height * (400 / image.default.width)}
+        class="gallery-image"
+      />
+    </div>
+  ))}
+
+  <h2>Hong Kong</h2>
+  {hongKongImages.map((image, index) => (
+    <div class="masonry-item" key={index}>
+      <img
+        src={image.default.src}
+        alt={`Fotografía ${index + 1} de Hong Kong`}
+        width={400}
+        height={image.default.height * (400 / image.default.width)}
+        class="gallery-image"
+      />
+    </div>
+  ))}
+
+  <h2>Macao</h2>
+  {macaoImages.map((image, index) => (
+    <div class="masonry-item" key={index}>
+      <img
+        src={image.default.src}
+        alt={`Fotografía ${index + 1} de Macao`}
+        width={400}
+        height={image.default.height * (400 / image.default.width)}
+        class="gallery-image"
+      />
+    </div>
+  ))}
+
+  <h2>Retrato</h2>
+  {retratoImages.map((image, index) => (
+    <div class="masonry-item" key={index}>
+      <img
+        src={image.default.src}
+        alt={`Fotografía ${index + 1} de Retrato`}
+        width={400}
+        height={image.default.height * (400 / image.default.width)}
+        class="gallery-image"
+      />
     </div>
   ))}
 </div>
@@ -51,18 +65,7 @@ const categorizedImages = [
     column-gap: 1rem;
   }
 
-  .category-section {
-    margin-bottom: 2rem;
-  }
-
-  .masonry-item-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-
   .masonry-item {
-    flex-basis: calc(25% - 1rem);
     break-inside: avoid;
     margin-bottom: 1rem;
   }
