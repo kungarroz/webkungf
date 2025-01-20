@@ -8,7 +8,7 @@ const images = await Astro.glob('/src/assets/fotos/*/*.{jpg,jpeg,png,gif}');
 const categories = [...new Set(images.map((image) => image.default.src.split('/')[4]))];
 
 // Obtener la categoría seleccionada de los query params (por defecto 'all')
-const { category = 'all' } = Astro.url.searchParams;
+const category = Astro.url.searchParams.get('category') || 'all';
 
 // Filtrar las imágenes según la categoría seleccionada
 const filteredImages = category === 'all'
