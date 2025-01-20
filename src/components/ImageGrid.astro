@@ -45,7 +45,7 @@ const filteredImages = selectedCategory === "Todo"
 
   <div class="photo-grid">
     {filteredImages.map(image => (
-      <div class="photo-wrapper" key={image.alt}>
+      <div class="photo-wrapper">
         <img src={image.src} alt={image.alt} />
       </div>
     ))}
