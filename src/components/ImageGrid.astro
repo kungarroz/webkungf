@@ -18,17 +18,15 @@ const categorizedImages = [
       <h2>{category}</h2>
       <div class="masonry-item-container">
         {images.map((image, imgIndex) => (
-          <Fragment key={imgIndex}>
-            <div class="masonry-item">
-              <img
-                src={image.default.src}
-                alt={`Fotografía ${imgIndex + 1} de ${category}`}
-                width={400}
-                height={image.default.height * (400 / image.default.width)}
-                class="gallery-image"
-              />
-            </div>
-          </Fragment>
+          <div class="masonry-item" key={imgIndex.toString()}>
+            <img
+              src={image.default.src}
+              alt={`Fotografía ${imgIndex + 1} de ${category}`}
+              width={400}
+              height={image.default.height * (400 / image.default.width)}
+              class="gallery-image"
+            />
+          </div>
         ))}
       </div>
     </div>
