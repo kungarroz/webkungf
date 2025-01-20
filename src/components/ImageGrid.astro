@@ -1,27 +1,32 @@
 ---
-// Declaramos los tipos de las variables
+// Definir los tipos para las imágenes
 const guangzhouImages = await Astro.glob('/src/assets/fotos/portfolio/Guangzhou/*.{jpg,jpeg,png,gif}');
 const hongKongImages = await Astro.glob('/src/assets/fotos/portfolio/HongKong/*.{jpg,jpeg,png,gif}');
 const macaoImages = await Astro.glob('/src/assets/fotos/portfolio/Macao/*.{jpg,jpeg,png,gif}');
 const retratoImages = await Astro.glob('/src/assets/fotos/portfolio/Retrato/*.{jpg,jpeg,png,gif}');
 
-// Tipado explícito para categorizedImages
-interface ImageCategory {
-  category: string;
-  images: { default: { src: string; height: number; width: number } }[];
-}
+// Ajuste de tipo: transformar en la forma correcta
+const transformImages = (images) => {
+  return images.map((image) => ({
+    default: {
+      src: image,
+      height: 500,  // Asignar un valor de altura, o bien puedes obtenerlo dinámicamente si se puede
+      width: 500    // Asignar un valor de ancho, o bien puedes obtenerlo dinámicamente si se puede
+    }
+  }));
+};
 
-const categorizedImages: ImageCategory[] = [
-  { category: 'Guangzhou', images: guangzhouImages },
-  { category: 'Hong Kong', images: hongKongImages },
-  { category: 'Macao', images: macaoImages },
-  { category: 'Retrato', images: retratoImages }
+const categorizedImages = [
+  { category: 'Guangzhou', images: transformImages(guangzhouImages) },
+  { category: 'Hong Kong', images: transformImages(hongKongImages) },
+  { category: 'Macao', images: transformImages(macaoImages) },
+  { category: 'Retrato', images: transformImages(retratoImages) }
 ];
 ---
 
 <div class="masonry-grid">
   {categorizedImages.map(({ category, images }) => (
-    <div class="category-section">
+    <div class="category-section" key={category}>
       <h2>{category}</h2>
       <div class="masonry-item-container">
         {images.map((image, imgIndex) => (
