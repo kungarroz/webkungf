@@ -5,7 +5,11 @@ import { Image } from 'astro:assets';
 const images = await Astro.glob('/src/assets/fotos/*/*.{jpg,jpeg,png,gif}');
 
 // Extraer los nombres de las carpetas para los filtros
-const categories = [...new Set(images.map((image) => image.default.src.split('/')[4]))];
+const categories = [...new Set(images.map((image) => {
+  // Suponiendo que la carpeta está en el segundo nivel de la ruta (por ejemplo: /src/assets/fotos/HongKong/image1.jpg)
+  const pathParts = image.default.src.split('/');
+  return pathParts[pathParts.length - 2]; // Obtener el nombre de la carpeta (HongKong, Guangzhou, etc.)
+}))];
 
 // Obtener la categoría seleccionada de los query params (por defecto 'all')
 const category = Astro.url.searchParams.get('category') || 'all';
@@ -13,7 +17,11 @@ const category = Astro.url.searchParams.get('category') || 'all';
 // Filtrar las imágenes según la categoría seleccionada
 const filteredImages = category === 'all'
   ? images
-  : images.filter((image) => image.default.src.includes(`/${category}/`));
+  : images.filter((image) => {
+    const imagePathParts = image.default.src.split('/');
+    const imageCategory = imagePathParts[imagePathParts.length - 2]; // Carpeta de la imagen
+    return imageCategory === category; // Comparar la categoría de la imagen
+  });
 ---
 
 <!-- Botones de filtro -->
@@ -31,7 +39,7 @@ const filteredImages = category === 'all'
 <!-- Galería de imágenes filtradas -->
 <div class="masonry-grid">
   {filteredImages.map((image, index) => (
-    <div class="masonry-item">
+    <div class="masonry-item" key={index}>
       <img
         src={image.default.src}
         alt={`Fotografía ${index + 1}`}
