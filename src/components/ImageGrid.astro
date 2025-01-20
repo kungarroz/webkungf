@@ -9,12 +9,17 @@ const categories = [...new Set(images.map((image) => image.default.src.split('/'
 
 // Estado inicial del filtro
 let activeCategory = 'all';
+
+// Función para cambiar la categoría activa
+function setActiveCategory(category) {
+  activeCategory = category;
+}
 ---
 
 <div class="filter-container">
-  <button onclick={() => { activeCategory = 'all' }}>Todos</button>
+  <button onClick={() => setActiveCategory('all')}>Todos</button>
   {categories.map((category) => (
-    <button onclick={() => { activeCategory = category }}>{category}</button>
+    <button onClick={() => setActiveCategory(category)}>{category}</button>
   ))}
 </div>
 
