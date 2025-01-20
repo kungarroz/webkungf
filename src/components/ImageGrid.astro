@@ -37,10 +37,10 @@ const filteredImages = selectedCategory === "Todo"
   <h2>Galería de Imágenes</h2>
 
   <div class="category-buttons">
-    <button onclick={() => { selectedCategory = "Todo"; }}>Todo</button>
-    {categories.map(category => (
-      <button onclick={() => { selectedCategory = category; }}>{category}</button>
-    ))}
+    <button onClick={() => { selectedCategory = "Todo"; }}>Todo</button>
+{categories.map(category => (
+  <button onClick={() => { selectedCategory = category; }}>{category}</button>
+))}
   </div>
 
   <div class="photo-grid">
