@@ -1,19 +1,38 @@
----
 import { Image } from 'astro:assets';
 
-const images = await Astro.glob('/src/assets/fotos/*.{jpg,jpeg,png,gif}');
+// Load images from each category
+const guangzhouImages = await Astro.glob('/src/assets/fotos/Guangzhou/*.{jpg,jpeg,png,gif}');
+const hongKongImages = await Astro.glob('/src/assets/fotos/HongKong/*.{jpg,jpeg,png,gif}');
+const macaoImages = await Astro.glob('/src/assets/fotos/Macao/*.{jpg,jpeg,png,gif}');
+const retratoImages = await Astro.glob('/src/assets/fotos/Retrato/*.{jpg,jpeg,png,gif}');
+
+// Combine all images into a single array with category labels
+const categorizedImages = [
+  { category: 'Guangzhou', images: guangzhouImages },
+  { category: 'Hong Kong', images: hongKongImages },
+  { category: 'Macao', images: macaoImages },
+  { category: 'Retrato', images: retratoImages }
+];
+
 ---
 
 <div class="masonry-grid">
-  {images.map((image, index) => (
-    <div class="masonry-item">
-      <img
-        src={image.default.src}
-        alt={`Fotografía ${index + 1}`}
-        width={400}
-        height={image.default.height * (400 / image.default.width)}
-        class="gallery-image"
-      />
+  {categorizedImages.map(({ category, images }, index) => (
+    <div key={index} class="category-section">
+      <h2>{category}</h2>
+      <div class="masonry-item-container">
+        {images.map((image, imgIndex) => (
+          <div class="masonry-item" key={imgIndex}>
+            <img
+              src={image.default.src}
+              alt={`Fotografía ${imgIndex + 1} de ${category}`}
+              width={400}
+              height={image.default.height * (400 / image.default.width)}
+              class="gallery-image"
+            />
+          </div>
+        ))}
+      </div>
     </div>
   ))}
 </div>
@@ -24,7 +43,18 @@ const images = await Astro.glob('/src/assets/fotos/*.{jpg,jpeg,png,gif}');
     column-gap: 1rem;
   }
 
+  .category-section {
+    margin-bottom: 2rem;
+  }
+
+  .masonry-item-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
   .masonry-item {
+    flex-basis: calc(25% - 1rem); /* Adjust for responsive layout */
     break-inside: avoid;
     margin-bottom: 1rem;
   }
