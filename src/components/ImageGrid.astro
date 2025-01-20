@@ -7,36 +7,40 @@ const images = await Astro.glob('/src/assets/fotos/*/*.{jpg,jpeg,png,gif}');
 // Extraer los nombres de las carpetas para los filtros
 const categories = [...new Set(images.map((image) => image.default.src.split('/')[4]))];
 
-// Estado inicial de la categoría activa
-let activeCategory = 'all';
+// Obtener la categoría seleccionada de los query params (por defecto 'all')
+const { category = 'all' } = Astro.url.searchParams;
 
-// Función para cambiar la categoría activa
-function setActiveCategory(category) {
-  activeCategory = category;
-}
+// Filtrar las imágenes según la categoría seleccionada
+const filteredImages = category === 'all'
+  ? images
+  : images.filter((image) => image.default.src.includes(`/${category}/`));
 ---
 
+<!-- Botones de filtro -->
 <div class="filter-container">
-  <button onClick="setActiveCategory('all')">Todos</button>
+  <a href="?category=all">
+    <button>Todos</button>
+  </a>
   {categories.map((category) => (
-    <button onClick={`setActiveCategory('${category}')`}>{category}</button>
+    <a href={`?category=${category}`}>
+      <button>{category}</button>
+    </a>
   ))}
 </div>
 
+<!-- Galería de imágenes filtradas -->
 <div class="masonry-grid">
-  {images
-    .filter((image) => activeCategory === 'all' || image.default.src.includes(`/${activeCategory}/`))
-    .map((image, index) => (
-      <div class="masonry-item">
-        <img
-          src={image.default.src}
-          alt={`Fotografía ${index + 1}`}
-          width={400}
-          height={image.default.height * (400 / image.default.width)}
-          class="gallery-image"
-        />
-      </div>
-    ))}
+  {filteredImages.map((image, index) => (
+    <div class="masonry-item">
+      <img
+        src={image.default.src}
+        alt={`Fotografía ${index + 1}`}
+        width={400}
+        height={image.default.height * (400 / image.default.width)}
+        class="gallery-image"
+      />
+    </div>
+  ))}
 </div>
 
 <style>
