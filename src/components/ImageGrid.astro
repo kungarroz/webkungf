@@ -22,7 +22,7 @@ const categorizedImages: Record<string, ImageType[]> = {
 for (const path in images) {
   const category = path.split('/')[2]; // Obtener la categoría del path
   if (categorizedImages[category]) {
-    categorizedImages[category].push({ src: images[path].default, alt: `${category} image` });
+    categorizedImages[category].push({ src: (images[path] as any).default, alt: `${category} image` });
   }
 }
 
@@ -37,10 +37,10 @@ const filteredImages = selectedCategory === "Todo"
   <h2>Galería de Imágenes</h2>
 
   <div class="category-buttons">
-    <button onClick={() => { selectedCategory = "Todo"; }}>Todo</button>
-{categories.map(category => (
-  <button onClick={() => { selectedCategory = category; }}>{category}</button>
-))}
+    <button onclick={() => { selectedCategory = "Todo"; }}>Todo</button>
+    {categories.map(category => (
+      <button onclick={() => { selectedCategory = category; }}>{category}</button>
+    ))}
   </div>
 
   <div class="photo-grid">
