@@ -1,53 +1,77 @@
 ---
-const categories = ["", "HongKong", "Macao", "Guangzhou", "Retrato"];
-const images = [
-  { src: "/assets/fotos/HongKong/image1.jpg", alt: "Imagen de Hong Kong", category: "HongKong" },
-  { src: "/assets/fotos/Macao/image1.jpg", alt: "Imagen de Macao", category: "Macao" },
-  { src: "/assets/fotos/Guangzhou/image1.jpg", alt: "Imagen de Guangzhou", category: "Guangzhou" },
-  { src: "/assets/fotos/Retrato/image1.jpg", alt: "Imagen de Retrato", category: "Retrato" },
-];
+import { images } from '../data/images.js';
 
-function filterImages(category) {
-  const gallery = document.getElementById("image-grid");
-  const filteredImages = category
-    ? images.filter((image) => image.category === category)
-    : images;
+const categories = ['Todo', 'Retrato', 'Guangdong','Hong Kong','Macao'];
+let selectedCategory = "Todo";
 
-  gallery.innerHTML = filteredImages
-    .map(
-      (image) => `
-      <div class="image-card">
-        <img src="${image.src}" alt="${image.alt}" />
-      </div>
-    `
-    )
-    .join("");
-}
+// Filtrar imágenes según la categoría seleccionada
+const filteredImages = selectedCategory === "Todo" 
+    ? images 
+    : images.filter(image => image.category === selectedCategory);
 ---
 
 <div>
-  <div class="categories">
-    {categories.map((category) => (
-      <button
-        class={`category-button`}
-        onclick={`filterImages('${category}')`}
-      >
-        {category || "Todos"}
-      </button>
-    ))}
-  </div>
+    <h2>Galería de Imágenes</h2>
 
-  <div id="image-grid" class="image-grid">
-    <!-- Se inicializa con todas las imágenes -->
-    {images.map((image) => (
-      <div class="image-card">
-        <img src={image.src} alt={image.alt} />
-      </div>
-    ))}
-  </div>
+    <div class="category-buttons">
+        {categories.map(category => (
+            <button onclick={() => selectedCategory = category}>{category}</button>
+        ))}
+    </div>
+
+    <div class="masonry-grid">
+        {filteredImages.map((image, index) => (
+            <div class="masonry-item" key={index}>
+                <img
+                    src={image.src}
+                    alt={`Fotografía ${index + 1}`}
+                    width={400}
+                    height={300}
+                    class="gallery-image"
+                />
+            </div>
+        ))}
+    </div>
 </div>
 
-<script>
-  // Para inicializar las imágenes
-  filterImages("");
-</script>
+<style>
+    .masonry-grid {
+        column-count :1;
+        column-gap :1rem;
+    }
+
+    .masonry-item {
+        break-inside :avoid;
+        margin-bottom :1rem;
+    }
+
+    .masonry-item img {
+        width :100%;
+        height :auto;
+        display :block;
+        cursor :pointer;
+        transition :transform .3s ease;
+    }
+
+    .masonry-item:hover img {
+        transform :scale(1.05);
+    }
+
+    @media (min-width :640px) {
+        .masonry-grid {
+            column-count :2;
+        }
+    }
+
+    @media (min-width :768px) {
+        .masonry-grid {
+            column-count :3;
+        }
+    }
+
+    @media (min-width :1024px) {
+        .masonry-grid {
+            column-count :4;
+        }
+    }
+</style>
