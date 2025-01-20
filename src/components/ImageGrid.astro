@@ -1,83 +1,53 @@
 ---
-import { Image } from "astro:assets";
-
-// Definimos las interfaces para imágenes y categorías
-interface ImageData {
-  src: string;
-  alt: string;
-  category: string;
-}
-
-// Inicializamos las categorías basadas en tus carpetas
-const categories: string[] = ["", "HongKong", "Macao", "Guangzhou", "Retrato"];
-let selectedCategory: string = ""; // Categoría seleccionada
-
-// Generamos dinámicamente las imágenes
-const images: ImageData[] = [
+const categories = ["", "HongKong", "Macao", "Guangzhou", "Retrato"];
+const images = [
   { src: "/assets/fotos/HongKong/image1.jpg", alt: "Imagen de Hong Kong", category: "HongKong" },
   { src: "/assets/fotos/Macao/image1.jpg", alt: "Imagen de Macao", category: "Macao" },
   { src: "/assets/fotos/Guangzhou/image1.jpg", alt: "Imagen de Guangzhou", category: "Guangzhou" },
   { src: "/assets/fotos/Retrato/image1.jpg", alt: "Imagen de Retrato", category: "Retrato" },
-  // Agrega más imágenes aquí si es necesario
 ];
 
-// Filtrar imágenes según la categoría seleccionada
-function filterImages(images: ImageData[]): ImageData[] {
-  return images.filter((image) => {
-    return selectedCategory === "" || image.category === selectedCategory;
-  });
-}
+function filterImages(category) {
+  const gallery = document.getElementById("image-grid");
+  const filteredImages = category
+    ? images.filter((image) => image.category === category)
+    : images;
 
-// Renderizar la galería de imágenes
-function renderGallery(images: ImageData[]): string {
-  const filteredImages = filterImages(images);
-  return filteredImages
+  gallery.innerHTML = filteredImages
     .map(
       (image) => `
-        <div class="image-card">
-          <img src="${image.src}" alt="${image.alt}" />
-        </div>
-      `
+      <div class="image-card">
+        <img src="${image.src}" alt="${image.alt}" />
+      </div>
+    `
     )
     .join("");
 }
 ---
 
-<div id="gallery">
-  <!-- Botones para seleccionar categoría -->
+<div>
   <div class="categories">
     {categories.map((category) => (
       <button
-        class={`category-button ${
-          selectedCategory === category ? "active" : ""
-        }`}
-        onclick={() => {
-          selectedCategory = category;
-          const gallery = document.getElementById("image-grid");
-          if (gallery) {
-            gallery.innerHTML = renderGallery(images);
-          }
-        }}
+        class={`category-button`}
+        onclick={`filterImages('${category}')`}
       >
         {category || "Todos"}
       </button>
     ))}
   </div>
 
-  <!-- Contenedor de imágenes -->
   <div id="image-grid" class="image-grid">
-    {renderGallery(images)}
+    <!-- Se inicializa con todas las imágenes -->
+    {images.map((image) => (
+      <div class="image-card">
+        <img src={image.src} alt={image.alt} />
+      </div>
+    ))}
   </div>
 </div>
 
-<style>
-  .categories {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1rem;
-  }
-  .category-button {
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    border: 1px solid #ccc;
-   
+<script>
+  // Para inicializar las imágenes
+  filterImages("");
+</script>
