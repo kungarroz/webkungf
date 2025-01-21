@@ -10,13 +10,13 @@ const t = useTranslations(Astro.currentLocale as Lang);
 
 <div class="filter-buttons">
   <button class="filter-btn active" data-category="all">
-    {t({ es: "Todas", en: "All", "zh-cn": "所有" })}
+    ${t({ es: "Todas", en: "All", "zh-cn": "所有" })}
   </button>
   <button class="filter-btn" data-category="street">
-    {t({ es: "Fotografía callejera", en: "Street Photography", "zh-cn": "街头摄影" })}
+    ${t({ es: "Fotografía callejera", en: "Street Photography", "zh-cn": "街头摄影" })}
   </button>
   <button class="filter-btn" data-category="portrait">
-    {t({ es: "Retratos", en: "Portraits", "zh-cn": "肖像" })}
+    ${t({ es: "Retratos", en: "Portraits", "zh-cn": "肖像" })}
   </button>
 </div>
 
@@ -49,7 +49,7 @@ const t = useTranslations(Astro.currentLocale as Lang);
   const filterButtons = document.querySelectorAll('.filter-btn');
   const masonryItems = document.querySelectorAll<HTMLElement>('.masonry-item');
 
-  function filterItems(category: string) {
+  function filterItems(category) {
     masonryItems.forEach(item => {
       const shouldShow = category === 'all' || item.dataset.category === category;
       if (shouldShow) {
@@ -140,7 +140,12 @@ const t = useTranslations(Astro.currentLocale as Lang);
     width: 100%; /* Asegura que la imagen ocupe todo el ancho del contenedor */
     height: auto; /* Mantiene la proporción de la imagen */
     display: block; /* Hace que la imagen sea un bloque */
+    transition: transform 0.3s ease; /* Transición suave para el efecto de hover */
   }
+
+.masonry-item:hover img {
+   transform: scale(1.05); /* Efecto de zoom al hacer hover */
+}
 
  @media (max-width:1024px) {
    .masonry-grid {
