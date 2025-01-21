@@ -33,18 +33,7 @@ const allPhotos = [...streetPhotos, ...portraitPhotos];
   function filterItems(category: string) {
     masonryItems.forEach(item => {
       const shouldShow = category === 'all' || item.getAttribute('data-category') === category;
-      if (shouldShow) {
-        item.style.opacity = '0';
-        item.style.display = 'block';
-        setTimeout(() => {
-          item.style.opacity = '1';
-        }, 10);
-      } else {
-        item.style.opacity = '0';
-        setTimeout(() => {
-          item.style.display = 'none';
-        }, 300);
-      }
+      item.style.display = shouldShow ? 'block' : 'none';
     });
   }
 
@@ -107,15 +96,13 @@ const allPhotos = [...streetPhotos, ...portraitPhotos];
   }
 
   .masonry-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1rem;
+    column-count: 4;
+    column-gap: 1rem;
   }
 
   .masonry-item {
     break-inside: avoid;
     margin-bottom: 1rem;
-    transition: opacity 0.3s ease;
   }
 
   .masonry-item img {
@@ -124,17 +111,21 @@ const allPhotos = [...streetPhotos, ...portraitPhotos];
     display: block;
     cursor: pointer;
     transition: transform 0.3s ease;
-    object-fit: cover;
-    aspect-ratio: 1 / 1;
   }
 
   .masonry-item:hover img {
     transform: scale(1.05);
   }
 
+  @media (max-width: 1200px) {
+    .masonry-grid {
+      column-count: 3;
+    }
+  }
+
   @media (max-width: 900px) {
     .masonry-grid {
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      column-count: 2;
     }
     
     .filter-btn {
@@ -145,7 +136,7 @@ const allPhotos = [...streetPhotos, ...portraitPhotos];
 
   @media (max-width: 600px) {
     .masonry-grid {
-      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      column-count: 1;
     }
 
     .filter-btn {
