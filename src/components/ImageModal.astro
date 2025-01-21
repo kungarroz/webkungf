@@ -24,30 +24,31 @@
   }
 
   .modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    max-width: 80%;
-    max-height: 90vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    transform: scale(0.8);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-  }
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  max-width: 90%;
+  max-height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
 
-  .modal.show .modal-content {
-    opacity: 1;
-    transform: scale(1);
-  }
+.modal.show .modal-content {
+  opacity: 1;
+  transform: scale(1);
+}
 
-  #modalImage {
-    max-width: 100%;
-    max-height: calc(90vh - 40px);
-    object-fit: contain;
-  }
+#modalImage {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transition: all 0.3s ease;
+}
 
   .close {
     position: absolute;
@@ -67,54 +68,68 @@
 </style>
 
 <script>
-  function setupModal() {
-    if (window.innerWidth > 1024) {
-      const modal = document.getElementById('imageModal') as HTMLDivElement | null;
-      const modalImg = document.getElementById('modalImage') as HTMLImageElement | null;
-      const closeBtn = document.querySelector('.close') as HTMLElement | null;
+function setupModal() {
+  if (window.innerWidth > 1024) {
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    const closeBtn = document.querySelector('.close');
+    const modalContent = document.querySelector('.modal-content');
 
-      if (modal && modalImg && closeBtn) {
-        document.querySelectorAll('.gallery-image').forEach(img => {
-          img.addEventListener('click', function(this: HTMLImageElement) {
-            modal.style.display = "flex";
-            modalImg.src = this.src;
-            
-            // Ajustar el tamaño de la imagen
-            const aspectRatio = this.naturalWidth / this.naturalHeight;
-            if (aspectRatio > 1) {
-              // Imagen horizontal
-              modalImg.style.width = '70%'; // Ajustado al 70%
-              modalImg.style.height = 'auto';
+    if (modal && modalImg && closeBtn && modalContent) {
+      document.querySelectorAll('.gallery-image').forEach(img => {
+        img.addEventListener('click', function() {
+          modal.style.display = "flex";
+          modalImg.src = this.src;
+          
+          // Resetear estilos
+          modalImg.style.width = '';
+          modalImg.style.height = '';
+          modalContent.style.width = '';
+          modalContent.style.height = '';
+
+          // Ajustar tamaño después de que la imagen se cargue
+          modalImg.onload = () => {
+            const aspectRatio = modalImg.naturalWidth / modalImg.naturalHeight;
+            const viewportWidth = window.innerWidth * 0.8;
+            const viewportHeight = window.innerHeight * 0.8;
+
+            if (aspectRatio > viewportWidth / viewportHeight) {
+              // Imagen más ancha que alta
+              modalContent.style.width = '80vw';
+              modalContent.style.height = 'auto';
             } else {
-              // Imagen vertical
-              modalImg.style.height = '90vh';
-              modalImg.style.width = 'auto';
+              // Imagen más alta que ancha
+              modalContent.style.height = '80vh';
+              modalContent.style.width = 'auto';
             }
 
             // Activar la animación
-            setTimeout(() => modal.classList.add('show'), 10);
-          });
+            setTimeout(() => modal.classList.add('show'), 50);
+          };
         });
+      });
 
-        closeBtn.addEventListener('click', () => {
-          modal.classList.remove('show');
-          setTimeout(() => {
-            modal.style.display = "none";
-          }, 300); // Esperar a que termine la animación
-        });
+      closeBtn.addEventListener('click', closeModal);
+      modal.addEventListener('click', (event) => {
+        if (event.target === modal) closeModal();
+      });
 
-        modal.addEventListener('click', (event) => {
-          if (event.target === modal) {
-            modal.classList.remove('show');
-            setTimeout(() => {
-              modal.style.display = "none";
-            }, 300);
-          }
-        });
+      function closeModal() {
+        modal.classList.remove('show');
+        setTimeout(() => {
+          modal.style.display = "none";
+          // Resetear estilos
+          modalImg.style.width = '';
+          modalImg.style.height = '';
+          modalContent.style.width = '';
+          modalContent.style.height = '';
+        }, 300);
       }
     }
   }
+}
 
-  document.addEventListener('DOMContentLoaded', setupModal);
-  document.addEventListener('astro:page-load', setupModal);
+document.addEventListener('DOMContentLoaded', setupModal);
+document.addEventListener('astro:page-load', setupModal);
+
 </script>

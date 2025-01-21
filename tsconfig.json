@@ -1,11 +1,10 @@
 {
-  "extends": "astro/tsconfigs/base",
+  "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
     "baseUrl": ".",
     "strictNullChecks": true,
     "paths": {
       "@/*": ["src/*"]
     },
-    "strict": true // Mantener esto si deseas validaciones estrictas
   }
 }
