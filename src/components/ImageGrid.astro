@@ -96,15 +96,14 @@ const allPhotos = [...streetPhotos, ...portraitPhotos];
   }
 
   .masonry-grid {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 1rem;
   }
 
   .masonry-item {
-    flex: 1 0 calc(25% - 1rem);
+    break-inside: avoid;
     margin-bottom: 1rem;
-    max-width: calc(25% - 1rem);
   }
 
   .masonry-item img {
@@ -113,23 +112,17 @@ const allPhotos = [...streetPhotos, ...portraitPhotos];
     display: block;
     cursor: pointer;
     transition: transform 0.3s ease;
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
   }
 
   .masonry-item:hover img {
     transform: scale(1.05);
   }
 
-  @media (max-width: 1200px) {
-    .masonry-item {
-      flex: 1 0 calc(33.333% - 1rem);
-      max-width: calc(33.333% - 1rem);
-    }
-  }
-
   @media (max-width: 900px) {
-    .masonry-item {
-      flex: 1 0 calc(50% - 1rem);
-      max-width: calc(50% - 1rem);
+    .masonry-grid {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     }
     
     .filter-btn {
@@ -139,9 +132,8 @@ const allPhotos = [...streetPhotos, ...portraitPhotos];
   }
 
   @media (max-width: 600px) {
-    .masonry-item {
-      flex: 1 0 100%;
-      max-width: 100%;
+    .masonry-grid {
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
     }
 
     .filter-btn {
