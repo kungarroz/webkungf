@@ -50,10 +50,18 @@ const portraitPhotos = await Astro.glob('/src/assets/retratos/**/*.{jpg,jpeg,png
       masonryItems.forEach(item => {
         if (category === 'all' || item.getAttribute('data-category') === category) {
           item.classList.remove('hidden');
-          setTimeout(() => item.style.display = 'block', 10);
+          item.style.display = 'block';
+          setTimeout(() => {
+            item.style.opacity = '1';
+            item.style.transform = 'scale(1)';
+          }, 10);
         } else {
           item.classList.add('hidden');
-          setTimeout(() => item.style.display = 'none', 300);
+          item.style.opacity = '0';
+          item.style.transform = 'scale(0.8)';
+          setTimeout(() => {
+            item.style.display = 'none';
+          }, 300);
         }
       });
     });
