@@ -43,11 +43,19 @@ const portraitPhotos = await Astro.glob('/src/assets/retratos/**/*.{jpg,jpeg,png
   function filterItems(category: string) {
     masonryItems.forEach(item => {
       const shouldShow = category === 'all' || item.getAttribute('data-category') === category;
-      item.style.opacity = shouldShow ? '1' : '0';
-      item.style.transform = shouldShow ? 'scale(1)' : 'scale(0.8)';
-      setTimeout(() => {
-        item.style.display = shouldShow ? 'block' : 'none';
-      }, shouldShow ? 0 : 300);
+      if (shouldShow) {
+        item.style.display = 'block';
+        setTimeout(() => {
+          item.style.opacity = '1';
+          item.style.transform = 'scale(1)';
+        }, 10);
+      } else {
+        item.style.opacity = '0';
+        item.style.transform = 'scale(0.8)';
+        setTimeout(() => {
+          item.style.display = 'none';
+        }, 300);
+      }
     });
   }
 
@@ -59,9 +67,6 @@ const portraitPhotos = await Astro.glob('/src/assets/retratos/**/*.{jpg,jpeg,png
       if (category) filterItems(category);
     });
   });
-
-  // Initial filter
-  filterItems('all');
 </script>
 
 <style>
@@ -108,9 +113,8 @@ const portraitPhotos = await Astro.glob('/src/assets/retratos/**/*.{jpg,jpeg,png
   }
 
   .masonry-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
+    column-count: 4;
+    column-gap: 1rem;
   }
 
   .masonry-item {
@@ -133,13 +137,13 @@ const portraitPhotos = await Astro.glob('/src/assets/retratos/**/*.{jpg,jpeg,png
 
   @media (max-width: 1024px) {
     .masonry-grid {
-      grid-template-columns: repeat(3, 1fr);
+      column-count: 3;
     }
   }
 
   @media (max-width: 768px) {
     .masonry-grid {
-      grid-template-columns: repeat(2, 1fr);
+      column-count: 2;
     }
     
     .filter-btn {
@@ -150,7 +154,7 @@ const portraitPhotos = await Astro.glob('/src/assets/retratos/**/*.{jpg,jpeg,png
 
   @media (max-width: 480px) {
     .masonry-grid {
-      grid-template-columns: 1fr;
+      column-count: 1;
     }
   }
 </style>
