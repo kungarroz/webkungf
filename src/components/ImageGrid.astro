@@ -38,7 +38,7 @@ const portraitPhotos = await Astro.glob('/src/assets/retratos/**/*.{jpg,jpeg,png
 
 <script>
   const filterButtons = document.querySelectorAll('.filter-btn');
-  const masonryItems = document.querySelectorAll('.masonry-item');
+  const masonryItems = document.querySelectorAll<HTMLElement>('.masonry-item');
 
   filterButtons.forEach(button => {
     button.addEventListener('click', () => {
