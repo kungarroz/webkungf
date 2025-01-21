@@ -7,27 +7,16 @@ const portraitPhotos = await Astro.glob('/src/assets/retratos/**/*.{jpg,jpeg,png
 
 <div class="filter-buttons">
   <button class="filter-btn active" data-category="all">Todas</button>
-  <button class="filter-btn" data-category="street">Calle</button>
+  <button class="filter-btn" data-category="street">Fotografía callejera</button>
   <button class="filter-btn" data-category="portrait">Retratos</button>
 </div>
 
 <div class="masonry-grid">
-  {streetPhotos.map((image, index) => (
-    <div class="masonry-item" data-category="street">
+  {[...streetPhotos, ...portraitPhotos].map((image, index) => (
+    <div class="masonry-item" data-category={index < streetPhotos.length ? "street" : "portrait"}>
       <img
         src={image.default.src}
         alt={`Fotografía ${index + 1}`}
-        width={400}
-        height={image.default.height * (400 / image.default.width)}
-        class="gallery-image"
-      />
-    </div>
-  ))}
-  {portraitPhotos.map((image, index) => (
-    <div class="masonry-item" data-category="portrait">
-      <img
-        src={image.default.src}
-        alt={`Retrato ${index + 1}`}
         width={400}
         height={image.default.height * (400 / image.default.width)}
         class="gallery-image"
@@ -153,7 +142,7 @@ const portraitPhotos = await Astro.glob('/src/assets/retratos/**/*.{jpg,jpeg,png
     
     .filter-btn {
       padding: 0.4rem 0.8rem;
-      font-size: 0.8rem;
+      font-size: 0.7rem;
     }
   }
 
