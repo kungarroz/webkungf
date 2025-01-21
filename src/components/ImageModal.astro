@@ -18,7 +18,7 @@
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0);
     justify-content: center;
     align-items: center;
     transition: background-color 0.3s ease;
@@ -58,7 +58,7 @@
     position: absolute;
     top: 10px;
     right: 20px;
-    color: #333;
+    color: #fff;
     font-size: 30px;
     font-weight: bold;
     cursor: pointer;
@@ -79,31 +79,30 @@
       const closeBtn = document.querySelector('.close');
 
       if (modal instanceof HTMLDivElement && modalImg instanceof HTMLImageElement && closeBtn instanceof HTMLElement) {
+        const openModal = (src: string) => {
+          modal.style.display = "flex";
+          modalImg.src = src;
+          
+          // Forzar un reflow antes de añadir la clase 'show'
+          void modal.offsetWidth;
+          
+          requestAnimationFrame(() => {
+            modal.classList.add('show');
+          });
+        };
+
         const closeModal = () => {
           modal.classList.remove('show');
           setTimeout(() => {
             modal.style.display = "none";
+            modalImg.src = '';
           }, 300);
         };
 
         document.querySelectorAll('.gallery-image').forEach(img => {
           if (img instanceof HTMLImageElement) {
             img.addEventListener('click', function() {
-              modal.style.display = "flex";
-              modalImg.src = this.src;
-              
-              const aspectRatio = this.naturalWidth / this.naturalHeight;
-              if (aspectRatio > 1) {
-                modalImg.style.width = '70%';
-                modalImg.style.height = 'auto';
-              } else {
-                modalImg.style.height = '90vh';
-                modalImg.style.width = 'auto';
-              }
-
-              requestAnimationFrame(() => {
-                modal.classList.add('show');
-              });
+              openModal(this.src);
             });
           }
         });
