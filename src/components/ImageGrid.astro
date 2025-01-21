@@ -1,14 +1,17 @@
 ---
 import { Image } from 'astro:assets';
+import { useTranslations, type Lang } from "@/i18n";
 
 const streetPhotos = await Astro.glob('/src/assets/fotos/**/*.{jpg,jpeg,png,gif}');
 const portraitPhotos = await Astro.glob('/src/assets/retratos/**/*.{jpg,jpeg,png,gif}');
+
+const t = useTranslations(Astro.currentLocale as Lang);
 ---
 
 <div class="filter-buttons">
-  <button class="filter-btn active" data-category="all">Todas</button>
-  <button class="filter-btn" data-category="street">Fotografía callejera</button>
-  <button class="filter-btn" data-category="portrait">Retratos</button>
+  <button class="filter-btn active" data-category="all">${t({ es: "Todas", en: "All", "zh-cn": "所有" })}</button>
+  <button class="filter-btn" data-category="street">${t({ es: "Fotografía callejera", en: "Street Photography", "zh-cn": "街头摄影" })}</button>
+  <button class="filter-btn" data-category="portrait">${t({ es: "Retratos", en: "Portraits", "zh-cn": "肖像" })}</button>
 </div>
 
 <div class="masonry-grid">
@@ -53,7 +56,7 @@ const portraitPhotos = await Astro.glob('/src/assets/retratos/**/*.{jpg,jpeg,png
         item.style.opacity = '0';
         setTimeout(() => {
           item.style.display = 'none';
-        }, 500); // Aumentado a 500ms para una transición más suave
+        }, 300);
       }
     });
   }
@@ -124,41 +127,36 @@ const portraitPhotos = await Astro.glob('/src/assets/retratos/**/*.{jpg,jpeg,png
   .masonry-item {
     break-inside: avoid;
     margin-bottom: 1rem;
-    overflow: hidden;
-    transition: opacity 0.5s ease; /* Aumentado a 0.5s para una transición más suave */
+    overflow: hidden; 
+    transition: opacity 0.5s ease; 
   }
 
   .masonry-item img {
     width: 100%;
-    height: auto;
-    display: block;
-    transition: transform 0.3s ease;
+    height: auto; 
+    display: block; 
   }
 
-  .masonry-item:hover img {
-    transform: scale(1.05);
-  }
+ @media (max-width: 1024px) {
+   .masonry-grid {
+     column-count: 3; 
+   }
+ }
 
-  @media (max-width: 1024px) {
-    .masonry-grid {
-      column-count: 3;
-    }
-  }
+ @media (max-width:768px) {
+   .masonry-grid {
+     column-count :2; 
+   }
+   
+   .filter-btn {
+     padding :0.4rem 0.8rem; 
+     font-size :0.8rem; 
+   }
+ }
 
-  @media (max-width: 768px) {
-    .masonry-grid {
-      column-count: 2;
-    }
-    
-    .filter-btn {
-      padding: 0.4rem 0.8rem;
-      font-size: 0.8rem;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .masonry-grid {
-      column-count: 1;
-    }
-  }
+ @media (max-width :480px) {
+   .masonry-grid {
+     column-count :1; 
+   }
+ }
 </style>
