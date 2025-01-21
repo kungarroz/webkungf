@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 
 const streetPhotos = await Astro.glob('/src/assets/fotos/**/*.{jpg,jpeg,png,gif}');
 const portraitPhotos = await Astro.glob('/src/assets/retratos/**/*.{jpg,jpeg,png,gif}');
-const allPhotos = [...streetPhotos, ...portraitPhotos].sort(() => Math.random() - 0.5);
+const allPhotos = [...streetPhotos, ...portraitPhotos];
 ---
 
 <div class="filter-buttons">
@@ -14,7 +14,7 @@ const allPhotos = [...streetPhotos, ...portraitPhotos].sort(() => Math.random() 
 
 <div class="masonry-grid">
   {allPhotos.map((image, index) => (
-    <div class="masonry-item" data-category={streetPhotos.includes(image) ? "street" : "portrait"}>
+    <div class="masonry-item" data-category={index < streetPhotos.length ? "street" : "portrait"}>
       <img
         src={image.default.src}
         alt={`Fotografía ${index + 1}`}
@@ -96,13 +96,15 @@ const allPhotos = [...streetPhotos, ...portraitPhotos].sort(() => Math.random() 
   }
 
   .masonry-grid {
-    column-count: 4;
-    column-gap: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
   }
 
   .masonry-item {
-    break-inside: avoid;
+    flex: 1 0 calc(25% - 1rem);
     margin-bottom: 1rem;
+    max-width: calc(25% - 1rem);
   }
 
   .masonry-item img {
@@ -118,14 +120,16 @@ const allPhotos = [...streetPhotos, ...portraitPhotos].sort(() => Math.random() 
   }
 
   @media (max-width: 1200px) {
-    .masonry-grid {
-      column-count: 3;
+    .masonry-item {
+      flex: 1 0 calc(33.333% - 1rem);
+      max-width: calc(33.333% - 1rem);
     }
   }
 
   @media (max-width: 900px) {
-    .masonry-grid {
-      column-count: 2;
+    .masonry-item {
+      flex: 1 0 calc(50% - 1rem);
+      max-width: calc(50% - 1rem);
     }
     
     .filter-btn {
@@ -135,8 +139,9 @@ const allPhotos = [...streetPhotos, ...portraitPhotos].sort(() => Math.random() 
   }
 
   @media (max-width: 600px) {
-    .masonry-grid {
-      column-count: 1;
+    .masonry-item {
+      flex: 1 0 100%;
+      max-width: 100%;
     }
 
     .filter-btn {
