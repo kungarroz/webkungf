@@ -74,37 +74,39 @@
 <script>
   function setupModal() {
     if (window.innerWidth > 1024) {
-      const modal = document.getElementById('imageModal') as HTMLDivElement | null;
-      const modalImg = document.getElementById('modalImage') as HTMLImageElement | null;
-      const closeBtn = document.querySelector('.close') as HTMLElement | null;
+      const modal = document.getElementById('imageModal');
+      const modalImg = document.getElementById('modalImage');
+      const closeBtn = document.querySelector('.close');
 
-      if (modal && modalImg && closeBtn) {
-        document.querySelectorAll('.gallery-image').forEach(img => {
-          img.addEventListener('click', function(this: HTMLImageElement) {
-            modal.style.display = "flex";
-            modalImg.src = this.src;
-            
-            const aspectRatio = this.naturalWidth / this.naturalHeight;
-            if (aspectRatio > 1) {
-              modalImg.style.width = '70%';
-              modalImg.style.height = 'auto';
-            } else {
-              modalImg.style.height = '90vh';
-              modalImg.style.width = 'auto';
-            }
-
-            requestAnimationFrame(() => {
-              modal.classList.add('show');
-            });
-          });
-        });
-
-        function closeModal() {
+      if (modal instanceof HTMLDivElement && modalImg instanceof HTMLImageElement && closeBtn instanceof HTMLElement) {
+        const closeModal = () => {
           modal.classList.remove('show');
           setTimeout(() => {
             modal.style.display = "none";
           }, 300);
-        }
+        };
+
+        document.querySelectorAll('.gallery-image').forEach(img => {
+          if (img instanceof HTMLImageElement) {
+            img.addEventListener('click', function() {
+              modal.style.display = "flex";
+              modalImg.src = this.src;
+              
+              const aspectRatio = this.naturalWidth / this.naturalHeight;
+              if (aspectRatio > 1) {
+                modalImg.style.width = '70%';
+                modalImg.style.height = 'auto';
+              } else {
+                modalImg.style.height = '90vh';
+                modalImg.style.width = 'auto';
+              }
+
+              requestAnimationFrame(() => {
+                modal.classList.add('show');
+              });
+            });
+          }
+        });
 
         closeBtn.addEventListener('click', closeModal);
 
