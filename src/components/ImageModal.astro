@@ -21,6 +21,7 @@
     background-color: rgba(0,0,0,0.5);
     justify-content: center;
     align-items: center;
+    transition: background-color 0.3s ease;
   }
 
   .modal-content {
@@ -40,13 +41,11 @@
 
   .modal.show {
     background-color: rgba(0,0,0,0.8);
-    transition: background-color 0.3s ease;
   }
 
   .modal.show .modal-content {
     opacity: 1;
     transform: scale(1);
-    
   }
 
   #modalImage {
@@ -85,7 +84,6 @@
             modal.style.display = "flex";
             modalImg.src = this.src;
             
-            // Ajustar el tamaño de la imagen
             const aspectRatio = this.naturalWidth / this.naturalHeight;
             if (aspectRatio > 1) {
               modalImg.style.width = '70%';
@@ -95,7 +93,6 @@
               modalImg.style.width = 'auto';
             }
 
-            // Activar la animación
             requestAnimationFrame(() => {
               modal.classList.add('show');
             });
