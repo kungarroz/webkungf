@@ -9,9 +9,9 @@ const t = useTranslations(Astro.currentLocale as Lang);
 ---
 
 <div class="filter-buttons">
-  <button class="filter-btn active" data-category="all">${t({ es: "Todas", en: "All", "zh-cn": "所有" })}</button>
-  <button class="filter-btn" data-category="street">${t({ es: "Fotografía callejera", en: "Street Photography", "zh-cn": "街头摄影" })}</button>
-  <button class="filter-btn" data-category="portrait">${t({ es: "Retratos", en: "Portraits", "zh-cn": "肖像" })}</button>
+  <button class="filter-btn active" data-category="all">{t({ es: "Todas", en: "All", "zh-cn": "所有" })}</button>
+  <button class="filter-btn" data-category="street">{t({ es: "Fotografía callejera", en: "Street Photography", "zh-cn": "街头摄影" })}</button>
+  <button class="filter-btn" data-category="portrait">{t({ es: "Retratos", en: "Portraits", "zh-cn": "肖像" })}</button>
 </div>
 
 <div class="masonry-grid">
@@ -137,13 +137,13 @@ const t = useTranslations(Astro.currentLocale as Lang);
     display: block; 
   }
 
- @media (max-width: 1024px) {
+ @media (max-width:1024px) {
    .masonry-grid {
-     column-count: 3; 
+     column-count :3; 
    }
  }
 
- @media (max-width:768px) {
+ @media (max-width :768px) {
    .masonry-grid {
      column-count :2; 
    }
