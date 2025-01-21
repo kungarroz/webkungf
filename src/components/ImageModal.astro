@@ -83,7 +83,7 @@
             const aspectRatio = this.naturalWidth / this.naturalHeight;
             if (aspectRatio > 1) {
               // Imagen horizontal
-              modalImg.style.width = '70%';
+              modalImg.style.width = '70%'; // Ajustado al 70%
               modalImg.style.height = 'auto';
             } else {
               // Imagen vertical
@@ -100,7 +100,7 @@
           modal.classList.remove('show');
           setTimeout(() => {
             modal.style.display = "none";
-          }, 300);
+          }, 300); // Esperar a que termine la animación
         });
 
         modal.addEventListener('click', (event) => {
