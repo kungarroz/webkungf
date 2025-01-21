@@ -38,9 +38,15 @@
     transition: opacity 0.3s ease, transform 0.3s ease;
   }
 
+  .modal.show {
+    background-color: rgba(0,0,0,0.8);
+    transition: background-color 0.3s ease;
+  }
+
   .modal.show .modal-content {
     opacity: 1;
     transform: scale(1);
+    
   }
 
   #modalImage {
@@ -82,33 +88,32 @@
             // Ajustar el tamaño de la imagen
             const aspectRatio = this.naturalWidth / this.naturalHeight;
             if (aspectRatio > 1) {
-              // Imagen horizontal
-              modalImg.style.width = '70%'; // Ajustado al 70%
+              modalImg.style.width = '70%';
               modalImg.style.height = 'auto';
             } else {
-              // Imagen vertical
               modalImg.style.height = '90vh';
               modalImg.style.width = 'auto';
             }
 
             // Activar la animación
-            setTimeout(() => modal.classList.add('show'), 10);
+            requestAnimationFrame(() => {
+              modal.classList.add('show');
+            });
           });
         });
 
-        closeBtn.addEventListener('click', () => {
+        function closeModal() {
           modal.classList.remove('show');
           setTimeout(() => {
             modal.style.display = "none";
-          }, 300); // Esperar a que termine la animación
-        });
+          }, 300);
+        }
+
+        closeBtn.addEventListener('click', closeModal);
 
         modal.addEventListener('click', (event) => {
           if (event.target === modal) {
-            modal.classList.remove('show');
-            setTimeout(() => {
-              modal.style.display = "none";
-            }, 300);
+            closeModal();
           }
         });
       }
