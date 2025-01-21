@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 
 const streetPhotos = await Astro.glob('/src/assets/fotos/**/*.{jpg,jpeg,png,gif}');
 const portraitPhotos = await Astro.glob('/src/assets/retratos/**/*.{jpg,jpeg,png,gif}');
+const allPhotos = [...streetPhotos, ...portraitPhotos].sort(() => Math.random() - 0.5);
 ---
 
 <div class="filter-buttons">
@@ -12,8 +13,8 @@ const portraitPhotos = await Astro.glob('/src/assets/retratos/**/*.{jpg,jpeg,png
 </div>
 
 <div class="masonry-grid">
-  {[...streetPhotos, ...portraitPhotos].map((image, index) => (
-    <div class="masonry-item" data-category={index < streetPhotos.length ? "street" : "portrait"}>
+  {allPhotos.map((image, index) => (
+    <div class="masonry-item" data-category={streetPhotos.includes(image) ? "street" : "portrait"}>
       <img
         src={image.default.src}
         alt={`Fotografía ${index + 1}`}
@@ -26,26 +27,28 @@ const portraitPhotos = await Astro.glob('/src/assets/retratos/**/*.{jpg,jpeg,png
 </div>
 
 <script>
+  import Masonry from 'masonry-layout';
+
   const filterButtons = document.querySelectorAll('.filter-btn');
   const masonryItems = document.querySelectorAll<HTMLElement>('.masonry-item');
+  let msnry: Masonry | null = null;
+
+  function initMasonry() {
+    msnry = new Masonry('.masonry-grid', {
+      itemSelector: '.masonry-item',
+      columnWidth: '.masonry-item',
+      percentPosition: true
+    });
+  }
 
   function filterItems(category: string) {
     masonryItems.forEach(item => {
       const shouldShow = category === 'all' || item.getAttribute('data-category') === category;
-      if (shouldShow) {
-        item.style.display = 'block';
-        setTimeout(() => {
-          item.style.opacity = '1';
-          item.style.transform = 'scale(1)';
-        }, 10);
-      } else {
-        item.style.opacity = '0';
-        item.style.transform = 'scale(0.8)';
-        setTimeout(() => {
-          item.style.display = 'none';
-        }, 300);
-      }
+      item.style.display = shouldShow ? 'block' : 'none';
     });
+    if (msnry) {
+      msnry.layout();
+    }
   }
 
   filterButtons.forEach(button => {
@@ -57,8 +60,10 @@ const portraitPhotos = await Astro.glob('/src/assets/retratos/**/*.{jpg,jpeg,png
     });
   });
 
-  // Aplicar el filtro inicial
-  filterItems('all');
+  document.addEventListener('DOMContentLoaded', () => {
+    initMasonry();
+    filterItems('all');
+  });
 </script>
 
 <style>
@@ -107,14 +112,13 @@ const portraitPhotos = await Astro.glob('/src/assets/retratos/**/*.{jpg,jpeg,png
   }
 
   .masonry-grid {
-    column-count: 4;
-    column-gap: 1rem;
+    width: 100%;
   }
 
   .masonry-item {
-    break-inside: avoid;
+    width: calc(25% - 1rem);
     margin-bottom: 1rem;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: opacity 0.3s ease;
   }
 
   .masonry-item img {
@@ -130,14 +134,14 @@ const portraitPhotos = await Astro.glob('/src/assets/retratos/**/*.{jpg,jpeg,png
   }
 
   @media (max-width: 1024px) {
-    .masonry-grid {
-      column-count: 3;
+    .masonry-item {
+      width: calc(33.333% - 1rem);
     }
   }
 
   @media (max-width: 768px) {
-    .masonry-grid {
-      column-count: 2;
+    .masonry-item {
+      width: calc(50% - 1rem);
     }
     
     .filter-btn {
@@ -147,8 +151,8 @@ const portraitPhotos = await Astro.glob('/src/assets/retratos/**/*.{jpg,jpeg,png
   }
 
   @media (max-width: 480px) {
-    .masonry-grid {
-      column-count: 1;
+    .masonry-item {
+      width: 100%;
     }
   }
 </style>
