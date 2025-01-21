@@ -61,12 +61,15 @@ const portraitPhotos = await Astro.glob('/src/assets/retratos/**/*.{jpg,jpeg,png
 
   filterButtons.forEach(button => {
     button.addEventListener('click', () => {
-      const category = button.getAttribute('data-category');
+      const category = button.getAttribute('data-category') || 'all';
       filterButtons.forEach(btn => btn.classList.remove('active'));
       button.classList.add('active');
-      if (category) filterItems(category);
+      filterItems(category);
     });
   });
+
+  // Aplicar el filtro inicial
+  filterItems('all');
 </script>
 
 <style>
