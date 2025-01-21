@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 
 const streetPhotos = await Astro.glob('/src/assets/fotos/**/*.{jpg,jpeg,png,gif}');
+const portraitPhotos = await Astro.glob('/src/assets/retratos/**/*.{jpg,jpeg,png,gif}');
 ---
 
 <h2 class="section-title">FOTOGRAFÍA CALLEJERA</h2>
@@ -18,6 +19,22 @@ const streetPhotos = await Astro.glob('/src/assets/fotos/**/*.{jpg,jpeg,png,gif}
     </div>
   ))}
 </div>
+
+<h2 class="section-title">RETRATOS</h2>
+<div class="masonry-grid">
+  {portraitPhotos.map((image, index) => (
+    <div class="masonry-item">
+      <img
+        src={image.default.src}
+        alt={`Retrato ${index + 1}`}
+        width={400}
+        height={image.default.height * (400 / image.default.width)}
+        class="gallery-image"
+      />
+    </div>
+  ))}
+</div>
+
 
 
 <style>
