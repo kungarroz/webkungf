@@ -1,123 +1,79 @@
 ---
-// ImageModal.astro
+import { Image } from 'astro:assets';
+
+const streetPhotos = await Astro.glob('/src/assets/fotos/**/*.{jpg,jpeg,png,gif}');
+const portraitPhotos = await Astro.glob('/src/assets/retratos/**/*.{jpg,jpeg,png,gif}');
 ---
 
-<div id="imageModal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <img id="modalImage" alt="Modal Image">
-  </div>
+<h2 class="section-title">FOTOGRAFÍA CALLEJERA</h2>
+<div class="masonry-grid">
+  {streetPhotos.map((image, index) => (
+    <div class="masonry-item">
+      <img
+        src={image.default.src}
+        alt={`Fotografía ${index + 1}`}
+        width={400}
+        height={image.default.height * (400 / image.default.width)}
+        class="gallery-image"
+      />
+    </div>
+  ))}
+</div>
+
+<h2 class="section-title">RETRATOS</h2>
+<div class="masonry-grid">
+  {portraitPhotos.map((image, index) => (
+    <div class="masonry-item">
+      <img
+        src={image.default.src}
+        alt={`Retrato ${index + 1}`}
+        width={400}
+        height={image.default.height * (400 / image.default.width)}
+        class="gallery-image"
+      />
+    </div>
+  ))}
 </div>
 
 <style>
-  .modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
+  .masonry-grid {
+    column-count: 1;
+    column-gap: 1rem;
+  }
+
+  .masonry-item {
+    break-inside: avoid;
+    margin-bottom: 1rem;
+    overflow: hidden; /* Añadido para contener la imagen ampliada */
+  }
+
+  .masonry-item img {
     width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0);
-    justify-content: center;
-    align-items: center;
-    transition: background-color 0.3s ease;
-  }
-
-  .modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    max-width: 80%;
-    max-height: 90vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    transform: scale(0.8);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-  }
-
-  .modal.show {
-    background-color: rgba(0,0,0,0.8);
-  }
-
-  .modal.show .modal-content {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  #modalImage {
-    max-width: 100%;
-    max-height: calc(90vh - 40px);
-    object-fit: contain;
-  }
-
-  .close {
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    color: #fff;
-    font-size: 30px;
-    font-weight: bold;
+    height: auto;
+    display: block;
     cursor: pointer;
+    transition: transform 0.3s ease;
   }
 
-  @media (max-width: 1024px) {
-    .modal {
-      display: none !important;
+  .masonry-item:hover img {
+    transform: scale(1.05);
+  }
+
+  @media (min-width: 640px) {
+    .masonry-grid {
+      column-count: 2;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .masonry-grid {
+      column-count: 3;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .masonry-grid {
+      column-count: 4;
     }
   }
 </style>
-
-<script>
-  function setupModal() {
-    if (window.innerWidth > 1024) {
-      const modal = document.getElementById('imageModal');
-      const modalImg = document.getElementById('modalImage');
-      const closeBtn = document.querySelector('.close');
-
-      if (modal instanceof HTMLDivElement && modalImg instanceof HTMLImageElement && closeBtn instanceof HTMLElement) {
-        const openModal = (src: string) => {
-          modal.style.display = "flex";
-          modalImg.src = src;
-          
-          // Forzar un reflow antes de añadir la clase 'show'
-          void modal.offsetWidth;
-          
-          requestAnimationFrame(() => {
-            modal.classList.add('show');
-          });
-        };
-
-        const closeModal = () => {
-          modal.classList.remove('show');
-          setTimeout(() => {
-            modal.style.display = "none";
-            modalImg.src = '';
-          }, 300);
-        };
-
-        document.querySelectorAll('.gallery-image').forEach(img => {
-          if (img instanceof HTMLImageElement) {
-            img.addEventListener('click', function() {
-              openModal(this.src);
-            });
-          }
-        });
-
-        closeBtn.addEventListener('click', closeModal);
-
-        modal.addEventListener('click', (event) => {
-          if (event.target === modal) {
-            closeModal();
-          }
-        });
-      }
-    }
-  }
-
-  document.addEventListener('DOMContentLoaded', setupModal);
-  document.addEventListener('astro:page-load', setupModal);
-</script>
