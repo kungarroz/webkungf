@@ -4,6 +4,7 @@ import { useTranslations, type Lang } from "@/i18n";
 
 const streetPhotos = await Astro.glob('/src/assets/fotos/**/*.{jpg,jpeg,png,gif}');
 const portraitPhotos = await Astro.glob('/src/assets/retratos/**/*.{jpg,jpeg,png,gif}');
+const guangzhouPhotos = await Astro.glob('/src/assets/guangzhou/**/*.{jpg,jpeg,png,gif}');
 
 const t = useTranslations(Astro.currentLocale as Lang);
 ---
@@ -17,6 +18,9 @@ const t = useTranslations(Astro.currentLocale as Lang);
   </button>
   <button class="filter-btn" data-category="portrait">
     {t({ es: "Retratos", en: "Portraits", "zh-cn": "肖像" })}
+  </button>
+  <button class="filter-btn" data-category="guangzhou">
+    {t({ es: "Guangzhou", en: "Guangzhou", "zh-cn": "广州" })}
   </button>
 </div>
 
@@ -37,6 +41,17 @@ const t = useTranslations(Astro.currentLocale as Lang);
       <img
         src={image.default.src}
         alt={`Retrato ${index + 1}`}
+        width={400}
+        height={image.default.height * (400 / image.default.width)}
+        class="gallery-image"
+      />
+    </div>
+  ))}
+  {guangzhouPhotos.map((image, index) => (
+    <div class="masonry-item" data-category="guangzhou">
+      <img
+        src={image.default.src}
+        alt={`Guangzhou ${index + 1}`}
         width={400}
         height={image.default.height * (400 / image.default.width)}
         class="gallery-image"
