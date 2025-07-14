@@ -2,9 +2,15 @@
 import { Image } from 'astro:assets';
 import { useTranslations, type Lang } from "@/i18n";
 
-const streetPhotos = await Astro.glob('/src/assets/fotos/**/*.{jpg,jpeg,png,gif}');
+const streetPhotos = await Astro.glob('/src/assets/calle/**/*.{jpg,jpeg,png,gif}');
 const portraitPhotos = await Astro.glob('/src/assets/retratos/**/*.{jpg,jpeg,png,gif}');
-const guangzhouPhotos = await Astro.glob('/src/assets/guangzhou/**/*.{jpg,jpeg,png,gif}');
+const architecturePhotos = await Astro.glob('/src/assets/arquitectura/**/*.{jpg,jpeg,png,gif}');
+const kongkongPhotos = await Astro.glob('/src/assets/hongkong/**/*.{jpg,jpeg,png,gif}');
+const macauPhotos = await Astro.glob('/src/assets/macao/**/*.{jpg,jpeg,png,gif}');
+const nightPhotos = await Astro.glob('/src/assets/noche/**/*.{jpg,jpeg,png,gif}');
+const urbanportraitPhotos = await Astro.glob('/src/assets/retratosurbanos/**/*.{jpg,jpeg,png,gif}'); 
+const detailsPhotos = await Astro.glob('/src/assets/detalles/**/*.{jpg,jpeg,png,gif}');
+
 
 const t = useTranslations(Astro.currentLocale as Lang);
 ---
@@ -16,11 +22,29 @@ const t = useTranslations(Astro.currentLocale as Lang);
   <button class="filter-btn" data-category="street">
     {t({ es: "Fotografía callejera", en: "Street Photography", "zh-cn": "街头摄影" })}
   </button>
+  <button class="filter-btn" data-category="urbanportrait">
+    {t({ es: "Retratos urbanos", en: "Urban Portraits", "zh-cn": "城市肖像" })}
+  </button>
+  <button class="filter-btn" data-category="architecture">
+    {t({ es: "Arquitectura", en: "Architecture", "zh-cn": "建筑" })}
+  </button>
+  <button class="filter-btn" data-category="HongKong">
+    {t({ es: "Hong Kong", en: "Hong Kong", "zh-cn": "香港" })}
+  </button>
+  <button class="filter-btn" data-category="Macau">
+    {t({ es: "Macao", en: "Macau", "zh-cn": "澳门" })}
+  </button>
+  <button class="filter-btn" data-category="night">
+    {t({ es: "Noche", en: "Night", "zh-cn": "夜景摄影" })}
+  </button>
+  <button class="filter-btn" data-category="HongKong">
+    {t({ es: "Hong Kong", en: "Hong Kong", "zh-cn": "香港" })}
+  </button>
   <button class="filter-btn" data-category="portrait">
     {t({ es: "Retratos", en: "Portraits", "zh-cn": "肖像" })}
   </button>
-  <button class="filter-btn" data-category="guangzhou">
-    {t({ es: "Guangzhou", en: "Guangzhou", "zh-cn": "广州" })}
+  <button class="filter-btn" data-category="details">
+    {t({ es: "Detalles", en: "Details", "zh-cn": "细节" })}
   </button>
 </div>
 
@@ -47,11 +71,66 @@ const t = useTranslations(Astro.currentLocale as Lang);
       />
     </div>
   ))}
-  {guangzhouPhotos.map((image, index) => (
-    <div class="masonry-item" data-category="guangzhou">
+  {architecturePhotos.map((image, index) => (
+    <div class="masonry-item" data-category="architecture">
       <img
         src={image.default.src}
-        alt={`Guangzhou ${index + 1}`}
+        alt={`Arquitectura ${index + 1}`}
+        width={400}
+        height={image.default.height * (400 / image.default.width)}
+        class="gallery-image"
+      />
+    </div>
+  ))}
+  {kongkongPhotos.map((image, index) => (
+    <div class="masonry-item" data-category="HongKong">
+      <img
+        src={image.default.src}
+        alt={`Hong Kong ${index + 1}`}
+        width={400}
+        height={image.default.height * (400 / image.default.width)}
+        class="gallery-image"
+      />
+    </div>
+  ))}
+  {macauPhotos.map((image, index) => (
+    <div class="masonry-item" data-category="Macau">
+      <img
+        src={image.default.src}
+        alt={`Macao ${index + 1}`}
+        width={400}
+        height={image.default.height * (400 / image.default.width)}
+        class="gallery-image"
+      />
+    </div>
+  ))}
+  {nightPhotos.map((image, index) => (
+    <div class="masonry-item" data-category="night">
+      <img
+        src={image.default.src}
+        alt={`Noche ${index + 1}`}
+        width={400}
+        height={image.default.height * (400 / image.default.width)}
+        class="gallery-image"
+      />
+    </div>
+  ))}
+  {urbanportraitPhotos.map((image, index) => (
+    <div class="masonry-item" data-category="urbanportrait">
+      <img
+        src={image.default.src}
+        alt={`Retrato urbano ${index + 1}`}
+        width={400}
+        height={image.default.height * (400 / image.default.width)}
+        class="gallery-image"
+      />
+    </div>
+  ))}
+  {detailsPhotos.map((image, index) => (
+    <div class="masonry-item" data-category="details">
+      <img
+        src={image.default.src}
+        alt={`Detalle ${index + 1}`}
         width={400}
         height={image.default.height * (400 / image.default.width)}
         class="gallery-image"
