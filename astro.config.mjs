@@ -14,11 +14,6 @@ export default defineConfig({
       redirectToDefaultLocale: false,
     },
   },
-  redirects: {
-    '/es/links': '/links',
-    '/en/links': '/links',
-    '/zh-cn/links': '/links',
-  },
   markdown: {
     shikiConfig: {
       theme: 'dark-plus',
