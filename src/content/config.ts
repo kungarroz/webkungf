@@ -1,32 +1,15 @@
 import { defineCollection, z } from 'astro:content';
 
 const blog = defineCollection({
-  type: 'content',
-  schema: ({ image }) =>
-    z.object({
-      title: z.string(),
-      description: z.string(),
-      date: z.coerce.date(),
-      cover: image()
-        .refine((img) => img.width >= 600, {
-          message: "cover must be at least 600px wide",
-        })
-        .optional(),
-    }),
+	type: 'content',
+	// Definimos qué datos tiene cada post en la cabecera
+	schema: z.object({
+		title: z.string(),
+		description: z.string(),
+		pubDate: z.coerce.date(),
+		heroImage: z.string().optional(),
+		category: z.string().optional(),
+	}),
 });
 
-const albums = defineCollection({
-  type: "data",
-  schema: ({ image }) =>
-    z.object({
-      title: z.string(),
-      description: z.string().optional(),
-      cover: image(),
-    }),
-});
-
-// Combina ambas colecciones en una única exportación
-export const collections = {
-  blog,
-  albums,
-};
+export const collections = { blog };
