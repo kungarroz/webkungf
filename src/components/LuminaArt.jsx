@@ -2,11 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, Aperture, Globe, Check, ArrowRight, MoveDown, ArrowUpRight } from 'lucide-react';
 
 // --- IMPORTACIÓN DE IMÁGENES LOCALES ---
-// Estas rutas asumen que tienes los archivos en:
-// src/assets/calle/calle20.jpeg
-// src/assets/blog/DSC00907.JPG
+// Solo importamos spotlight porque el blog ahora usará fecha
 import imgSpotlight from '../assets/calle/calle20.jpeg'; 
-import imgBlogPost from '../assets/blog/DSC00907.JPG';
 
 // --- CONFIGURACIÓN DE CONTENIDO ---
 
@@ -23,6 +20,7 @@ const content = {
     latestPostLabel: 'Último en el Blog',
     latestPostTitle: 'Review: TTArtisan AF 56mm F1.8',
     latestPostExcerpt: 'Una exploración del rendimiento y la estética de este objetivo en las calles de Guangzhou.',
+    latestPostDate: '02 ABR 2024', // Nueva fecha elegante
     readPost: 'Leer Artículo',
     footerTitle: 'Hablemos.',
   },
@@ -38,6 +36,7 @@ const content = {
     latestPostLabel: '最新日志',
     latestPostTitle: '评测：铭匠 TTArtisan AF 56mm',
     latestPostExcerpt: '在广州街头探索这款镜头的性能与美学。',
+    latestPostDate: '2024年 4月',
     readPost: '阅读文章',
     footerTitle: '联系我。',
   },
@@ -53,6 +52,7 @@ const content = {
     latestPostLabel: 'Latest Journal',
     latestPostTitle: 'Review: TTArtisan AF 56mm F1.8',
     latestPostExcerpt: 'An exploration of performance and aesthetics of this lens on the streets of Guangzhou.',
+    latestPostDate: 'APR 02, 2024',
     readPost: 'Read Article',
     footerTitle: 'Let\'s Talk.',
   }
@@ -212,17 +212,14 @@ export default function LandingPage() {
          <FadeIn>
            <a href="/obra" className="block max-w-[1400px] mx-auto relative group cursor-pointer">
               <div className="aspect-[16/9] md:aspect-[21/9] overflow-hidden bg-[#111] shadow-2xl relative">
-                {/* Overlay oscuro al hover para resaltar el texto */}
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-500 z-10"></div>
                 
-                {/* Texto central al hover */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 z-20">
                     <span className="text-2xl md:text-4xl font-light italic tracking-widest text-white border-b border-red-600 pb-2">
                         {t.viewWork}
                     </span>
                 </div>
 
-                {/* IMAGEN IMPORTADA LOCALMENTE */}
                 <img 
                     src={imgSpotlight.src} 
                     alt="Spotlight"
@@ -255,18 +252,14 @@ export default function LandingPage() {
 
                 <a href="/blog/es/ttartisan56mm18" className="group block">
                     <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center">
-                        {/* Miniatura del post */}
-                        <div className="w-full md:w-1/3 aspect-[4/3] overflow-hidden bg-[#111]">
-                            {/* IMAGEN IMPORTADA LOCALMENTE */}
-                            <img 
-                                src={imgBlogPost.src} 
-                                alt="Latest Post" 
-                                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-105"
-                                onError={(e) => {
-                                    e.target.onerror = null; 
-                                    e.target.src = 'https://placehold.co/600x400/111/333?text=Post';
-                                }}
-                            />
+                        {/* FECHA ELEGANTE EN LUGAR DE IMAGEN */}
+                        <div className="w-full md:w-1/3 aspect-[4/3] flex flex-col justify-center items-center bg-[#111] border border-neutral-900 group-hover:border-red-900/50 transition-colors duration-500">
+                            <span className="text-4xl md:text-5xl font-serif italic text-white group-hover:text-red-600 transition-colors duration-500">
+                              {t.latestPostDate.split(' ')[0]}
+                            </span>
+                            <span className="text-xs uppercase tracking-[0.3em] text-neutral-500 mt-2 font-sans">
+                              {t.latestPostDate.split(' ').slice(1).join(' ')}
+                            </span>
                         </div>
                         
                         {/* Contenido */}
