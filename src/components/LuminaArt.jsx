@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Aperture, Globe, Check, ArrowRight, MoveDown, ArrowUpRight } from 'lucide-react';
 
-// --- IMPORTACIÓN DE IMÁGENES ---
-// Asegúrate de que estas rutas sean exactas en tu proyecto
+// --- IMPORTACIÓN DE IMÁGENES LOCALES ---
+// Estas rutas asumen que tienes los archivos en:
+// src/assets/calle/calle20.jpeg
+// src/assets/blog/DSC00907.JPG
 import imgSpotlight from '../assets/calle/calle20.jpeg'; 
 import imgBlogPost from '../assets/blog/DSC00907.JPG';
 
@@ -116,7 +118,6 @@ export default function LandingPage() {
       <nav className="fixed w-full z-50 py-6 px-6 md:py-8 md:px-12 mix-blend-difference">
         <div className="flex justify-between items-center max-w-[1800px] mx-auto">
           <a href="#" className="text-lg md:text-xl tracking-widest uppercase font-light hover:opacity-70 transition-opacity flex items-center gap-3">
-            {/* CORRECCIÓN: Usamos logo.svg porque renombramos el archivo para el caché */}
             <img src="/logo.svg" alt="Logo" className="w-8 h-8 rounded-md" />
             <span>Kungfundidos</span>
           </a>
@@ -211,17 +212,17 @@ export default function LandingPage() {
          <FadeIn>
            <a href="/obra" className="block max-w-[1400px] mx-auto relative group cursor-pointer">
               <div className="aspect-[16/9] md:aspect-[21/9] overflow-hidden bg-[#111] shadow-2xl relative">
-                {/* Overlay */}
+                {/* Overlay oscuro al hover para resaltar el texto */}
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-500 z-10"></div>
                 
-                {/* Texto central */}
+                {/* Texto central al hover */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 z-20">
                     <span className="text-2xl md:text-4xl font-light italic tracking-widest text-white border-b border-red-600 pb-2">
                         {t.viewWork}
                     </span>
                 </div>
 
-                {/* CORRECCIÓN IMAGEN 1: Usamos .src */}
+                {/* IMAGEN IMPORTADA LOCALMENTE */}
                 <img 
                     src={imgSpotlight.src} 
                     alt="Spotlight"
@@ -254,9 +255,9 @@ export default function LandingPage() {
 
                 <a href="/blog/es/ttartisan56mm18" className="group block">
                     <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center">
-                        {/* Miniatura */}
+                        {/* Miniatura del post */}
                         <div className="w-full md:w-1/3 aspect-[4/3] overflow-hidden bg-[#111]">
-                            {/* CORRECCIÓN IMAGEN 2: Usamos .src */}
+                            {/* IMAGEN IMPORTADA LOCALMENTE */}
                             <img 
                                 src={imgBlogPost.src} 
                                 alt="Latest Post" 
