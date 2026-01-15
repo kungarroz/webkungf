@@ -3,7 +3,7 @@ import { Menu, X, Aperture, Globe, Check, ArrowRight, MoveDown, ArrowUpRight } f
 
 // --- IMPORTACIÓN DE IMÁGENES ---
 // Al importarlas así, Vite/Webpack procesa la ruta final correcta.
-import imgSpotlight from '../assets/calle/calle20.jpeg'; 
+import imgSpotlight from '../src/assets/calle/calle20.jpeg'; 
 import imgBlogPost from '../content/blog/es/ttartisan56mm18/DSC00907.JPG';
 
 // --- CONFIGURACIÓN DE CONTENIDO ---
