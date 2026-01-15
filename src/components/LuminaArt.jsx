@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Aperture, Globe, Check, ArrowRight, MoveDown, ArrowUpRight } from 'lucide-react';
 
+// --- IMPORTACIÓN DE IMÁGENES ---
+// Al importarlas así, Vite/Webpack procesa la ruta final correcta.
+import imgSpotlight from '../assets/calle/calle20.jpeg'; 
+import imgBlogPost from '../content/blog/es/ttartisan56mm18/DSC00907.JPG';
+
 // --- CONFIGURACIÓN DE CONTENIDO ---
 
 const content = {
@@ -195,7 +200,6 @@ export default function LandingPage() {
       </main>
 
       {/* 2. STATEMENT: ESPACIO REDUCIDO */}
-      {/* Reduje pt-32/md:pt-40 a pt-12 md:pt-20 para subir el texto */}
       <section className="pt-12 pb-24 md:pt-20 md:pb-32 px-6 md:px-12 max-w-4xl mx-auto text-center z-10 relative">
          <FadeIn>
            <div className="h-[1px] w-12 bg-red-600 mx-auto mb-12"></div>
@@ -220,8 +224,9 @@ export default function LandingPage() {
                     </span>
                 </div>
 
+                {/* --- AQUI USAMOS LA VARIABLE IMPORTADA --- */}
                 <img 
-                    src="/src/assets/calle/calle20.jpeg" 
+                    src={imgSpotlight} 
                     alt="Spotlight"
                     className="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-[2s] ease-in-out transform group-hover:scale-105"
                 />
@@ -254,8 +259,9 @@ export default function LandingPage() {
                     <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center">
                         {/* Miniatura del post */}
                         <div className="w-full md:w-1/3 aspect-[4/3] overflow-hidden bg-[#111]">
+                            {/* --- AQUI USAMOS LA VARIABLE IMPORTADA --- */}
                             <img 
-                                src="/src/content/blog/es/ttartisan56mm18/DSC00907.JPG" 
+                                src={imgBlogPost} 
                                 alt="Latest Post" 
                                 className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-105"
                                 onError={(e) => {
