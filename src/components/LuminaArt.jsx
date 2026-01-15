@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, Aperture, Globe, Check, ArrowRight, MoveDown, ArrowUpRight } from 'lucide-react';
 
 // --- IMPORTACIÓN DE IMÁGENES LOCALES ---
-// Solo importamos la de spotlight. La del blog la hemos quitado.
 import imgSpotlight from '../assets/calle/calle20.jpeg'; 
 
 // --- CONFIGURACIÓN DE CONTENIDO ---
@@ -20,7 +19,8 @@ const content = {
     latestPostLabel: 'Último en el Blog',
     latestPostTitle: 'Review: TTArtisan AF 56mm F1.8',
     latestPostExcerpt: 'Una exploración del rendimiento y la estética de este objetivo en las calles de Guangzhou.',
-    latestPostDate: '02 ABR 2024', // Formato para el diseño: DÍA MES AÑO
+    latestPostDate: '02 ABR 2024',
+    latestPostLink: '/es/blog/ttartisan56mm18', // CORREGIDO: Ruta correcta /es/blog/...
     readPost: 'Leer Artículo',
     footerTitle: 'Hablemos.',
   },
@@ -36,7 +36,8 @@ const content = {
     latestPostLabel: '最新日志',
     latestPostTitle: '评测：铭匠 TTArtisan AF 56mm',
     latestPostExcerpt: '在广州街头探索这款镜头的性能与美学。',
-    latestPostDate: '02 4月 2024',
+    latestPostDate: '2024年 4月',
+    latestPostLink: '/zh/blog/ttartisan56mm18', // Ruta versión china
     readPost: '阅读文章',
     footerTitle: '联系我。',
   },
@@ -53,6 +54,7 @@ const content = {
     latestPostTitle: 'Review: TTArtisan AF 56mm F1.8',
     latestPostExcerpt: 'An exploration of performance and aesthetics of this lens on the streets of Guangzhou.',
     latestPostDate: '02 APR 2024',
+    latestPostLink: '/en/blog/ttartisan56mm18', // Ruta versión inglesa
     readPost: 'Read Article',
     footerTitle: 'Let\'s Talk.',
   }
@@ -136,7 +138,7 @@ export default function LandingPage() {
       {/* Navegación */}
       <nav className="fixed w-full z-50 py-6 px-6 md:py-8 md:px-12 mix-blend-difference">
         <div className="flex justify-between items-center max-w-[1800px] mx-auto">
-          <a href="#" className="text-lg md:text-xl tracking-widest uppercase font-light hover:opacity-70 transition-opacity flex items-center gap-3">
+          <a href="/" className="text-lg md:text-xl tracking-widest uppercase font-light hover:opacity-70 transition-opacity flex items-center gap-3">
             <img src="/logo.svg" alt="Logo" className="w-8 h-8 rounded-md" />
             <span>Kungfundidos</span>
           </a>
@@ -163,9 +165,14 @@ export default function LandingPage() {
               <button onClick={() => setIsLangMenuOpen(!isLangMenuOpen)} className={`p-2 transition-colors ${isLangMenuOpen ? 'text-red-600' : 'text-white'}`}>
                 <Globe size={22} strokeWidth={1.5} />
               </button>
+              {/* CORRECCIÓN MENÚ MÓVIL: Ahora itera sobre objetos para mostrar los labels correctamente */}
               <div className={`absolute top-full right-0 mt-4 bg-[#111] border border-neutral-800 p-2 min-w-[140px] flex flex-col gap-1 transition-all duration-300 origin-top-right ${isLangMenuOpen ? 'opacity-100 scale-100 visible' : 'opacity-0 scale-95 invisible'}`}>
-                {['es', 'zh', 'en'].map((l) => (
-                  <button key={l} onClick={() => toggleLang(l)} className={`text-left px-4 py-3 text-xs uppercase tracking-widest font-sans flex justify-between items-center hover:bg-neutral-900 ${lang === l.code ? 'text-red-600 font-bold' : 'text-neutral-400'}`}>
+                {[
+                  { code: 'es', label: 'Español' },
+                  { code: 'zh', label: '中文' },
+                  { code: 'en', label: 'English' }
+                ].map((l) => (
+                  <button key={l.code} onClick={() => toggleLang(l.code)} className={`text-left px-4 py-3 text-xs uppercase tracking-widest font-sans flex justify-between items-center hover:bg-neutral-900 ${lang === l.code ? 'text-red-600 font-bold' : 'text-neutral-400'}`}>
                     {l.label}
                     {lang === l.code && <Check size={12} />}
                   </button>
@@ -231,8 +238,10 @@ export default function LandingPage() {
          <FadeIn>
            <a href="/obra" className="block max-w-[1400px] mx-auto relative group cursor-pointer">
               <div className="aspect-[16/9] md:aspect-[21/9] overflow-hidden bg-[#111] shadow-2xl relative">
+                {/* Overlay oscuro al hover para resaltar el texto */}
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-500 z-10"></div>
                 
+                {/* Texto central al hover */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 z-20">
                     <span className="text-2xl md:text-4xl font-light italic tracking-widest text-white border-b border-red-600 pb-2">
                         {t.viewWork}
@@ -269,7 +278,8 @@ export default function LandingPage() {
                     </a>
                 </div>
 
-                <a href="/blog/es/ttartisan56mm18" className="group block">
+                {/* CORRECCIÓN: Enlace dinámico según el idioma seleccionado */}
+                <a href={t.latestPostLink} className="group block">
                     <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center">
                         {/* CAJA DE FECHA ELEGANTE */}
                         <div className="w-full md:w-1/3 aspect-[4/3] flex flex-col justify-center items-center bg-[#111] border border-neutral-900 group-hover:border-red-900/50 transition-colors duration-500 relative overflow-hidden">
