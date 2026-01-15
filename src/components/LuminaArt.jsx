@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, Aperture, Globe, Check, ArrowRight, MoveDown, ArrowUpRight } from 'lucide-react';
 
 // --- IMPORTACIÓN DE IMÁGENES LOCALES ---
-// Solo importamos spotlight porque el blog ahora usará fecha
+// Solo importamos la de spotlight. La del blog la hemos quitado.
 import imgSpotlight from '../assets/calle/calle20.jpeg'; 
 
 // --- CONFIGURACIÓN DE CONTENIDO ---
@@ -20,7 +20,7 @@ const content = {
     latestPostLabel: 'Último en el Blog',
     latestPostTitle: 'Review: TTArtisan AF 56mm F1.8',
     latestPostExcerpt: 'Una exploración del rendimiento y la estética de este objetivo en las calles de Guangzhou.',
-    latestPostDate: '02 ABR 2024', // Nueva fecha elegante
+    latestPostDate: '02 ABR 2024', // Formato para el diseño: DÍA MES AÑO
     readPost: 'Leer Artículo',
     footerTitle: 'Hablemos.',
   },
@@ -36,7 +36,7 @@ const content = {
     latestPostLabel: '最新日志',
     latestPostTitle: '评测：铭匠 TTArtisan AF 56mm',
     latestPostExcerpt: '在广州街头探索这款镜头的性能与美学。',
-    latestPostDate: '2024年 4月',
+    latestPostDate: '02 4月 2024',
     readPost: '阅读文章',
     footerTitle: '联系我。',
   },
@@ -52,7 +52,7 @@ const content = {
     latestPostLabel: 'Latest Journal',
     latestPostTitle: 'Review: TTArtisan AF 56mm F1.8',
     latestPostExcerpt: 'An exploration of performance and aesthetics of this lens on the streets of Guangzhou.',
-    latestPostDate: 'APR 02, 2024',
+    latestPostDate: '02 APR 2024',
     readPost: 'Read Article',
     footerTitle: 'Let\'s Talk.',
   }
@@ -106,6 +106,25 @@ export default function LandingPage() {
     if (item === 'Blog' || item === 'Journal' || item === '博客') return '/blog';
     if (item === 'Contacto' || item === 'Contact' || item === '联系') return '/contacto'; 
     return '#';
+  };
+
+  // Función auxiliar para formatear la fecha visualmente
+  const renderDate = (dateString) => {
+    const parts = dateString.split(' ');
+    // Asumimos formato "02 ABR 2024"
+    if (parts.length >= 2) {
+      return (
+        <>
+          <span className="text-5xl md:text-6xl font-serif italic text-white group-hover:text-red-600 transition-colors duration-500">
+            {parts[0]}
+          </span>
+          <span className="text-xs uppercase tracking-[0.3em] text-neutral-500 mt-2 font-sans">
+            {parts.slice(1).join(' ')}
+          </span>
+        </>
+      );
+    }
+    return <span className="text-xl text-white">{dateString}</span>;
   };
 
   return (
@@ -239,7 +258,7 @@ export default function LandingPage() {
          </FadeIn>
       </section>
 
-      {/* Último Post del Blog */}
+      {/* Último Post del Blog (Diseño con Fecha) */}
       <section className="py-24 px-6 md:px-12 bg-[#080808] z-10 relative border-t border-neutral-900">
         <div className="max-w-4xl mx-auto">
             <FadeIn>
@@ -252,14 +271,11 @@ export default function LandingPage() {
 
                 <a href="/blog/es/ttartisan56mm18" className="group block">
                     <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center">
-                        {/* FECHA ELEGANTE EN LUGAR DE IMAGEN */}
-                        <div className="w-full md:w-1/3 aspect-[4/3] flex flex-col justify-center items-center bg-[#111] border border-neutral-900 group-hover:border-red-900/50 transition-colors duration-500">
-                            <span className="text-4xl md:text-5xl font-serif italic text-white group-hover:text-red-600 transition-colors duration-500">
-                              {t.latestPostDate.split(' ')[0]}
-                            </span>
-                            <span className="text-xs uppercase tracking-[0.3em] text-neutral-500 mt-2 font-sans">
-                              {t.latestPostDate.split(' ').slice(1).join(' ')}
-                            </span>
+                        {/* CAJA DE FECHA ELEGANTE */}
+                        <div className="w-full md:w-1/3 aspect-[4/3] flex flex-col justify-center items-center bg-[#111] border border-neutral-900 group-hover:border-red-900/50 transition-colors duration-500 relative overflow-hidden">
+                            {/* Efecto hover sutil en fondo */}
+                            <div className="absolute inset-0 bg-red-900/0 group-hover:bg-red-900/5 transition-colors duration-500"></div>
+                            {renderDate(t.latestPostDate)}
                         </div>
                         
                         {/* Contenido */}
