@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, Aperture, Globe, Check, ArrowRight, MoveDown, ArrowUpRight } from 'lucide-react';
 
 // --- IMPORTACIÓN DE IMÁGENES ---
-// Al importarlas así, Vite/Webpack procesa la ruta final correcta.
-import imgSpotlight from '../src/assets/calle/calle20.jpeg'; 
+import imgSpotlight from '../assets/calle/calle20.jpeg'; 
 import imgBlogPost from '../content/blog/es/ttartisan56mm18/DSC00907.JPG';
 
 // --- CONFIGURACIÓN DE CONTENIDO ---
@@ -116,7 +115,7 @@ export default function LandingPage() {
       <nav className="fixed w-full z-50 py-6 px-6 md:py-8 md:px-12 mix-blend-difference">
         <div className="flex justify-between items-center max-w-[1800px] mx-auto">
           <a href="#" className="text-lg md:text-xl tracking-widest uppercase font-light hover:opacity-70 transition-opacity flex items-center gap-3">
-            <Aperture className="text-red-600 animate-spin-slow" size={24} strokeWidth={2.5} />
+            <img src="/favicon.svg" alt="Logo" className="w-8 h-8 rounded-md" />
             <span>Kungfundidos</span>
           </a>
           
@@ -143,12 +142,8 @@ export default function LandingPage() {
                 <Globe size={22} strokeWidth={1.5} />
               </button>
               <div className={`absolute top-full right-0 mt-4 bg-[#111] border border-neutral-800 p-2 min-w-[140px] flex flex-col gap-1 transition-all duration-300 origin-top-right ${isLangMenuOpen ? 'opacity-100 scale-100 visible' : 'opacity-0 scale-95 invisible'}`}>
-                {[
-                  { code: 'es', label: 'Español' },
-                  { code: 'zh', label: '中文' },
-                  { code: 'en', label: 'English' }
-                ].map((l) => (
-                  <button key={l.code} onClick={() => toggleLang(l.code)} className={`text-left px-4 py-3 text-xs uppercase tracking-widest font-sans flex justify-between items-center hover:bg-neutral-900 ${lang === l.code ? 'text-red-600 font-bold' : 'text-neutral-400'}`}>
+                {['es', 'zh', 'en'].map((l) => (
+                  <button key={l} onClick={() => toggleLang(l)} className={`text-left px-4 py-3 text-xs uppercase tracking-widest font-sans flex justify-between items-center hover:bg-neutral-900 ${lang === l.code ? 'text-red-600 font-bold' : 'text-neutral-400'}`}>
                     {l.label}
                     {lang === l.code && <Check size={12} />}
                   </button>
@@ -214,7 +209,7 @@ export default function LandingPage() {
          <FadeIn>
            <a href="/obra" className="block max-w-[1400px] mx-auto relative group cursor-pointer">
               <div className="aspect-[16/9] md:aspect-[21/9] overflow-hidden bg-[#111] shadow-2xl relative">
-                {/* Overlay oscuro al hover para resaltar el texto */}
+                {/* Overlay oscuro al hover */}
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-500 z-10"></div>
                 
                 {/* Texto central al hover */}
@@ -224,9 +219,9 @@ export default function LandingPage() {
                     </span>
                 </div>
 
-                {/* --- AQUI USAMOS LA VARIABLE IMPORTADA --- */}
+                {/* --- CORRECCIÓN AQUÍ: Añadido .src --- */}
                 <img 
-                    src={imgSpotlight} 
+                    src={imgSpotlight.src} 
                     alt="Spotlight"
                     className="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-[2s] ease-in-out transform group-hover:scale-105"
                 />
@@ -259,9 +254,9 @@ export default function LandingPage() {
                     <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center">
                         {/* Miniatura del post */}
                         <div className="w-full md:w-1/3 aspect-[4/3] overflow-hidden bg-[#111]">
-                            {/* --- AQUI USAMOS LA VARIABLE IMPORTADA --- */}
+                            {/* --- CORRECCIÓN AQUÍ: Añadido .src --- */}
                             <img 
-                                src={imgBlogPost} 
+                                src={imgBlogPost.src} 
                                 alt="Latest Post" 
                                 className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-105"
                                 onError={(e) => {
@@ -307,3 +302,5 @@ export default function LandingPage() {
     </div>
   );
 }
+
+
