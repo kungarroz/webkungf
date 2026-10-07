@@ -1,0 +1,24 @@
+# Cloudflare Pages · cabeceras
+# Si activas Cloudflare Web Analytics, amplía la CSP de la primera regla así:
+#   script-src 'self' https://static.cloudflareinsights.com
+#   connect-src 'self' https://cloudflareinsights.com
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'self'
+
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/img/*
+  Cache-Control: public, max-age=2592000
+
+/css/*
+  Cache-Control: public, max-age=3600
+
+/js/*
+  Cache-Control: public, max-age=3600
+
+/i18n/*
+  Cache-Control: public, max-age=3600

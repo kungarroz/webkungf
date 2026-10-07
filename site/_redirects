@@ -1,0 +1,23 @@
+# Cloudflare Pages · URLs antiguas (kungfundidos.com) que ya no existen
+# Todo el blog antiguo y sus idiomas van a la portada con 301.
+/blog / 301
+/blog/* / 301
+/es/blog / 301
+/es/blog/* / 301
+/en/blog / 301
+/en/blog/* / 301
+/zh-cn/blog / 301
+/zh-cn/blog/* / 301
+/zh/blog / 301
+/zh/blog/* / 301
+
+# Páginas sueltas de la web anterior
+/obra / 301
+/sobre-mi / 301
+/contacto / 301
+
+# Sitemap y logo de la web anterior
+/sitemap-index.xml /sitemap.xml 301
+/sitemap-0.xml /sitemap.xml 301
+/logo.svg /favicon.svg 301
+/ogp.png /og.jpg 301
