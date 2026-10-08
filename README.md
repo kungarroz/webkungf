@@ -50,10 +50,6 @@ Hace falta Node 18 o superior. Para la fuente china, `build.mjs` usa Python 3 y 
 
 Las URLs antiguas del blog (`/blog`, `/es/blog/…`, `/en/blog/…`, `/zh-cn/blog/…`) y las páginas sueltas (`/obra`, `/sobre-mi`, `/contacto`) llevan a la portada con un 301 gracias a `site/_redirects`.
 
-## Mientras tanto en Vercel (puente temporal)
-
-`vercel.json` permite que el proyecto de Vercel que ya existía publique esta web sin cambiar nada en su panel: usa la carpeta `site`, ejecuta `node build.mjs` y repite las redirecciones y cabeceras de `_redirects` y `_headers` (Vercel no lee esos dos archivos). **Cuando pases a Cloudflare Pages, borra `vercel.json`**; es lo único de Vercel que queda en el repositorio.
-
 ### Que las entradas de Substack se actualicen solas
 
 Las 3 últimas entradas se leen del RSS **al construir la web**, no desde el navegador. Para que aparezcan sin tocar nada:
