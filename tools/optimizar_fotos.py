@@ -8,7 +8,7 @@ Uso:  python3 tools/optimizar_fotos.py
    (480, 960 y 1600 px, más el ancho nativo si queda lejos; nunca amplía).
 3. Borra de site/img lo que ya no está en la selección (los originales no se tocan).
 4. Reescribe en site/index.html los bloques entre
-      <!--PORTADA--> ... <!--/PORTADA-->   y   <!--GALERIA--> ... <!--/GALERIA-->
+      <!--PORTADA-->, <!--POLAROID--> y <!--GALERIA--> (cada uno con su <!--/…-->)
 
 Requiere ImageMagick (convert) con soporte WebP. Los originales viven en originales/,
 fuera de site/, y no se despliegan.
@@ -67,24 +67,24 @@ def srcset(f):
     return ", ".join(f"{ruta_web(f, a)} {a}w" for a in f["tamanos"])
 
 
-def bloque_portada(grande, polaroid):
+def bloque_portada(grande):
     return (
-        '    <div class="cuadro">\n'
-        '      <div class="ventana grande">\n'
-        f'        <img src="{ruta_web(grande, grande["tamanos"][-1])}" srcset="{srcset(grande)}"\n'
-        '             sizes="(min-width: 700px) 600px, 100vw"\n'
-        f'             width="{grande["ancho"]}" height="{grande["alto"]}" fetchpriority="high" decoding="async"\n'
-        '             alt="Gente de pie, apretada, dentro de un vagón de metro casi a oscuras"\n'
-        '             data-i18n-attr="alt:portada.foto">\n'
-        '      </div>\n'
-        '      <figure class="polaroid">\n'
+        '    <div class="ventana grande">\n'
+        f'      <img src="{ruta_web(grande, grande["tamanos"][-1])}" srcset="{srcset(grande)}"\n'
+        '           sizes="(min-width: 700px) 600px, 100vw"\n'
+        f'           width="{grande["ancho"]}" height="{grande["alto"]}" fetchpriority="high" decoding="async"\n'
+        '           alt="Gente de pie, apretada, dentro de un vagón de metro casi a oscuras"\n'
+        '           data-i18n-attr="alt:portada.foto">\n'
+        '    </div>')
+
+
+def bloque_polaroid(polaroid):
+    return (
         f'        <img src="{ruta_web(polaroid, polaroid["tamanos"][0])}" srcset="{srcset(polaroid)}"\n'
         '             sizes="(min-width: 700px) 200px, 44vw"\n'
         f'             width="{polaroid["ancho"]}" height="{polaroid["alto"]}" decoding="async"\n'
         '             alt="Shande Villa con gorra naranja y la correa de la cámara cruzada al pecho, mirando hacia un lado en un pasillo con luces de neón"\n'
-        '             data-i18n-attr="alt:portada.polaroid">\n'
-        '      </figure>\n'
-        '    </div>')
+        '             data-i18n-attr="alt:portada.polaroid">')
 
 
 def bloque_galeria(seleccion, info):
@@ -95,7 +95,7 @@ def bloque_galeria(seleccion, info):
         pestanas.append(
             f'      <button type="button" role="tab" id="tab-{rid}" aria-controls="panel-{rid}"'
             f' aria-selected="{"true" if activo else "false"}" tabindex="{0 if activo else -1}">'
-            f'<span class="n" aria-hidden="true">{n:02d}</span><span data-i18n="rollo.{rid}">{titulo}</span></button>')
+            f'<span data-i18n="rollo.{rid}">{titulo}</span></button>')
         fotos = []
         total = len(rollo["fotos"])
         for i, nombre in enumerate(rollo["fotos"], 1):
@@ -156,8 +156,8 @@ def main():
     if os.path.exists(INDEX):
         texto = open(INDEX, encoding="utf-8").read()
         r, p = seleccion["foto_grande"], seleccion["polaroid"]
-        texto = reemplazar(texto, "PORTADA", bloque_portada(info[(r["serie"], r["foto"].lower())],
-                                                             info[(p["serie"], p["foto"].lower())]))
+        texto = reemplazar(texto, "PORTADA", bloque_portada(info[(r["serie"], r["foto"].lower())]))
+        texto = reemplazar(texto, "POLAROID", bloque_polaroid(info[(p["serie"], p["foto"].lower())]))
         texto = reemplazar(texto, "GALERIA", bloque_galeria(seleccion, info))
         open(INDEX, "w", encoding="utf-8").write(texto)
 

@@ -141,12 +141,12 @@
     }
     carrete.scrollTo({ left: destino, behavior: sinMovimiento ? 'auto' : 'smooth' });
   }
-  function elegir(id, enfocar) {
+  function elegir(id, enfocar, desplazar) {
     pestanas.forEach(function (b) {
       var activa = b.id === 'tab-' + id;
       b.setAttribute('aria-selected', activa ? 'true' : 'false');
       b.tabIndex = activa ? 0 : -1;
-      if (activa && enfocar) { b.focus(); }
+      if (activa) { if (enfocar) { b.focus(); } if (desplazar && b.scrollIntoView) { b.scrollIntoView({ block: 'nearest', inline: 'nearest' }); } }
     });
     paneles.forEach(function (p) {
       var es = p.id === 'panel-' + id;
@@ -161,7 +161,7 @@
   if (pestanas.length) {
     elegir(pestanas[0].id.replace('tab-', ''), false);
     pestanas.forEach(function (b, i) {
-      b.addEventListener('click', function () { elegir(b.id.replace('tab-', ''), false); });
+      b.addEventListener('click', function () { elegir(b.id.replace('tab-', ''), false, true); });
       b.addEventListener('keydown', function (e) {
         var n = null;
         if (e.key === 'ArrowRight') { n = (i + 1) % pestanas.length; }

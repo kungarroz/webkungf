@@ -90,6 +90,7 @@ Se genera con `tools/generar_og.py` (necesita las TTF de Source Serif 4 y DM Mon
 |---|---|---|
 | Texto y títulos | Source Serif 4 (redonda y cursiva) | `site/fonts/`, recortada a latín |
 | Texto impreso en el borde de la tira | DM Mono | `site/fonts/` |
+| Firma 山德 de la polaroid | Long Cang, recortada a esos dos caracteres (1,3 KB) | `site/fonts/` (`tools/subset_firma.py` para cambiarla) |
 | Chino simplificado | Noto Serif SC, peso variable 400–600 | se recorta en cada build desde `tools/fuentes-origen/` |
 
 La fuente china **solo se descarga cuando el visitante elige chino**. Todas son SIL Open Font License; las licencias están junto a los archivos. Los archivos de `site/fonts` son recortes técnicos (solo los caracteres necesarios) de las fuentes originales.

@@ -35,3 +35,16 @@ El resto de claves (enlaces, galería, rollos, visor, entradas, contacto, pie) s
 En chino, «胶卷» es el rollo de película; si prefieres «底片» (negativo) para el aire más analógico, es un cambio de una línea en `zh.json`. Los textos alternativos de la polaroid y del retrato son descripciones mías de las fotos: corrígelas si la polaroid no es un vagón de metro o si prefieres otra descripción.
 
 | `portada.sub` | Fotografía de calle · Guangzhou | Street photography · Guangzhou | 街头摄影 · 广州 |
+
+## Menú, secciones renombradas y presentación acortada
+
+| Clave | Español | Inglés | Chino |
+|---|---|---|---|
+| `menu.redes` / `enlaces.titulo` | Redes | Social | 社交 |
+| `menu.carretes` / `galeria.titulo` | Carretes | Rolls | 胶卷 |
+| `menu.escritos` / `entradas.titulo` | Escritos | Writing | 文字 |
+| `menu.contacto` | Contacto | Contact | 联系 |
+| `entradas.todas` | Leer más en Substack | Read more on Substack | 在 Substack 阅读更多 |
+| `portada.bio` (más corta) | Soy fotógrafo de calle, español, y vivo en Guangzhou. Salgo a caminar con la cámara y fotografío lo que me cruzo: la gente, la luz, lo que quizá mañana ya no esté. | I'm a street photographer from Spain and I live in Guangzhou. I go out walking with my camera and photograph whatever crosses my path: people, light, things that may not be there tomorrow. | 我是一名住在广州的西班牙街头摄影师。我带着相机出门散步，拍下路上遇到的一切：人、光线，还有也许明天就不在了的东西。 |
+
+**山德** (la firma de la polaroid) lo he tratado como un nombre, no como un texto que traducir, así que no lleva traducción debajo. Si prefieres que la lleve, o si tu nombre en chino se escribe de otra forma, dímelo.

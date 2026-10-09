@@ -30,8 +30,8 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="fonts/source-serif-4-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/estilo.css?v=96ef3f39">
-<script src="js/idioma-inicial.js?v=96ef3f39"></script>
+<link rel="stylesheet" href="css/estilo.css?v=53447b2d">
+<script src="js/idioma-inicial.js?v=53447b2d"></script>
 
 <script type="application/ld+json">
 {
@@ -53,47 +53,60 @@
 <body>
 <a class="saltar" href="#contenido" data-i18n="skip">Saltar al contenido</a>
 
-<header class="barra">
-  <p class="marca">Shande Villa</p>
-  <div class="idioma" role="group" aria-label="Idioma" data-i18n-attr="aria-label:idioma.etiqueta">
-    <button type="button" data-idioma="es" lang="es" aria-label="Español" aria-pressed="true">ES</button>
-    <button type="button" data-idioma="zh" lang="zh-Hans" aria-label="中文" aria-pressed="false">中文</button>
-    <button type="button" data-idioma="en" lang="en" aria-label="English" aria-pressed="false">EN</button>
+<header class="cabecera">
+  <div class="barra">
+    <p class="marca">Shande Villa</p>
+    <div class="idioma" role="group" aria-label="Idioma" data-i18n-attr="aria-label:idioma.etiqueta">
+      <button type="button" data-idioma="es" lang="es" aria-label="Español" aria-pressed="true">ES</button>
+      <button type="button" data-idioma="zh" lang="zh-Hans" aria-label="中文" aria-pressed="false">中文</button>
+      <button type="button" data-idioma="en" lang="en" aria-label="English" aria-pressed="false">EN</button>
+    </div>
   </div>
+  <nav class="menu" aria-label="Menú" data-i18n-attr="aria-label:menu.etiqueta">
+    <a href="#redes" data-i18n="menu.redes">Redes</a>
+    <a href="#carretes" data-i18n="menu.carretes">Carretes</a>
+    <a href="#escritos" data-i18n="menu.escritos">Escritos</a>
+    <a href="#contacto" data-i18n="menu.contacto">Contacto</a>
+  </nav>
 </header>
 
 <main id="contenido">
 <div class="pagina">
 
-  <!-- 00 · PORTADA: retrato en un fotograma y una polaroid encima. Se genera con tools/optimizar_fotos.py -->
-  <section class="portada" aria-label="Shande Villa">
+  <!-- PORTADA: una sola composición. Las fotos se generan con tools/optimizar_fotos.py -->
+  <section class="portada" aria-labelledby="h-portada">
     <p class="borde" aria-hidden="true"></p>
 <!--PORTADA-->
-    <div class="cuadro">
-      <div class="ventana grande">
-        <img src="img/calle/calle20-1086.webp" srcset="img/calle/calle20-480.webp 480w, img/calle/calle20-960.webp 960w, img/calle/calle20-1086.webp 1086w"
-             sizes="(min-width: 700px) 600px, 100vw"
-             width="1086" height="724" fetchpriority="high" decoding="async"
-             alt="Gente de pie, apretada, dentro de un vagón de metro casi a oscuras"
-             data-i18n-attr="alt:portada.foto">
-      </div>
+    <div class="ventana grande">
+      <img src="img/calle/calle20-1086.webp" srcset="img/calle/calle20-480.webp 480w, img/calle/calle20-960.webp 960w, img/calle/calle20-1086.webp 1086w"
+           sizes="(min-width: 700px) 600px, 100vw"
+           width="1086" height="724" fetchpriority="high" decoding="async"
+           alt="Gente de pie, apretada, dentro de un vagón de metro casi a oscuras"
+           data-i18n-attr="alt:portada.foto">
+    </div>
+<!--/PORTADA-->
+    <div class="rotulo">
       <figure class="polaroid">
+<!--POLAROID-->
         <img src="img/personales/perfil-480.webp" srcset="img/personales/perfil-480.webp 480w, img/personales/perfil-739.webp 739w"
              sizes="(min-width: 700px) 200px, 44vw"
              width="739" height="724" decoding="async"
              alt="Shande Villa con gorra naranja y la correa de la cámara cruzada al pecho, mirando hacia un lado en un pasillo con luces de neón"
              data-i18n-attr="alt:portada.polaroid">
+<!--/POLAROID-->
+        <figcaption class="firma" lang="zh-Hans" aria-hidden="true">山德</figcaption>
       </figure>
+      <div class="titulos">
+        <h1 id="h-portada" class="frase"><span class="oculto">Shande Villa. </span><span data-i18n="portada.frase">Antes de que todo cambie</span></h1>
+        <p class="sub" data-i18n="portada.sub">Fotografía de calle · Guangzhou</p>
+      </div>
     </div>
-<!--/PORTADA-->
+    <p class="bio" data-i18n="portada.bio">Soy fotógrafo de calle, español, y vivo en Guangzhou. Salgo a caminar con la cámara y fotografío lo que me cruzo: la gente, la luz, lo que quizá mañana ya no esté.</p>
   </section>
 
-  <h1 id="h-portada" class="frase"><span class="oculto">Shande Villa. </span><span data-i18n="portada.frase">Antes de que todo cambie</span></h1>
-  <p class="sub" data-i18n="portada.sub">Fotografía de calle · Guangzhou</p>
-
-  <!-- ENLACES · una tira vertical de película: cada enlace es un fotograma. La numeración sale sola (CSS), así que añadir o quitar uno renumera el resto -->
-  <section class="enlaces" aria-labelledby="h-enlaces">
-    <h2 id="h-enlaces" class="titulo" data-i18n="enlaces.titulo">Dónde me encuentras</h2>
+  <!-- REDES · una tira vertical de película: cada enlace es un fotograma. La numeración sale sola (CSS), así que añadir o quitar uno renumera el resto -->
+  <section class="enlaces" id="redes" aria-labelledby="h-enlaces">
+    <h2 id="h-enlaces" class="titulo" data-i18n="enlaces.titulo">Redes</h2>
     <div class="tira">
       <ol class="lista-enlaces">
         <li class="enlace">
@@ -128,36 +141,23 @@
           </a>
         </li>
         -->
-        <li class="enlace">
-          <p class="borde" aria-hidden="true"></p>
-          <a href="https://shandevilla.substack.com/" rel="me noopener">
-            <span class="nombre">Substack</span>
-            <span class="flecha" aria-hidden="true">↗</span>
-          </a>
-        </li>
       </ol>
     </div>
   </section>
 
-  <!-- SOBRE MÍ -->
-  <section class="sobre" aria-label="Sobre mí" data-i18n-attr="aria-label:sobre.titulo">
-    <p class="bio" data-i18n="portada.bio">Soy fotógrafo de calle, español, y vivo en Guangzhou, en el sur de China. Salgo a caminar con la cámara y fotografío lo que me cruzo: la gente, la luz, lo que quizá mañana ya no esté. No busco la foto perfecta, sino la que se parezca a ese momento.</p>
-  </section>
-
   <!-- CARRETES · se elige uno y se recorre. Se genera con tools/optimizar_fotos.py desde tools/seleccion.json -->
-  <section class="galeria" aria-labelledby="h-galeria">
+  <section class="galeria" id="carretes" aria-labelledby="h-galeria">
     <h2 id="h-galeria" class="titulo" data-i18n="galeria.titulo">Carretes</h2>
-    <p class="intro" data-i18n="galeria.intro">Elige un carrete y desliza para recorrerlo. Toca una foto para verla grande.</p>
 <!--GALERIA-->
     <div class="selector-carrete" role="tablist" aria-label="Carretes" data-i18n-attr="aria-label:galeria.carretes">
-      <button type="button" role="tab" id="tab-calle" aria-controls="panel-calle" aria-selected="true" tabindex="0"><span class="n" aria-hidden="true">01</span><span data-i18n="rollo.calle">Calle</span></button>
-      <button type="button" role="tab" id="tab-noche" aria-controls="panel-noche" aria-selected="false" tabindex="-1"><span class="n" aria-hidden="true">02</span><span data-i18n="rollo.noche">Noche</span></button>
-      <button type="button" role="tab" id="tab-retratos-urbanos" aria-controls="panel-retratos-urbanos" aria-selected="false" tabindex="-1"><span class="n" aria-hidden="true">03</span><span data-i18n="rollo.retratos-urbanos">Retratos urbanos</span></button>
-      <button type="button" role="tab" id="tab-hongkong" aria-controls="panel-hongkong" aria-selected="false" tabindex="-1"><span class="n" aria-hidden="true">04</span><span data-i18n="rollo.hongkong">Hong Kong</span></button>
-      <button type="button" role="tab" id="tab-macao" aria-controls="panel-macao" aria-selected="false" tabindex="-1"><span class="n" aria-hidden="true">05</span><span data-i18n="rollo.macao">Macao</span></button>
-      <button type="button" role="tab" id="tab-arquitectura" aria-controls="panel-arquitectura" aria-selected="false" tabindex="-1"><span class="n" aria-hidden="true">06</span><span data-i18n="rollo.arquitectura">Arquitectura</span></button>
-      <button type="button" role="tab" id="tab-detalles" aria-controls="panel-detalles" aria-selected="false" tabindex="-1"><span class="n" aria-hidden="true">07</span><span data-i18n="rollo.detalles">Detalles</span></button>
-      <button type="button" role="tab" id="tab-retratos" aria-controls="panel-retratos" aria-selected="false" tabindex="-1"><span class="n" aria-hidden="true">08</span><span data-i18n="rollo.retratos">Retratos</span></button>
+      <button type="button" role="tab" id="tab-calle" aria-controls="panel-calle" aria-selected="true" tabindex="0"><span data-i18n="rollo.calle">Calle</span></button>
+      <button type="button" role="tab" id="tab-noche" aria-controls="panel-noche" aria-selected="false" tabindex="-1"><span data-i18n="rollo.noche">Noche</span></button>
+      <button type="button" role="tab" id="tab-retratos-urbanos" aria-controls="panel-retratos-urbanos" aria-selected="false" tabindex="-1"><span data-i18n="rollo.retratos-urbanos">Retratos urbanos</span></button>
+      <button type="button" role="tab" id="tab-hongkong" aria-controls="panel-hongkong" aria-selected="false" tabindex="-1"><span data-i18n="rollo.hongkong">Hong Kong</span></button>
+      <button type="button" role="tab" id="tab-macao" aria-controls="panel-macao" aria-selected="false" tabindex="-1"><span data-i18n="rollo.macao">Macao</span></button>
+      <button type="button" role="tab" id="tab-arquitectura" aria-controls="panel-arquitectura" aria-selected="false" tabindex="-1"><span data-i18n="rollo.arquitectura">Arquitectura</span></button>
+      <button type="button" role="tab" id="tab-detalles" aria-controls="panel-detalles" aria-selected="false" tabindex="-1"><span data-i18n="rollo.detalles">Detalles</span></button>
+      <button type="button" role="tab" id="tab-retratos" aria-controls="panel-retratos" aria-selected="false" tabindex="-1"><span data-i18n="rollo.retratos">Retratos</span></button>
     </div>
     <div class="rollo" id="panel-calle" role="tabpanel" aria-labelledby="tab-calle">
       <h3 class="rollo-titulo" data-i18n="rollo.calle">Calle</h3>
@@ -339,10 +339,9 @@
 <!--/GALERIA-->
   </section>
 
-  <!-- ÚLTIMAS ENTRADAS · build.mjs las rellena desde el RSS de Substack al construir la web -->
-  <section class="entradas" aria-labelledby="h-entradas">
-    <h2 id="h-entradas" class="titulo" data-i18n="entradas.titulo">Últimas entradas</h2>
-    <p class="intro" data-i18n="entradas.intro">Lo que escribo, en Substack.</p>
+  <!-- ESCRITOS · lo único de Substack en la web: build.mjs trae las últimas entradas del RSS al construir -->
+  <section class="entradas" id="escritos" aria-labelledby="h-entradas">
+    <h2 id="h-entradas" class="titulo" data-i18n="entradas.titulo">Escritos</h2>
     <ol class="lista-entradas">
 <!--ENTRADAS-->
       <li class="entrada entrada-vacia">
@@ -350,15 +349,16 @@
       </li>
 <!--/ENTRADAS-->
     </ol>
-    <p class="todas"><a href="https://shandevilla.substack.com/" rel="me noopener" data-i18n="entradas.todas">Ver todas en Substack</a></p>
+    <p class="todas"><a href="https://shandevilla.substack.com/" rel="me noopener"><span data-i18n="entradas.todas">Leer más en Substack</span> <span aria-hidden="true">↗</span></a></p>
   </section>
 
   <!-- CONTACTO -->
-  <section class="contacto" aria-labelledby="h-contacto">
+  <section class="contacto" id="contacto" aria-labelledby="h-contacto">
     <h2 id="h-contacto" class="titulo" data-i18n="contacto.titulo">Colaboraciones con marcas</h2>
     <p data-i18n="contacto.texto">Si tienes una marca y quieres trabajar conmigo, escríbeme por mensaje directo en Instagram con tu idea y los plazos. Te respondo yo.</p>
     <p class="accion"><a class="boton" href="https://ig.me/m/shande.villa" rel="me noopener"><span data-i18n="contacto.cta">Escribirme por Instagram</span> <span aria-hidden="true">↗</span></a></p>
   </section>
+
 </div>
 </main>
 
@@ -384,6 +384,6 @@
   Web Analytics, copia tu token, descomenta esta línea y amplía la política CSP de _headers (las instrucciones están allí).
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "PEGA_AQUI_TU_TOKEN"}'></script>
 -->
-<script src="js/app.js?v=96ef3f39" defer></script>
+<script src="js/app.js?v=53447b2d" defer></script>
 </body>
 </html>
