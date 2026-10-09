@@ -136,9 +136,10 @@ html[lang="zh-Hans"] .titulo { font-size: .875rem; letter-spacing: .14em; }
 .titulos { padding-top: 128px; min-width: 0; }
 .frase { font-size: clamp(1.9rem, 8.6vw, 2.6rem); font-style: italic; line-height: 1; letter-spacing: -.01em; text-wrap: balance; }
 html[lang="zh-Hans"] .frase { font-style: normal; font-size: clamp(1.75rem, 7.6vw, 2.3rem); letter-spacing: .04em; line-height: 1.25; }
-.bio { margin-top: 24px; font-size: 1.1875rem; line-height: 1.5; font-weight: 300; text-wrap: pretty; }
-html[lang="zh-Hans"] .bio { font-weight: 400; }
-
+/* Texto corrido: la presentación y el párrafo de contacto comparten estilo */
+.bio, .contacto p { font-size: 1.0625rem; line-height: 1.6; font-weight: 300; text-wrap: pretty; }
+.bio { margin-top: 24px; }
+html[lang="zh-Hans"] .bio, 
 /* ───────── Redes: dos carretes. Fuera de China (amarillo y rojo) y en China (verde) ───────── */
 .enlaces { counter-reset: enlace; }
 .grupo { margin-top: 18px; border: 1px solid var(--borde-g); border-radius: 4px; overflow: hidden; }
@@ -246,10 +247,11 @@ html.js .mandos { display: flex; align-items: center; justify-content: space-bet
 @keyframes enrolla { from { transform: translateX(70%); } to { transform: none; } }
 
 /* ───────── Contacto ───────── */
-.contacto p { max-width: 34rem; font-weight: 300; text-wrap: pretty; }
+.contacto p { max-width: 34rem; }
 html[lang="zh-Hans"] .contacto p { font-weight: 400; }
 .accion { margin-top: 20px; }
 .contacto-fila {
+  width: 100%; background: none; border-inline: 0; font: inherit; text-align: left; cursor: pointer;
   display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 18px 0;
   border-block: 1px solid var(--filete); color: var(--papel); text-decoration: none;
 }
@@ -260,6 +262,49 @@ html[lang="zh-Hans"] .contacto p { font-weight: 400; }
 
 .pie { padding-block: 48px 48px; color: var(--tenue); font-size: .8125rem; font-weight: 300; }
 .pie p + p { margin-top: 4px; }
+
+/* ───────── Formulario de contacto: una ventana con marcas de recorte de visor ───────── */
+.formulario {
+  width: min(calc(100vw - 16px), 460px); max-width: none; max-height: calc(100dvh - 16px); margin: auto; padding: 0;
+  background: var(--ventana); color: var(--papel); border: 1px solid var(--filete); border-radius: 3px; overflow: auto;
+}
+.formulario::backdrop { background: rgba(8, 5, 3, .86); }
+.formulario form { position: relative; padding: 8px 18px 20px; }
+/* las cuatro esquinas del visor, dibujadas con líneas finas ámbar */
+.f-marcas {
+  position: absolute; inset: 8px; pointer-events: none; background-repeat: no-repeat;
+  background-image:
+    linear-gradient(var(--ambar), var(--ambar)), linear-gradient(var(--ambar), var(--ambar)),
+    linear-gradient(var(--ambar), var(--ambar)), linear-gradient(var(--ambar), var(--ambar)),
+    linear-gradient(var(--ambar), var(--ambar)), linear-gradient(var(--ambar), var(--ambar)),
+    linear-gradient(var(--ambar), var(--ambar)), linear-gradient(var(--ambar), var(--ambar));
+  background-size: 16px 1px, 1px 16px, 16px 1px, 1px 16px, 16px 1px, 1px 16px, 16px 1px, 1px 16px;
+  background-position: left top, left top, right top, right top, left bottom, left bottom, right bottom, right bottom;
+}
+.f-cab { display: flex; align-items: center; justify-content: space-between; padding-left: 4px; }
+.f-cerrar { min-width: 44px; min-height: 44px; margin-right: -10px; font-size: 1.6rem; line-height: 1; color: var(--papel); background: none; border: 0; cursor: pointer; }
+.f-cerrar:hover { color: var(--ambar); }
+.f-titulo { margin-top: 2px; font-family: var(--display), var(--cjk-display); font-weight: 400; font-size: 1.75rem; line-height: 1.15; }
+.f-intro { margin-top: 6px; color: var(--tenue); font-size: .9375rem; font-weight: 300; }
+html[lang="zh-Hans"] .f-intro { font-weight: 400; }
+.f-campo { margin-top: 16px; }
+.f-campo label, .f-trampa label { display: block; color: var(--tenue); font-size: .6875rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; line-height: 1.4; }
+html[lang="zh-Hans"] .f-campo label { font-size: .8125rem; letter-spacing: .1em; }
+.f-campo input, .f-campo textarea {
+  display: block; width: 100%; margin-top: 4px; padding: 9px 0; color: var(--papel); background: transparent;
+  font: inherit; font-size: 1rem; border: 0; border-bottom: 1px solid var(--filete); border-radius: 0;
+}
+.f-campo textarea { min-height: 7.5rem; padding: 10px 12px; resize: vertical; border: 1px solid var(--filete); }
+.f-campo input:focus, .f-campo textarea:focus { border-color: var(--ambar); }
+.f-trampa { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.f-captcha { margin-top: 18px; min-height: 66px; }
+.f-estado { min-height: 1.5em; margin-top: 8px; color: var(--tenue); font-size: .9375rem; }
+.f-estado.error { color: var(--impreso); }
+.f-enviar { margin-top: 4px; }
+.f-enviar[aria-disabled="true"] { opacity: .5; pointer-events: none; }
+.f-alt { margin-top: 12px; color: var(--tenue); font-size: .875rem; }
+.f-alt a { text-decoration-color: var(--ambar); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+html.formulario-abierto { overflow: hidden; }
 
 /* ───────── Visor ───────── */
 .visor {

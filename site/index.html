@@ -31,8 +31,8 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/instrument-serif-italic-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/estilo.css?v=b69ed136">
-<script src="js/idioma-inicial.js?v=b69ed136"></script>
+<link rel="stylesheet" href="css/estilo.css?v=e1b1b1e3">
+<script src="js/idioma-inicial.js?v=e1b1b1e3"></script>
 
 <script type="application/ld+json">
 {
@@ -344,11 +344,12 @@
 <!--/GALERIA-->
   </section>
 
-  <!-- CONTACTO -->
+  <!-- CONTACTO · el botón abre la ventana del formulario (más abajo). Tu correo no está en la web: lo guarda el servidor -->
   <section class="contacto" id="contacto" aria-labelledby="h-contacto">
-    <h2 id="h-contacto" class="titulo" data-i18n="contacto.titulo">Colaboraciones con marcas</h2>
-    <p data-i18n="contacto.texto">Si tienes una marca y quieres trabajar conmigo, escríbeme por mensaje directo en Instagram con tu idea y los plazos. Te respondo yo.</p>
-    <p class="accion"><a class="contacto-fila" href="https://ig.me/m/shande.villa" rel="me noopener"><span class="nombre" data-i18n="contacto.cta">Escríbeme por Instagram</span><span class="flecha" aria-hidden="true"></span></a></p>
+    <h2 id="h-contacto" class="titulo" data-i18n="contacto.titulo">Contacto</h2>
+    <p data-i18n="contacto.texto">Para colaboraciones con marcas, prints o cualquier otra consulta, utiliza el formulario de contacto. Te respondo yo.</p>
+    <p class="accion"><button type="button" class="contacto-fila" id="abrir-contacto" aria-haspopup="dialog"><span class="nombre" data-i18n="contacto.cta">Abrir el formulario</span><span class="flecha" aria-hidden="true"></span></button></p>
+    <noscript><p>Para escribirme hace falta activar JavaScript. Si no puedes, escríbeme por <a href="https://ig.me/m/shande.villa" rel="me noopener">Instagram</a>.</p></noscript>
   </section>
 
 </div>
@@ -358,6 +359,27 @@
   <p>© 2026 Shande Villa</p>
   <p data-i18n="footer.texto">Todas las fotos son mías. Si quieres usar alguna, escríbeme antes.</p>
 </footer>
+
+<dialog id="formulario" class="formulario" aria-labelledby="f-titulo">
+  <form id="f-form" novalidate>
+    <span class="f-marcas" aria-hidden="true"></span>
+    <div class="f-cab">
+      <p class="borde" aria-hidden="true">SV 400 · 37 · 37A</p>
+      <button type="button" class="f-cerrar" aria-label="Cerrar" data-i18n-attr="aria-label:form.cerrar">×</button>
+    </div>
+    <h2 id="f-titulo" class="f-titulo" data-i18n="form.titulo">Escríbeme</h2>
+    <p class="f-intro" data-i18n="form.intro">Tu mensaje me llega solo a mí, y no comparto tu email con nadie.</p>
+    <div class="f-campo"><label for="f-email" data-i18n="form.email">Email</label><input id="f-email" name="email" type="email" required maxlength="254" autocomplete="email" inputmode="email"></div>
+    <div class="f-campo"><label for="f-asunto" data-i18n="form.asunto">Asunto</label><input id="f-asunto" name="asunto" type="text" required maxlength="120" autocomplete="off"></div>
+    <div class="f-campo"><label for="f-mensaje" data-i18n="form.mensaje">Descripción</label><textarea id="f-mensaje" name="mensaje" required rows="5" maxlength="4000"></textarea></div>
+    <div class="f-trampa" aria-hidden="true"><label for="f-web" data-i18n="form.trampa">No rellenar este campo</label><input id="f-web" name="web" type="text" tabindex="-1" autocomplete="off"></div>
+    <!-- Captcha de Cloudflare (Turnstile). La clave del sitio es pública; se pone con la variable TURNSTILE_SITE_KEY al construir (ver README) -->
+    <div id="f-captcha" class="f-captcha" data-sitekey="TU_SITE_KEY"></div>
+    <p id="f-estado" class="f-estado" role="status" aria-live="polite"></p>
+    <button type="submit" class="contacto-fila f-enviar"><span class="nombre" data-i18n="form.enviar">Enviar</span><span class="flecha" aria-hidden="true"></span></button>
+    <p class="f-alt" id="f-alt" hidden><span data-i18n="form.alt">¿No funciona? Escríbeme por</span> <a href="https://ig.me/m/shande.villa" rel="me noopener">Instagram</a></p>
+  </form>
+</dialog>
 
 <dialog id="visor" class="visor" aria-label="Visor de fotos" data-i18n-attr="aria-label:visor.etiqueta">
   <div class="visor-barra">
@@ -376,6 +398,6 @@
   Web Analytics, copia tu token, descomenta esta línea y amplía la política CSP de _headers (las instrucciones están allí).
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "PEGA_AQUI_TU_TOKEN"}'></script>
 -->
-<script src="js/app.js?v=b69ed136" defer></script>
+<script src="js/app.js?v=e1b1b1e3" defer></script>
 </body>
 </html>

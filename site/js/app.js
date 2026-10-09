@@ -238,6 +238,101 @@
   }
   enlacesMenu.forEach(function (a) { a.addEventListener('click', function () { marcar(a.getAttribute('href').slice(1)); }); });
 
+  /* ───────── Formulario de contacto ─────────
+     El mensaje va a /api/contacto (una función de Cloudflare que comprueba el captcha y reenvía a tu correo).
+     El script del captcha (Cloudflare Turnstile) NO se carga hasta que alguien abre la ventana. */
+  var ventana = document.getElementById('formulario');
+  var abrirForm = document.getElementById('abrir-contacto');
+  if (ventana && abrirForm && typeof ventana.showModal === 'function') {
+    var formu = document.getElementById('f-form');
+    var estado = document.getElementById('f-estado');
+    var alternativa = document.getElementById('f-alt');
+    var zonaCaptcha = document.getElementById('f-captcha');
+    var botonEnviar = formu.querySelector('.f-enviar');
+    var claveSitio = zonaCaptcha.getAttribute('data-sitekey') || '';
+    var configurado = /^[0-9A-Za-z_-]{8,}$/.test(claveSitio) && claveSitio.indexOf('TU_') !== 0;
+    var MSG = {
+      enviando: 'Enviando…', ok: 'Recibido. Te responderé yo.', captcha: 'Marca primero la verificación.',
+      campos: 'Revisa el email y rellena todos los campos.', servidor: 'No se ha podido enviar. Inténtalo de nuevo en un rato.',
+      config: 'El formulario todavía no está activado.', carga: 'No se ha podido cargar la verificación.'
+    };
+    var tokenCaptcha = '', widget = null, scriptCaptcha = null, enviando = false;
+    var IDIOMA_CAPTCHA = { es: 'es', zh: 'zh-cn', en: 'en' };
+
+    var mensaje = function (clave) {
+      var d = diccionarios[actual];
+      return (actual !== 'es' && d && d['form.msg.' + clave]) || MSG[clave];
+    };
+    var decir = function (clave, error) {
+      estado.textContent = clave ? mensaje(clave) : '';
+      estado.classList.toggle('error', !!error);
+      alternativa.hidden = !error;
+    };
+    var cargarCaptcha = function () {
+      if (window.turnstile) { return Promise.resolve(); }
+      if (scriptCaptcha) { return scriptCaptcha; }
+      scriptCaptcha = new Promise(function (ok, fallo) {
+        var s = document.createElement('script');
+        s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+        s.async = true; s.onload = ok;
+        s.onerror = function () { scriptCaptcha = null; fallo(new Error('turnstile')); };
+        document.head.appendChild(s);
+      });
+      return scriptCaptcha;
+    };
+    var reiniciarCaptcha = function () { tokenCaptcha = ''; if (widget !== null && window.turnstile) { window.turnstile.reset(widget); } };
+    var pintarCaptcha = function () {
+      if (!configurado) { decir('config', true); return; }
+      cargarCaptcha().then(function () {
+        if (widget !== null) { window.turnstile.reset(widget); return; }
+        widget = window.turnstile.render(zonaCaptcha, {
+          sitekey: claveSitio, theme: 'dark', size: 'flexible', language: IDIOMA_CAPTCHA[actual] || 'es',
+          callback: function (t) { tokenCaptcha = t; decir(''); },
+          'expired-callback': function () { tokenCaptcha = ''; },
+          'error-callback': function () { tokenCaptcha = ''; decir('carga', true); }
+        });
+      }).catch(function () { decir('carga', true); });
+    };
+
+    abrirForm.addEventListener('click', function () {
+      decir('');
+      raiz.classList.add('formulario-abierto');
+      ventana.showModal();
+      pintarCaptcha();
+    });
+    ventana.addEventListener('close', function () { raiz.classList.remove('formulario-abierto'); });
+    ventana.querySelector('.f-cerrar').addEventListener('click', function () { ventana.close(); });
+    ventana.addEventListener('click', function (e) { if (e.target === ventana) { ventana.close(); } }); // clic fuera = cerrar
+
+    formu.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (enviando) { return; }
+      if (!formu.checkValidity()) {
+        decir('campos', true);
+        var invalido = formu.querySelector(':invalid');
+        if (invalido) { invalido.focus(); }
+        return;
+      }
+      if (!configurado) { decir('config', true); return; }
+      if (!tokenCaptcha) { decir('captcha', true); return; }
+      enviando = true; botonEnviar.setAttribute('aria-disabled', 'true'); decir('enviando', false);
+      fetch('/api/contacto', {
+        method: 'POST', headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          email: formu.elements.email.value, asunto: formu.elements.asunto.value, mensaje: formu.elements.mensaje.value,
+          web: formu.elements.web.value, token: tokenCaptcha
+        })
+      }).then(function (r) {
+        return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok && j.ok === true, error: j.error }; });
+      }).then(function (r) {
+        if (r.ok) { formu.reset(); decir('ok', false); }
+        else { decir(r.error === 'captcha' || r.error === 'campos' || r.error === 'config' ? r.error : 'servidor', true); }
+        reiniciarCaptcha();
+      }).catch(function () { decir('servidor', true); reiniciarCaptcha(); })
+        .then(function () { enviando = false; botonEnviar.removeAttribute('aria-disabled'); });
+    });
+  }
+
   /* ───────── Visor de fotos ───────── */
   var visor = document.getElementById('visor');
   if (!visor || typeof visor.showModal !== 'function') { return; } // sin <dialog>: los enlaces abren la imagen

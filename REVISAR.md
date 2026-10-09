@@ -82,3 +82,15 @@ Debajo de 小红书 y 抖音 solo queda su nombre en letras latinas (**Xiaohongs
 La imagen para redes (`og.jpg`) ahora dice «Fotografía de calle en China» y «Desde 2008».
 
 La foto grande de la portada usa una versión recortada de `calle20` (se quita el borde negro de arriba, 1086×620). El original en `originales/` no se toca. El recorte está en `tools/seleccion.json` (`"recorte": "1086x620+0+104"`); si cambias la foto grande, quítalo o ajústalo.
+
+## Formulario de contacto
+
+| Clave | Español | Inglés | Chino |
+|---|---|---|---|
+| `contacto.texto` (sustituye a «Si tienes una marca…») | Para colaboraciones con marcas, prints o cualquier otra consulta, utiliza el formulario de contacto. Te respondo yo. | For brand collaborations, prints or anything else, use the contact form. I'll reply myself. | 品牌合作、印制作品或其他事宜，请使用联系表单。我会亲自回复。 |
+| `contacto.cta` | Abrir el formulario | Open the form | 打开表单 |
+| `form.titulo` / `form.intro` | Escríbeme / Tu mensaje me llega solo a mí… | Write to me / … | 给我写信 / … |
+| `form.email` / `form.asunto` / `form.mensaje` | Email / Asunto / Descripción | Email / Subject / Description | 邮箱 / 主题 / 说明 |
+| `form.msg.*` (enviando, ok, captcha, campos, servidor, config, carga) | Mensajes de estado | idem | idem |
+
+El español de `contacto.texto` es mi forma de rellenar tu «blablabla»: cámbialo en `site/index.html` (y en los dos JSON) si quieres otra redacción. Todo el chino y el inglés del formulario es traducción mía.

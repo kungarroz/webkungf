@@ -2,7 +2,7 @@
 
 Web personal de Shande Villa, fotógrafo de calle que vive en Guangzhou. Sirve también como enlace de la bio de Instagram.
 
-HTML y CSS estáticos, sin frameworks, sin dependencias en el navegador, sin cookies ni scripts de terceros. Pensada para **Cloudflare Pages** (sin servidor).
+HTML y CSS estáticos, sin frameworks, sin dependencias en el navegador y sin cookies. El único script de terceros es el captcha de Cloudflare (Turnstile), y solo se carga cuando alguien abre el formulario de contacto. Pensada para **Cloudflare Pages**; el formulario usa una Pages Function (`functions/`).
 
 ## Qué hay en el repositorio
 
@@ -18,6 +18,7 @@ site/                 ← lo único que se despliega (directorio de salida)
   sitemap.xml, robots.txt, _redirects, _headers
 originales/           fotos originales, FUERA del despliegue
 tools/                herramientas para quien edita (no se despliegan)
+functions/api/contacto.js   backend del formulario de contacto (Pages Function)
 build.mjs             único script de build: RSS de Substack + fuente china
 REVISAR.md            traducciones al chino y al inglés pendientes de revisar
 ```
@@ -58,6 +59,28 @@ El título y el enlace de tu último post (la fila «Substack» del bloque «Fue
 2. Llama a esa URL con un `POST` cada día, por ejemplo con un trabajo programado gratuito en cron-job.org o con un Worker con Cron Trigger de Cloudflare.
 
 Si Substack no responde el día del build, la web se publica igual: la fila de Substack sale sin título y enlaza a tu perfil.
+
+## Formulario de contacto (secreto y sin spam)
+
+El botón «Abrir el formulario» de la sección Contacto abre un popup con *email, asunto y descripción*. Tu correo **no aparece en ningún sitio**: solo vive en una variable secreta de Cloudflare. Defensas contra spam: captcha Turnstile verificado en el servidor, campo trampa oculto para robots, comprobación de origen, límites de tamaño y limpieza de caracteres de control.
+
+Hasta que lo actives, el popup avisa de que «todavía no está activado» y ofrece Instagram como alternativa. Para activarlo:
+
+1. **Turnstile:** Cloudflare → *Turnstile → Add widget*. Dominios: `shandevilla.com`, `kungfundidos.com` y `*.pages.dev` (o el de tu proyecto). Modo *Managed*. Te da una *Site key* (pública) y una *Secret key*.
+2. **Resend** (resend.com, gratis): crea cuenta **con el correo donde quieres recibir los mensajes** y una *API key*. Con el remitente de pruebas (`onboarding@resend.dev`) solo se entrega a ese correo. Si prefieres otro remitente, verifica un dominio y define `CONTACT_FROM`.
+3. En el proyecto de Pages → **Settings → Variables and Secrets** (producción y preview):
+
+| Nombre | Tipo | Valor |
+|---|---|---|
+| `TURNSTILE_SITE_KEY` | Texto | la Site key (se inyecta en el HTML al construir) |
+| `TURNSTILE_SECRET` | Secret | la Secret key |
+| `RESEND_API_KEY` | Secret | la API key de Resend |
+| `CONTACT_TO` | Secret | tu correo (varios, separados por comas) |
+| `CONTACT_FROM` | Texto, opcional | `Shande Villa <contacto@tudominio.com>` |
+
+4. Vuelve a desplegar (*Retry deployment* o un commit) para que la Site key entre en el HTML.
+
+`CONTACT_TO` nunca debe ir al repositorio. Para probarlo en local hace falta `wrangler pages dev site`.
 
 ### Cloudflare Web Analytics (sin cookies)
 
@@ -105,6 +128,7 @@ La fuente china **solo se descarga cuando el visitante elige chino**. Todas las 
 ## Accesibilidad y rendimiento
 - Contraste: papel `#F1ECE2` sobre el fondo `#120D0A` y sobre las ventanas oscuras de la tira, más de 15:1; texto secundario `#C4B8A8` 10:1; ámbar `#F5A03A` 9:1. Pasa AA con margen y axe-core no da avisos.
 - El único movimiento es el carrete de fotos, que entra deslizándose la primera vez que se ve; con `prefers-reduced-motion` no se mueve. La fuga de luz de la foto grande es decorativa.
+- El formulario es un `<dialog>` modal: foco atrapado, Esc cierra, mensajes de estado con `role=status`.
 - Foco visible, enlace «Saltar al contenido», HTML semántico y `lang` que cambia con el idioma.
 - `prefers-reduced-motion`: sin el avance de la tira al cargar.
 - Imágenes con `width` y `height`, `srcset` y carga diferida (salvo la portada).

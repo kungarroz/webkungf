@@ -125,6 +125,19 @@ export function versiones() {
   ok(`Versiones: ?v=${v}`);
 }
 
+// ───────── 3b. Clave pública de Turnstile (captcha del formulario de contacto) ─────────
+// La clave del sitio es pública (va en el HTML). Se pone en Pages → Variables como TURNSTILE_SITE_KEY.
+export function turnstile() {
+  const clave = (process.env.TURNSTILE_SITE_KEY || '').trim();
+  const html = readFileSync(INDEX, 'utf8');
+  const patron = /(id="f-captcha"[^>]*data-sitekey=")[^"]*(")/;
+  if (!patron.test(html)) return aviso('Turnstile: falta #f-captcha en site/index.html.');
+  if (!clave) return aviso('Turnstile: no hay TURNSTILE_SITE_KEY; el formulario de contacto saldrá como «no activado».');
+  if (!/^[0-9A-Za-z_-]{8,64}$/.test(clave)) return aviso('Turnstile: TURNSTILE_SITE_KEY tiene caracteres raros; se ignora.');
+  writeFileSync(INDEX, html.replace(patron, (_, a, c) => `${a}${clave}${c}`));
+  ok('Turnstile: clave del sitio aplicada.');
+}
+
 // ───────── 4. Sitemap ─────────
 function sitemap() {
   if (!existsSync(SITEMAP)) return;
@@ -137,6 +150,7 @@ function sitemap() {
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   fuenteChina();
   await ultimoPost();
+  turnstile();
   versiones();
   sitemap();
 }
