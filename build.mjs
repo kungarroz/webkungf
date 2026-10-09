@@ -92,7 +92,6 @@ function htmlEntradas(entradas) {
   return entradas.map((e) => {
     const iso = e.fecha.toISOString().slice(0, 10);
     return `      <li class="entrada">
-        <p class="borde" aria-hidden="true"></p>
         <article>
           <time class="fecha" datetime="${iso}">${formato.format(e.fecha)}</time>
           <h3><a href="${escapar(e.enlace)}" rel="noopener">${escapar(e.titulo)}</a></h3>${e.extracto ? `

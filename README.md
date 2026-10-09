@@ -95,8 +95,8 @@ Se genera con `tools/generar_og.py` (necesita las TTF de Source Serif 4 y DM Mon
 La fuente china **solo se descarga cuando el visitante elige chino**. Todas son SIL Open Font License; las licencias están junto a los archivos. Los archivos de `site/fonts` son recortes técnicos (solo los caracteres necesarios) de las fuentes originales.
 
 ## Accesibilidad y rendimiento
-- Contraste (medido): papel `#F1ECE2` sobre las ventanas `#100A06` 17:1; sobre la base naranja `#4B2611` 11:1; ámbar `#F5A03A` sobre ventana 9:1. Pasa AA con margen y axe-core no da avisos.
-- El grano y los destellos son decorativos (`aria-hidden`) y no se mueven; solo la tira avanza al cargar, y no con `prefers-reduced-motion`.
+- Contraste: papel `#F1ECE2` sobre el fondo `#120D0A` y sobre las ventanas oscuras de la tira, más de 15:1; texto secundario `#C4B8A8` 10:1; ámbar `#F5A03A` 9:1. Pasa AA con margen y axe-core no da avisos.
+- Los destellos del retrato son decorativos y no se mueven; solo la película de la tira de enlaces avanza al cargar, y no con `prefers-reduced-motion`.
 - Foco visible, enlace «Saltar al contenido», HTML semántico y `lang` que cambia con el idioma.
 - `prefers-reduced-motion`: sin el avance de la tira al cargar.
 - Imágenes con `width` y `height`, `srcset` y carga diferida (salvo la portada).

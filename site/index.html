@@ -63,8 +63,7 @@
 </header>
 
 <main id="contenido">
-<div class="tira">
-  <div class="grano" aria-hidden="true"></div>
+<div class="pagina">
 
   <!-- 00 · PORTADA: retrato en un fotograma y una polaroid encima. Se genera con tools/optimizar_fotos.py -->
   <section class="portada" aria-label="Shande Villa">
@@ -89,64 +88,63 @@
 <!--/PORTADA-->
   </section>
 
-  <!-- CARTELA: la frase y la presentación, como un rótulo de película -->
-  <section class="cartela" aria-labelledby="h-portada">
-    <p class="borde" aria-hidden="true"></p>
-    <div class="ventana-texto">
-      <h1 id="h-portada" class="frase"><span class="oculto">Shande Villa. </span><span data-i18n="portada.frase">Antes de que todo cambie</span></h1>
-      <p class="bio" data-i18n="portada.bio">Soy fotógrafo de calle, español, y vivo en Guangzhou, en el sur de China. Salgo a caminar con la cámara y fotografío lo que me cruzo: la gente, la luz, lo que quizá mañana ya no esté. No busco la foto perfecta, sino la que se parezca a ese momento.</p>
+  <h1 id="h-portada" class="frase"><span class="oculto">Shande Villa. </span><span data-i18n="portada.frase">Antes de que todo cambie</span></h1>
+
+  <!-- ENLACES · una tira vertical de película: cada enlace es un fotograma. La numeración sale sola (CSS), así que añadir o quitar uno renumera el resto -->
+  <section class="enlaces" aria-labelledby="h-enlaces">
+    <h2 id="h-enlaces" class="titulo" data-i18n="enlaces.titulo">Dónde me encuentras</h2>
+    <div class="tira">
+      <ol class="lista-enlaces">
+        <li class="enlace">
+          <p class="borde" aria-hidden="true"></p>
+          <a href="https://www.instagram.com/shande.villa/" rel="me noopener">
+            <span class="nombre">Instagram</span>
+            <span class="flecha" aria-hidden="true">↗</span>
+          </a>
+        </li>
+        <li class="enlace">
+          <p class="borde" aria-hidden="true"></p>
+          <a href="https://www.xiaohongshu.com/user/profile/62433dff0000000010005059" rel="me noopener">
+            <span class="nombre" lang="zh-Hans">小红书</span>
+            <span class="glosa" data-i18n="enlaces.xhs.gloss">Xiaohongshu · «Librito Rojo»</span>
+            <span class="flecha" aria-hidden="true">↗</span>
+          </a>
+        </li>
+        <li class="enlace">
+          <p class="borde" aria-hidden="true"></p>
+          <a href="https://v.douyin.com/KczV9R9pM3M/" rel="me noopener">
+            <span class="nombre" lang="zh-Hans">抖音</span>
+            <span class="glosa" data-i18n="enlaces.douyin.gloss">Douyin · el TikTok chino</span>
+            <span class="flecha" aria-hidden="true">↗</span>
+          </a>
+        </li>
+        <!-- YOUTUBE: todavía no tengo canal. Cuando exista, descomenta este bloque y pon la URL.
+        <li class="enlace">
+          <p class="borde" aria-hidden="true"></p>
+          <a href="https://www.youtube.com/@TU_CANAL" rel="me noopener">
+            <span class="nombre">YouTube</span>
+            <span class="flecha" aria-hidden="true">↗</span>
+          </a>
+        </li>
+        -->
+        <li class="enlace">
+          <p class="borde" aria-hidden="true"></p>
+          <a href="https://shandevilla.substack.com/" rel="me noopener">
+            <span class="nombre">Substack</span>
+            <span class="flecha" aria-hidden="true">↗</span>
+          </a>
+        </li>
+      </ol>
     </div>
   </section>
 
-  <!-- ENLACES · cada enlace es un fotograma; la numeración sale sola (CSS), así que añadir o quitar uno renumera el resto -->
-  <section class="enlaces" aria-labelledby="h-enlaces">
-    <h2 id="h-enlaces" class="titulo" data-i18n="enlaces.titulo">Dónde me encuentras</h2>
-    <ol class="lista-enlaces">
-      <li class="enlace">
-        <p class="borde" aria-hidden="true"></p>
-        <a href="https://www.instagram.com/shande.villa/" rel="me noopener">
-          <span class="nombre">Instagram</span>
-          <span class="flecha" aria-hidden="true">↗</span>
-        </a>
-      </li>
-      <li class="enlace">
-        <p class="borde" aria-hidden="true"></p>
-        <a href="https://www.xiaohongshu.com/user/profile/62433dff0000000010005059" rel="me noopener">
-          <span class="nombre" lang="zh-Hans">小红书</span>
-          <span class="glosa" data-i18n="enlaces.xhs.gloss">Xiaohongshu · «Librito Rojo»</span>
-          <span class="flecha" aria-hidden="true">↗</span>
-        </a>
-      </li>
-      <li class="enlace">
-        <p class="borde" aria-hidden="true"></p>
-        <a href="https://v.douyin.com/KczV9R9pM3M/" rel="me noopener">
-          <span class="nombre" lang="zh-Hans">抖音</span>
-          <span class="glosa" data-i18n="enlaces.douyin.gloss">Douyin · el TikTok chino</span>
-          <span class="flecha" aria-hidden="true">↗</span>
-        </a>
-      </li>
-      <!-- YOUTUBE: todavía no tengo canal. Cuando exista, descomenta este bloque y pon la URL.
-      <li class="enlace">
-        <p class="borde" aria-hidden="true"></p>
-        <a href="https://www.youtube.com/@TU_CANAL" rel="me noopener">
-          <span class="nombre">YouTube</span>
-          <span class="flecha" aria-hidden="true">↗</span>
-        </a>
-      </li>
-      -->
-      <li class="enlace">
-        <p class="borde" aria-hidden="true"></p>
-        <a href="https://shandevilla.substack.com/" rel="me noopener">
-          <span class="nombre">Substack</span>
-          <span class="flecha" aria-hidden="true">↗</span>
-        </a>
-      </li>
-    </ol>
+  <!-- SOBRE MÍ -->
+  <section class="sobre" aria-label="Sobre mí" data-i18n-attr="aria-label:sobre.titulo">
+    <p class="bio" data-i18n="portada.bio">Soy fotógrafo de calle, español, y vivo en Guangzhou, en el sur de China. Salgo a caminar con la cámara y fotografío lo que me cruzo: la gente, la luz, lo que quizá mañana ya no esté. No busco la foto perfecta, sino la que se parezca a ese momento.</p>
   </section>
 
   <!-- CARRETES · se elige uno y se recorre. Se genera con tools/optimizar_fotos.py desde tools/seleccion.json -->
   <section class="galeria" aria-labelledby="h-galeria">
-    <p class="borde" aria-hidden="true"></p>
     <h2 id="h-galeria" class="titulo" data-i18n="galeria.titulo">Carretes</h2>
     <p class="intro" data-i18n="galeria.intro">Elige un carrete y desliza para recorrerlo. Toca una foto para verla grande.</p>
 <!--GALERIA-->
@@ -347,7 +345,6 @@
     <ol class="lista-entradas">
 <!--ENTRADAS-->
       <li class="entrada entrada-vacia">
-        <p class="borde" aria-hidden="true"></p>
         <p data-i18n="entradas.vacio">Ahora mismo no he podido cargar las entradas. Puedes leerlas directamente en Substack.</p>
       </li>
 <!--/ENTRADAS-->
@@ -357,15 +354,10 @@
 
   <!-- CONTACTO -->
   <section class="contacto" aria-labelledby="h-contacto">
-    <p class="borde" aria-hidden="true"></p>
-    <div class="ventana-texto">
-      <h2 id="h-contacto" class="titulo" data-i18n="contacto.titulo">Colaboraciones con marcas</h2>
-      <p data-i18n="contacto.texto">Si tienes una marca y quieres trabajar conmigo, escríbeme por mensaje directo en Instagram con tu idea y los plazos. Te respondo yo.</p>
-      <p class="correo"><a href="https://ig.me/m/shande.villa" rel="me noopener" data-i18n="contacto.cta">Escribirme por Instagram</a></p>
-    </div>
+    <h2 id="h-contacto" class="titulo" data-i18n="contacto.titulo">Colaboraciones con marcas</h2>
+    <p data-i18n="contacto.texto">Si tienes una marca y quieres trabajar conmigo, escríbeme por mensaje directo en Instagram con tu idea y los plazos. Te respondo yo.</p>
+    <p class="accion"><a class="boton" href="https://ig.me/m/shande.villa" rel="me noopener"><span data-i18n="contacto.cta">Escribirme por Instagram</span> <span aria-hidden="true">↗</span></a></p>
   </section>
-
-  <p class="fin" aria-hidden="true"></p>
 </div>
 </main>
 
