@@ -80,3 +80,5 @@ Ya no se usan `portada.sub`, `menu.escritos` ni `entradas.*` (la sección Escrit
 Debajo de 小红书 y 抖音 solo queda su nombre en letras latinas (**Xiaohongshu**, **Douyin**), sin descripción; ya no existen las claves `enlaces.xhs.gloss` ni `enlaces.douyin.gloss`. Tampoco hay «ISO 400 / ISO 200» en las franjas.
 
 La imagen para redes (`og.jpg`) ahora dice «Fotografía de calle en China» y «Desde 2008».
+
+La foto grande de la portada usa una versión recortada de `calle20` (se quita el borde negro de arriba, 1086×620). El original en `originales/` no se toca. El recorte está en `tools/seleccion.json` (`"recorte": "1086x620+0+104"`); si cambias la foto grande, quítalo o ajústalo.

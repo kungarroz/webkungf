@@ -113,12 +113,7 @@ html[lang="zh-Hans"] .titulo { font-size: .875rem; letter-spacing: .14em; }
 /* ───────── Portada: una sola composición ───────── */
 .ventana { background: #000; }
 .ventana.grande { position: relative; aspect-ratio: 1 / 1; margin-inline: calc(var(--lado) * -1); }
-.ventana.grande img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 55%; }
-/* una fuga de luz en una esquina, nada más */
-.ventana.grande::after {
-  content: ""; position: absolute; inset: 0; pointer-events: none; mix-blend-mode: screen;
-  background: radial-gradient(circle at 100% 0%, rgba(255, 170, 80, .34) 0, rgba(255, 130, 40, .12) 5rem, transparent 11rem);
-}
+.ventana.grande img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
 /* la polaroid nace de la foto y el título se apoya a su lado */
 .rotulo { position: relative; z-index: 2; display: flex; align-items: flex-start; gap: 20px; margin-top: -76px; }
 .polaroid { flex: none; width: 46%; max-width: 220px; margin: 0; padding: 8px 8px 0; background: var(--papel); transform: rotate(-3deg); outline: 1px solid rgba(0, 0, 0, .3); }
@@ -130,7 +125,7 @@ html[lang="zh-Hans"] .titulo { font-size: .875rem; letter-spacing: .14em; }
 .titulos { padding-top: 92px; min-width: 0; }
 .frase { font-size: clamp(2.2rem, 10.2vw, 3.2rem); font-style: italic; line-height: 1; letter-spacing: -.01em; text-wrap: balance; }
 html[lang="zh-Hans"] .frase { font-style: normal; font-size: clamp(2rem, 8.6vw, 2.8rem); letter-spacing: .04em; line-height: 1.25; }
-.bio { margin-top: 28px; font-size: 1.3rem; line-height: 1.5; font-weight: 300; max-width: 30rem; text-wrap: balance; }
+.bio { margin-top: 28px; font-size: clamp(1.3rem, 5.6vw, 1.75rem); line-height: 1.45; font-weight: 300; text-wrap: pretty; }
 html[lang="zh-Hans"] .bio { font-weight: 400; }
 
 /* ───────── Redes: dos carretes. Fuera de China (amarillo y rojo) y en China (verde) ───────── */

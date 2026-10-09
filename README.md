@@ -76,7 +76,7 @@ Las redes están en dos «carretes» de `index.html`: **Fuera de China** (franja
 
 ### Fotos
 1. Deja los originales en `originales/<serie>/`.
-2. Edita `tools/seleccion.json`: `"foto_grande"` es la foto a sangre del principio, `"polaroid"` la polaroid con tu retrato que se le superpone y `"rollos"` los carretes (de 8 a 12 fotos cada uno, en el orden en que se ven).
+2. Edita `tools/seleccion.json`: `"foto_grande"` es la foto a sangre del principio (con `"recorte"` opcional, `"AnchoxAlto+X+Y"`, para quitar bordes: el original no se toca), `"polaroid"` la polaroid con tu retrato que se le superpone y `"rollos"` los carretes (de 8 a 12 fotos cada uno, en el orden en que se ven).
 3. Ejecuta `python3 tools/optimizar_fotos.py` (necesita ImageMagick con WebP). Crea las versiones WebP de 480, 960 y 1600 px (y el ancho nativo si es otro; nunca amplía), borra de `site/img` las que ya no se usan y reescribe la portada y los carretes en `index.html`.
 
 Los originales **nunca** se despliegan: solo se publica `site/`.

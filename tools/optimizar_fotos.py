@@ -40,10 +40,20 @@ def buscar(serie, nombre):
 
 
 def procesar(tarea):
-    serie, nombre = tarea
+    serie, nombre, recorte = tarea       # recorte: "AnchoxAlto+X+Y" sobre la foto ya orientada, o None
     ruta = buscar(serie, nombre)
-    w, h = map(int, subprocess.check_output(
-        ["convert", ruta + "[0]", "-auto-orient", "-format", "%w %h", "info:"], text=True).split())
+    if recorte:
+        m = re.fullmatch(r"(\d+)x(\d+)\+(\d+)\+(\d+)", recorte)
+        if not m:
+            sys.exit(f"Recorte no válido: {recorte}")
+        w, h = int(m.group(1)), int(m.group(2))
+        previo = ["-crop", recorte, "+repage"]
+        nombre_web = nombre.lower() + "-portada"
+    else:
+        w, h = map(int, subprocess.check_output(
+            ["convert", ruta + "[0]", "-auto-orient", "-format", "%w %h", "info:"], text=True).split())
+        previo = []
+        nombre_web = nombre.lower()
     anchos = [a for a in ANCHOS if a <= w]
     if w <= 1800 and (not anchos or w - anchos[-1] >= 120):
         anchos.append(w)
@@ -53,10 +63,10 @@ def procesar(tarea):
     os.makedirs(destino, exist_ok=True)
     for a in anchos:
         subprocess.check_call([
-            "convert", ruta + "[0]", "-auto-orient", "-strip", "-colorspace", "sRGB",
+            "convert", ruta + "[0]", "-auto-orient", *previo, "-strip", "-colorspace", "sRGB",
             "-resize", f"{a}x>", "-quality", CALIDAD, "-define", "webp:method=6",
-            os.path.join(destino, f"{nombre.lower()}-{a}.webp")])
-    return {"serie": serie, "nombre": nombre.lower(), "ancho": w, "alto": h, "tamanos": anchos}
+            os.path.join(destino, f"{nombre_web}-{a}.webp")])
+    return {"serie": serie, "nombre": nombre_web, "ancho": w, "alto": h, "tamanos": anchos}
 
 
 def ruta_web(f, a):
@@ -135,10 +145,11 @@ def reemplazar(texto, marca, contenido):
 
 def main():
     seleccion = json.load(open(os.path.join(RAIZ, "tools", "seleccion.json"), encoding="utf-8"))
-    tareas = {(r["id"], n.lower()): (r["id"], n) for r in seleccion["rollos"] for n in r["fotos"]}
-    for clave in ("foto_grande", "polaroid"):
-        p = seleccion[clave]
-        tareas.setdefault((p["serie"], p["foto"].lower()), (p["serie"], p["foto"]))
+    tareas = {(r["id"], n.lower()): (r["id"], n, None) for r in seleccion["rollos"] for n in r["fotos"]}
+    g, p = seleccion["foto_grande"], seleccion["polaroid"]
+    # la foto grande puede llevar un recorte propio (por ejemplo, para quitar un borde negro); el original no se toca
+    tareas[(g["serie"], g["foto"].lower() + "-portada")] = (g["serie"], g["foto"], g.get("recorte"))
+    tareas.setdefault((p["serie"], p["foto"].lower()), (p["serie"], p["foto"], None))
     with ThreadPoolExecutor(max_workers=os.cpu_count() or 2) as pool:
         resultados = list(pool.map(procesar, tareas.values()))
     info = {k: r for k, r in zip(tareas.keys(), resultados)}
@@ -156,7 +167,7 @@ def main():
     if os.path.exists(INDEX):
         texto = open(INDEX, encoding="utf-8").read()
         r, p = seleccion["foto_grande"], seleccion["polaroid"]
-        texto = reemplazar(texto, "PORTADA", bloque_portada(info[(r["serie"], r["foto"].lower())]))
+        texto = reemplazar(texto, "PORTADA", bloque_portada(info[(r["serie"], r["foto"].lower() + "-portada")]))
         texto = reemplazar(texto, "POLAROID", bloque_polaroid(info[(p["serie"], p["foto"].lower())]))
         texto = reemplazar(texto, "GALERIA", bloque_galeria(seleccion, info))
         open(INDEX, "w", encoding="utf-8").write(texto)

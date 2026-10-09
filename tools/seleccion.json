@@ -2,7 +2,8 @@
  "_nota": "Selección de la hoja de contactos: de 8 a 12 fotos por rollo, en el orden de la web. Las demás se quedan en originales/. Edita este archivo y ejecuta: python3 tools/optimizar_fotos.py",
  "foto_grande": {
   "serie": "calle",
-  "foto": "calle20"
+  "foto": "calle20",
+  "recorte": "1086x620+0+104"
  },
  "polaroid": {
   "serie": "personales",
