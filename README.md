@@ -95,6 +95,8 @@ Se genera con `tools/generar_og.py` (necesita las TTF de Source Serif 4 y DM Mon
 | Títulos en chino | Noto Serif SC, peso variable 400–600 | se recorta en cada build desde `tools/fuentes-origen/` |
 | Texto corrido en chino | Sans del sistema (PingFang SC, Microsoft YaHei, Noto Sans CJK) | no se descarga |
 
+**Reparto fijo (para que no se mezclen):** serif cursiva solo en el título principal; serif redonda en los nombres y títulos de las listas; sans en el texto, el menú, los títulos de sección y todas las etiquetas («Fuera de China», «Último post», «Xiaohongshu»); mono solo en los números de fotograma; la letra a mano, solo en la firma de la polaroid.
+
 La fuente china **solo se descarga cuando el visitante elige chino**. Todas las que se descargan son SIL Open Font License; las licencias están junto a los archivos. Los archivos de `site/fonts` son recortes técnicos (solo los caracteres necesarios) de las fuentes originales. `python3 tools/subset_latin.py` regenera las latinas desde `tools/fuentes-origen/`.
 
 ## Caché
