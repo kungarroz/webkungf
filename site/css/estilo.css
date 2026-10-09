@@ -80,10 +80,13 @@ html.js .idioma { display: flex; }
 .idioma button[aria-pressed="true"] { color: var(--papel); text-decoration: underline; text-decoration-color: var(--ambar); text-decoration-thickness: 2px; text-underline-offset: 7px; }
 .idioma button:hover { color: var(--papel); }
 
-.pagina > section { padding-top: 56px; }
-.titulo { font-size: 1.625rem; font-weight: 400; line-height: 1.2; margin-bottom: 18px; text-wrap: balance; }
-.titulo::before { content: ""; display: block; width: 28px; height: 2px; background: var(--ambar); margin-bottom: 16px; }
-.intro { color: var(--tenue); font-size: .9375rem; margin: -6px 0 16px; max-width: 34rem; text-wrap: pretty; }
+.pagina > section { padding-top: 64px; }
+.titulo {
+  font-size: .8125rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--tenue);
+  line-height: 1.4; padding-top: 18px; margin-bottom: 26px; border-top: 1px solid var(--filete); text-wrap: balance;
+}
+html[lang="zh-Hans"] .titulo { font-size: .9rem; letter-spacing: .14em; }
+.intro { color: var(--tenue); font-size: 1rem; margin: -10px 0 18px; max-width: 34rem; text-wrap: pretty; }
 
 /* Texto impreso en el borde de la película: lo único en monoespaciada */
 .borde {
@@ -92,36 +95,29 @@ html.js .idioma { display: flex; }
   color: #FFC46B; white-space: nowrap; overflow: hidden;
 }
 
-/* ───────── Portada: retrato + polaroid ───────── */
+/* ───────── Portada: foto grande a sangre + polaroid con el retrato ───────── */
 .portada { padding-top: 10px !important; }
 .portada .borde::before { content: "SV 400 · 0 · 0A"; }
-.cuadro { position: relative; padding-bottom: 40px; }
-.ventana { background: #000; }
-.ventana.retrato { aspect-ratio: 1 / 1; outline: 1px solid var(--filete); }
-.ventana.retrato img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
-/* destellos sobre el retrato: una fuga de luz y una estela anamórfica */
-.cuadro::before {
-  content: ""; position: absolute; left: 0; right: 0; top: 0; aspect-ratio: 1 / 1; pointer-events: none;
-  mix-blend-mode: screen; z-index: 1;
-  background:
-    radial-gradient(circle at 96% 4%, rgba(255, 205, 130, .9) 0, rgba(255, 150, 50, .45) 2.2rem, transparent 9rem),
-    radial-gradient(circle at 0% 100%, rgba(255, 110, 30, .5) 0, transparent 8rem);
-}
-.cuadro::after {
-  content: ""; position: absolute; left: 0; right: 0; top: 8%; height: 3px; pointer-events: none;
-  background: rgba(255, 205, 140, .7); filter: blur(1.6px); mix-blend-mode: screen; z-index: 1;
+.cuadro { position: relative; padding-bottom: 44px; margin-inline: calc(var(--lado) * -1); }
+.ventana.grande { position: relative; aspect-ratio: 4 / 5; background: #000; }
+.ventana.grande img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 52%; }
+/* una fuga de luz en una esquina, nada más */
+.ventana.grande::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; mix-blend-mode: screen;
+  background: radial-gradient(circle at 100% 0%, rgba(255, 170, 80, .34) 0, rgba(255, 130, 40, .12) 5rem, transparent 11rem);
 }
 .polaroid {
-  position: absolute; z-index: 3; right: -4px; bottom: 0; width: 42%; margin: 0;
-  padding: 7px 7px 30px; background: var(--papel); transform: rotate(4deg); outline: 1px solid rgba(0, 0, 0, .3);
+  position: absolute; z-index: 3; right: calc(var(--lado) + 4px); bottom: 0; width: 40%; max-width: 210px; margin: 0;
+  padding: 7px 7px 30px; background: var(--papel); transform: rotate(3deg); outline: 1px solid rgba(0, 0, 0, .3);
 }
-.polaroid img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; background: #000; }
+.polaroid img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; background: #000; object-position: 50% 30%; }
 
 .frase {
   font-size: clamp(2.2rem, 10vw, 3.2rem); font-weight: 400; font-style: italic;
-  line-height: 1.08; letter-spacing: -.015em; margin-top: 6px; text-wrap: balance;
+  line-height: 1.08; letter-spacing: -.015em; text-wrap: balance;
 }
 html[lang="zh-Hans"] .frase { font-style: normal; letter-spacing: .04em; line-height: 1.25; }
+.sub { margin-top: 12px; color: var(--tenue); font-size: .9375rem; letter-spacing: .06em; }
 
 /* ───────── Enlaces: tira vertical de película ───────── */
 .tira {
@@ -278,6 +274,9 @@ html.visor-abierto { overflow: hidden; }
 
 @media (min-width: 700px) {
   :root { --hf: 300px; --lado: 28px; }
+  .cuadro { margin-inline: 0; }
+  .ventana.grande { aspect-ratio: 3 / 2; }
+  .polaroid { right: -14px; }
 }
 @media (max-width: 340px) {
   .enlace .nombre { font-size: 1.35rem; }

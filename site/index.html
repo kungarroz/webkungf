@@ -30,8 +30,8 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="fonts/source-serif-4-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/estilo.css">
-<script src="js/idioma-inicial.js"></script>
+<link rel="stylesheet" href="css/estilo.css?v=96ef3f39">
+<script src="js/idioma-inicial.js?v=96ef3f39"></script>
 
 <script type="application/ld+json">
 {
@@ -70,18 +70,18 @@
     <p class="borde" aria-hidden="true"></p>
 <!--PORTADA-->
     <div class="cuadro">
-      <div class="ventana retrato">
-        <img src="img/personales/perfil-739.webp" srcset="img/personales/perfil-480.webp 480w, img/personales/perfil-739.webp 739w"
-             sizes="(min-width: 600px) 470px, calc(100vw - 76px)"
-             width="739" height="724" fetchpriority="high" decoding="async"
-             alt="Shande Villa con gorra naranja y la correa de la cámara cruzada al pecho, mirando hacia un lado en un pasillo con luces de neón"
-             data-i18n-attr="alt:portada.retrato">
+      <div class="ventana grande">
+        <img src="img/calle/calle20-1086.webp" srcset="img/calle/calle20-480.webp 480w, img/calle/calle20-960.webp 960w, img/calle/calle20-1086.webp 1086w"
+             sizes="(min-width: 700px) 600px, 100vw"
+             width="1086" height="724" fetchpriority="high" decoding="async"
+             alt="Gente de pie, apretada, dentro de un vagón de metro casi a oscuras"
+             data-i18n-attr="alt:portada.foto">
       </div>
       <figure class="polaroid">
-        <img src="img/calle/calle20-480.webp" srcset="img/calle/calle20-480.webp 480w, img/calle/calle20-960.webp 960w, img/calle/calle20-1086.webp 1086w"
-             sizes="(min-width: 600px) 190px, 44vw"
-             width="1086" height="724" loading="lazy" decoding="async"
-             alt="Gente de pie, apretada, dentro de un vagón de metro casi a oscuras"
+        <img src="img/personales/perfil-480.webp" srcset="img/personales/perfil-480.webp 480w, img/personales/perfil-739.webp 739w"
+             sizes="(min-width: 700px) 200px, 44vw"
+             width="739" height="724" decoding="async"
+             alt="Shande Villa con gorra naranja y la correa de la cámara cruzada al pecho, mirando hacia un lado en un pasillo con luces de neón"
              data-i18n-attr="alt:portada.polaroid">
       </figure>
     </div>
@@ -89,6 +89,7 @@
   </section>
 
   <h1 id="h-portada" class="frase"><span class="oculto">Shande Villa. </span><span data-i18n="portada.frase">Antes de que todo cambie</span></h1>
+  <p class="sub" data-i18n="portada.sub">Fotografía de calle · Guangzhou</p>
 
   <!-- ENLACES · una tira vertical de película: cada enlace es un fotograma. La numeración sale sola (CSS), así que añadir o quitar uno renumera el resto -->
   <section class="enlaces" aria-labelledby="h-enlaces">
@@ -383,6 +384,6 @@
   Web Analytics, copia tu token, descomenta esta línea y amplía la política CSP de _headers (las instrucciones están allí).
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "PEGA_AQUI_TU_TOKEN"}'></script>
 -->
-<script src="js/app.js" defer></script>
+<script src="js/app.js?v=96ef3f39" defer></script>
 </body>
 </html>

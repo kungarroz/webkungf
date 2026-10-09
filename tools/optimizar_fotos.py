@@ -3,7 +3,7 @@
 
 Uso:  python3 tools/optimizar_fotos.py
 
-1. Lee tools/seleccion.json: el retrato y la polaroid de la portada, y qué fotos van en cada carrete.
+1. Lee tools/seleccion.json: la foto grande y la polaroid de la portada, y qué fotos van en cada carrete.
 2. Por cada foto de originales/<serie>/ crea site/img/<serie>/<foto>-<ancho>.webp
    (480, 960 y 1600 px, más el ancho nativo si queda lejos; nunca amplía).
 3. Borra de site/img lo que ya no está en la selección (los originales no se tocan).
@@ -67,21 +67,21 @@ def srcset(f):
     return ", ".join(f"{ruta_web(f, a)} {a}w" for a in f["tamanos"])
 
 
-def bloque_portada(retrato, polaroid):
+def bloque_portada(grande, polaroid):
     return (
         '    <div class="cuadro">\n'
-        '      <div class="ventana retrato">\n'
-        f'        <img src="{ruta_web(retrato, retrato["tamanos"][-1])}" srcset="{srcset(retrato)}"\n'
-        '             sizes="(min-width: 600px) 470px, calc(100vw - 76px)"\n'
-        f'             width="{retrato["ancho"]}" height="{retrato["alto"]}" fetchpriority="high" decoding="async"\n'
-        '             alt="Shande Villa con gorra naranja y la correa de la cámara cruzada al pecho, mirando hacia un lado en un pasillo con luces de neón"\n'
-        '             data-i18n-attr="alt:portada.retrato">\n'
+        '      <div class="ventana grande">\n'
+        f'        <img src="{ruta_web(grande, grande["tamanos"][-1])}" srcset="{srcset(grande)}"\n'
+        '             sizes="(min-width: 700px) 600px, 100vw"\n'
+        f'             width="{grande["ancho"]}" height="{grande["alto"]}" fetchpriority="high" decoding="async"\n'
+        '             alt="Gente de pie, apretada, dentro de un vagón de metro casi a oscuras"\n'
+        '             data-i18n-attr="alt:portada.foto">\n'
         '      </div>\n'
         '      <figure class="polaroid">\n'
         f'        <img src="{ruta_web(polaroid, polaroid["tamanos"][0])}" srcset="{srcset(polaroid)}"\n'
-        '             sizes="(min-width: 600px) 190px, 44vw"\n'
-        f'             width="{polaroid["ancho"]}" height="{polaroid["alto"]}" loading="lazy" decoding="async"\n'
-        '             alt="Gente de pie, apretada, dentro de un vagón de metro casi a oscuras"\n'
+        '             sizes="(min-width: 700px) 200px, 44vw"\n'
+        f'             width="{polaroid["ancho"]}" height="{polaroid["alto"]}" decoding="async"\n'
+        '             alt="Shande Villa con gorra naranja y la correa de la cámara cruzada al pecho, mirando hacia un lado en un pasillo con luces de neón"\n'
         '             data-i18n-attr="alt:portada.polaroid">\n'
         '      </figure>\n'
         '    </div>')
@@ -136,7 +136,7 @@ def reemplazar(texto, marca, contenido):
 def main():
     seleccion = json.load(open(os.path.join(RAIZ, "tools", "seleccion.json"), encoding="utf-8"))
     tareas = {(r["id"], n.lower()): (r["id"], n) for r in seleccion["rollos"] for n in r["fotos"]}
-    for clave in ("retrato", "polaroid"):
+    for clave in ("foto_grande", "polaroid"):
         p = seleccion[clave]
         tareas.setdefault((p["serie"], p["foto"].lower()), (p["serie"], p["foto"]))
     with ThreadPoolExecutor(max_workers=os.cpu_count() or 2) as pool:
@@ -155,7 +155,7 @@ def main():
 
     if os.path.exists(INDEX):
         texto = open(INDEX, encoding="utf-8").read()
-        r, p = seleccion["retrato"], seleccion["polaroid"]
+        r, p = seleccion["foto_grande"], seleccion["polaroid"]
         texto = reemplazar(texto, "PORTADA", bloque_portada(info[(r["serie"], r["foto"].lower())],
                                                              info[(p["serie"], p["foto"].lower())]))
         texto = reemplazar(texto, "GALERIA", bloque_galeria(seleccion, info))

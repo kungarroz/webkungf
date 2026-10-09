@@ -76,7 +76,7 @@ Cada enlace es un `<li class="enlace">` de `index.html`. La numeración sale sol
 
 ### Fotos
 1. Deja los originales en `originales/<serie>/`.
-2. Edita `tools/seleccion.json`: `"retrato"` es la foto grande del principio, `"polaroid"` la polaroid que se le superpone y `"rollos"` los carretes (de 8 a 12 fotos cada uno, en el orden en que se ven).
+2. Edita `tools/seleccion.json`: `"foto_grande"` es la foto a sangre del principio, `"polaroid"` la polaroid con tu retrato que se le superpone y `"rollos"` los carretes (de 8 a 12 fotos cada uno, en el orden en que se ven).
 3. Ejecuta `python3 tools/optimizar_fotos.py` (necesita ImageMagick con WebP). Crea las versiones WebP de 480, 960 y 1600 px (y el ancho nativo si es otro; nunca amplía), borra de `site/img` las que ya no se usan y reescribe la portada y los carretes en `index.html`.
 
 Los originales **nunca** se despliegan: solo se publica `site/`.
@@ -93,6 +93,9 @@ Se genera con `tools/generar_og.py` (necesita las TTF de Source Serif 4 y DM Mon
 | Chino simplificado | Noto Serif SC, peso variable 400–600 | se recorta en cada build desde `tools/fuentes-origen/` |
 
 La fuente china **solo se descarga cuando el visitante elige chino**. Todas son SIL Open Font License; las licencias están junto a los archivos. Los archivos de `site/fonts` son recortes técnicos (solo los caracteres necesarios) de las fuentes originales.
+
+## Caché
+`build.mjs` añade `?v=<huella>` a `css/estilo.css`, `js/*.js` y `i18n/*.json`, así que cada despliegue obliga al navegador a bajar la versión nueva. Sin esto, un móvil podía mezclar un HTML nuevo con un CSS viejo guardado en caché. Las fuentes latinas no cambian y se cachean un año; la fuente china se regenera en cada build y se cachea una hora; las fotos, un día.
 
 ## Accesibilidad y rendimiento
 - Contraste: papel `#F1ECE2` sobre el fondo `#120D0A` y sobre las ventanas oscuras de la tira, más de 15:1; texto secundario `#C4B8A8` 10:1; ámbar `#F5A03A` 9:1. Pasa AA con margen y axe-core no da avisos.

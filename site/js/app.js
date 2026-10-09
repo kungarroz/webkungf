@@ -3,6 +3,9 @@
 (function () {
   'use strict';
 
+  // la misma huella que lleva este script (?v=…) para no leer un JSON viejo de la caché
+  var VERSION = '';
+  try { var m = /[?&]v=([0-9a-f]+)/.exec(document.currentScript.src); VERSION = m ? '?v=' + m[1] : ''; } catch (e) {}
   var LANG_HTML = { es: 'es', zh: 'zh-Hans', en: 'en' };
   var LANG_FECHA = { es: 'es-ES', zh: 'zh-CN', en: 'en-GB' };
   var raiz = document.documentElement;
@@ -34,7 +37,7 @@
   function cargar(l) {
     if (l === 'es') { return Promise.resolve(null); }
     if (diccionarios[l]) { return Promise.resolve(diccionarios[l]); }
-    return fetch('i18n/' + l + '.json').then(function (r) {
+    return fetch('i18n/' + l + '.json' + VERSION).then(function (r) {
       if (!r.ok) { throw new Error('HTTP ' + r.status); }
       return r.json();
     }).then(function (d) { diccionarios[l] = d; return d; });

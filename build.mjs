@@ -7,7 +7,8 @@
 //    site/i18n/zh.json y site/index.html (tools/subset_zh.py).
 // 2. Entradas: lee el RSS de Substack AHORA, al construir, y reescribe las 3 últimas entradas
 //    en site/index.html entre <!--ENTRADAS--> y <!--/ENTRADAS-->. Nada se pide desde el navegador.
-// 3. Sitemap: actualiza <lastmod>.
+// 3. Versiones: añade ?v=<huella> a css/js/i18n para que ningún móvil se quede con una hoja de estilos vieja.
+// 4. Sitemap: actualiza <lastmod>.
 //
 // Nada de esto puede romper la web: si el RSS o la fuente fallan, se avisa y se deja lo anterior.
 //
@@ -15,6 +16,7 @@
 
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -120,7 +122,19 @@ async function entradas() {
   }
 }
 
-// ───────── 3. Sitemap ─────────
+// ───────── 3. Versiones (evita que se mezcle un HTML nuevo con un CSS/JS viejo en caché) ─────────
+export function versiones() {
+  const ficheros = ['css/estilo.css', 'js/app.js', 'js/idioma-inicial.js', 'i18n/zh.json', 'i18n/en.json'];
+  const huella = createHash('sha1');
+  for (const f of ficheros) huella.update(readFileSync(join(RAIZ, 'site', f)));
+  const v = huella.digest('hex').slice(0, 8);
+  const html = readFileSync(INDEX, 'utf8');
+  const nuevo = html.replace(/(href|src)="(css\/estilo\.css|js\/app\.js|js\/idioma-inicial\.js)(\?v=[0-9a-f]+)?"/g, (_, a, f) => `${a}="${f}?v=${v}"`);
+  if (nuevo !== html) writeFileSync(INDEX, nuevo);
+  ok(`Versiones: ?v=${v}`);
+}
+
+// ───────── 4. Sitemap ─────────
 function sitemap() {
   if (!existsSync(SITEMAP)) return;
   const hoy = new Date().toISOString().slice(0, 10);
@@ -132,5 +146,6 @@ function sitemap() {
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   fuenteChina();
   await entradas();
+  versiones();
   sitemap();
 }
