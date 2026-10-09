@@ -76,8 +76,8 @@ Cada enlace es un `<li class="enlace">` de `index.html`. La numeración sale sol
 
 ### Fotos
 1. Deja los originales en `originales/<serie>/`.
-2. Edita `tools/seleccion.json`: de 8 a 12 fotos por rollo, en el orden en que se ven. La foto de portada está en `"portada"`.
-3. Ejecuta `python3 tools/optimizar_fotos.py` (necesita ImageMagick con WebP). Crea las versiones WebP de 480, 960 y 1600 px (y el ancho nativo si es otro; nunca amplía), borra de `site/img` las que ya no se usan y reescribe la portada y la hoja de contactos en `index.html`.
+2. Edita `tools/seleccion.json`: `"retrato"` es la foto grande del principio, `"polaroid"` la polaroid que se le superpone y `"rollos"` los carretes (de 8 a 12 fotos cada uno, en el orden en que se ven).
+3. Ejecuta `python3 tools/optimizar_fotos.py` (necesita ImageMagick con WebP). Crea las versiones WebP de 480, 960 y 1600 px (y el ancho nativo si es otro; nunca amplía), borra de `site/img` las que ya no se usan y reescribe la portada y los carretes en `index.html`.
 
 Los originales **nunca** se despliegan: solo se publica `site/`.
 
@@ -95,11 +95,12 @@ Se genera con `tools/generar_og.py` (necesita las TTF de Source Serif 4 y DM Mon
 La fuente china **solo se descarga cuando el visitante elige chino**. Todas son SIL Open Font License; las licencias están junto a los archivos. Los archivos de `site/fonts` son recortes técnicos (solo los caracteres necesarios) de las fuentes originales.
 
 ## Accesibilidad y rendimiento
-- Contraste: papel `#EEEAE1` sobre `#15110D` 15,6:1; texto secundario `#A89F92` 7,2:1; acento `#E8871E` 7,1:1.
+- Contraste (medido): papel `#F1ECE2` sobre las ventanas `#100A06` 17:1; sobre la base naranja `#4B2611` 11:1; ámbar `#F5A03A` sobre ventana 9:1. Pasa AA con margen y axe-core no da avisos.
+- El grano y los destellos son decorativos (`aria-hidden`) y no se mueven; solo la tira avanza al cargar, y no con `prefers-reduced-motion`.
 - Foco visible, enlace «Saltar al contenido», HTML semántico y `lang` que cambia con el idioma.
 - `prefers-reduced-motion`: sin el avance de la tira al cargar.
 - Imágenes con `width` y `height`, `srcset` y carga diferida (salvo la portada).
 
 ## Limitaciones conocidas
-- Los textos alternativos de la hoja de contactos son genéricos («Calle · 3»). Mejorarlos con una descripción de cada foto está pendiente.
+- Los textos alternativos de las fotos de los carretes son genéricos («Calle · 3»). Mejorarlos con una descripción de cada foto está pendiente.
 - Casi todas las fotos originales miden unos 1086 px de lado largo, así que ese es el máximo al ampliar.

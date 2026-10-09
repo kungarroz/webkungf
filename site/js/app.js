@@ -108,6 +108,100 @@
   var inicial = window.__svIdioma || 'es';
   if (inicial !== 'es') { cambiar(inicial, false); }
 
+  /* ───────── Carretes: pestañas, flechas, arrastre y contador ───────── */
+  var pestanas = Array.prototype.slice.call(document.querySelectorAll('.selector-carrete [role="tab"]'));
+  var paneles = Array.prototype.slice.call(document.querySelectorAll('.rollo'));
+  var sinMovimiento = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function marco(carrete) { // tamaños de cada fotograma, para el contador y las flechas
+    return Array.prototype.slice.call(carrete.querySelectorAll('.foto'));
+  }
+  function actualizarCuenta(panel) {
+    var carrete = panel.querySelector('.carrete'), fotos = marco(carrete);
+    var centro = carrete.scrollLeft + carrete.clientWidth / 2, mejor = 0, d = Infinity;
+    fotos.forEach(function (f, i) {
+      var dist = Math.abs(f.offsetLeft + f.offsetWidth / 2 - centro);
+      if (dist < d) { d = dist; mejor = i; }
+    });
+    if (carrete.scrollLeft < 8) { mejor = 0; }
+    if (carrete.scrollLeft + carrete.clientWidth >= carrete.scrollWidth - 8) { mejor = fotos.length - 1; }
+    panel.querySelector('.cuenta').textContent = (mejor + 1) + ' / ' + fotos.length;
+  }
+  function avanzar(panel, sentido) {
+    var carrete = panel.querySelector('.carrete'), fotos = marco(carrete), x = carrete.scrollLeft, destino = null;
+    if (sentido > 0) {
+      for (var i = 0; i < fotos.length; i++) { if (fotos[i].offsetLeft - 16 > x + 6) { destino = fotos[i].offsetLeft - 16; break; } }
+      if (destino === null) { destino = carrete.scrollWidth; }
+    } else {
+      for (var j = fotos.length - 1; j >= 0; j--) { if (fotos[j].offsetLeft - 16 < x - 6) { destino = fotos[j].offsetLeft - 16; break; } }
+      if (destino === null) { destino = 0; }
+    }
+    carrete.scrollTo({ left: destino, behavior: sinMovimiento ? 'auto' : 'smooth' });
+  }
+  function elegir(id, enfocar) {
+    pestanas.forEach(function (b) {
+      var activa = b.id === 'tab-' + id;
+      b.setAttribute('aria-selected', activa ? 'true' : 'false');
+      b.tabIndex = activa ? 0 : -1;
+      if (activa && enfocar) { b.focus(); }
+    });
+    paneles.forEach(function (p) {
+      var es = p.id === 'panel-' + id;
+      p.hidden = !es;
+      if (es) {
+        p.querySelector('.carrete').scrollLeft = 0;
+        p.classList.remove('entra'); void p.offsetWidth; p.classList.add('entra');
+        actualizarCuenta(p);
+      }
+    });
+  }
+  if (pestanas.length) {
+    elegir(pestanas[0].id.replace('tab-', ''), false);
+    pestanas.forEach(function (b, i) {
+      b.addEventListener('click', function () { elegir(b.id.replace('tab-', ''), false); });
+      b.addEventListener('keydown', function (e) {
+        var n = null;
+        if (e.key === 'ArrowRight') { n = (i + 1) % pestanas.length; }
+        else if (e.key === 'ArrowLeft') { n = (i - 1 + pestanas.length) % pestanas.length; }
+        else if (e.key === 'Home') { n = 0; } else if (e.key === 'End') { n = pestanas.length - 1; }
+        if (n !== null) { e.preventDefault(); elegir(pestanas[n].id.replace('tab-', ''), true); }
+      });
+    });
+  }
+  paneles.forEach(function (panel) {
+    var carrete = panel.querySelector('.carrete'), ticking = false;
+    carrete.addEventListener('scroll', function () {
+      if (ticking) { return; }
+      ticking = true;
+      window.requestAnimationFrame(function () { ticking = false; actualizarCuenta(panel); });
+    }, { passive: true });
+    panel.querySelector('.ant').addEventListener('click', function () { avanzar(panel, -1); });
+    panel.querySelector('.sig').addEventListener('click', function () { avanzar(panel, 1); });
+    carrete.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { e.preventDefault(); avanzar(panel, 1); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); avanzar(panel, -1); }
+    });
+    // con ratón se arrastra el carrete; con el dedo ya se desliza solo
+    var x0 = null, s0 = 0, movido = false;
+    carrete.addEventListener('pointerdown', function (e) {
+      if (e.pointerType !== 'mouse' || e.button !== 0) { return; }
+      x0 = e.clientX; s0 = carrete.scrollLeft; movido = false;
+    });
+    window.addEventListener('pointermove', function (e) {
+      if (x0 === null) { return; }
+      var dx = e.clientX - x0;
+      if (!movido && Math.abs(dx) > 5) { movido = true; carrete.classList.add('arrastrando'); }
+      if (movido) { carrete.scrollLeft = s0 - dx; }
+    });
+    window.addEventListener('pointerup', function () {
+      if (x0 === null) { return; }
+      x0 = null; carrete.classList.remove('arrastrando');
+    });
+    carrete.addEventListener('click', function (e) {
+      if (movido) { e.preventDefault(); e.stopPropagation(); movido = false; }
+    }, true);
+  });
+
   /* ───────── Visor de fotos ───────── */
   var visor = document.getElementById('visor');
   if (!visor || typeof visor.showModal !== 'function') { return; } // sin <dialog>: los enlaces abren la imagen
@@ -134,10 +228,10 @@
   function cerrar() { visor.close(); }
 
   document.addEventListener('click', function (e) {
-    var a = e.target.closest ? e.target.closest('.hoja a') : null;
+    var a = e.target.closest ? e.target.closest('.carrete a') : null;
     if (!a) { return; }
     e.preventDefault();
-    lista = Array.prototype.slice.call(a.closest('.hoja').querySelectorAll('a'));
+    lista = Array.prototype.slice.call(a.closest('.cinta').querySelectorAll('a'));
     i = lista.indexOf(a);
     mostrar();
     raiz.classList.add('visor-abierto');

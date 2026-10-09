@@ -1,22 +1,142 @@
 {
-  "_nota": "Selección de la hoja de contactos: de 8 a 12 fotos por rollo, en el orden de la web. Las demás se quedan en originales/. Edita este archivo y ejecuta: python3 tools/optimizar_fotos.py",
-  "portada": {"serie": "noche", "foto": "noche2"},
-  "rollos": [
-    {"id": "calle", "titulo": "Calle",
-     "fotos": ["calle14", "calle35", "calle11", "calle21", "calle25", "calle15", "calle7", "calle12", "calle32", "calle20", "calle4", "calle41"]},
-    {"id": "noche", "titulo": "Noche",
-     "fotos": ["noche2", "noche6", "noche1", "noche3", "noche21", "noche5", "noche7", "noche18", "noche8", "noche19"]},
-    {"id": "retratos-urbanos", "titulo": "Retratos urbanos",
-     "fotos": ["urbanportrait1", "urbanportrait4", "urbanportrait5", "urbanportrait2", "urbanportrait8", "urbanportrait6", "urbanportrait3", "urbanportrait7", "urbanportrait10", "urbanportrait11"]},
-    {"id": "hongkong", "titulo": "Hong Kong",
-     "fotos": ["hongkong2", "hongkong18", "hongkong20", "hongkong3", "hongkong12", "hongkong15", "hongkong4", "hongkong14", "hongkong19", "hongkong7"]},
-    {"id": "macao", "titulo": "Macao",
-     "fotos": ["macao16", "macao9", "macao18", "macao15", "macao6", "macao14", "macao1", "macao17", "macao12", "macao5"]},
-    {"id": "arquitectura", "titulo": "Arquitectura",
-     "fotos": ["arquitectura1", "arquitectura13", "arquitectura14", "arquitectura10", "arquitectura18", "arquitectura17", "arquitectura19", "arquitectura20", "arquitectura21", "arquitectura4", "arquitectura8", "arquitectura9"]},
-    {"id": "detalles", "titulo": "Detalles",
-     "fotos": ["detalles1", "detalles2", "detalles3", "detalles4", "detalles5", "detalles6", "detalles7", "detalles8", "detalles9"]},
-    {"id": "retratos", "titulo": "Retratos",
-     "fotos": ["image97", "image100", "image101", "image102", "image103", "image105", "image98", "image99"]}
-  ]
+ "_nota": "Selección de la hoja de contactos: de 8 a 12 fotos por rollo, en el orden de la web. Las demás se quedan en originales/. Edita este archivo y ejecuta: python3 tools/optimizar_fotos.py",
+ "retrato": {
+  "serie": "personales",
+  "foto": "perfil"
+ },
+ "polaroid": {
+  "serie": "calle",
+  "foto": "calle20"
+ },
+ "rollos": [
+  {
+   "id": "calle",
+   "titulo": "Calle",
+   "fotos": [
+    "calle14",
+    "calle35",
+    "calle11",
+    "calle21",
+    "calle25",
+    "calle15",
+    "calle7",
+    "calle12",
+    "calle32",
+    "calle20",
+    "calle4",
+    "calle41"
+   ]
+  },
+  {
+   "id": "noche",
+   "titulo": "Noche",
+   "fotos": [
+    "noche2",
+    "noche6",
+    "noche1",
+    "noche3",
+    "noche21",
+    "noche5",
+    "noche7",
+    "noche18",
+    "noche8",
+    "noche19"
+   ]
+  },
+  {
+   "id": "retratos-urbanos",
+   "titulo": "Retratos urbanos",
+   "fotos": [
+    "urbanportrait1",
+    "urbanportrait4",
+    "urbanportrait5",
+    "urbanportrait2",
+    "urbanportrait8",
+    "urbanportrait6",
+    "urbanportrait3",
+    "urbanportrait7",
+    "urbanportrait10",
+    "urbanportrait11"
+   ]
+  },
+  {
+   "id": "hongkong",
+   "titulo": "Hong Kong",
+   "fotos": [
+    "hongkong2",
+    "hongkong18",
+    "hongkong20",
+    "hongkong3",
+    "hongkong12",
+    "hongkong15",
+    "hongkong4",
+    "hongkong14",
+    "hongkong19",
+    "hongkong7"
+   ]
+  },
+  {
+   "id": "macao",
+   "titulo": "Macao",
+   "fotos": [
+    "macao16",
+    "macao9",
+    "macao18",
+    "macao15",
+    "macao6",
+    "macao14",
+    "macao1",
+    "macao17",
+    "macao12",
+    "macao5"
+   ]
+  },
+  {
+   "id": "arquitectura",
+   "titulo": "Arquitectura",
+   "fotos": [
+    "arquitectura1",
+    "arquitectura13",
+    "arquitectura14",
+    "arquitectura10",
+    "arquitectura18",
+    "arquitectura17",
+    "arquitectura19",
+    "arquitectura20",
+    "arquitectura21",
+    "arquitectura4",
+    "arquitectura8",
+    "arquitectura9"
+   ]
+  },
+  {
+   "id": "detalles",
+   "titulo": "Detalles",
+   "fotos": [
+    "detalles1",
+    "detalles2",
+    "detalles3",
+    "detalles4",
+    "detalles5",
+    "detalles6",
+    "detalles7",
+    "detalles8",
+    "detalles9"
+   ]
+  },
+  {
+   "id": "retratos",
+   "titulo": "Retratos",
+   "fotos": [
+    "image97",
+    "image100",
+    "image101",
+    "image102",
+    "image103",
+    "image105",
+    "image98",
+    "image99"
+   ]
+  }
+ ]
 }
