@@ -5,8 +5,9 @@
 //
 // 1. Fuente china: regenera site/fonts/noto-serif-sc-zh.woff2 con los caracteres de
 //    site/i18n/zh.json y site/index.html (tools/subset_zh.py).
-// 2. Entradas: lee el RSS de Substack AHORA, al construir, y reescribe las 3 últimas entradas
-//    en site/index.html entre <!--ENTRADAS--> y <!--/ENTRADAS-->. Nada se pide desde el navegador.
+// 2. Último post: lee el RSS de Substack AHORA, al construir, y pone el título y el enlace de tu última
+//    entrada en la fila de Substack de site/index.html (entre <!--ULTIMO--> y <!--/ULTIMO-->, y en el
+//    href de <a data-ultimo>). Nada se pide desde el navegador.
 // 3. Versiones: añade ?v=<huella> a css/js/i18n para que ningún móvil se quede con una hoja de estilos vieja.
 // 4. Sitemap: actualiza <lastmod>.
 //
@@ -89,36 +90,26 @@ export function leerFeed(xml) {
   }
   return entradas.sort((a, b) => b.fecha - a.fecha).slice(0, MAX_ENTRADAS);
 }
-function htmlEntradas(entradas) {
-  const formato = new Intl.DateTimeFormat('es-ES', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
-  return entradas.map((e) => {
-    const iso = e.fecha.toISOString().slice(0, 10);
-    return `      <li class="entrada">
-        <article>
-          <time class="fecha" datetime="${iso}">${formato.format(e.fecha)}</time>
-          <h3><a href="${escapar(e.enlace)}" rel="noopener">${escapar(e.titulo)}</a></h3>${e.extracto ? `
-          <p class="extracto">${escapar(e.extracto)}</p>` : ''}
-        </article>
-      </li>`;
-  }).join('\n');
-}
 async function descargarFeed() {
   if (process.env.RSS_FILE) return readFileSync(process.env.RSS_FILE, 'utf8');
   const r = await fetch(RSS_URL, { signal: AbortSignal.timeout(15000), headers: { 'user-agent': 'shandevilla.com build' } });
   if (!r.ok) throw new Error(`HTTP ${r.status}`);
   return r.text();
 }
-async function entradas() {
+async function ultimoPost() {
   try {
-    const lista = leerFeed(await descargarFeed());
-    if (!lista.length) throw new Error('el feed no trae entradas válidas');
-    const html = readFileSync(INDEX, 'utf8');
-    const patron = /(<!--ENTRADAS-->)([\s\S]*?)(<!--\/ENTRADAS-->)/;
-    if (!patron.test(html)) throw new Error('faltan las marcas <!--ENTRADAS--> en site/index.html');
-    writeFileSync(INDEX, html.replace(patron, (_, a, __, c) => `${a}\n${htmlEntradas(lista)}\n${c}`));
-    ok(`Entradas: ${lista.length} desde ${process.env.RSS_FILE ? process.env.RSS_FILE : RSS_URL}`);
-  } catch (e) {
-    aviso(`Entradas: no se pudo leer el RSS (${e.message}). La página se publica con las entradas que ya tenía.`);
+    const [e] = leerFeed(await descargarFeed());
+    if (!e) throw new Error('el feed no trae entradas válidas');
+    let html = readFileSync(INDEX, 'utf8');
+    const marca = /(<!--ULTIMO-->)([\s\S]*?)(<!--\/ULTIMO-->)/;
+    const enlace = /(<a data-ultimo href=")[^"]*(")/;
+    if (!marca.test(html) || !enlace.test(html)) throw new Error('faltan las marcas del último post en site/index.html');
+    const post = `<span class="post"><span data-i18n="redes.ultimo">Último post</span> · <span class="post-titulo">${escapar(e.titulo)}</span></span>`;
+    html = html.replace(marca, (_, a, __, c) => `${a}${post}${c}`).replace(enlace, (_, a, c) => `${a}${escapar(e.enlace)}${c}`);
+    writeFileSync(INDEX, html);
+    ok(`Último post: «${e.titulo}» (${process.env.RSS_FILE ? process.env.RSS_FILE : RSS_URL})`);
+  } catch (err) {
+    aviso(`Último post: no se pudo leer el RSS (${err.message}). La fila de Substack se publica sin título y enlaza a tu perfil.`);
   }
 }
 
@@ -145,7 +136,7 @@ function sitemap() {
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   fuenteChina();
-  await entradas();
+  await ultimoPost();
   versiones();
   sitemap();
 }

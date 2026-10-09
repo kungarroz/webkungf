@@ -44,7 +44,7 @@ body {
   font-family: var(--sans), var(--cjk-sans); font-size: 1.0625rem; line-height: 1.65; font-weight: 400; overflow-x: clip;
 }
 html[lang="zh-Hans"] body { line-height: 1.85; letter-spacing: .02em; }
-.display, .frase, .nombre, .glosa, .entrada h3 { font-family: var(--display), var(--cjk-display); font-weight: 400; }
+.display, .frase, .nombre, .glosa { font-family: var(--display), var(--cjk-display); font-weight: 400; }
 img { display: block; max-width: 100%; height: auto; }
 a { color: inherit; }
 ol, ul { margin: 0; padding: 0; list-style: none; }
@@ -129,27 +129,49 @@ html[lang="zh-Hans"] .titulo { font-size: .875rem; letter-spacing: .14em; }
   font-family: "SV Mano", "Long Cang", "Kaiti SC", "STKaiti", cursive; font-size: 2rem; line-height: 1.1; letter-spacing: .08em; color: #2a211b;
 }
 .titulos { padding-top: 92px; min-width: 0; }
-.frase { font-size: clamp(2.5rem, 11.5vw, 3.5rem); font-style: italic; line-height: 1; letter-spacing: -.01em; text-wrap: balance; }
+.frase { font-size: clamp(2.2rem, 10.2vw, 3.2rem); font-style: italic; line-height: 1; letter-spacing: -.01em; text-wrap: balance; }
 html[lang="zh-Hans"] .frase { font-style: normal; font-size: clamp(2rem, 8.6vw, 2.8rem); letter-spacing: .04em; line-height: 1.25; }
-.sub { margin-top: 12px; color: var(--tenue); font-size: .9375rem; letter-spacing: .05em; line-height: 1.4; }
 .bio { margin-top: 28px; font-size: 1.125rem; font-weight: 300; max-width: 34rem; text-wrap: pretty; }
 html[lang="zh-Hans"] .bio { font-weight: 400; }
 
-/* ───────── Redes: una lista limpia, con el número de fotograma ───────── */
-.redes-lista { counter-reset: enlace; margin-top: -8px; }
+/* ───────── Redes: dos carretes. Fuera de China (amarillo y rojo) y en China (verde) ───────── */
+.enlaces { counter-reset: enlace; }
+.grupo { margin-top: 18px; border: 1px solid var(--borde-g); border-radius: 4px; overflow: hidden; }
+.grupo-int { --banda: #EDB52F; --tinta: #1b0e04; --cinta: #C42B25; --borde-g: rgba(237, 181, 47, .42); }
+.grupo-cn  { --banda: #26704A; --tinta: #F4F1E8; --cinta: #F4F1E8; --borde-g: rgba(74, 160, 110, .42); margin-top: 22px; }
+.grupo-cab {
+  display: flex; align-items: center; gap: 12px; height: 34px; padding-right: 14px; margin: 0;
+  background: var(--banda); color: var(--tinta);
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap;
+}
+.grupo-cab::before { content: ""; align-self: stretch; width: 16px; margin-right: 2px; background: var(--cinta); }
+.grupo-cab .iso { margin-left: auto; }
+html[lang="zh-Hans"] .grupo-cab { letter-spacing: .08em; }
+
 .redes-lista li { counter-increment: enlace; }
 .redes-lista a {
-  display: grid; grid-template-columns: 2.6rem 1fr auto; align-items: center; column-gap: 6px; padding: 18px 0;
+  display: grid; grid-template-columns: 2.4rem 1fr auto; align-items: center; column-gap: 6px; padding: 16px 16px 16px 14px;
   border-bottom: 1px solid var(--filete); color: var(--papel); text-decoration: none;
 }
+.redes-lista li:last-child a { border-bottom: 0; }
 .redes-lista .n::before { content: counter(enlace) "A"; font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; color: var(--impreso); }
-.redes-lista .nombre { display: block; font-size: 2.1rem; line-height: 1.1; }
-.redes-lista .glosa { display: block; margin-top: 3px; color: var(--tenue); font-size: 1.0625rem; font-style: italic; line-height: 1.3; }
+.redes-lista .nombre { display: block; font-size: 2rem; line-height: 1.1; }
+.redes-lista .post { display: block; margin-top: 4px; color: var(--tenue); font-size: .9375rem; line-height: 1.4; }
+.redes-lista .post-titulo { color: var(--papel); font-style: italic; font-family: var(--display), var(--cjk-display); font-size: 1.0625rem; }
+.redes-lista .glosa { display: block; margin-top: 2px; color: var(--tenue); font-size: 1rem; font-style: italic; line-height: 1.25; }
 html[lang="zh-Hans"] .redes-lista .glosa { display: none; }
-.redes-lista .flecha { width: 1.4rem; height: 1.4rem; color: var(--ambar); transition: transform .25s ease; }
+.redes-lista .flecha { width: 1.3rem; height: 1.3rem; color: var(--ambar); transition: transform .25s ease; }
 .redes-lista a:hover .nombre { color: var(--ambar); }
 .redes-lista a:hover .flecha { transform: translate(3px, -3px); }
-html[lang="zh-Hans"] .redes-lista .nombre { font-size: 1.9rem; }
+/* lo de China pesa menos: son filas más bajas, en dos columnas */
+.grupo-cn .redes-lista { display: grid; grid-template-columns: 1fr 1fr; }
+.grupo-cn .redes-lista li + li a { border-left: 1px solid var(--filete); }
+.grupo-cn .redes-lista a { grid-template-columns: 1fr auto; padding: 14px 12px 14px 14px; border-bottom: 0; }
+.grupo-cn .redes-lista .n { display: none; }
+.grupo-cn .redes-lista .nombre { font-size: 1.55rem; }
+.grupo-cn .redes-lista .glosa { font-size: .875rem; }
+.grupo-cn .redes-lista .flecha { width: 1.1rem; height: 1.1rem; }
+html[lang="zh-Hans"] .redes-lista .nombre { font-size: 1.7rem; }
 
 /* ───────── Fotos: el selector de categoría ───────── */
 .selector-carrete { display: none; }
@@ -220,36 +242,19 @@ html.js .mandos { display: flex; align-items: center; justify-content: space-bet
 }
 @keyframes enrolla { from { transform: translateX(70%); } to { transform: none; } }
 
-/* ───────── Escritos (Substack) ───────── */
-.lista-entradas { margin-top: -8px; }
-.entrada { position: relative; padding: 20px 0 22px; border-bottom: 1px solid var(--filete); }
-.entrada .fecha { display: block; font-size: .8125rem; letter-spacing: .06em; color: var(--tenue); margin-bottom: 6px; }
-.entrada h3 { font-size: 1.75rem; line-height: 1.12; text-wrap: balance; }
-.entrada h3 a { text-decoration: none; }
-.entrada h3 a::after { content: ""; position: absolute; inset: 0; }
-.entrada h3 a:hover { color: var(--ambar); }
-.entrada .extracto {
-  color: var(--tenue); font-size: 1rem; font-weight: 300; margin-top: 8px;
-  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
-}
-html[lang="zh-Hans"] .entrada .extracto { font-weight: 400; }
-.entrada-vacia > p { color: var(--tenue); }
-.entrada:focus-within { outline: 3px solid var(--ambar); outline-offset: 2px; }
-.entrada h3 a:focus-visible { outline: none; }
-.todas { margin-top: 18px; font-size: .9375rem; }
-.todas a { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; border-bottom: 2px solid var(--ambar); padding-bottom: 3px; }
-.todas a:hover { color: var(--ambar); }
-
 /* ───────── Contacto ───────── */
 .contacto p { max-width: 34rem; font-weight: 300; text-wrap: pretty; }
 html[lang="zh-Hans"] .contacto p { font-weight: 400; }
-.accion { margin-top: 22px; }
-.boton {
-  display: inline-flex; align-items: center; gap: 10px; min-height: 50px; padding: 0 26px;
-  background: var(--ambar); color: #1b0e04; border-radius: 999px; font-weight: 600; letter-spacing: .02em; text-decoration: none;
+.accion { margin-top: 20px; }
+.contacto-fila {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 18px 0;
+  border-block: 1px solid var(--filete); color: var(--papel); text-decoration: none;
 }
-.boton:hover { background: #FFB45E; }
-.boton:focus-visible { outline-color: var(--papel); }
+.contacto-fila .nombre { font-size: 1.9rem; line-height: 1.1; font-style: italic; }
+.contacto-fila .flecha { width: 1.3rem; height: 1.3rem; color: var(--ambar); transition: transform .25s ease; }
+.contacto-fila:hover .nombre { color: var(--ambar); }
+.contacto-fila:hover .flecha { transform: translate(3px, -3px); }
+html[lang="zh-Hans"] .contacto-fila .nombre { font-style: normal; font-size: 1.6rem; }
 
 .pie { padding-block: 56px 52px; color: var(--tenue); font-size: .875rem; font-weight: 300; }
 .pie p + p { margin-top: 4px; }

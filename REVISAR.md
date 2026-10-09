@@ -57,3 +57,15 @@ En chino, «胶卷» es el rollo de película; si prefieres «底片» (negativo
 | `galeria.categorias` (etiqueta para lectores de pantalla) | Categorías de fotos | Photo categories | 照片分类 |
 
 Las entradas anteriores sobre «Carretes» / «Rolls» / «胶卷» (`menu.carretes`, `galeria.carretes`) ya no se usan.
+
+## Título nuevo, redes en dos grupos y contacto
+
+| Clave | Español | Inglés | Chino |
+|---|---|---|---|
+| `portada.frase` (el título; sustituye a «Antes de que todo cambie») | Fotografía de calle en China | Street photography in China | 中国街头摄影 |
+| `redes.fuera` | Fuera de China | Outside China | 中国以外 |
+| `redes.china` | En China | In China | 中国 |
+| `redes.ultimo` (antes del título de tu último post) | Último post | Latest post | 最新文章 |
+| `contacto.cta` | Escríbeme por Instagram | Message me on Instagram | 在 Instagram 上给我发私信 |
+
+Ya no se usan `portada.sub`, `menu.escritos` ni `entradas.*` (la sección Escritos desapareció: el último post va dentro de la fila de Substack).

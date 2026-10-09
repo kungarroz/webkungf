@@ -25,7 +25,7 @@ REVISAR.md            traducciones al chino y al inglés pendientes de revisar
 ## Ver la web en tu ordenador
 
 ```bash
-node build.mjs                      # (opcional) trae las últimas entradas de Substack
+node build.mjs                      # (opcional) trae tu último post de Substack
 python3 -m http.server -d site 8000
 # abre http://localhost:8000
 ```
@@ -50,14 +50,14 @@ Hace falta Node 18 o superior. Para la fuente china, `build.mjs` usa Python 3 y 
 
 Las URLs antiguas del blog (`/blog`, `/es/blog/…`, `/en/blog/…`, `/zh-cn/blog/…`) y las páginas sueltas (`/obra`, `/sobre-mi`, `/contacto`) llevan a la portada con un 301 gracias a `site/_redirects`.
 
-### Que las entradas de Substack se actualicen solas
+### Que el último post de Substack se actualice solo
 
-Las 3 últimas entradas se leen del RSS **al construir la web**, no desde el navegador. Para que aparezcan sin tocar nada:
+El título y el enlace de tu último post (la fila «Substack» del bloque «Fuera de China») se leen del RSS **al construir la web**, no desde el navegador. Para que se actualicen sin tocar nada:
 
 1. En el proyecto de Pages: **Settings → Builds & deployments → Deploy hooks → Add deploy hook** (rama `main`).
 2. Llama a esa URL con un `POST` cada día, por ejemplo con un trabajo programado gratuito en cron-job.org o con un Worker con Cron Trigger de Cloudflare.
 
-Si Substack no responde el día del build, la web se publica igual con las entradas que ya tenía.
+Si Substack no responde el día del build, la web se publica igual: la fila de Substack sale sin título y enlaza a tu perfil.
 
 ### Cloudflare Web Analytics (sin cookies)
 
@@ -71,8 +71,8 @@ En `site/index.html`, justo antes del final, hay el snippet comentado. Crea el s
 - Si añades un texto con `data-i18n`, añade su clave en los dos JSON.
 - La fuente china se regenera sola con los caracteres que aparezcan en `zh.json` y en `index.html` (lo hace `build.mjs`). Si un carácter chino sale con otra tipografía, falta volver a construir.
 
-### Enlaces y numeración de los fotogramas
-Cada enlace es un `<li class="enlace">` de `index.html`. La numeración sale sola, así que si añades o quitas uno, el resto se renumera. **YouTube** está comentado en el HTML: cuando tengas canal, descomenta el bloque, pon la URL y añade `enlaces.youtube.desc` a los dos JSON.
+### Redes y numeración de los fotogramas
+Las redes están en dos «carretes» de `index.html`: **Fuera de China** (franja amarilla con pestaña roja) y **En China** (franja verde, filas más bajas en dos columnas). Cada enlace es un `<li>`; la numeración (`1A`, `2A`…) sale sola, así que si añades o quitas uno, el resto se renumera. Para **YouTube**, cuando tengas canal, copia una fila del grupo «Fuera de China» y pon su URL.
 
 ### Fotos
 1. Deja los originales en `originales/<serie>/`.

@@ -31,8 +31,8 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/instrument-serif-italic-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/estilo.css?v=42e527b5">
-<script src="js/idioma-inicial.js?v=42e527b5"></script>
+<link rel="stylesheet" href="css/estilo.css?v=98c33700">
+<script src="js/idioma-inicial.js?v=98c33700"></script>
 
 <script type="application/ld+json">
 {
@@ -66,7 +66,6 @@
   <div class="menu-in">
     <a href="#redes" data-i18n="menu.redes">Redes</a>
     <a href="#fotos" data-i18n="menu.fotos">Fotos</a>
-    <a href="#escritos" data-i18n="menu.escritos">Escritos</a>
     <a href="#contacto" data-i18n="menu.contacto">Contacto</a>
   </div>
 </nav>
@@ -98,48 +97,58 @@
         <figcaption class="firma" lang="zh-Hans" aria-hidden="true">山德</figcaption>
       </figure>
       <div class="titulos">
-        <h1 id="h-portada" class="frase"><span class="oculto">Shande Villa. </span><span data-i18n="portada.frase">Antes de que todo cambie</span></h1>
-        <p class="sub" data-i18n="portada.sub">Fotografía de calle · Guangzhou</p>
+        <h1 id="h-portada" class="frase"><span class="oculto">Shande Villa. </span><span data-i18n="portada.frase">Fotografía de calle en China</span></h1>
       </div>
     </div>
     <p class="bio" data-i18n="portada.bio">Soy fotógrafo de calle, español, y vivo en Guangzhou. Salgo a caminar con la cámara y fotografío lo que me cruzo: la gente, la luz, lo que quizá mañana ya no esté.</p>
   </section>
 
-  <!-- REDES · el número de fotograma sale solo (CSS): añadir o quitar un enlace renumera el resto -->
+  <!-- REDES · dos "carretes": lo de fuera de China y lo de China. El número de fotograma sale solo (CSS) -->
   <section class="enlaces" id="redes" aria-labelledby="h-enlaces">
     <h2 id="h-enlaces" class="titulo" data-i18n="enlaces.titulo">Redes</h2>
-    <ol class="redes-lista">
-      <li>
-        <a href="https://www.instagram.com/shande.villa/" rel="me noopener">
-          <span class="n" aria-hidden="true"></span>
-          <span class="txt"><span class="nombre">Instagram</span></span>
-          <span class="flecha" aria-hidden="true"></span>
-        </a>
-      </li>
-      <li>
-        <a href="https://www.xiaohongshu.com/user/profile/62433dff0000000010005059" rel="me noopener">
-          <span class="n" aria-hidden="true"></span>
-          <span class="txt"><span class="nombre" lang="zh-Hans">小红书</span><span class="glosa" data-i18n="enlaces.xhs.gloss">Xiaohongshu · «Librito Rojo»</span></span>
-          <span class="flecha" aria-hidden="true"></span>
-        </a>
-      </li>
-      <li>
-        <a href="https://v.douyin.com/KczV9R9pM3M/" rel="me noopener">
-          <span class="n" aria-hidden="true"></span>
-          <span class="txt"><span class="nombre" lang="zh-Hans">抖音</span><span class="glosa" data-i18n="enlaces.douyin.gloss">Douyin · el TikTok chino</span></span>
-          <span class="flecha" aria-hidden="true"></span>
-        </a>
-      </li>
-      <!-- YOUTUBE: todavía no tengo canal. Cuando exista, descomenta este bloque y pon la URL.
-      <li>
-        <a href="https://www.youtube.com/@TU_CANAL" rel="me noopener">
-          <span class="n" aria-hidden="true"></span>
-          <span class="txt"><span class="nombre">YouTube</span></span>
-          <span class="flecha" aria-hidden="true"></span>
-        </a>
-      </li>
-      -->
-    </ol>
+
+    <div class="grupo grupo-int">
+      <p class="grupo-cab"><span data-i18n="redes.fuera">Fuera de China</span><span class="iso" aria-hidden="true">ISO 400</span></p>
+      <ol class="redes-lista">
+        <li>
+          <a href="https://www.instagram.com/shande.villa/" rel="me noopener">
+            <span class="n" aria-hidden="true"></span>
+            <span class="txt"><span class="nombre">Instagram</span></span>
+            <span class="flecha" aria-hidden="true"></span>
+          </a>
+        </li>
+        <li>
+          <!-- build.mjs pone aquí el título y el enlace de tu último post (RSS de Substack) -->
+          <a data-ultimo href="https://shandevilla.substack.com/" rel="me noopener">
+            <span class="n" aria-hidden="true"></span>
+            <span class="txt"><span class="nombre">Substack</span><!--ULTIMO--><!--/ULTIMO--></span>
+            <span class="flecha" aria-hidden="true"></span>
+          </a>
+        </li>
+      </ol>
+    </div>
+
+    <div class="grupo grupo-cn">
+      <p class="grupo-cab"><span data-i18n="redes.china">En China</span><span class="iso" aria-hidden="true">ISO 200</span></p>
+      <ol class="redes-lista">
+        <li>
+          <a href="https://www.xiaohongshu.com/user/profile/62433dff0000000010005059" rel="me noopener">
+            <span class="n" aria-hidden="true"></span>
+            <span class="txt"><span class="nombre" lang="zh-Hans">小红书</span><span class="glosa" data-i18n="enlaces.xhs.gloss">Xiaohongshu · «Librito Rojo»</span></span>
+            <span class="flecha" aria-hidden="true"></span>
+          </a>
+        </li>
+        <li>
+          <a href="https://v.douyin.com/KczV9R9pM3M/" rel="me noopener">
+            <span class="n" aria-hidden="true"></span>
+            <span class="txt"><span class="nombre" lang="zh-Hans">抖音</span><span class="glosa" data-i18n="enlaces.douyin.gloss">Douyin · el TikTok chino</span></span>
+            <span class="flecha" aria-hidden="true"></span>
+          </a>
+        </li>
+      </ol>
+    </div>
+    <!-- YOUTUBE: todavía no tengo canal. Cuando exista, copia una de las filas <li> en el grupo "Fuera de China",
+         pon su URL (https://www.youtube.com/@TU_CANAL) y el nombre YouTube; el número de fotograma se actualiza solo. -->
   </section>
 
   <!-- FOTOS · se elige una categoría y se recorre su carrete. Se genera con tools/optimizar_fotos.py desde tools/seleccion.json -->
@@ -336,24 +345,11 @@
 <!--/GALERIA-->
   </section>
 
-  <!-- ESCRITOS · lo único de Substack en la web: build.mjs trae las últimas entradas del RSS al construir -->
-  <section class="entradas" id="escritos" aria-labelledby="h-entradas">
-    <h2 id="h-entradas" class="titulo" data-i18n="entradas.titulo">Escritos</h2>
-    <ol class="lista-entradas">
-<!--ENTRADAS-->
-      <li class="entrada entrada-vacia">
-        <p data-i18n="entradas.vacio">Ahora mismo no he podido cargar las entradas. Puedes leerlas directamente en Substack.</p>
-      </li>
-<!--/ENTRADAS-->
-    </ol>
-    <p class="todas"><a href="https://shandevilla.substack.com/" rel="me noopener"><span data-i18n="entradas.todas">Leer más en Substack</span><span class="flecha" aria-hidden="true"></span></a></p>
-  </section>
-
   <!-- CONTACTO -->
   <section class="contacto" id="contacto" aria-labelledby="h-contacto">
     <h2 id="h-contacto" class="titulo" data-i18n="contacto.titulo">Colaboraciones con marcas</h2>
     <p data-i18n="contacto.texto">Si tienes una marca y quieres trabajar conmigo, escríbeme por mensaje directo en Instagram con tu idea y los plazos. Te respondo yo.</p>
-    <p class="accion"><a class="boton" href="https://ig.me/m/shande.villa" rel="me noopener"><span data-i18n="contacto.cta">Escribirme por Instagram</span><span class="flecha" aria-hidden="true"></span></a></p>
+    <p class="accion"><a class="contacto-fila" href="https://ig.me/m/shande.villa" rel="me noopener"><span class="nombre" data-i18n="contacto.cta">Escríbeme por Instagram</span><span class="flecha" aria-hidden="true"></span></a></p>
   </section>
 
 </div>
@@ -381,6 +377,6 @@
   Web Analytics, copia tu token, descomenta esta línea y amplía la política CSP de _headers (las instrucciones están allí).
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "PEGA_AQUI_TU_TOKEN"}'></script>
 -->
-<script src="js/app.js?v=42e527b5" defer></script>
+<script src="js/app.js?v=98c33700" defer></script>
 </body>
 </html>
