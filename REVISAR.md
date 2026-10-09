@@ -48,3 +48,12 @@ En chino, «胶卷» es el rollo de película; si prefieres «底片» (negativo
 | `portada.bio` (más corta) | Soy fotógrafo de calle, español, y vivo en Guangzhou. Salgo a caminar con la cámara y fotografío lo que me cruzo: la gente, la luz, lo que quizá mañana ya no esté. | I'm a street photographer from Spain and I live in Guangzhou. I go out walking with my camera and photograph whatever crosses my path: people, light, things that may not be there tomorrow. | 我是一名住在广州的西班牙街头摄影师。我带着相机出门散步，拍下路上遇到的一切：人、光线，还有也许明天就不在了的东西。 |
 
 **山德** (la firma de la polaroid) lo he tratado como un nombre, no como un texto que traducir, así que no lleva traducción debajo. Si prefieres que la lleve, o si tu nombre en chino se escribe de otra forma, dímelo.
+
+## Fotos (antes «Carretes») y menú numerado
+
+| Clave | Español | Inglés | Chino |
+|---|---|---|---|
+| `menu.fotos` / `galeria.titulo` | Fotos | Photos | 照片 |
+| `galeria.categorias` (etiqueta para lectores de pantalla) | Categorías de fotos | Photo categories | 照片分类 |
+
+Las entradas anteriores sobre «Carretes» / «Rolls» / «胶卷» (`menu.carretes`, `galeria.carretes`) ya no se usan.

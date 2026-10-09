@@ -29,9 +29,10 @@
 
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="preload" href="fonts/source-serif-4-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/estilo.css?v=53447b2d">
-<script src="js/idioma-inicial.js?v=53447b2d"></script>
+<link rel="preload" href="fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/instrument-serif-italic-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/estilo.css?v=42e527b5">
+<script src="js/idioma-inicial.js?v=42e527b5"></script>
 
 <script type="application/ld+json">
 {
@@ -54,21 +55,21 @@
 <a class="saltar" href="#contenido" data-i18n="skip">Saltar al contenido</a>
 
 <header class="cabecera">
-  <div class="barra">
-    <p class="marca">Shande Villa</p>
-    <div class="idioma" role="group" aria-label="Idioma" data-i18n-attr="aria-label:idioma.etiqueta">
-      <button type="button" data-idioma="es" lang="es" aria-label="Español" aria-pressed="true">ES</button>
-      <button type="button" data-idioma="zh" lang="zh-Hans" aria-label="中文" aria-pressed="false">中文</button>
-      <button type="button" data-idioma="en" lang="en" aria-label="English" aria-pressed="false">EN</button>
-    </div>
+  <p class="marca">Shande Villa</p>
+  <div class="idioma" role="group" aria-label="Idioma" data-i18n-attr="aria-label:idioma.etiqueta">
+    <button type="button" data-idioma="es" lang="es" aria-label="Español" aria-pressed="true">ES</button>
+    <button type="button" data-idioma="zh" lang="zh-Hans" aria-label="中文" aria-pressed="false">中文</button>
+    <button type="button" data-idioma="en" lang="en" aria-label="English" aria-pressed="false">EN</button>
   </div>
-  <nav class="menu" aria-label="Menú" data-i18n-attr="aria-label:menu.etiqueta">
+</header>
+<nav class="menu" aria-label="Menú" data-i18n-attr="aria-label:menu.etiqueta">
+  <div class="menu-in">
     <a href="#redes" data-i18n="menu.redes">Redes</a>
-    <a href="#carretes" data-i18n="menu.carretes">Carretes</a>
+    <a href="#fotos" data-i18n="menu.fotos">Fotos</a>
     <a href="#escritos" data-i18n="menu.escritos">Escritos</a>
     <a href="#contacto" data-i18n="menu.contacto">Contacto</a>
-  </nav>
-</header>
+  </div>
+</nav>
 
 <main id="contenido">
 <div class="pagina">
@@ -104,52 +105,48 @@
     <p class="bio" data-i18n="portada.bio">Soy fotógrafo de calle, español, y vivo en Guangzhou. Salgo a caminar con la cámara y fotografío lo que me cruzo: la gente, la luz, lo que quizá mañana ya no esté.</p>
   </section>
 
-  <!-- REDES · una tira vertical de película: cada enlace es un fotograma. La numeración sale sola (CSS), así que añadir o quitar uno renumera el resto -->
+  <!-- REDES · el número de fotograma sale solo (CSS): añadir o quitar un enlace renumera el resto -->
   <section class="enlaces" id="redes" aria-labelledby="h-enlaces">
     <h2 id="h-enlaces" class="titulo" data-i18n="enlaces.titulo">Redes</h2>
-    <div class="tira">
-      <ol class="lista-enlaces">
-        <li class="enlace">
-          <p class="borde" aria-hidden="true"></p>
-          <a href="https://www.instagram.com/shande.villa/" rel="me noopener">
-            <span class="nombre">Instagram</span>
-            <span class="flecha" aria-hidden="true">↗</span>
-          </a>
-        </li>
-        <li class="enlace">
-          <p class="borde" aria-hidden="true"></p>
-          <a href="https://www.xiaohongshu.com/user/profile/62433dff0000000010005059" rel="me noopener">
-            <span class="nombre" lang="zh-Hans">小红书</span>
-            <span class="glosa" data-i18n="enlaces.xhs.gloss">Xiaohongshu · «Librito Rojo»</span>
-            <span class="flecha" aria-hidden="true">↗</span>
-          </a>
-        </li>
-        <li class="enlace">
-          <p class="borde" aria-hidden="true"></p>
-          <a href="https://v.douyin.com/KczV9R9pM3M/" rel="me noopener">
-            <span class="nombre" lang="zh-Hans">抖音</span>
-            <span class="glosa" data-i18n="enlaces.douyin.gloss">Douyin · el TikTok chino</span>
-            <span class="flecha" aria-hidden="true">↗</span>
-          </a>
-        </li>
-        <!-- YOUTUBE: todavía no tengo canal. Cuando exista, descomenta este bloque y pon la URL.
-        <li class="enlace">
-          <p class="borde" aria-hidden="true"></p>
-          <a href="https://www.youtube.com/@TU_CANAL" rel="me noopener">
-            <span class="nombre">YouTube</span>
-            <span class="flecha" aria-hidden="true">↗</span>
-          </a>
-        </li>
-        -->
-      </ol>
-    </div>
+    <ol class="redes-lista">
+      <li>
+        <a href="https://www.instagram.com/shande.villa/" rel="me noopener">
+          <span class="n" aria-hidden="true"></span>
+          <span class="txt"><span class="nombre">Instagram</span></span>
+          <span class="flecha" aria-hidden="true"></span>
+        </a>
+      </li>
+      <li>
+        <a href="https://www.xiaohongshu.com/user/profile/62433dff0000000010005059" rel="me noopener">
+          <span class="n" aria-hidden="true"></span>
+          <span class="txt"><span class="nombre" lang="zh-Hans">小红书</span><span class="glosa" data-i18n="enlaces.xhs.gloss">Xiaohongshu · «Librito Rojo»</span></span>
+          <span class="flecha" aria-hidden="true"></span>
+        </a>
+      </li>
+      <li>
+        <a href="https://v.douyin.com/KczV9R9pM3M/" rel="me noopener">
+          <span class="n" aria-hidden="true"></span>
+          <span class="txt"><span class="nombre" lang="zh-Hans">抖音</span><span class="glosa" data-i18n="enlaces.douyin.gloss">Douyin · el TikTok chino</span></span>
+          <span class="flecha" aria-hidden="true"></span>
+        </a>
+      </li>
+      <!-- YOUTUBE: todavía no tengo canal. Cuando exista, descomenta este bloque y pon la URL.
+      <li>
+        <a href="https://www.youtube.com/@TU_CANAL" rel="me noopener">
+          <span class="n" aria-hidden="true"></span>
+          <span class="txt"><span class="nombre">YouTube</span></span>
+          <span class="flecha" aria-hidden="true"></span>
+        </a>
+      </li>
+      -->
+    </ol>
   </section>
 
-  <!-- CARRETES · se elige uno y se recorre. Se genera con tools/optimizar_fotos.py desde tools/seleccion.json -->
-  <section class="galeria" id="carretes" aria-labelledby="h-galeria">
-    <h2 id="h-galeria" class="titulo" data-i18n="galeria.titulo">Carretes</h2>
+  <!-- FOTOS · se elige una categoría y se recorre su carrete. Se genera con tools/optimizar_fotos.py desde tools/seleccion.json -->
+  <section class="galeria" id="fotos" aria-labelledby="h-galeria">
+    <h2 id="h-galeria" class="titulo" data-i18n="galeria.titulo">Fotos</h2>
 <!--GALERIA-->
-    <div class="selector-carrete" role="tablist" aria-label="Carretes" data-i18n-attr="aria-label:galeria.carretes">
+    <div class="selector-carrete" role="tablist" aria-label="Categorías de fotos" data-i18n-attr="aria-label:galeria.categorias">
       <button type="button" role="tab" id="tab-calle" aria-controls="panel-calle" aria-selected="true" tabindex="0"><span data-i18n="rollo.calle">Calle</span></button>
       <button type="button" role="tab" id="tab-noche" aria-controls="panel-noche" aria-selected="false" tabindex="-1"><span data-i18n="rollo.noche">Noche</span></button>
       <button type="button" role="tab" id="tab-retratos-urbanos" aria-controls="panel-retratos-urbanos" aria-selected="false" tabindex="-1"><span data-i18n="rollo.retratos-urbanos">Retratos urbanos</span></button>
@@ -349,14 +346,14 @@
       </li>
 <!--/ENTRADAS-->
     </ol>
-    <p class="todas"><a href="https://shandevilla.substack.com/" rel="me noopener"><span data-i18n="entradas.todas">Leer más en Substack</span> <span aria-hidden="true">↗</span></a></p>
+    <p class="todas"><a href="https://shandevilla.substack.com/" rel="me noopener"><span data-i18n="entradas.todas">Leer más en Substack</span><span class="flecha" aria-hidden="true"></span></a></p>
   </section>
 
   <!-- CONTACTO -->
   <section class="contacto" id="contacto" aria-labelledby="h-contacto">
     <h2 id="h-contacto" class="titulo" data-i18n="contacto.titulo">Colaboraciones con marcas</h2>
     <p data-i18n="contacto.texto">Si tienes una marca y quieres trabajar conmigo, escríbeme por mensaje directo en Instagram con tu idea y los plazos. Te respondo yo.</p>
-    <p class="accion"><a class="boton" href="https://ig.me/m/shande.villa" rel="me noopener"><span data-i18n="contacto.cta">Escribirme por Instagram</span> <span aria-hidden="true">↗</span></a></p>
+    <p class="accion"><a class="boton" href="https://ig.me/m/shande.villa" rel="me noopener"><span data-i18n="contacto.cta">Escribirme por Instagram</span><span class="flecha" aria-hidden="true"></span></a></p>
   </section>
 
 </div>
@@ -384,6 +381,6 @@
   Web Analytics, copia tu token, descomenta esta línea y amplía la política CSP de _headers (las instrucciones están allí).
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "PEGA_AQUI_TU_TOKEN"}'></script>
 -->
-<script src="js/app.js?v=53447b2d" defer></script>
+<script src="js/app.js?v=42e527b5" defer></script>
 </body>
 </html>

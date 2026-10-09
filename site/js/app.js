@@ -141,7 +141,7 @@
     }
     carrete.scrollTo({ left: destino, behavior: sinMovimiento ? 'auto' : 'smooth' });
   }
-  function elegir(id, enfocar, desplazar) {
+  function elegir(id, enfocar, desplazar, animar) {
     pestanas.forEach(function (b) {
       var activa = b.id === 'tab-' + id;
       b.setAttribute('aria-selected', activa ? 'true' : 'false');
@@ -153,21 +153,22 @@
       p.hidden = !es;
       if (es) {
         p.querySelector('.carrete').scrollLeft = 0;
-        p.classList.remove('entra'); void p.offsetWidth; p.classList.add('entra');
+        p.classList.remove('entra');
+        if (animar) { void p.offsetWidth; p.classList.add('entra'); }
         actualizarCuenta(p);
       }
     });
   }
   if (pestanas.length) {
-    elegir(pestanas[0].id.replace('tab-', ''), false);
+    elegir(pestanas[0].id.replace('tab-', ''), false, false, false);
     pestanas.forEach(function (b, i) {
-      b.addEventListener('click', function () { elegir(b.id.replace('tab-', ''), false, true); });
+      b.addEventListener('click', function () { elegir(b.id.replace('tab-', ''), false, true, true); });
       b.addEventListener('keydown', function (e) {
         var n = null;
         if (e.key === 'ArrowRight') { n = (i + 1) % pestanas.length; }
         else if (e.key === 'ArrowLeft') { n = (i - 1 + pestanas.length) % pestanas.length; }
         else if (e.key === 'Home') { n = 0; } else if (e.key === 'End') { n = pestanas.length - 1; }
-        if (n !== null) { e.preventDefault(); elegir(pestanas[n].id.replace('tab-', ''), true); }
+        if (n !== null) { e.preventDefault(); elegir(pestanas[n].id.replace('tab-', ''), true, false, true); }
       });
     });
   }
@@ -204,6 +205,38 @@
       if (movido) { e.preventDefault(); e.stopPropagation(); movido = false; }
     }, true);
   });
+
+  /* El carrete entra deslizándose la primera vez que se ve (el único movimiento de la página) */
+  var galeria = document.getElementById('fotos');
+  if (galeria && !sinMovimiento && 'IntersectionObserver' in window) {
+    var primera = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (e) {
+        if (!e.isIntersecting) { return; }
+        primera.disconnect();
+        var activo = paneles.filter(function (p) { return !p.hidden; })[0];
+        if (activo) { activo.classList.remove('entra'); void activo.offsetWidth; activo.classList.add('entra'); }
+      });
+    }, { threshold: 0.25 });
+    primera.observe(galeria);
+  }
+
+  /* Menú: marca la sección en la que estás */
+  var enlacesMenu = Array.prototype.slice.call(document.querySelectorAll('.menu a[href^="#"]'));
+  function marcar(id) {
+    enlacesMenu.forEach(function (a) {
+      if (a.getAttribute('href') === '#' + id) { a.setAttribute('aria-current', 'true'); } else { a.removeAttribute('aria-current'); }
+    });
+  }
+  if ('IntersectionObserver' in window) {
+    var espia = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (e) { if (e.isIntersecting) { marcar(e.target.id); } });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    enlacesMenu.forEach(function (a) {
+      var s = document.querySelector(a.getAttribute('href'));
+      if (s) { espia.observe(s); }
+    });
+  }
+  enlacesMenu.forEach(function (a) { a.addEventListener('click', function () { marcar(a.getAttribute('href').slice(1)); }); });
 
   /* ───────── Visor de fotos ───────── */
   var visor = document.getElementById('visor');

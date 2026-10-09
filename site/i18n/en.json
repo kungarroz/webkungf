@@ -9,7 +9,7 @@
   "enlaces.titulo": "Social",
   "enlaces.xhs.gloss": "Xiaohongshu · “Little Red Book”",
   "enlaces.douyin.gloss": "Douyin · China’s TikTok",
-  "galeria.titulo": "Rolls",
+  "galeria.titulo": "Photos",
   "rollo.calle": "Street",
   "rollo.noche": "Night",
   "rollo.retratos-urbanos": "Urban portraits",
@@ -29,7 +29,6 @@
   "contacto.texto": "If you have a brand and want to work with me, send me a direct message on Instagram with your idea and your deadlines. I answer every message myself.",
   "contacto.cta": "Message me on Instagram",
   "footer.texto": "All photos are mine. If you'd like to use one, please ask me first.",
-  "galeria.carretes": "Rolls",
   "carrete.ant": "Previous photos",
   "carrete.sig": "Next photos",
   "portada.polaroid": "Shande Villa wearing an orange cap and a camera strap across his chest, looking to one side in a corridor with fluorescent lights",
@@ -37,7 +36,8 @@
   "portada.sub": "Street photography · Guangzhou",
   "menu.etiqueta": "Menu",
   "menu.redes": "Social",
-  "menu.carretes": "Rolls",
   "menu.escritos": "Writing",
-  "menu.contacto": "Contact"
+  "menu.contacto": "Contact",
+  "menu.fotos": "Photos",
+  "galeria.categorias": "Photo categories"
 }

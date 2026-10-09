@@ -121,7 +121,7 @@ def bloque_galeria(seleccion, info):
             f'        <button type="button" class="sig" aria-label="Fotos siguientes" data-i18n-attr="aria-label:carrete.sig">→</button>\n'
             f'      </div>\n'
             f'    </div>')
-    return ('    <div class="selector-carrete" role="tablist" aria-label="Carretes" data-i18n-attr="aria-label:galeria.carretes">\n'
+    return ('    <div class="selector-carrete" role="tablist" aria-label="Categorías de fotos" data-i18n-attr="aria-label:galeria.categorias">\n'
             + "\n".join(pestanas) + '\n    </div>\n' + "\n".join(paneles))
 
 

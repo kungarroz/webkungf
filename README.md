@@ -88,19 +88,21 @@ Se genera con `tools/generar_og.py` (necesita las TTF de Source Serif 4 y DM Mon
 
 | Uso | Fuente | Dónde |
 |---|---|---|
-| Texto y títulos | Source Serif 4 (redonda y cursiva) | `site/fonts/`, recortada a latín |
-| Texto impreso en el borde de la tira | DM Mono | `site/fonts/` |
-| Firma 山德 de la polaroid | Long Cang, recortada a esos dos caracteres (1,3 KB) | `site/fonts/` (`tools/subset_firma.py` para cambiarla) |
-| Chino simplificado | Noto Serif SC, peso variable 400–600 | se recorta en cada build desde `tools/fuentes-origen/` |
+| Títulos y nombres (cursiva condensada) | Instrument Serif | `site/fonts/`, recortada a latín (31 KB) |
+| Texto y menús | Hanken Grotesk, peso variable 300–600 | `site/fonts/`, recortada a latín (28 KB) |
+| Texto impreso en el borde de la película y números de fotograma | DM Mono | `site/fonts/` (9 KB) |
+| Firma 山德 de la polaroid | Long Cang, recortada a esos dos caracteres | `site/fonts/` (1,3 KB; `tools/subset_firma.py` para cambiarla) |
+| Títulos en chino | Noto Serif SC, peso variable 400–600 | se recorta en cada build desde `tools/fuentes-origen/` |
+| Texto corrido en chino | Sans del sistema (PingFang SC, Microsoft YaHei, Noto Sans CJK) | no se descarga |
 
-La fuente china **solo se descarga cuando el visitante elige chino**. Todas son SIL Open Font License; las licencias están junto a los archivos. Los archivos de `site/fonts` son recortes técnicos (solo los caracteres necesarios) de las fuentes originales.
+La fuente china **solo se descarga cuando el visitante elige chino**. Todas las que se descargan son SIL Open Font License; las licencias están junto a los archivos. Los archivos de `site/fonts` son recortes técnicos (solo los caracteres necesarios) de las fuentes originales. `python3 tools/subset_latin.py` regenera las latinas desde `tools/fuentes-origen/`.
 
 ## Caché
 `build.mjs` añade `?v=<huella>` a `css/estilo.css`, `js/*.js` y `i18n/*.json`, así que cada despliegue obliga al navegador a bajar la versión nueva. Sin esto, un móvil podía mezclar un HTML nuevo con un CSS viejo guardado en caché. Las fuentes latinas no cambian y se cachean un año; la fuente china se regenera en cada build y se cachea una hora; las fotos, un día.
 
 ## Accesibilidad y rendimiento
 - Contraste: papel `#F1ECE2` sobre el fondo `#120D0A` y sobre las ventanas oscuras de la tira, más de 15:1; texto secundario `#C4B8A8` 10:1; ámbar `#F5A03A` 9:1. Pasa AA con margen y axe-core no da avisos.
-- Los destellos del retrato son decorativos y no se mueven; solo la película de la tira de enlaces avanza al cargar, y no con `prefers-reduced-motion`.
+- El único movimiento es el carrete de fotos, que entra deslizándose la primera vez que se ve; con `prefers-reduced-motion` no se mueve. La fuga de luz de la foto grande es decorativa.
 - Foco visible, enlace «Saltar al contenido», HTML semántico y `lang` que cambia con el idioma.
 - `prefers-reduced-motion`: sin el avance de la tira al cargar.
 - Imágenes con `width` y `height`, `srcset` y carga diferida (salvo la portada).
