@@ -95,7 +95,7 @@ html[lang="zh-Hans"] .menu a { font-size: .875rem; letter-spacing: .12em; }
 /* ───────── Estructura de secciones ───────── */
 .pagina { counter-reset: seccion; }
 .pagina > section { padding-top: 56px; scroll-margin-top: 46px; }
-.pagina > section.portada { padding-top: 14px; }
+.pagina > section.portada { padding-top: 0; }
 .titulo {
   counter-increment: seccion; display: flex; align-items: center; gap: 14px; margin-bottom: 22px;
   font-size: .75rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--tenue); line-height: 1.4;
@@ -109,7 +109,6 @@ html[lang="zh-Hans"] .titulo { font-size: .875rem; letter-spacing: .14em; }
   display: flex; align-items: center; height: 24px; margin: 0;
   font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--impreso); white-space: nowrap; overflow: hidden;
 }
-.portada .borde::before { content: "SV 400 · 0 · 0A"; }
 
 /* ───────── Portada: una sola composición ───────── */
 .ventana { background: #000; }
@@ -131,7 +130,7 @@ html[lang="zh-Hans"] .titulo { font-size: .875rem; letter-spacing: .14em; }
 .titulos { padding-top: 92px; min-width: 0; }
 .frase { font-size: clamp(2.2rem, 10.2vw, 3.2rem); font-style: italic; line-height: 1; letter-spacing: -.01em; text-wrap: balance; }
 html[lang="zh-Hans"] .frase { font-style: normal; font-size: clamp(2rem, 8.6vw, 2.8rem); letter-spacing: .04em; line-height: 1.25; }
-.bio { margin-top: 28px; font-size: 1.125rem; font-weight: 300; max-width: 34rem; text-wrap: pretty; }
+.bio { margin-top: 28px; font-size: 1.3rem; line-height: 1.5; font-weight: 300; max-width: 30rem; text-wrap: balance; }
 html[lang="zh-Hans"] .bio { font-weight: 400; }
 
 /* ───────── Redes: dos carretes. Fuera de China (amarillo y rojo) y en China (verde) ───────── */
@@ -145,7 +144,6 @@ html[lang="zh-Hans"] .bio { font-weight: 400; }
   font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap;
 }
 .grupo-cab::before { content: ""; align-self: stretch; width: 16px; margin-right: 2px; background: var(--cinta); }
-.grupo-cab .iso { margin-left: auto; }
 html[lang="zh-Hans"] .grupo-cab { letter-spacing: .08em; }
 
 .redes-lista li { counter-increment: enlace; }
@@ -156,8 +154,11 @@ html[lang="zh-Hans"] .grupo-cab { letter-spacing: .08em; }
 .redes-lista li:last-child a { border-bottom: 0; }
 .redes-lista .n::before { content: counter(enlace) "A"; font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; color: var(--impreso); }
 .redes-lista .nombre { display: block; font-size: 2rem; line-height: 1.1; }
-.redes-lista .post { display: block; margin-top: 4px; color: var(--tenue); font-size: .9375rem; line-height: 1.4; }
-.redes-lista .post-titulo { color: var(--papel); font-style: italic; font-family: var(--display), var(--cjk-display); font-size: 1.0625rem; }
+.redes-lista .post { display: block; margin-top: 8px; }
+.redes-lista .post-etiqueta { display: block; color: var(--tenue); font-size: .6875rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; line-height: 1.4; }
+html[lang="zh-Hans"] .redes-lista .post-etiqueta { font-size: .8125rem; letter-spacing: .1em; }
+.redes-lista .post-titulo { display: block; margin-top: 2px; color: var(--papel); font-style: italic; font-family: var(--display), var(--cjk-display); font-size: 1.3rem; line-height: 1.2; }
+html[lang="zh-Hans"] .redes-lista .post-titulo { font-style: normal; }
 .redes-lista .glosa { display: block; margin-top: 2px; color: var(--tenue); font-size: 1rem; font-style: italic; line-height: 1.25; }
 html[lang="zh-Hans"] .redes-lista .glosa { display: none; }
 .redes-lista .flecha { width: 1.3rem; height: 1.3rem; color: var(--ambar); transition: transform .25s ease; }

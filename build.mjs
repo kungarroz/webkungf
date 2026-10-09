@@ -104,7 +104,7 @@ async function ultimoPost() {
     const marca = /(<!--ULTIMO-->)([\s\S]*?)(<!--\/ULTIMO-->)/;
     const enlace = /(<a data-ultimo href=")[^"]*(")/;
     if (!marca.test(html) || !enlace.test(html)) throw new Error('faltan las marcas del último post en site/index.html');
-    const post = `<span class="post"><span data-i18n="redes.ultimo">Último post</span> · <span class="post-titulo">${escapar(e.titulo)}</span></span>`;
+    const post = `<span class="post"><span class="post-etiqueta" data-i18n="redes.ultimo">Último post</span><span class="post-titulo">${escapar(e.titulo)}</span></span>`;
     html = html.replace(marca, (_, a, __, c) => `${a}${post}${c}`).replace(enlace, (_, a, c) => `${a}${escapar(e.enlace)}${c}`);
     writeFileSync(INDEX, html);
     ok(`Último post: «${e.titulo}» (${process.env.RSS_FILE ? process.env.RSS_FILE : RSS_URL})`);

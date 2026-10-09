@@ -69,3 +69,14 @@ Las entradas anteriores sobre «Carretes» / «Rolls» / «胶卷» (`menu.carre
 | `contacto.cta` | Escríbeme por Instagram | Message me on Instagram | 在 Instagram 上给我发私信 |
 
 Ya no se usan `portada.sub`, `menu.escritos` ni `entradas.*` (la sección Escritos desapareció: el último post va dentro de la fila de Substack).
+
+## Presentación nueva y redes más sobrias
+
+| Clave | Español | Inglés | Chino |
+|---|---|---|---|
+| `portada.bio` (la frase de presentación) | Desde 2008 en China. Fotografío lo que quizá no exista dentro de diez años. | In China since 2008. I photograph what may not exist ten years from now. | 自2008年起生活在中国。我拍下那些十年后也许已不复存在的东西。 |
+| `meta.description` (lo que sale en el buscador) | Fotógrafo de calle en China desde 2008. Mis fotos, mis enlaces (…) y mi contacto para colaboraciones con marcas. | Street photographer in China since 2008. My photos, my links (…) and how to reach me for brand collaborations. | 2008年起在中国拍摄街头。这里有我的照片、各平台的链接（…），以及品牌合作的联系方式。 |
+
+Debajo de 小红书 y 抖音 solo queda su nombre en letras latinas (**Xiaohongshu**, **Douyin**), sin descripción; ya no existen las claves `enlaces.xhs.gloss` ni `enlaces.douyin.gloss`. Tampoco hay «ISO 400 / ISO 200» en las franjas.
+
+La imagen para redes (`og.jpg`) ahora dice «Fotografía de calle en China» y «Desde 2008».

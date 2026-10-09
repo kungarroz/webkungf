@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Genera site/og.jpg (1200x630) y site/apple-touch-icon.png. Solo hace falta repetirlo si cambia la portada.
 
-Uso:  python3 tools/generar_og.py RUTA/SourceSerif4.ttf RUTA/DMMono-Regular.ttf
-(las fuentes son las mismas de la web; no están en el repositorio porque en site/fonts van recortadas)
+Uso:  python3 tools/generar_og.py tools/fuentes-origen/InstrumentSerif-Regular.ttf tools/fuentes-origen/InstrumentSerif-Italic.ttf RUTA/DMMono-Regular.ttf
+(son las mismas fuentes de la web; DM Mono no está en el repositorio porque en site/fonts va recortada)
 Requiere ImageMagick (convert).
 """
 import os
@@ -10,9 +10,9 @@ import subprocess
 import sys
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-if len(sys.argv) != 3:
+if len(sys.argv) != 4:
     sys.exit(__doc__)
-SERIF, MONO = sys.argv[1], sys.argv[2]
+SERIF, ITALICA, MONO = sys.argv[1], sys.argv[2], sys.argv[3]
 FOTO = os.path.join(RAIZ, "originales", "noche", "noche2.jpeg")
 MESA, TIRA, LINEA, PAPEL, TENUE, AMBAR = "#15110D", "#0B0908", "#2B231B", "#EEEAE1", "#A89F92", "#E8871E"
 
@@ -30,10 +30,10 @@ cmd += ["(", FOTO, "-auto-orient", "-resize", "292x438!", ")", "-geometry", f"+{
 cmd += ["-font", MONO, "-pointsize", "15", "-fill", AMBAR, "-annotate", f"+{x0+44}+82", "SV 400 · 12 · 12A",
         "-annotate", f"+{x0+44}+560", "SV 400 · 13 · 13A"]
 # texto
-cmd += ["-font", SERIF, "-fill", PAPEL, "-pointsize", "76", "-kerning", "6", "-annotate", "+80+300", "SHANDE VILLA",
-        "-kerning", "0", "-fill", AMBAR, "-pointsize", "46", "-annotate", "+80+372", "Antes de que todo cambie",
-        "-fill", TENUE, "-pointsize", "30", "-annotate", "+80+438", "Fotografía de calle · Guangzhou",
-        "-fill", TENUE, "-pointsize", "26", "-annotate", "+80+560", "shandevilla.com",
+cmd += ["-font", SERIF, "-fill", PAPEL, "-pointsize", "88", "-kerning", "8", "-annotate", "+80+300", "SHANDE VILLA",
+        "-font", ITALICA, "-kerning", "0", "-fill", AMBAR, "-pointsize", "58", "-annotate", "+80+382", "Fotografía de calle en China",
+        "-font", SERIF, "-fill", TENUE, "-pointsize", "34", "-annotate", "+80+450", "Desde 2008",
+        "-pointsize", "28", "-annotate", "+80+560", "shandevilla.com",
         "-quality", "88", "-strip", "-sampling-factor", "4:2:0", os.path.join(RAIZ, "site", "og.jpg")]
 subprocess.check_call(cmd)
 
