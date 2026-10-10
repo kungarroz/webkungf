@@ -1,12 +1,12 @@
 // Formulario de contacto · Cloudflare Pages Function  →  POST /api/contacto
 //
 // Recibe {email, asunto, mensaje, web, token}, comprueba el captcha de Cloudflare (Turnstile) EN EL SERVIDOR
-// y reenvía el mensaje a tu correo con Resend. Tu dirección NUNCA está en el código ni en la web:
+// y reenvía el mensaje a tu correo con Cloudflare Email Routing (binding EMAIL) o, si no hay binding, con Resend. Tu dirección NUNCA está en el código ni en la web:
 // vive solo en variables secretas del panel de Cloudflare Pages.
 //
 // Variables (Settings → Variables and Secrets del proyecto de Pages; las tres, como «Secret»):
 //   TURNSTILE_SECRET   clave secreta del widget de Turnstile
-//   RESEND_API_KEY     clave de API de Resend
+//   EMAIL              binding «send_email» (Email Routing); alternativa: RESEND_API_KEY (secreto)
 //   CONTACT_TO         correo donde quieres recibir los mensajes (varios, separados por comas)
 // Opcional:
 //   CONTACT_FROM       remitente, p. ej.  Shande Villa <contacto@tudominio.com>  (por defecto, el de pruebas de Resend,
@@ -32,8 +32,42 @@ const limpiar = (texto, max, unaLinea) => {
   return t.trim().slice(0, max + 1); // un carácter de más para poder detectar el exceso
 };
 
+// Envío con Cloudflare Email Routing (binding «EMAIL» de tipo send_email): sin servicios externos.
+// Los destinos deben estar verificados en Email Routing y el remitente debe ser una dirección de tu dominio.
+const b64 = (t) => { let b = ''; for (const c of new TextEncoder().encode(t)) b += String.fromCharCode(c); return btoa(b); };
+const solo = (d) => (String(d).match(/<([^>]+)>/) || [, String(d)])[1].trim();
+async function enviarConCloudflare(binding, remitente, destinos, responderA, asunto, texto) {
+  const { EmailMessage } = await import('cloudflare:email');
+  const de = solo(remitente);
+  for (const para of destinos) {
+    const crudo = [
+      `From: ${remitente}`,
+      `To: ${para}`,
+      `Reply-To: ${responderA}`,
+      `Subject: =?UTF-8?B?${b64(asunto)}?=`,
+      `Message-ID: <${crypto.randomUUID()}@${de.split('@')[1]}>`,
+      `Date: ${new Date().toUTCString()}`,
+      'MIME-Version: 1.0',
+      'Content-Type: text/plain; charset=UTF-8',
+      'Content-Transfer-Encoding: base64',
+      '',
+      b64(texto).replace(/.{1,76}/g, '$&\r\n'),
+    ].join('\r\n');
+    await binding.send(new EmailMessage(de, solo(para), crudo));
+  }
+}
+
+async function enviarConResend(clave, remitente, destinos, responderA, asunto, texto) {
+  const r = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: { authorization: `Bearer ${clave}`, 'content-type': 'application/json' },
+    body: JSON.stringify({ from: remitente, to: destinos, reply_to: responderA, subject: asunto, text: texto }),
+  });
+  if (!r.ok) throw new Error('resend');
+}
+
 export async function onRequestPost({ request, env }) {
-  if (!env.TURNSTILE_SECRET || !env.RESEND_API_KEY || !env.CONTACT_TO) {
+  if (!env.TURNSTILE_SECRET || !env.CONTACT_TO || !(env.EMAIL || env.RESEND_API_KEY)) {
     return responder({ ok: false, error: 'config' }, 503);
   }
 
@@ -82,19 +116,13 @@ export async function onRequestPost({ request, env }) {
   if (!verificacion || verificacion.success !== true) return responder({ ok: false, error: 'captcha' }, 400);
 
   // envío
+  const asuntoFinal = `[shandevilla.com] ${asunto}`;
+  const texto = `De: ${email}\n\n${mensaje}\n\n—\nEnviado desde el formulario de shandevilla.com. Responde a este correo para contestar a quien escribe.`;
+  const destinos = String(env.CONTACT_TO).split(',').map((x) => x.trim()).filter(Boolean);
+  const remitente = env.CONTACT_FROM || 'Shande Villa <onboarding@resend.dev>';
   try {
-    const r = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: { authorization: `Bearer ${env.RESEND_API_KEY}`, 'content-type': 'application/json' },
-      body: JSON.stringify({
-        from: env.CONTACT_FROM || 'Shande Villa <onboarding@resend.dev>',
-        to: String(env.CONTACT_TO).split(',').map((s) => s.trim()).filter(Boolean),
-        reply_to: email,
-        subject: `[shandevilla.com] ${asunto}`,
-        text: `De: ${email}\n\n${mensaje}\n\n—\nEnviado desde el formulario de shandevilla.com. Responde a este correo para contestar a quien escribe.`,
-      }),
-    });
-    if (!r.ok) return responder({ ok: false, error: 'servidor' }, 502);
+    if (env.EMAIL) await enviarConCloudflare(env.EMAIL, remitente, destinos, email, asuntoFinal, texto);
+    else await enviarConResend(env.RESEND_API_KEY, remitente, destinos, email, asuntoFinal, texto);
   } catch {
     return responder({ ok: false, error: 'servidor' }, 502);
   }

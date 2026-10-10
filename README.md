@@ -67,16 +67,17 @@ El botón «Abrir el formulario» de la sección Contacto abre un popup con *ema
 Hasta que lo actives, el popup avisa de que «todavía no está activado» y ofrece Instagram como alternativa. Para activarlo:
 
 1. **Turnstile:** Cloudflare → *Turnstile → Add widget*. Dominios: `shandevilla.com`, `kungfundidos.com` y `*.pages.dev` (o el de tu proyecto). Modo *Managed*. Te da una *Site key* (pública) y una *Secret key*.
-2. **Resend** (resend.com, gratis): crea cuenta **con el correo donde quieres recibir los mensajes** y una *API key*. Con el remitente de pruebas (`onboarding@resend.dev`) solo se entrega a ese correo. Si prefieres otro remitente, verifica un dominio y define `CONTACT_FROM`.
-3. En el proyecto de Pages → **Settings → Variables and Secrets** (producción y preview):
+2. **Email Routing** (sin servicios externos): en el dominio `shandevilla.com` → *Email → Email Routing* → activar (Cloudflare añade los registros DNS). En *Destination addresses* añade tu Gmail y pulsa el enlace del correo de verificación; hasta entonces no envía nada.
+3. En el proyecto de Pages → **Settings → Bindings** añade un binding **Email (send_email)** con nombre `EMAIL`. Después, en **Settings → Variables and Secrets** (producción y preview):
 
 | Nombre | Tipo | Valor |
 |---|---|---|
 | `TURNSTILE_SITE_KEY` | Texto | la Site key (se inyecta en el HTML al construir) |
 | `TURNSTILE_SECRET` | Secret | la Secret key |
-| `RESEND_API_KEY` | Secret | la API key de Resend |
-| `CONTACT_TO` | Secret | tu correo (varios, separados por comas) |
-| `CONTACT_FROM` | Texto, opcional | `Shande Villa <contacto@tudominio.com>` |
+| `CONTACT_TO` | Secret | tu correo (ya verificado en Email Routing) |
+| `CONTACT_FROM` | Texto | `Shande Villa <web@shandevilla.com>` (una dirección de tu dominio) |
+
+Alternativa si Pages no ofrece el binding de correo: `RESEND_API_KEY` (Secret) con una cuenta de Resend; la función usa Resend solo cuando no hay binding `EMAIL`.
 
 4. Vuelve a desplegar (*Retry deployment* o un commit) para que la Site key entre en el HTML.
 
