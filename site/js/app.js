@@ -323,12 +323,16 @@
           web: formu.elements.web.value, token: tokenCaptcha
         })
       }).then(function (r) {
-        return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok && j.ok === true, error: j.error }; });
+        return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok && j.ok === true, error: j.error, http: r.status }; });
       }).then(function (r) {
         if (r.ok) { formu.reset(); decir('ok', false); }
-        else { decir(r.error === 'captcha' || r.error === 'campos' || r.error === 'config' ? r.error : 'servidor', true); }
+        else {
+          var clave = r.error === 'captcha' || r.error === 'campos' || r.error === 'config' ? r.error : 'servidor';
+          decir(clave, true);
+          if (clave === 'servidor') { estado.textContent += ' [' + (r.error || 'error') + ' ' + r.http + ']'; }
+        }
         reiniciarCaptcha();
-      }).catch(function () { decir('servidor', true); reiniciarCaptcha(); })
+      }).catch(function () { decir('servidor', true); estado.textContent += ' [red]'; reiniciarCaptcha(); })
         .then(function () { enviando = false; botonEnviar.removeAttribute('aria-disabled'); });
     });
   }
