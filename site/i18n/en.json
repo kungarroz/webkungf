@@ -46,7 +46,7 @@
   "form.trampa": "Leave this field empty",
   "form.alt": "Not working? Message me on",
   "form.msg.enviando": "Sending…",
-  "form.msg.ok": "Received. I'll reply myself.",
+  "form.msg.ok": "Message received. I'll reply as soon as I can; you can also reach me on social media.",
   "form.msg.captcha": "Please complete the verification first.",
   "form.msg.campos": "Check your email and fill in every field.",
   "form.msg.servidor": "It couldn't be sent. Please try again in a while.",

@@ -252,7 +252,7 @@
     var claveSitio = zonaCaptcha.getAttribute('data-sitekey') || '';
     var configurado = /^[0-9A-Za-z_-]{8,}$/.test(claveSitio) && claveSitio.indexOf('TU_') !== 0;
     var MSG = {
-      enviando: 'Enviando…', ok: 'Recibido. Te responderé yo.', captcha: 'Marca primero la verificación.',
+      enviando: 'Enviando…', ok: 'Mensaje recibido. Te responderé lo antes posible; también puedes escribirme por mis redes sociales.', captcha: 'Marca primero la verificación.',
       campos: 'Revisa el email y rellena todos los campos.', servidor: 'No se ha podido enviar. Inténtalo de nuevo en un rato.',
       config: 'El formulario todavía no está activado.', carga: 'No se ha podido cargar la verificación.'
     };

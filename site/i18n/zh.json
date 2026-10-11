@@ -46,7 +46,7 @@
   "form.trampa": "请勿填写此项",
   "form.alt": "无法使用？请通过以下方式联系我：",
   "form.msg.enviando": "发送中…",
-  "form.msg.ok": "已收到，我会亲自回复。",
+  "form.msg.ok": "消息已收到，我会尽快回复；你也可以通过社交媒体联系我。",
   "form.msg.captcha": "请先完成验证。",
   "form.msg.campos": "请检查邮箱并填写所有内容。",
   "form.msg.servidor": "发送失败，请稍后再试。",
