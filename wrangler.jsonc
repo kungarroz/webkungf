@@ -1,6 +1,6 @@
 {
   // Worker con archivos estáticos (sustituye al proyecto de Pages)
-  "name": "shandevilla",
+  "name": "webkungf",
   "main": "worker.js",
   "compatibility_date": "2026-10-01",
   "assets": {
@@ -8,6 +8,8 @@
     "binding": "ASSETS",
     "run_worker_first": ["/api/*"]
   },
+  // remitente del formulario (no es secreto; los secretos TURNSTILE_SECRET y CONTACT_TO se ponen en el panel)
+  "vars": { "CONTACT_FROM": "Shande Villa <web@shandevilla.com>" },
   // envío del formulario por Cloudflare Email Routing (el correo de destino se verifica allí)
   "send_email": [{ "name": "EMAIL" }]
 }

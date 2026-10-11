@@ -74,9 +74,8 @@ Hasta que lo actives, el popup avisa de que «todavía no está activado» y ofr
 |---|---|---|
 | `TURNSTILE_SECRET` | Secret | la Secret key |
 | `CONTACT_TO` | Secret | tu correo (ya verificado en Email Routing) |
-| `CONTACT_FROM` | Texto | `Shande Villa <web@shandevilla.com>` (una dirección de tu dominio) |
 
-El binding `EMAIL` ya viene declarado en `wrangler.jsonc`. Después, mueve los dominios `shandevilla.com` y `kungfundidos.com` al Worker (*Settings → Domains & Routes*) y quita el proyecto de Pages.
+`CONTACT_FROM` (el remitente, una dirección de tu dominio) y el binding `EMAIL` ya vienen en `wrangler.jsonc`; no los pongas en el panel. Después, mueve los dominios `shandevilla.com` y `kungfundidos.com` al Worker (*Settings → Domains & Routes*) y quita el proyecto de Pages.
 
 Alternativa sin Email Routing: `RESEND_API_KEY` (Secret); la función usa Resend solo cuando no hay binding `EMAIL`.
 
