@@ -68,16 +68,17 @@ Hasta que lo actives, el popup avisa de que «todavía no está activado» y ofr
 
 1. **Turnstile:** Cloudflare → *Turnstile → Add widget*. Dominios: `shandevilla.com`, `kungfundidos.com` y `*.pages.dev` (o el de tu proyecto). Modo *Managed*. Te da una *Site key* (pública) y una *Secret key*.
 2. **Email Routing** (sin servicios externos): en el dominio `shandevilla.com` → *Email → Email Routing* → activar (Cloudflare añade los registros DNS). En *Destination addresses* añade tu Gmail y pulsa el enlace del correo de verificación; hasta entonces no envía nada.
-3. En el proyecto de Pages → **Settings → Bindings** añade un binding **Email (send_email)** con nombre `EMAIL`. Después, en **Settings → Variables and Secrets** (producción y preview):
+3. **Pages no ofrece el binding de correo, así que la web se despliega como Worker con archivos estáticos** (`wrangler.jsonc` + `worker.js`, ya incluidos). Crea el Worker: *Workers & Pages → Create → Import a repository* (este repo, rama `main`) con **Build command** `node build.mjs`, **Deploy command** `npx wrangler deploy` y **Variable de build** `TURNSTILE_SITE_KEY` = la Site key. Luego en el Worker, *Settings → Variables and Secrets*:
 
 | Nombre | Tipo | Valor |
 |---|---|---|
-| `TURNSTILE_SITE_KEY` | Texto | la Site key (se inyecta en el HTML al construir) |
 | `TURNSTILE_SECRET` | Secret | la Secret key |
 | `CONTACT_TO` | Secret | tu correo (ya verificado en Email Routing) |
 | `CONTACT_FROM` | Texto | `Shande Villa <web@shandevilla.com>` (una dirección de tu dominio) |
 
-Alternativa si Pages no ofrece el binding de correo: `RESEND_API_KEY` (Secret) con una cuenta de Resend; la función usa Resend solo cuando no hay binding `EMAIL`.
+El binding `EMAIL` ya viene declarado en `wrangler.jsonc`. Después, mueve los dominios `shandevilla.com` y `kungfundidos.com` al Worker (*Settings → Domains & Routes*) y quita el proyecto de Pages.
+
+Alternativa sin Email Routing: `RESEND_API_KEY` (Secret); la función usa Resend solo cuando no hay binding `EMAIL`.
 
 4. Vuelve a desplegar (*Retry deployment* o un commit) para que la Site key entre en el HTML.
 
