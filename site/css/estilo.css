@@ -434,3 +434,22 @@ html.visor-abierto { overflow: hidden; }
   .rotulo { margin-top: -124px; }
   .titulos { padding-top: 144px; }
 }
+
+/* ───────── Transición entre páginas ─────────
+   Chrome y Safari: la cabecera y el menú se quedan quietos y solo cambia el contenido (fundido + subida corta).
+   Resto de navegadores: fundido de entrada en cada página y fundido de salida desde js/app.js y js/review.js. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+  .cabecera { view-transition-name: cabecera; }
+  .menu { view-transition-name: menu; }
+  ::view-transition-old(root) { animation: pagina-sale .18s ease both; }
+  ::view-transition-new(root) { animation: pagina-entra .34s .04s cubic-bezier(.2, .7, .3, 1) both; }
+  html.saliendo main, html.saliendo .pie { opacity: 0; transition: opacity .18s ease; }
+}
+@keyframes pagina-sale { to { opacity: 0; } }
+@keyframes pagina-entra { from { opacity: 0; transform: translateY(12px); } }
+@media (prefers-reduced-motion: no-preference) {
+  @supports not (view-transition-name: none) {
+    main, .pie { animation: pagina-entra .35s ease both; }
+  }
+}

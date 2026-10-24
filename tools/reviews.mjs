@@ -333,10 +333,9 @@ export function generarReviews({ versionCss = '', versionJs = '' } = {}) {
     const marcas = [...new Set(enEste.map(marcaDe))].sort((a, b) => a.localeCompare(b, I.fecha));
     const filas = (lista) => lista.sort((a, b) => nombreDe(a).localeCompare(nombreDe(b), I.fecha, { numeric: true }))
       .map((r) => `<li data-buscar="${esc((nombreDe(r) + ' ' + marcaDe(r)).toLowerCase())}"><a href="${urlReview(l, r.slug)}"><span class="fila-nombre">${esc(nombreDe(r))}</span><span class="fila-fecha">${fechaLarga(r.porIdioma[l].meta.pubDate, l)}</span></a></li>`).join('\n');
-    const catalogo = enEste.length > MAX_TARJETAS ? `<section class="catalogo" aria-labelledby="h-catalogo">
+    const catalogo = enEste.length ? `<section class="catalogo" aria-labelledby="h-catalogo">
   <h2 id="h-catalogo" class="titulo-seccion">${t.catalogo}</h2>
-  <p class="buscador" hidden><label for="buscar-review">${t.buscar}</label><input id="buscar-review" type="search" autocomplete="off" placeholder="${t.buscarEj}"></p>
-  <p class="sin-resultados" role="status" hidden>${t.sinResultados}</p>
+${enEste.length > 8 ? `  <p class="buscador" hidden><label for="buscar-review">${t.buscar}</label><input id="buscar-review" type="search" autocomplete="off" placeholder="${t.buscarEj}"></p>\n` : ''}  <p class="sin-resultados" role="status" hidden>${t.sinResultados}</p>
 ${marcas.map((m) => `  <div class="marca-grupo"><h3>${esc(m)}</h3><ul class="filas">\n${filas(enEste.filter((r) => marcaDe(r) === m))}\n</ul></div>`).join('\n')}
 </section>` : '';
     const cuerpoIndice = `<section class="reviews-indice" aria-labelledby="h-reviews">
