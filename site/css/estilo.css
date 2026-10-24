@@ -307,7 +307,7 @@ html[lang="zh-Hans"] .f-campo label { font-size: .8125rem; letter-spacing: .1em;
 html.formulario-abierto { overflow: hidden; }
 
 /* ───────── Reviews (páginas generadas por tools/reviews.mjs) ───────── */
-html.pagina-review { --col: 720px; --tinta: #1D1712; --tinta-tenue: #5A4E42; --tinta-filete: rgba(29, 23, 18, .2); }
+html.pagina-review { --col: 760px; --tinta: #1D1712; --tinta-tenue: #5A4E42; --tinta-filete: rgba(29, 23, 18, .2); }
 html.pagina-review .idioma { display: flex; }
 .idioma a, .idioma .idioma-no { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; padding: 0 10px; font-size: .9375rem; letter-spacing: .06em; color: var(--papel); text-decoration: none; }
 .idioma a[aria-current="true"] { text-decoration: underline; text-decoration-color: var(--ambar); text-decoration-thickness: 2px; text-underline-offset: 7px; }
@@ -344,9 +344,6 @@ html[lang="zh-Hans"] .tarjeta-desc { font-weight: 400; }
 html[lang="zh-Hans"] .review-cab h1 { letter-spacing: .03em; line-height: 1.25; }
 .etiquetas { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 0; padding: 0; list-style: none; }
 .etiquetas li { padding: 5px 10px; border: 1px solid var(--filete); font-size: .75rem; letter-spacing: .08em; color: var(--tenue); }
-.portada-review { margin: 28px calc(var(--lado) * -1) 0; }
-.portada-review .ventana, .foto-review .ventana { background: var(--ventana); }
-.portada-review img { display: block; width: 100%; height: auto; }
 
 .review-cuerpo { margin-top: 36px; }
 .review-cuerpo > * + * { margin-top: 18px; }
@@ -398,13 +395,6 @@ html[lang="zh-Hans"] .titulo-seccion { font-size: .875rem; letter-spacing: .14em
 html[lang="zh-Hans"] .tabla td, html[lang="zh-Hans"] .tabla th { font-weight: 400; }
 html[lang="zh-Hans"] .tabla thead th { font-weight: 600; }
 
-.foto-review { margin: 30px calc(var(--lado) * -1) 0; }
-.foto-review .ventana { border-block: 1px solid var(--filete); }
-.foto-review img { display: block; width: 100%; height: auto; }
-.foto-review figcaption { padding: 10px var(--lado) 0; font-size: .875rem; line-height: 1.5; color: var(--tenue); }
-@media (min-width: 760px) {
-  .portada-review, .foto-review { margin-inline: 0; }
-  .foto-review figcaption { padding-inline: 0; }
 }
 
 /* ───────── Visor ───────── */
@@ -458,7 +448,7 @@ html.visor-abierto { overflow: hidden; }
    El texto claro sobre negro cansa en un artículo largo; aquí el cuerpo va sobre papel fotográfico y las fotos
    quedan como ventanas oscuras. Cabecera, menú y pie siguen en oscuro. */
 .hoja { margin: 0 calc(var(--lado) * -1); padding: 12px var(--lado) 56px; background: var(--papel); color: var(--tinta); }
-.hoja .review-cuerpo { margin-top: 28px; max-width: 40rem; margin-inline: auto; }
+.hoja .review-cuerpo { margin-top: 28px; }
 .hoja .review-cuerpo p, .hoja .review-cuerpo li { font-size: 1.125rem; line-height: 1.72; font-weight: 400; color: var(--tinta); }
 html[lang="zh-Hans"] .hoja .review-cuerpo p, html[lang="zh-Hans"] .hoja .review-cuerpo li { line-height: 1.95; letter-spacing: .02em; }
 .hoja .review-cuerpo strong { color: #000; font-weight: 700; }
@@ -474,15 +464,13 @@ html[lang="zh-Hans"] .hoja .review-cuerpo p, html[lang="zh-Hans"] .hoja .review-
 .hoja .tabla th, .hoja .tabla td { border-bottom-color: var(--tinta-filete); font-weight: 400; color: var(--tinta); }
 .hoja .tabla thead th { color: var(--tinta-tenue); }
 .hoja .tabla tbody th { font-weight: 700; color: #000; }
-.hoja .foto-review { margin-top: 34px; }
 .hoja .foto-review .ventana { border-color: rgba(0, 0, 0, .5); }
 .hoja .foto-review figcaption { color: var(--tinta-tenue); }
 .hoja .migas a { color: var(--tinta-tenue); }
 .hoja .migas a:hover { color: var(--tinta); }
-.hoja .migas-pie { max-width: 40rem; margin-inline: auto; }
+
 .hoja :focus-visible { outline-color: #8A3F08; }
-.portada-review { margin-bottom: 0; }
-.indice-review { max-width: 40rem; margin: 28px auto 0; border: 1px solid var(--tinta-filete); }
+.indice-review { margin: 28px 0 0; border: 1px solid var(--tinta-filete); }
 .indice-review summary { display: flex; align-items: center; min-height: 48px; padding: 0 16px; cursor: pointer; font-size: .8125rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--tinta-tenue); list-style: none; }
 .indice-review summary::-webkit-details-marker { display: none; }
 .indice-review summary::after { content: "+"; margin-left: auto; font-size: 1.25rem; font-weight: 400; }
@@ -490,7 +478,27 @@ html[lang="zh-Hans"] .hoja .review-cuerpo p, html[lang="zh-Hans"] .hoja .review-
 .indice-review ol { margin: 0; padding: 4px 16px 14px 40px; }
 .indice-review li { padding: 3px 0; font-size: 1rem; line-height: 1.45; color: var(--tinta); }
 .indice-review a { color: var(--tinta); text-decoration-color: #B85C14; text-underline-offset: 3px; }
-@media (min-width: 760px) {
-  .hoja { margin-inline: 0; padding-inline: 48px; }
-  .hoja .foto-review { margin-inline: -48px; }
+
+/* ───────── Fotos de las reviews: dentro de la columna, nunca a sangre; las verticales, más pequeñas; todas se amplían ───────── */
+.foto-review, .portada-review { --alto: 78vh; margin: 34px auto 0; max-width: min(100%, 56rem, calc(var(--alto) * var(--ar, 1.5))); }
+.portada-review { --alto: 68vh; margin-top: 26px; }
+.foto-review.vertical { max-width: min(100%, 21rem, calc(var(--alto) * var(--ar, .7))); }
+.foto-review .ventana, .portada-review .ventana { background: var(--ventana); border: 1px solid var(--filete); }
+.foto-review img, .portada-review img { display: block; width: 100%; height: auto; }
+.foto-review .zoom, .portada-review .zoom { display: block; cursor: zoom-in; color: inherit; }
+.foto-review .zoom:hover .ventana, .portada-review .zoom:hover .ventana { border-color: var(--ambar); }
+.foto-review figcaption { padding: 10px 2px 0; font-size: .875rem; line-height: 1.5; color: var(--tenue); }
+.visor-texto { margin: 0; padding: 0 16px; color: var(--tenue); font-size: .875rem; text-align: center; }
+
+/* ordenador: la web de reviews es más ancha; el texto mantiene un ancho cómodo y las fotos aprovechan el resto */
+@media (min-width: 960px) {
+  html.pagina-review { --col: 1120px; --lado: 40px; }
+  .hoja { padding-block: 24px 72px; }
+  .tarjeta-review { grid-template-columns: 360px 1fr; gap: 32px; }
+  .lista-reviews { gap: 44px; }
 }
+
+/* columna de lectura centrada (títulos, texto, índice); las fotos horizontales pueden ser más anchas que ella */
+.review > .migas, .review-cab, .hoja .review-cuerpo, .hoja .indice-review, .hoja .migas-pie { max-width: 42rem; margin-inline: auto; }
+.hoja .review-cuerpo { margin-top: 28px; }
+.hoja .indice-review { margin-top: 28px; }

@@ -42,3 +42,55 @@
   });
   window.addEventListener('pageshow', function (e) { if (e.persisted) { document.documentElement.classList.remove('saliendo'); } });
 })();
+
+/* Visor de fotos: todas las fotos de la review se amplían y se recorren con flechas, teclado o deslizando */
+(function () {
+  var visor = document.getElementById('visor');
+  var enlaces = Array.prototype.slice.call(document.querySelectorAll('a.zoom'));
+  if (!visor || typeof visor.showModal !== 'function' || !enlaces.length) { return; }
+  var raiz = document.documentElement;
+  var img = document.getElementById('visor-img');
+  var cuenta = document.getElementById('visor-cuenta');
+  var texto = document.getElementById('visor-texto');
+  var i = 0;
+  function mostrar() {
+    var a = enlaces[i], mini = a.querySelector('img');
+    img.setAttribute('sizes', '100vw');
+    img.setAttribute('srcset', a.getAttribute('data-srcset'));
+    img.src = a.getAttribute('href');
+    img.width = +a.getAttribute('data-w');
+    img.height = +a.getAttribute('data-h');
+    img.alt = mini ? mini.alt : '';
+    texto.textContent = a.getAttribute('data-pie') || '';
+    cuenta.textContent = (i + 1) + ' / ' + enlaces.length;
+    var vecina = enlaces[(i + 1) % enlaces.length];
+    if (vecina) { (new Image()).src = vecina.getAttribute('href'); }
+  }
+  function mover(d) { i = (i + d + enlaces.length) % enlaces.length; mostrar(); }
+  enlaces.forEach(function (a, n) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      i = n; mostrar();
+      raiz.classList.add('visor-abierto');
+      visor.showModal();
+    });
+  });
+  visor.addEventListener('close', function () { raiz.classList.remove('visor-abierto'); img.removeAttribute('src'); });
+  visor.querySelector('.visor-cerrar').addEventListener('click', function () { visor.close(); });
+  visor.querySelector('.visor-ant').addEventListener('click', function () { mover(-1); });
+  visor.querySelector('.visor-sig').addEventListener('click', function () { mover(1); });
+  visor.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft') { mover(-1); } else if (e.key === 'ArrowRight') { mover(1); }
+  });
+  visor.addEventListener('click', function (e) {
+    if (e.target === visor || e.target.classList.contains('visor-foto')) { visor.close(); }
+  });
+  var x0 = null, zona = visor.querySelector('.visor-foto');
+  zona.addEventListener('pointerdown', function (e) { x0 = e.clientX; });
+  zona.addEventListener('pointerup', function (e) {
+    if (x0 === null) { return; }
+    var dx = e.clientX - x0; x0 = null;
+    if (Math.abs(dx) > 50) { mover(dx < 0 ? 1 : -1); }
+  });
+  zona.addEventListener('pointercancel', function () { x0 = null; });
+})();

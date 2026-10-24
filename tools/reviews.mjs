@@ -23,7 +23,7 @@ const UI = {
     tituloIndice: 'Reviews', intro: 'Pruebas de objetivos y cámaras hechas en la calle: para qué sirven, qué dice la ficha técnica y qué opino después de usarlos.',
     metaIndice: 'Reviews de objetivos y cámaras para fotografía de calle — Shande Villa',
     descIndice: 'Reviews de objetivos y cámaras hechas en la calle: ficha técnica, resultados y mi opinión después de semanas de uso.',
-    volver: 'Todas las reviews', contenido: 'En esta review', catalogo: 'Todas, por marca y nombre', buscar: 'Buscar un objetivo', buscarEj: 'Ej.: 23mm, TTArtisan…', sinResultados: 'No hay ninguna review con ese nombre.', leer: 'Leer la review', vacio: 'Todavía no hay reviews en este idioma.',
+    volver: 'Todas las reviews', ampliar: 'Ampliar la foto', visor: 'Visor de fotos', cerrar: 'Cerrar', anterior: 'Foto anterior', siguiente: 'Foto siguiente', contenido: 'En esta review', catalogo: 'Todas, por marca y nombre', buscar: 'Buscar un objetivo', buscarEj: 'Ej.: 23mm, TTArtisan…', sinResultados: 'No hay ninguna review con ese nombre.', leer: 'Leer la review', vacio: 'Todavía no hay reviews en este idioma.',
     pie: 'Todas las fotos son mías. Si quieres usar alguna, escríbeme antes.', sufijo: 'Shande Villa',
   },
   zh: {
@@ -31,7 +31,7 @@ const UI = {
     tituloIndice: '评测', intro: '在街头实际使用后的镜头和相机评测：规格参数，以及我的使用感受。',
     metaIndice: '街头摄影镜头与相机评测 — Shande Villa',
     descIndice: '在街头实际使用数周后的镜头和相机评测：规格参数、实拍结果和我的看法。',
-    volver: '全部评测', contenido: '本文目录', catalogo: '按品牌和名称查看全部', buscar: '搜索镜头', buscarEj: '例如：23mm、铭匠…', sinResultados: '没有找到相应的评测。', leer: '阅读评测', vacio: '这个语言下还没有评测。',
+    volver: '全部评测', ampliar: '放大照片', visor: '照片查看器', cerrar: '关闭', anterior: '上一张', siguiente: '下一张', contenido: '本文目录', catalogo: '按品牌和名称查看全部', buscar: '搜索镜头', buscarEj: '例如：23mm、铭匠…', sinResultados: '没有找到相应的评测。', leer: '阅读评测', vacio: '这个语言下还没有评测。',
     pie: '所有照片均为本人拍摄。如需使用，请先联系我。', sufijo: 'Shande Villa',
   },
   en: {
@@ -39,7 +39,7 @@ const UI = {
     tituloIndice: 'Reviews', intro: 'Lenses and cameras tested on the street: what they are for, what the spec sheet says and what I think after using them.',
     metaIndice: 'Lens and camera reviews for street photography — Shande Villa',
     descIndice: 'Lens and camera reviews made on the street: specs, results and my verdict after weeks of use.',
-    volver: 'All reviews', contenido: 'In this review', catalogo: 'All of them, by brand and name', buscar: 'Search for a lens', buscarEj: 'e.g. 23mm, TTArtisan…', sinResultados: 'No review matches that name.', leer: 'Read the review', vacio: 'There are no reviews in this language yet.',
+    volver: 'All reviews', ampliar: 'Enlarge photo', visor: 'Photo viewer', cerrar: 'Close', anterior: 'Previous photo', siguiente: 'Next photo', contenido: 'In this review', catalogo: 'All of them, by brand and name', buscar: 'Search for a lens', buscarEj: 'e.g. 23mm, TTArtisan…', sinResultados: 'No review matches that name.', leer: 'Read the review', vacio: 'There are no reviews in this language yet.',
     pie: 'All photos are mine. If you’d like to use one, please ask me first.', sufijo: 'Shande Villa',
   },
 };
@@ -168,6 +168,20 @@ const idDe = (texto, usados) => {
   return id;
 };
 
+// Foto ampliable: un enlace a la versión grande (el visor la abre en una ventana) alrededor de la imagen
+function figura(manifiesto, slug, archivo, alt, pie, t, { eager = false, portada = false } = {}) {
+  const d = manifiesto[archivo];
+  if (!d) throw new Error(`la imagen ${archivo} no está en imagenes.json (ejecuta python3 tools/optimizar_reviews.py)`);
+  const url = (a) => `/img/reviews/${slug}/${d.base}-${a}.webp`;
+  const mayor = d.anchos[d.anchos.length - 1];
+  const srcset = d.anchos.map((a) => `${url(a)} ${a}w`).join(', ');
+  const ar = (d.w / d.h).toFixed(3);
+  const vertical = d.w / d.h < 0.85;
+  const sizes = vertical ? '(min-width: 960px) 336px, 100vw' : '(min-width: 1200px) 1000px, 100vw';
+  const clase = portada ? 'portada-review' : `foto-review${vertical ? ' vertical' : ''}`;
+  return `<figure class="${clase}" style="--ar:${ar}"><a class="zoom" href="${url(mayor)}" data-srcset="${srcset}" data-w="${d.w}" data-h="${d.h}" aria-label="${esc(t.ampliar)}${alt ? ': ' + esc(alt) : ''}" data-pie="${esc(pie || '')}"><div class="ventana">${imagen(manifiesto, slug, archivo, alt, { eager, sizes })}</div></a>${pie ? `<figcaption>${inline(pie)}</figcaption>` : ''}</figure>`;
+}
+
 function cuerpoHtml(md, ctx) {
   let primeraImagen = true;
   return bloques(md).map((b) => {
@@ -188,7 +202,7 @@ function cuerpoHtml(md, ctx) {
         // la portada ya se enseña arriba: si la review empieza repitiéndola, se omite
         if (primeraImagen && b.archivo === ctx.cover) { primeraImagen = false; return ''; }
         primeraImagen = false;
-        return `<figure class="foto-review"><div class="ventana">${imagen(ctx.manifiesto, ctx.slug, b.archivo, b.alt)}</div>${b.pie ? `<figcaption>${inline(b.pie)}</figcaption>` : ''}</figure>`;
+        return figura(ctx.manifiesto, ctx.slug, b.archivo, b.alt, b.pie, ctx.t);
       }
       default: return '';
     }
@@ -270,6 +284,16 @@ ${cuerpo}
   <p>© ${new Date().getFullYear()} Shande Villa</p>
   <p>${t.pie}</p>
 </footer>
+<dialog id="visor" class="visor" aria-label="${t.visor}">
+  <div class="visor-barra"><button type="button" class="visor-cerrar" aria-label="${t.cerrar}">×</button></div>
+  <div class="visor-foto"><img id="visor-img" alt=""></div>
+  <p class="visor-texto" id="visor-texto"></p>
+  <div class="visor-pie">
+    <button type="button" class="visor-ant" aria-label="${t.anterior}">←</button>
+    <p class="visor-cuenta" id="visor-cuenta" aria-live="polite"></p>
+    <button type="button" class="visor-sig" aria-label="${t.siguiente}">→</button>
+  </div>
+</dialog>
 <script src="/js/review.js${versiones(globalThis.__v?.js)}" defer></script>
 </body>
 </html>
@@ -369,7 +393,7 @@ ${catalogo}
     // cada review
     for (const r of enEste) {
       const d = r.porIdioma[l];
-      const ctx = { manifiesto: r.manifiesto, slug: r.slug, cover: d.cover, ids: new Set(), indice: [] };
+      const ctx = { manifiesto: r.manifiesto, slug: r.slug, cover: d.cover, ids: new Set(), indice: [], t };
       const cuerpoMd = cuerpoHtml(d.cuerpo, ctx);
       const alternativas = ORDEN.filter((x) => r.porIdioma[x]).map((x) => ({ idioma: x, url: urlReview(x, r.slug) }));
       const m = r.manifiesto[d.cover];
@@ -383,7 +407,7 @@ ${catalogo}
     <p class="entradilla">${inline(d.meta.description)}</p>
     ${etiquetas.length ? `<ul class="etiquetas" aria-label="Tags">${etiquetas.map((e) => `<li>${esc(e)}</li>`).join('')}</ul>` : ''}
   </header>
-  <figure class="portada-review"><div class="ventana">${imagen(r.manifiesto, r.slug, d.cover, d.meta.title, { eager: true })}</div></figure>
+  ${figura(r.manifiesto, r.slug, d.cover, d.meta.title, '', t, { eager: true, portada: true })}
   <div class="hoja">
     ${ctx.indice.length > 2 ? `<details class="indice-review"><summary>${t.contenido}</summary><ol>${ctx.indice.map((x) => `<li><a href="#${x.id}">${inline(x.texto, false)}</a></li>`).join('')}</ol></details>` : ''}
     <div class="review-cuerpo">
