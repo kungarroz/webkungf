@@ -23,7 +23,7 @@ const UI = {
     tituloIndice: 'Reviews', intro: 'Pruebas de objetivos y cámaras hechas en la calle: para qué sirven, qué dice la ficha técnica y qué opino después de usarlos.',
     metaIndice: 'Reviews de objetivos y cámaras para fotografía de calle — Shande Villa',
     descIndice: 'Reviews de objetivos y cámaras hechas en la calle: ficha técnica, resultados y mi opinión después de semanas de uso.',
-    volver: 'Todas las reviews', catalogo: 'Todas, por marca y nombre', buscar: 'Buscar un objetivo', buscarEj: 'Ej.: 23mm, TTArtisan…', sinResultados: 'No hay ninguna review con ese nombre.', leer: 'Leer la review', vacio: 'Todavía no hay reviews en este idioma.',
+    volver: 'Todas las reviews', contenido: 'En esta review', catalogo: 'Todas, por marca y nombre', buscar: 'Buscar un objetivo', buscarEj: 'Ej.: 23mm, TTArtisan…', sinResultados: 'No hay ninguna review con ese nombre.', leer: 'Leer la review', vacio: 'Todavía no hay reviews en este idioma.',
     pie: 'Todas las fotos son mías. Si quieres usar alguna, escríbeme antes.', sufijo: 'Shande Villa',
   },
   zh: {
@@ -31,7 +31,7 @@ const UI = {
     tituloIndice: '评测', intro: '在街头实际使用后的镜头和相机评测：规格参数，以及我的使用感受。',
     metaIndice: '街头摄影镜头与相机评测 — Shande Villa',
     descIndice: '在街头实际使用数周后的镜头和相机评测：规格参数、实拍结果和我的看法。',
-    volver: '全部评测', catalogo: '按品牌和名称查看全部', buscar: '搜索镜头', buscarEj: '例如：23mm、铭匠…', sinResultados: '没有找到相应的评测。', leer: '阅读评测', vacio: '这个语言下还没有评测。',
+    volver: '全部评测', contenido: '本文目录', catalogo: '按品牌和名称查看全部', buscar: '搜索镜头', buscarEj: '例如：23mm、铭匠…', sinResultados: '没有找到相应的评测。', leer: '阅读评测', vacio: '这个语言下还没有评测。',
     pie: '所有照片均为本人拍摄。如需使用，请先联系我。', sufijo: 'Shande Villa',
   },
   en: {
@@ -39,7 +39,7 @@ const UI = {
     tituloIndice: 'Reviews', intro: 'Lenses and cameras tested on the street: what they are for, what the spec sheet says and what I think after using them.',
     metaIndice: 'Lens and camera reviews for street photography — Shande Villa',
     descIndice: 'Lens and camera reviews made on the street: specs, results and my verdict after weeks of use.',
-    volver: 'All reviews', catalogo: 'All of them, by brand and name', buscar: 'Search for a lens', buscarEj: 'e.g. 23mm, TTArtisan…', sinResultados: 'No review matches that name.', leer: 'Read the review', vacio: 'There are no reviews in this language yet.',
+    volver: 'All reviews', contenido: 'In this review', catalogo: 'All of them, by brand and name', buscar: 'Search for a lens', buscarEj: 'e.g. 23mm, TTArtisan…', sinResultados: 'No review matches that name.', leer: 'Read the review', vacio: 'There are no reviews in this language yet.',
     pie: 'All photos are mine. If you’d like to use one, please ask me first.', sufijo: 'Shande Villa',
   },
 };
@@ -160,11 +160,24 @@ function imagen(manifiesto, slug, archivo, alt, { eager = false, sizes = '(min-w
   return `<img src="${url(d.anchos[0])}" srcset="${srcset}" sizes="${sizes}" width="${mayor}" height="${alto}" alt="${esc(alt)}"${eager ? ' fetchpriority="high"' : ' loading="lazy"'} decoding="async">`;
 }
 
+const idDe = (texto, usados) => {
+  let base = texto.normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9\u4e00-\u9fff]+/g, '-').replace(/^-|-$/g, '') || 'seccion';
+  let id = base, n = 2;
+  while (usados.has(id)) id = `${base}-${n++}`;
+  usados.add(id);
+  return id;
+};
+
 function cuerpoHtml(md, ctx) {
   let primeraImagen = true;
   return bloques(md).map((b) => {
     switch (b.t) {
-      case 'h': return `<h${b.n}>${inline(b.texto)}</h${b.n}>`;
+      case 'h': {
+        if (b.n !== 2) return `<h${b.n}>${inline(b.texto)}</h${b.n}>`;
+        const id = idDe(b.texto, ctx.ids);
+        ctx.indice.push({ id, texto: b.texto });
+        return `<h2 id="${id}">${inline(b.texto)}</h2>`;
+      }
       case 'hr': return '<hr>';
       case 'p': return `<p>${inline(b.texto)}</p>`;
       case 'ul': return `<ul>${b.items.map((x) => `<li>${inline(x)}</li>`).join('')}</ul>`;
@@ -356,7 +369,8 @@ ${catalogo}
     // cada review
     for (const r of enEste) {
       const d = r.porIdioma[l];
-      const ctx = { manifiesto: r.manifiesto, slug: r.slug, cover: d.cover };
+      const ctx = { manifiesto: r.manifiesto, slug: r.slug, cover: d.cover, ids: new Set(), indice: [] };
+      const cuerpoMd = cuerpoHtml(d.cuerpo, ctx);
       const alternativas = ORDEN.filter((x) => r.porIdioma[x]).map((x) => ({ idioma: x, url: urlReview(x, r.slug) }));
       const m = r.manifiesto[d.cover];
       const og = `/img/reviews/${r.slug}/${m.base}-${m.anchos.at(-1)}.webp`;
@@ -370,10 +384,13 @@ ${catalogo}
     ${etiquetas.length ? `<ul class="etiquetas" aria-label="Tags">${etiquetas.map((e) => `<li>${esc(e)}</li>`).join('')}</ul>` : ''}
   </header>
   <figure class="portada-review"><div class="ventana">${imagen(r.manifiesto, r.slug, d.cover, d.meta.title, { eager: true })}</div></figure>
-  <div class="review-cuerpo">
-${cuerpoHtml(d.cuerpo, ctx)}
+  <div class="hoja">
+    ${ctx.indice.length > 2 ? `<details class="indice-review"><summary>${t.contenido}</summary><ol>${ctx.indice.map((x) => `<li><a href="#${x.id}">${inline(x.texto, false)}</a></li>`).join('')}</ol></details>` : ''}
+    <div class="review-cuerpo">
+${cuerpoMd}
+    </div>
+    <p class="migas migas-pie"><a href="${urlIndice(l)}"><span aria-hidden="true">←</span> ${t.volver}</a></p>
   </div>
-  <p class="migas migas-pie"><a href="${urlIndice(l)}"><span aria-hidden="true">←</span> ${t.volver}</a></p>
 </article>`;
       const jsonld = {
         '@context': 'https://schema.org', '@type': 'Review', name: d.meta.title, description: d.meta.description,
