@@ -2,6 +2,7 @@
 title: 'In-Depth Review: TTArtisan AF 23mm F1.8'
 description: 'A detailed analysis of the TTArtisan AF 23mm F1.8 after weeks on the streets of Guangzhou. Is this the best budget 35mm equivalent?'
 pubDate: 2025-01-13
+producto: 'TTArtisan AF 23mm F1.8'
 cover: "./cover.jpg"
 tags: ["Review", "TTArtisan", "Fujifilm", "Street Photography", "Guangzhou"]
 ---

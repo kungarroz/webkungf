@@ -23,7 +23,7 @@ const UI = {
     tituloIndice: 'Reviews', intro: 'Pruebas de objetivos y cámaras hechas en la calle: para qué sirven, qué dice la ficha técnica y qué opino después de usarlos.',
     metaIndice: 'Reviews de objetivos y cámaras para fotografía de calle — Shande Villa',
     descIndice: 'Reviews de objetivos y cámaras hechas en la calle: ficha técnica, resultados y mi opinión después de semanas de uso.',
-    volver: 'Todas las reviews', leer: 'Leer la review', vacio: 'Todavía no hay reviews en este idioma.',
+    volver: 'Todas las reviews', porObjetivo: 'Reviews por objetivo', otras: 'Más reviews', leer: 'Leer la review', vacio: 'Todavía no hay reviews en este idioma.',
     pie: 'Todas las fotos son mías. Si quieres usar alguna, escríbeme antes.', sufijo: 'Shande Villa',
   },
   zh: {
@@ -31,7 +31,7 @@ const UI = {
     tituloIndice: '评测', intro: '在街头实际使用后的镜头和相机评测：规格参数，以及我的使用感受。',
     metaIndice: '街头摄影镜头与相机评测 — Shande Villa',
     descIndice: '在街头实际使用数周后的镜头和相机评测：规格参数、实拍结果和我的看法。',
-    volver: '全部评测', leer: '阅读评测', vacio: '这个语言下还没有评测。',
+    volver: '全部评测', porObjetivo: '按镜头查看评测', otras: '更多评测', leer: '阅读评测', vacio: '这个语言下还没有评测。',
     pie: '所有照片均为本人拍摄。如需使用，请先联系我。', sufijo: 'Shande Villa',
   },
   en: {
@@ -39,10 +39,18 @@ const UI = {
     tituloIndice: 'Reviews', intro: 'Lenses and cameras tested on the street: what they are for, what the spec sheet says and what I think after using them.',
     metaIndice: 'Lens and camera reviews for street photography — Shande Villa',
     descIndice: 'Lens and camera reviews made on the street: specs, results and my verdict after weeks of use.',
-    volver: 'All reviews', leer: 'Read the review', vacio: 'There are no reviews in this language yet.',
+    volver: 'All reviews', porObjetivo: 'Reviews by lens', otras: 'More reviews', leer: 'Read the review', vacio: 'There are no reviews in this language yet.',
     pie: 'All photos are mine. If you’d like to use one, please ask me first.', sufijo: 'Shande Villa',
   },
 };
+
+// Mismas etiquetas que el menú de la portada (site/i18n/*.json); en español son las de index.html
+const MENU_ES = { redes: 'Redes', fotos: 'Fotos', reviews: 'Reviews', contacto: 'Contacto' };
+function etiquetasMenu(l) {
+  if (l === 'es') return MENU_ES;
+  const j = JSON.parse(readFileSync(join(RAIZ, 'site', 'i18n', `${l}.json`), 'utf8'));
+  return { redes: j['menu.redes'], fotos: j['menu.fotos'], reviews: j['menu.reviews'], contacto: j['menu.contacto'] };
+}
 
 const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
@@ -209,9 +217,10 @@ ${alt}${xdef ? `\n<link rel="alternate" hreflang="x-default" href="${SITIO}${xde
 ${jsonld ? `<script type="application/ld+json">\n${JSON.stringify(jsonld, null, 2)}\n</script>` : ''}`;
 }
 
-function marco({ l, cuerpo, head, actual, enlacesIdioma, rutaIndice }) {
+function marco({ l, cuerpo, head, actual, enlacesIdioma, rutaIndice, submenu = [] }) {
   const I = IDIOMAS[l];
   const t = UI[l];
+  const m = etiquetasMenu(l);
   const botones = ORDEN.map((i) => {
     const e = enlacesIdioma.find((x) => x.idioma === i);
     const k = IDIOMAS[i];
@@ -233,10 +242,17 @@ ${head}
 </header>
 <nav class="menu" aria-label="${t.menu}">
   <div class="menu-in">
-    <a href="/" data-inicio>${t.inicio}</a>
-    <a href="${rutaIndice}"${actual === 'indice' ? ' aria-current="true"' : ''}>${t.reviews}</a>
+    <a href="/#redes">${m.redes}</a>
+    <a href="/#fotos">${m.fotos}</a>
+    <a href="${rutaIndice}" aria-current="true">${m.reviews}</a>
+    <a href="/#contacto">${m.contacto}</a>
   </div>
 </nav>
+${submenu.length ? `<nav class="submenu" aria-label="${t.porObjetivo}">
+  <div class="menu-in">
+${submenu.map((x) => `    <a href="${x.url}"${x.actual ? ' aria-current="page"' : ''}>${esc(x.nombre)}</a>`).join('\n')}
+  </div>
+</nav>` : ''}
 <main id="contenido">
 <div class="pagina">
 ${cuerpo}
@@ -300,6 +316,9 @@ export function generarReviews({ versionCss = '', versionJs = '' } = {}) {
     const enEste = reviews.filter((r) => r.porIdioma[l]);
     const urlIndice = (x) => `${IDIOMAS[x].prefijo}/reviews/`;
     const urlReview = (x, slug) => `${IDIOMAS[x].prefijo}/reviews/${slug}/`;
+    const nombreDe = (r) => String(r.porIdioma[l].meta.producto || r.porIdioma[l].meta.title);
+    const alfabetico = [...enEste].sort((a, b) => nombreDe(a).localeCompare(nombreDe(b), I.fecha, { numeric: true }));
+    const submenuPara = (slugActual) => alfabetico.map((r) => ({ nombre: nombreDe(r), url: urlReview(l, r.slug), actual: r.slug === slugActual }));
     const indicesEn = ORDEN.filter((x) => reviews.some((r) => r.porIdioma[x]));
 
     // índice
@@ -324,7 +343,7 @@ export function generarReviews({ versionCss = '', versionJs = '' } = {}) {
     const ogIndice = primera ? `/img/reviews/${primera.slug}/${primera.manifiesto[primera.porIdioma[l].cover].base}-${primera.manifiesto[primera.porIdioma[l].cover].anchos.at(-1)}.webp` : '/og.jpg';
     const altIndice = indicesEn.map((x) => ({ idioma: x, url: urlIndice(x) }));
     escribir(`${I.prefijo}/reviews`.replace(/^\//, ''), marco({
-      l, cuerpo: cuerpoIndice, actual: 'indice', rutaIndice: urlIndice(l), enlacesIdioma: altIndice,
+      l, cuerpo: cuerpoIndice, actual: 'indice', rutaIndice: urlIndice(l), enlacesIdioma: altIndice, submenu: submenuPara(null),
       head: cabeza({ l, titulo: t.metaIndice, descripcion: t.descIndice, canonico: urlIndice(l), alternativas: altIndice, imagenOg: ogIndice, tipo: 'website' }),
     }));
     paginas.push({ url: urlIndice(l), idiomas: altIndice, imagen: ogIndice });
@@ -358,7 +377,7 @@ ${cuerpoHtml(d.cuerpo, ctx)}
         url: `${SITIO}${urlReview(l, r.slug)}`,
       };
       escribir(`${I.prefijo}/reviews/${r.slug}`.replace(/^\//, ''), marco({
-        l, cuerpo, actual: 'review', rutaIndice: urlIndice(l), enlacesIdioma: alternativas,
+        l, cuerpo, actual: 'review', rutaIndice: urlIndice(l), enlacesIdioma: alternativas, submenu: submenuPara(r.slug),
         head: cabeza({ l, titulo: `${d.meta.title} — ${t.sufijo}`, descripcion: d.meta.description, canonico: urlReview(l, r.slug), alternativas, imagenOg: og, jsonld, tipo: 'article' }),
       }));
       paginas.push({ url: urlReview(l, r.slug), idiomas: alternativas, imagen: og, fecha: String(d.meta.pubDate) });

@@ -103,10 +103,13 @@ Cabecera de cada `.md` (igual en los tres):
 title: 'Review a fondo: TTArtisan AF 23mm F1.8'
 description: 'Una frase que aparece en el listado y en Google.'
 pubDate: 2025-01-13
+producto: 'TTArtisan AF 23mm F1.8'
 cover: "./cover.jpg"
 tags: ["Review", "TTArtisan", "Fujifilm"]
 ---
 ```
+
+`producto` es el nombre que sale en el menú de objetivos (se ordena alfabéticamente).
 
 Después va el texto con `##` (secciones), `###`, **negrita**, listas con `*`, tablas (la ficha técnica es una tabla `| Característica | Especificación |`), `---` y fotos con `![descripción](./foto.jpg)`; si la línea siguiente es `*texto en cursiva*`, es el pie de foto. Si la primera foto es la misma que `cover`, no se repite.
 

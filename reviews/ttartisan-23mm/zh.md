@@ -2,6 +2,7 @@
 title: '深度评测：铭匠 (TTArtisan) AF 23mm F1.8'
 description: '在广州街头使用数周后的深度体验。这会是性价比最高的等效35mm镜头吗？'
 pubDate: 2025-01-13
+producto: 'TTArtisan AF 23mm F1.8'
 cover: "./cover.jpg"
 tags: ["评测", "铭匠", "富士", "街头摄影", "广州"]
 ---

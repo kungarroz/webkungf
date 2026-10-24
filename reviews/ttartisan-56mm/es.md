@@ -2,6 +2,7 @@
 title: 'Review a fondo: TTArtisan AF 56mm F1.8'
 description: 'Probamos el rey del retrato económico en las calles de Guangzhou. ¿Puede un objetivo de menos de 160€ plantar cara a los grandes?'
 pubDate: 2024-04-02
+producto: 'TTArtisan AF 56mm F1.8'
 cover: "./DSC00907.JPG"
 tags: ["Review", "TTArtisan", "Fujifilm", "Street Photography", "Retrato"]
 ---
