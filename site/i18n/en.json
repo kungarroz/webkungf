@@ -51,5 +51,9 @@
   "form.msg.campos": "Check your email and fill in every field.",
   "form.msg.servidor": "It couldn't be sent. Please try again in a while.",
   "form.msg.config": "The form isn't active yet.",
-  "form.msg.carga": "The verification couldn't be loaded."
+  "form.msg.carga": "The verification couldn't be loaded.",
+  "menu.reviews": "Reviews",
+  "reviews.titulo": "Reviews",
+  "reviews.texto": "Lenses and cameras tested on the street: spec sheet, real photos and my verdict after using them.",
+  "reviews.cta": "See the reviews"
 }

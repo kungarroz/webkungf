@@ -51,5 +51,9 @@
   "form.msg.campos": "请检查邮箱并填写所有内容。",
   "form.msg.servidor": "发送失败，请稍后再试。",
   "form.msg.config": "表单尚未启用。",
-  "form.msg.carga": "无法加载验证。"
+  "form.msg.carga": "无法加载验证。",
+  "menu.reviews": "评测",
+  "reviews.titulo": "评测",
+  "reviews.texto": "在街头实际使用过的镜头和相机：规格参数、实拍照片，以及使用后的看法。",
+  "reviews.cta": "查看评测"
 }

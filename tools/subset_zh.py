@@ -4,9 +4,11 @@
 Lo ejecuta build.mjs en cada despliegue; no hay pasos manuales. Lee los caracteres de
   - site/i18n/zh.json
   - site/index.html   (nombres como 小红书 y 抖音 que están en el HTML en español)
+  - reviews/*/zh.md   (solo títulos y encabezados) y la interfaz de tools/reviews.mjs
 y los recorta de tools/fuentes-origen/NotoSerifSC[wght].ttf (peso variable 400-600).
 Requiere:  pip install fonttools brotli
 """
+import glob
 import json
 import os
 import re
@@ -43,6 +45,14 @@ def main():
     html = os.path.join(RAIZ, "site", "index.html")
     if os.path.exists(html):
         fuentes.append(open(html, encoding="utf-8").read())
+    # reviews: solo los títulos, descripciones y encabezados (el texto corrido usa la fuente del sistema) y la interfaz
+    for md in glob.glob(os.path.join(RAIZ, "reviews", "*", "zh.md")):
+        for linea in open(md, encoding="utf-8").read().splitlines():
+            if linea.startswith(("#", "title:", "description:")):
+                fuentes.append(linea)
+    generador = os.path.join(RAIZ, "tools", "reviews.mjs")
+    if os.path.exists(generador):
+        fuentes.append(open(generador, encoding="utf-8").read())
     caracteres = sorted(set(c for t in fuentes for c in CJK.findall(t)))
     if not caracteres:
         sys.exit("No hay caracteres chinos que subconjuntar")

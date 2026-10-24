@@ -13,3 +13,8 @@ __pycache__/
 # Archivos locales
 .env
 *.log
+
+# Páginas de reviews: las genera build.mjs desde reviews/ (las fotos optimizadas de site/img/reviews sí se guardan)
+/site/reviews/
+/site/en/
+/site/zh/

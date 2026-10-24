@@ -1,5 +1,21 @@
 # Cloudflare Pages · URLs antiguas (kungfundidos.com) que ya no existen
 # Todo el blog antiguo y sus idiomas van a la portada con 301.
+# Las dos reviews de TTArtisan viven ahora en /reviews/ (primero estas reglas, luego el resto del blog)
+/es/blog/ttartisan23mm18 /reviews/ttartisan-23mm/ 301
+/es/blog/ttartisan23mm18/ /reviews/ttartisan-23mm/ 301
+/en/blog/ttartisan23mm18 /en/reviews/ttartisan-23mm/ 301
+/en/blog/ttartisan23mm18/ /en/reviews/ttartisan-23mm/ 301
+/zh-cn/blog/ttartisan23mm18 /zh/reviews/ttartisan-23mm/ 301
+/zh-cn/blog/ttartisan23mm18/ /zh/reviews/ttartisan-23mm/ 301
+/es/blog/ttartisan56mm18 /reviews/ttartisan-56mm/ 301
+/es/blog/ttartisan56mm18/ /reviews/ttartisan-56mm/ 301
+/en/blog/ttartisan56mm18 /en/reviews/ttartisan-56mm/ 301
+/en/blog/ttartisan56mm18/ /en/reviews/ttartisan-56mm/ 301
+/zh-cn/blog/ttartisan56mm18 /zh/reviews/ttartisan-56mm/ 301
+/zh-cn/blog/ttartisan56mm18/ /zh/reviews/ttartisan-56mm/ 301
+/blog/ttartisan23mm18 /reviews/ttartisan-23mm/ 301
+/blog/ttartisan56mm18 /reviews/ttartisan-56mm/ 301
+
 /blog / 301
 /blog/* / 301
 /es/blog / 301

@@ -137,7 +137,7 @@ html[lang="zh-Hans"] .titulo { font-size: .875rem; letter-spacing: .14em; }
 .frase { font-size: clamp(1.9rem, 8.6vw, 2.6rem); font-style: italic; line-height: 1; letter-spacing: -.01em; text-wrap: balance; }
 html[lang="zh-Hans"] .frase { font-style: normal; font-size: clamp(1.75rem, 7.6vw, 2.3rem); letter-spacing: .04em; line-height: 1.25; }
 /* Texto corrido: la presentación y el párrafo de contacto comparten estilo */
-.bio, .contacto p { font-size: 1.0625rem; line-height: 1.6; font-weight: 300; text-wrap: pretty; }
+.bio, .contacto p, .reviews-portada p { font-size: 1.0625rem; line-height: 1.6; font-weight: 300; text-wrap: pretty; }
 .bio { margin-top: 24px; }
 html[lang="zh-Hans"] .bio, 
 /* ───────── Redes: dos carretes. Fuera de China (amarillo y rojo) y en China (verde) ───────── */
@@ -247,8 +247,8 @@ html.js .mandos { display: flex; align-items: center; justify-content: space-bet
 @keyframes enrolla { from { transform: translateX(70%); } to { transform: none; } }
 
 /* ───────── Contacto ───────── */
-.contacto p { max-width: 34rem; }
-html[lang="zh-Hans"] .contacto p { font-weight: 400; }
+.contacto p, .reviews-portada p { max-width: 34rem; }
+html[lang="zh-Hans"] .contacto p, html[lang="zh-Hans"] .reviews-portada p { font-weight: 400; }
 .accion { margin-top: 20px; }
 .contacto-fila {
   width: 100%; background: none; border-inline: 0; font: inherit; text-align: left; cursor: pointer;
@@ -305,6 +305,86 @@ html[lang="zh-Hans"] .f-campo label { font-size: .8125rem; letter-spacing: .1em;
 .f-alt { margin-top: 12px; color: var(--tenue); font-size: .875rem; }
 .f-alt a { text-decoration-color: var(--ambar); text-decoration-thickness: 2px; text-underline-offset: 3px; }
 html.formulario-abierto { overflow: hidden; }
+
+/* ───────── Reviews (páginas generadas por tools/reviews.mjs) ───────── */
+html.pagina-review { --col: 720px; }
+html.pagina-review .idioma { display: flex; }
+.idioma a, .idioma .idioma-no { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; padding: 0 10px; font-size: .9375rem; letter-spacing: .06em; color: var(--papel); text-decoration: none; }
+.idioma a[aria-current="true"] { text-decoration: underline; text-decoration-color: var(--ambar); text-decoration-thickness: 2px; text-underline-offset: 7px; }
+.idioma .idioma-no { opacity: .45; }
+.marca a { color: inherit; text-decoration: none; }
+
+.titulo-pagina { font-family: var(--display), var(--cjk-display); font-weight: 400; font-style: italic; font-size: clamp(2.2rem, 9vw, 3.2rem); line-height: 1; letter-spacing: -.01em; }
+html[lang="zh-Hans"] .titulo-pagina { font-style: normal; letter-spacing: .04em; }
+.entradilla { max-width: 36rem; margin-top: 14px; font-size: 1.0625rem; line-height: 1.6; font-weight: 300; color: var(--tenue); text-wrap: pretty; }
+html[lang="zh-Hans"] .entradilla, html[lang="zh-Hans"] .review-cuerpo p, html[lang="zh-Hans"] .review-cuerpo li { font-weight: 400; }
+.reviews-indice { padding-top: 40px; }
+.lista-reviews { list-style: none; margin: 36px 0 0; padding: 0; display: grid; gap: 34px; }
+.tarjeta-review { display: grid; gap: 14px; color: var(--papel); text-decoration: none; }
+.tarjeta-review .ventana { display: block; aspect-ratio: 3 / 2; overflow: hidden; border: 1px solid var(--filete); }
+.tarjeta-review .ventana img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.tarjeta-texto { display: grid; gap: 8px; }
+.review-meta { font-size: .75rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--tenue); }
+.tarjeta-titulo { font-family: var(--display), var(--cjk-display); font-size: 1.65rem; line-height: 1.12; }
+.tarjeta-desc { font-size: .9375rem; line-height: 1.55; font-weight: 300; color: var(--tenue); }
+html[lang="zh-Hans"] .tarjeta-desc { font-weight: 400; }
+.tarjeta-leer { display: inline-flex; align-items: center; gap: 8px; font-size: .8125rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--ambar); }
+.tarjeta-review:hover .tarjeta-titulo { text-decoration: underline; text-decoration-color: var(--ambar); text-underline-offset: 5px; }
+@media (min-width: 760px) {
+  .tarjeta-review { grid-template-columns: 280px 1fr; gap: 24px; align-items: start; }
+}
+
+.review { padding-top: 28px; }
+.migas { font-size: .8125rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+.migas a { display: inline-block; padding: 10px 0; color: var(--tenue); text-decoration: none; }
+.migas a:hover { color: var(--papel); }
+.migas-pie { margin-top: 48px; }
+.review-cab { margin-top: 18px; }
+.review-cab h1 { margin-top: 10px; font-family: var(--display), var(--cjk-display); font-weight: 400; font-size: clamp(2rem, 8vw, 2.9rem); line-height: 1.05; letter-spacing: -.005em; text-wrap: balance; }
+html[lang="zh-Hans"] .review-cab h1 { letter-spacing: .03em; line-height: 1.25; }
+.etiquetas { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 0; padding: 0; list-style: none; }
+.etiquetas li { padding: 5px 10px; border: 1px solid var(--filete); font-size: .75rem; letter-spacing: .08em; color: var(--tenue); }
+.portada-review { margin: 28px calc(var(--lado) * -1) 0; }
+.portada-review .ventana, .foto-review .ventana { background: var(--ventana); }
+.portada-review img { display: block; width: 100%; height: auto; }
+
+.review-cuerpo { margin-top: 36px; }
+.review-cuerpo > * + * { margin-top: 18px; }
+.review-cuerpo p, .review-cuerpo li { font-size: 1.0625rem; line-height: 1.65; font-weight: 300; text-wrap: pretty; }
+.review-cuerpo strong { font-weight: 600; color: var(--papel); }
+.review-cuerpo a { color: var(--papel); text-decoration-color: var(--ambar); text-underline-offset: 3px; }
+.review-cuerpo h2 {
+  display: flex; align-items: center; gap: 14px; margin-top: 54px; font-size: .75rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--tenue); line-height: 1.4;
+}
+.review-cuerpo h2::after { content: ""; flex: 1; height: 1px; background: var(--filete); }
+html[lang="zh-Hans"] .review-cuerpo h2 { font-size: .875rem; letter-spacing: .14em; }
+.review-cuerpo h3 { margin-top: 34px; font-family: var(--display), var(--cjk-display); font-weight: 400; font-size: 1.5rem; line-height: 1.2; }
+.review-cuerpo h4 { margin-top: 26px; font-size: .9375rem; font-weight: 600; letter-spacing: .04em; }
+.review-cuerpo h2 + *, .review-cuerpo h3 + * { margin-top: 14px; }
+.review-cuerpo ul, .review-cuerpo ol { padding-left: 1.25em; }
+.review-cuerpo li + li { margin-top: 8px; }
+.review-cuerpo li::marker { color: var(--impreso); }
+.review-cuerpo hr { border: 0; height: 1px; margin-block: 42px 0; background: var(--filete); }
+.review-cuerpo blockquote { margin-inline: 0; padding-left: 16px; border-left: 2px solid var(--ambar); color: var(--tenue); }
+
+/* ficha técnica y comparativas: como la hoja de datos de un carrete */
+.tabla { overflow-x: auto; border-block: 1px solid var(--filete); -webkit-overflow-scrolling: touch; }
+.tabla table { width: 100%; border-collapse: collapse; font-size: .9375rem; line-height: 1.45; }
+.tabla th, .tabla td { padding: 12px 12px 12px 0; text-align: left; vertical-align: top; border-bottom: 1px solid var(--filete); font-weight: 300; }
+.tabla tr:last-child > * { border-bottom: 0; }
+.tabla thead th { font-size: .75rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--tenue); }
+.tabla tbody th { font-weight: 600; color: var(--papel); }
+html[lang="zh-Hans"] .tabla td, html[lang="zh-Hans"] .tabla th { font-weight: 400; }
+html[lang="zh-Hans"] .tabla thead th { font-weight: 600; }
+
+.foto-review { margin: 30px calc(var(--lado) * -1) 0; }
+.foto-review .ventana { border-block: 1px solid var(--filete); }
+.foto-review img { display: block; width: 100%; height: auto; }
+.foto-review figcaption { padding: 10px var(--lado) 0; font-size: .875rem; line-height: 1.5; color: var(--tenue); }
+@media (min-width: 760px) {
+  .portada-review, .foto-review { margin-inline: 0; }
+  .foto-review figcaption { padding-inline: 0; }
+}
 
 /* ───────── Visor ───────── */
 .visor {

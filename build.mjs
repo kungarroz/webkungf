@@ -114,6 +114,19 @@ async function ultimoPost() {
 }
 
 // ───────── 3. Versiones (evita que se mezcle un HTML nuevo con un CSS/JS viejo en caché) ─────────
+export async function reviews() {
+  const { generarReviews } = await import('./tools/reviews.mjs');
+  const h = (f) => createHash('sha1').update(readFileSync(join(RAIZ, 'site', f))).digest('hex').slice(0, 8);
+  try {
+    const r = generarReviews({ versionCss: h('css/estilo.css'), versionJs: h('js/review.js') });
+    ok(`Reviews: ${r.reviews || 0} (${r.paginas.length} páginas)`);
+    return r.paginas;
+  } catch (err) {
+    aviso(`Reviews: ${err.message}`);
+    return [];
+  }
+}
+
 export function versiones() {
   const ficheros = ['css/estilo.css', 'js/app.js', 'js/idioma-inicial.js', 'i18n/zh.json', 'i18n/en.json'];
   const huella = createHash('sha1');
@@ -139,18 +152,30 @@ export function turnstile() {
 }
 
 // ───────── 4. Sitemap ─────────
-function sitemap() {
+function sitemap(paginas = []) {
   if (!existsSync(SITEMAP)) return;
   const hoy = new Date().toISOString().slice(0, 10);
-  const xml = readFileSync(SITEMAP, 'utf8');
-  writeFileSync(SITEMAP, xml.replace(/<lastmod>[^<]*<\/lastmod>/, `<lastmod>${hoy}</lastmod>`));
-  ok(`Sitemap: lastmod ${hoy}`);
+  const SITIO = 'https://shandevilla.com';
+  const hreflang = (i) => (i === 'zh' ? 'zh-Hans' : i);
+  const url = (loc, extra = '', prioridad = '0.8', cambio = 'monthly', fecha = hoy) =>
+    `  <url>\n    <loc>${SITIO}${loc}</loc>\n    <lastmod>${fecha}</lastmod>\n    <changefreq>${cambio}</changefreq>\n    <priority>${prioridad}</priority>\n${extra}  </url>\n`;
+  let xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n';
+  xml += url('/', `    <image:image>\n      <image:loc>${SITIO}/og.jpg</image:loc>\n    </image:image>\n`, '1.0');
+  for (const p of paginas) {
+    const alt = p.idiomas.map((a) => `    <xhtml:link rel="alternate" hreflang="${hreflang(a.idioma)}" href="${SITIO}${a.url}"/>\n`).join('');
+    const img = `    <image:image>\n      <image:loc>${SITIO}${p.imagen}</image:loc>\n    </image:image>\n`;
+    xml += url(p.url, alt + img, p.fecha ? '0.7' : '0.6', 'monthly', p.fecha && /^\d{4}-\d{2}-\d{2}$/.test(p.fecha) ? p.fecha : hoy);
+  }
+  xml += '</urlset>\n';
+  writeFileSync(SITEMAP, xml);
+  ok(`Sitemap: ${paginas.length + 1} URL`);
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   fuenteChina();
   await ultimoPost();
   turnstile();
+  const paginas = await reviews();
   versiones();
-  sitemap();
+  sitemap(paginas);
 }

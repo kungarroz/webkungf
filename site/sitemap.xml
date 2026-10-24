@@ -1,12 +1,120 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://shandevilla.com/</loc>
-    <lastmod>2026-10-11</lastmod>
+    <lastmod>2026-10-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://shandevilla.com/og.jpg</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://shandevilla.com/reviews/</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shandevilla.com/reviews/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shandevilla.com/zh/reviews/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shandevilla.com/en/reviews/"/>
+    <image:image>
+      <image:loc>https://shandevilla.com/img/reviews/ttartisan-23mm/cover-1000.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://shandevilla.com/reviews/ttartisan-23mm/</loc>
+    <lastmod>2025-01-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shandevilla.com/reviews/ttartisan-23mm/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shandevilla.com/zh/reviews/ttartisan-23mm/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shandevilla.com/en/reviews/ttartisan-23mm/"/>
+    <image:image>
+      <image:loc>https://shandevilla.com/img/reviews/ttartisan-23mm/cover-1000.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://shandevilla.com/reviews/ttartisan-56mm/</loc>
+    <lastmod>2024-04-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shandevilla.com/reviews/ttartisan-56mm/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shandevilla.com/zh/reviews/ttartisan-56mm/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shandevilla.com/en/reviews/ttartisan-56mm/"/>
+    <image:image>
+      <image:loc>https://shandevilla.com/img/reviews/ttartisan-56mm/dsc00907-1280.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://shandevilla.com/zh/reviews/</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shandevilla.com/reviews/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shandevilla.com/zh/reviews/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shandevilla.com/en/reviews/"/>
+    <image:image>
+      <image:loc>https://shandevilla.com/img/reviews/ttartisan-23mm/cover-1000.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://shandevilla.com/zh/reviews/ttartisan-23mm/</loc>
+    <lastmod>2025-01-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shandevilla.com/reviews/ttartisan-23mm/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shandevilla.com/zh/reviews/ttartisan-23mm/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shandevilla.com/en/reviews/ttartisan-23mm/"/>
+    <image:image>
+      <image:loc>https://shandevilla.com/img/reviews/ttartisan-23mm/cover-1000.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://shandevilla.com/zh/reviews/ttartisan-56mm/</loc>
+    <lastmod>2024-04-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shandevilla.com/reviews/ttartisan-56mm/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shandevilla.com/zh/reviews/ttartisan-56mm/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shandevilla.com/en/reviews/ttartisan-56mm/"/>
+    <image:image>
+      <image:loc>https://shandevilla.com/img/reviews/ttartisan-56mm/dsc00907-1280.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://shandevilla.com/en/reviews/</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shandevilla.com/reviews/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shandevilla.com/zh/reviews/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shandevilla.com/en/reviews/"/>
+    <image:image>
+      <image:loc>https://shandevilla.com/img/reviews/ttartisan-23mm/cover-1000.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://shandevilla.com/en/reviews/ttartisan-23mm/</loc>
+    <lastmod>2025-01-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shandevilla.com/reviews/ttartisan-23mm/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shandevilla.com/zh/reviews/ttartisan-23mm/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shandevilla.com/en/reviews/ttartisan-23mm/"/>
+    <image:image>
+      <image:loc>https://shandevilla.com/img/reviews/ttartisan-23mm/cover-1000.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://shandevilla.com/en/reviews/ttartisan-56mm/</loc>
+    <lastmod>2024-04-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shandevilla.com/reviews/ttartisan-56mm/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shandevilla.com/zh/reviews/ttartisan-56mm/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shandevilla.com/en/reviews/ttartisan-56mm/"/>
+    <image:image>
+      <image:loc>https://shandevilla.com/img/reviews/ttartisan-56mm/dsc00907-1280.webp</image:loc>
     </image:image>
   </url>
 </urlset>

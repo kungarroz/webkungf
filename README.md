@@ -87,6 +87,34 @@ Alternativa sin Email Routing: `RESEND_API_KEY` (Secret); la función usa Resend
 
 En `site/index.html`, justo antes del final, hay el snippet comentado. Crea el sitio en **Analytics & Logs → Web Analytics**, pon tu token, descomenta la línea y amplía la política CSP de `site/_headers` (las dos líneas que hay que cambiar están anotadas al principio de ese archivo).
 
+## Reviews (objetivo, ficha técnica y mi opinión)
+
+Cada review son tres textos en Markdown (uno por idioma) en `reviews/<nombre>/`:
+
+```
+reviews/ttartisan-23mm/es.md   en.md   zh.md      el texto (si falta un idioma, esa review no sale en ese idioma)
+originales/reviews/ttartisan-23mm/                fotos originales (fuera del despliegue)
+```
+
+Cabecera de cada `.md` (igual en los tres):
+
+```
+---
+title: 'Review a fondo: TTArtisan AF 23mm F1.8'
+description: 'Una frase que aparece en el listado y en Google.'
+pubDate: 2025-01-13
+cover: "./cover.jpg"
+tags: ["Review", "TTArtisan", "Fujifilm"]
+---
+```
+
+Después va el texto con `##` (secciones), `###`, **negrita**, listas con `*`, tablas (la ficha técnica es una tabla `| Característica | Especificación |`), `---` y fotos con `![descripción](./foto.jpg)`; si la línea siguiente es `*texto en cursiva*`, es el pie de foto. Si la primera foto es la misma que `cover`, no se repite.
+
+**Para publicar una review nueva:**
+1. Crea `reviews/<nombre>/es.md` (y `en.md`, `zh.md` si la quieres en esos idiomas) y deja las fotos en `originales/reviews/<nombre>/`.
+2. `python3 tools/optimizar_reviews.py` (crea los WebP de 800 y 1600 px en `site/img/reviews/` y `imagenes.json`; necesita ImageMagick).
+3. Haz commit y push (incluidos `reviews/` y `site/img/reviews/`). `build.mjs` genera las páginas en cada despliegue: `/reviews/`, `/en/reviews/`, `/zh/reviews/` y una página por review, con `hreflang` y sitemap. Las páginas generadas no se guardan en git.
+
 ## Cómo cambiar cosas
 
 ### Textos

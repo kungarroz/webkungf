@@ -81,6 +81,8 @@
     document.title = dic && dic['meta.title'] ? dic['meta.title'] : tituloEs;
     if (meta) { meta.setAttribute('content', dic && dic['meta.description'] ? dic['meta.description'] : descripcionEs); }
     fechas(l);
+    var rv = document.querySelector('a[data-reviews]');
+    if (rv) { rv.setAttribute('href', l === 'es' ? '/reviews/' : '/' + l + '/reviews/'); }
     Array.prototype.forEach.call(document.querySelectorAll('.idioma button'), function (b) {
       b.setAttribute('aria-pressed', b.getAttribute('data-idioma') === l ? 'true' : 'false');
     });

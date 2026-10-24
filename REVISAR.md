@@ -94,3 +94,14 @@ La foto grande de la portada usa una versión recortada de `calle20` (se quita e
 | `form.msg.*` (enviando, ok, captcha, campos, servidor, config, carga) | Mensajes de estado | idem | idem |
 
 El español de `contacto.texto` es mi forma de rellenar tu «blablabla»: cámbialo en `site/index.html` (y en los dos JSON) si quieres otra redacción. Todo el chino y el inglés del formulario es traducción mía.
+
+## Reviews (nueva sección)
+
+Las dos reviews de TTArtisan (23 mm y 56 mm) son tus textos del blog antiguo en español, inglés y chino, tal como estaban (`reviews/*/*.md`); no he cambiado su contenido. Lo nuevo y mío es la interfaz de estas páginas (`tools/reviews.mjs`, objeto `UI`) y los textos de la portada:
+
+| Texto | Español | Inglés | Chino |
+|---|---|---|---|
+| Sección de la portada (`reviews.texto`) | Objetivos y cámaras probados en la calle: ficha técnica, fotos reales y mi opinión después de usarlos. | Lenses and cameras tested on the street: spec sheet, real photos and my verdict after using them. | 在街头实际使用过的镜头和相机：规格参数、实拍照片，以及使用后的看法。 |
+| Botón | Ver las reviews | See the reviews | 查看评测 |
+| Introducción del listado | Pruebas de objetivos y cámaras hechas en la calle… | Lenses and cameras tested on the street… | 在街头实际使用后的镜头和相机评测… |
+| Menú / «volver» / «leer» | Reviews / Todas las reviews / Leer la review | Reviews / All reviews / Read the review | 评测 / 全部评测 / 阅读评测 |

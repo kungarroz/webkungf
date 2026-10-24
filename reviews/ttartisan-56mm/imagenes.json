@@ -1,0 +1,65 @@
+{
+ "Cameramark-4D3DABB7-BD95-4EBF-BEEA-A2CCA2C67A8D.jpeg": {
+  "base": "cameramark-4d3dabb7-bd95-4ebf-beea-a2cca2c67a8d",
+  "w": 1080,
+  "h": 1741,
+  "anchos": [
+   800,
+   1080
+  ]
+ },
+ "Cameramark-638B291E-7295-4E35-B2C5-F0E64D45C526.jpeg": {
+  "base": "cameramark-638b291e-7295-4e35-b2c5-f0e64d45c526",
+  "w": 1080,
+  "h": 1741,
+  "anchos": [
+   800,
+   1080
+  ]
+ },
+ "Cameramark-8794F593-81D7-42B8-B024-B64D4B4AEDB3.jpeg": {
+  "base": "cameramark-8794f593-81d7-42b8-b024-b64d4b4aedb3",
+  "w": 1080,
+  "h": 1741,
+  "anchos": [
+   800,
+   1080
+  ]
+ },
+ "Cameramark-B6761762-3957-4E5D-8A24-B78074E237E3.jpeg": {
+  "base": "cameramark-b6761762-3957-4e5d-8a24-b78074e237e3",
+  "w": 1280,
+  "h": 998,
+  "anchos": [
+   800,
+   1280
+  ]
+ },
+ "Cameramark-C56E7D29-646A-4E17-8105-7630F738961B.jpeg": {
+  "base": "cameramark-c56e7d29-646a-4e17-8105-7630f738961b",
+  "w": 1080,
+  "h": 1741,
+  "anchos": [
+   800,
+   1080
+  ]
+ },
+ "Cameramark-F96FB4B4-0131-41EE-8F63-76C0087CC871.jpeg": {
+  "base": "cameramark-f96fb4b4-0131-41ee-8f63-76c0087cc871",
+  "w": 1080,
+  "h": 1741,
+  "anchos": [
+   800,
+   1080
+  ]
+ },
+ "DSC00907.JPG": {
+  "base": "dsc00907",
+  "w": 1280,
+  "h": 854,
+  "anchos": [
+   800,
+   1280
+  ]
+ }
+}
