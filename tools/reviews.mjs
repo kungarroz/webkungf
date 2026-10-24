@@ -23,7 +23,7 @@ const UI = {
     tituloIndice: 'Reviews', intro: 'Pruebas de objetivos y cámaras hechas en la calle: para qué sirven, qué dice la ficha técnica y qué opino después de usarlos.',
     metaIndice: 'Reviews de objetivos y cámaras para fotografía de calle — Shande Villa',
     descIndice: 'Reviews de objetivos y cámaras hechas en la calle: ficha técnica, resultados y mi opinión después de semanas de uso.',
-    volver: 'Todas las reviews', porObjetivo: 'Reviews por objetivo', otras: 'Más reviews', leer: 'Leer la review', vacio: 'Todavía no hay reviews en este idioma.',
+    volver: 'Todas las reviews', catalogo: 'Todas, por marca y nombre', buscar: 'Buscar un objetivo', buscarEj: 'Ej.: 23mm, TTArtisan…', sinResultados: 'No hay ninguna review con ese nombre.', leer: 'Leer la review', vacio: 'Todavía no hay reviews en este idioma.',
     pie: 'Todas las fotos son mías. Si quieres usar alguna, escríbeme antes.', sufijo: 'Shande Villa',
   },
   zh: {
@@ -31,7 +31,7 @@ const UI = {
     tituloIndice: '评测', intro: '在街头实际使用后的镜头和相机评测：规格参数，以及我的使用感受。',
     metaIndice: '街头摄影镜头与相机评测 — Shande Villa',
     descIndice: '在街头实际使用数周后的镜头和相机评测：规格参数、实拍结果和我的看法。',
-    volver: '全部评测', porObjetivo: '按镜头查看评测', otras: '更多评测', leer: '阅读评测', vacio: '这个语言下还没有评测。',
+    volver: '全部评测', catalogo: '按品牌和名称查看全部', buscar: '搜索镜头', buscarEj: '例如：23mm、铭匠…', sinResultados: '没有找到相应的评测。', leer: '阅读评测', vacio: '这个语言下还没有评测。',
     pie: '所有照片均为本人拍摄。如需使用，请先联系我。', sufijo: 'Shande Villa',
   },
   en: {
@@ -39,7 +39,7 @@ const UI = {
     tituloIndice: 'Reviews', intro: 'Lenses and cameras tested on the street: what they are for, what the spec sheet says and what I think after using them.',
     metaIndice: 'Lens and camera reviews for street photography — Shande Villa',
     descIndice: 'Lens and camera reviews made on the street: specs, results and my verdict after weeks of use.',
-    volver: 'All reviews', porObjetivo: 'Reviews by lens', otras: 'More reviews', leer: 'Read the review', vacio: 'There are no reviews in this language yet.',
+    volver: 'All reviews', catalogo: 'All of them, by brand and name', buscar: 'Search for a lens', buscarEj: 'e.g. 23mm, TTArtisan…', sinResultados: 'No review matches that name.', leer: 'Read the review', vacio: 'There are no reviews in this language yet.',
     pie: 'All photos are mine. If you’d like to use one, please ask me first.', sufijo: 'Shande Villa',
   },
 };
@@ -217,7 +217,7 @@ ${alt}${xdef ? `\n<link rel="alternate" hreflang="x-default" href="${SITIO}${xde
 ${jsonld ? `<script type="application/ld+json">\n${JSON.stringify(jsonld, null, 2)}\n</script>` : ''}`;
 }
 
-function marco({ l, cuerpo, head, actual, enlacesIdioma, rutaIndice, submenu = [] }) {
+function marco({ l, cuerpo, head, actual, enlacesIdioma, rutaIndice }) {
   const I = IDIOMAS[l];
   const t = UI[l];
   const m = etiquetasMenu(l);
@@ -248,11 +248,6 @@ ${head}
     <a href="/#contacto">${m.contacto}</a>
   </div>
 </nav>
-${submenu.length ? `<nav class="submenu" aria-label="${t.porObjetivo}">
-  <div class="menu-in">
-${submenu.map((x) => `    <a href="${x.url}"${x.actual ? ' aria-current="page"' : ''}>${esc(x.nombre)}</a>`).join('\n')}
-  </div>
-</nav>` : ''}
 <main id="contenido">
 <div class="pagina">
 ${cuerpo}
@@ -317,12 +312,12 @@ export function generarReviews({ versionCss = '', versionJs = '' } = {}) {
     const urlIndice = (x) => `${IDIOMAS[x].prefijo}/reviews/`;
     const urlReview = (x, slug) => `${IDIOMAS[x].prefijo}/reviews/${slug}/`;
     const nombreDe = (r) => String(r.porIdioma[l].meta.producto || r.porIdioma[l].meta.title);
-    const alfabetico = [...enEste].sort((a, b) => nombreDe(a).localeCompare(nombreDe(b), I.fecha, { numeric: true }));
-    const submenuPara = (slugActual) => alfabetico.map((r) => ({ nombre: nombreDe(r), url: urlReview(l, r.slug), actual: r.slug === slugActual }));
+    const marcaDe = (r) => String(r.porIdioma[l].meta.marca || nombreDe(r).split(/\s+/)[0]);
     const indicesEn = ORDEN.filter((x) => reviews.some((r) => r.porIdioma[x]));
 
     // índice
-    const tarjetas = enEste.map((r) => {
+    const MAX_TARJETAS = 4;
+    const tarjetas = enEste.slice(0, MAX_TARJETAS).map((r) => {
       const d = r.porIdioma[l];
       return `<li><a class="tarjeta-review" href="${urlReview(l, r.slug)}">
   <span class="ventana">${imagen(r.manifiesto, r.slug, d.cover, '', { sizes: '(min-width: 760px) 280px, 100vw' })}</span>
@@ -334,16 +329,27 @@ export function generarReviews({ versionCss = '', versionJs = '' } = {}) {
   </span>
 </a></li>`;
     }).join('\n');
+    // con muchas reviews, las tarjetas grandes son solo las últimas y el resto va en un catálogo A–Z por marca, con buscador
+    const marcas = [...new Set(enEste.map(marcaDe))].sort((a, b) => a.localeCompare(b, I.fecha));
+    const filas = (lista) => lista.sort((a, b) => nombreDe(a).localeCompare(nombreDe(b), I.fecha, { numeric: true }))
+      .map((r) => `<li data-buscar="${esc((nombreDe(r) + ' ' + marcaDe(r)).toLowerCase())}"><a href="${urlReview(l, r.slug)}"><span class="fila-nombre">${esc(nombreDe(r))}</span><span class="fila-fecha">${fechaLarga(r.porIdioma[l].meta.pubDate, l)}</span></a></li>`).join('\n');
+    const catalogo = enEste.length > MAX_TARJETAS ? `<section class="catalogo" aria-labelledby="h-catalogo">
+  <h2 id="h-catalogo" class="titulo-seccion">${t.catalogo}</h2>
+  <p class="buscador" hidden><label for="buscar-review">${t.buscar}</label><input id="buscar-review" type="search" autocomplete="off" placeholder="${t.buscarEj}"></p>
+  <p class="sin-resultados" role="status" hidden>${t.sinResultados}</p>
+${marcas.map((m) => `  <div class="marca-grupo"><h3>${esc(m)}</h3><ul class="filas">\n${filas(enEste.filter((r) => marcaDe(r) === m))}\n</ul></div>`).join('\n')}
+</section>` : '';
     const cuerpoIndice = `<section class="reviews-indice" aria-labelledby="h-reviews">
   <h1 id="h-reviews" class="titulo-pagina">${t.tituloIndice}</h1>
   <p class="entradilla">${t.intro}</p>
   ${enEste.length ? `<ul class="lista-reviews">\n${tarjetas}\n</ul>` : `<p>${t.vacio}</p>`}
+${catalogo}
 </section>`;
     const primera = enEste[0];
     const ogIndice = primera ? `/img/reviews/${primera.slug}/${primera.manifiesto[primera.porIdioma[l].cover].base}-${primera.manifiesto[primera.porIdioma[l].cover].anchos.at(-1)}.webp` : '/og.jpg';
     const altIndice = indicesEn.map((x) => ({ idioma: x, url: urlIndice(x) }));
     escribir(`${I.prefijo}/reviews`.replace(/^\//, ''), marco({
-      l, cuerpo: cuerpoIndice, actual: 'indice', rutaIndice: urlIndice(l), enlacesIdioma: altIndice, submenu: submenuPara(null),
+      l, cuerpo: cuerpoIndice, actual: 'indice', rutaIndice: urlIndice(l), enlacesIdioma: altIndice,
       head: cabeza({ l, titulo: t.metaIndice, descripcion: t.descIndice, canonico: urlIndice(l), alternativas: altIndice, imagenOg: ogIndice, tipo: 'website' }),
     }));
     paginas.push({ url: urlIndice(l), idiomas: altIndice, imagen: ogIndice });
@@ -377,7 +383,7 @@ ${cuerpoHtml(d.cuerpo, ctx)}
         url: `${SITIO}${urlReview(l, r.slug)}`,
       };
       escribir(`${I.prefijo}/reviews/${r.slug}`.replace(/^\//, ''), marco({
-        l, cuerpo, actual: 'review', rutaIndice: urlIndice(l), enlacesIdioma: alternativas, submenu: submenuPara(r.slug),
+        l, cuerpo, actual: 'review', rutaIndice: urlIndice(l), enlacesIdioma: alternativas,
         head: cabeza({ l, titulo: `${d.meta.title} — ${t.sufijo}`, descripcion: d.meta.description, canonico: urlReview(l, r.slug), alternativas, imagenOg: og, jsonld, tipo: 'article' }),
       }));
       paginas.push({ url: urlReview(l, r.slug), idiomas: alternativas, imagen: og, fecha: String(d.meta.pubDate) });

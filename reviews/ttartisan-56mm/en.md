@@ -2,6 +2,7 @@
 title: 'In-Depth Review: TTArtisan AF 56mm F1.8'
 description: 'Testing the budget portrait king on the streets of Guangzhou. Can a sub-$160 lens challenge the big players?'
 pubDate: 2024-04-02
+marca: 'TTArtisan'
 producto: 'TTArtisan AF 56mm F1.8'
 cover: "./DSC00907.JPG"
 tags: ["Review", "TTArtisan", "Fujifilm", "Street Photography", "Portrait"]

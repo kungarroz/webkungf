@@ -2,6 +2,7 @@
 title: '深度评测：铭匠 (TTArtisan) AF 56mm F1.8'
 description: '在广州街头实测这款平价人像镜头。不到1000元的镜头能否挑战原厂？'
 pubDate: 2024-04-02
+marca: 'TTArtisan'
 producto: 'TTArtisan AF 56mm F1.8'
 cover: "./DSC00907.JPG"
 tags: ["评测", "铭匠", "富士", "街头摄影", "人像"]
