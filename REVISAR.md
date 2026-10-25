@@ -112,6 +112,8 @@ Todos los textos de `/portfolio/` en chino e inglés son traducción mía (está
 
 | Texto | Español | Inglés | Chino |
 |---|---|---|---|
-| Introducción | Una selección de mi trabajo en la calle de Guangzhou, Hong Kong y Macao. Filtra por serie o por formato y toca una foto para verla grande. | A selection of my street work in Guangzhou, Hong Kong and Macao. Filter by series or format and tap a photo to see it bigger. | 我在广州、香港和澳门街头拍摄的作品精选。可以按系列或画幅筛选，点一下照片可看大图。 |
-| Filtros | Serie / Formato / Todas / Horizontales / Verticales | Series / Format / All / Landscape / Portrait | 系列 / 画幅 / 全部 / 横幅 / 竖幅 |
+| Introducción | Una selección de mi trabajo en la calle de Guangzhou, Hong Kong y Macao. Filtra por serie o por objetivo y toca una foto para verla grande. | A selection of my street work in Guangzhou, Hong Kong and Macao. Filter by series or lens and tap a photo to see it bigger. | 我在广州、香港和澳门街头拍摄的作品精选。可以按系列或镜头筛选，点一下照片可看大图。 |
+| Filtros | Serie / Objetivo / Todas / Todos | Series / Lens / All | 系列 / 镜头 / 全部 |
 | Botón de la portada (`portfolio.cta`) | Ver el portfolio completo | See the full portfolio | 查看完整作品集 |
+
+**Nombres de objetivos (`tools/objetivos.json`).** Los he deducido del texto que escribe tu cámara en cada foto; los que no estoy seguro de la marca los he dejado sin marca: «AF 27mm F2.8» y «AF 14mm F3.5». «Meike 33mm F1.4», «TTArtisan AF 23mm F1.8» y «TTArtisan AF 56mm F1.8» también son deducidos. Corrígelos ahí y dímelo.

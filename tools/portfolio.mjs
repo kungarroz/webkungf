@@ -11,37 +11,33 @@ const RAIZ = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SITIO = 'https://shandevilla.com';
 
 const PF = {
-  es: { titulo: 'Portfolio', intro: 'Una selección de mi trabajo en la calle de Guangzhou, Hong Kong y Macao. Filtra por serie o por formato y toca una foto para verla grande.',
+  es: { titulo: 'Portfolio', intro: 'Una selección de mi trabajo en la calle de Guangzhou, Hong Kong y Macao. Filtra por serie o por objetivo y toca una foto para verla grande.',
     meta: 'Portfolio de fotografía de calle en China — Shande Villa', desc: 'Fotografía de calle en Guangzhou, Hong Kong y Macao: calle, noche, retratos urbanos, arquitectura y detalles.',
-    filtros: 'Filtros', serie: 'Serie', formato: 'Formato', todas: 'Todas', horizontal: 'Horizontales', vertical: 'Verticales', cuenta: (n) => `${n} ${n === 1 ? 'foto' : 'fotos'}`, vacio: 'No hay fotos con esa combinación.', quitar: 'Quitar filtros' },
-  zh: { titulo: '作品集', intro: '我在广州、香港和澳门街头拍摄的作品精选。可以按系列或画幅筛选，点一下照片可看大图。',
+    filtros: 'Filtros', serie: 'Serie', objetivo: 'Objetivo', todas: 'Todas', cuenta: (n) => `${n} ${n === 1 ? 'foto' : 'fotos'}`, vacio: 'No hay fotos con esa combinación.', quitar: 'Quitar filtros' },
+  zh: { titulo: '作品集', intro: '我在广州、香港和澳门街头拍摄的作品精选。可以按系列或镜头筛选，点一下照片可看大图。',
     meta: '中国街头摄影作品集 — Shande Villa', desc: '广州、香港和澳门的街头摄影：街头、夜晚、城市人像、建筑和细节。',
-    filtros: '筛选', serie: '系列', formato: '画幅', todas: '全部', horizontal: '横幅', vertical: '竖幅', cuenta: (n) => `${n} 张照片`, vacio: '没有符合条件的照片。', quitar: '清除筛选' },
-  en: { titulo: 'Portfolio', intro: 'A selection of my street work in Guangzhou, Hong Kong and Macao. Filter by series or format and tap a photo to see it bigger.',
+    filtros: '筛选', serie: '系列', objetivo: '镜头', todas: '全部', cuenta: (n) => `${n} 张照片`, vacio: '没有符合条件的照片。', quitar: '清除筛选' },
+  en: { titulo: 'Portfolio', intro: 'A selection of my street work in Guangzhou, Hong Kong and Macao. Filter by series or lens and tap a photo to see it bigger.',
     meta: 'Street photography portfolio in China — Shande Villa', desc: 'Street photography in Guangzhou, Hong Kong and Macao: street, night, urban portraits, architecture and details.',
-    filtros: 'Filters', serie: 'Series', formato: 'Format', todas: 'All', horizontal: 'Landscape', vertical: 'Portrait', cuenta: (n) => `${n} ${n === 1 ? 'photo' : 'photos'}`, vacio: 'No photos match that combination.', quitar: 'Clear filters' },
+    filtros: 'Filters', serie: 'Series', objetivo: 'Lens', todas: 'All', cuenta: (n) => `${n} ${n === 1 ? 'photo' : 'photos'}`, vacio: 'No photos match that combination.', quitar: 'Clear filters' },
 };
 
-// ───────── Fotos: se leen del bloque generado de la portada ─────────
+// ───────── Fotos: todas las de las carpetas de originales (las prepara tools/optimizar_portfolio.py) ─────────
+const slug = (t) => t.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
 function leerFotos() {
-  const html = readFileSync(join(RAIZ, 'site', 'index.html'), 'utf8');
-  const bloque = /<!--GALERIA-->([\s\S]*?)<!--\/GALERIA-->/.exec(html);
-  if (!bloque) throw new Error('no encuentro <!--GALERIA--> en site/index.html');
-  const series = [];
-  for (const m of bloque[1].matchAll(/<button[^>]*id="tab-([a-z-]+)"[^>]*>\s*<span data-i18n="rollo\.[a-z-]+">([^<]+)<\/span>/g)) series.push({ id: m[1], es: m[2] });
-  const fotos = [];
-  for (const serie of series) {
-    const panel = new RegExp(`id="panel-${serie.id}"[\\s\\S]*?(?=<div class="rollo"|$)`).exec(bloque[1]);
-    if (!panel) continue;
-    for (const f of panel[0].matchAll(/<li class="foto" style="--a:([\d.]+)"><a href="([^"]+)" data-srcset="([^"]+)" data-w="(\d+)" data-h="(\d+)"><img src="([^"]+)"/g)) {
-      const abs = (u) => (u.startsWith('/') ? u : `/${u}`);
-      fotos.push({
-        serie: serie.id, a: +f[1], w: +f[4], h: +f[5],
-        grande: abs(f[2]), pequena: abs(f[6]),
-        srcset: f[3].split(',').map((x) => abs(x.trim())).join(', '),
-      });
-    }
-  }
+  const ruta = join(RAIZ, 'tools', 'portfolio-fotos.json');
+  if (!existsSync(ruta)) throw new Error('falta tools/portfolio-fotos.json (ejecuta python3 tools/optimizar_portfolio.py)');
+  const sel = JSON.parse(readFileSync(join(RAIZ, 'tools', 'seleccion.json'), 'utf8'));
+  const series = sel.rollos.map((r) => ({ id: r.id, es: r.titulo }));
+  const fotos = JSON.parse(readFileSync(ruta, 'utf8')).map((f) => {
+    const url = (a) => `/img/portfolio/${f.serie}/${f.id}-${a}.webp`;
+    return {
+      serie: f.serie, w: f.w, h: f.h, a: +(f.w / f.h).toFixed(3), objetivo: f.objetivo || '',
+      grande: url(f.anchos.at(-1)), pequena: url(f.anchos[0]),
+      srcset: f.anchos.map((a) => `${url(a)} ${a}w`).join(', '),
+    };
+  });
   return { series, fotos };
 }
 
@@ -65,22 +61,24 @@ export function generarPortfolio({ versionCss = '' } = {}) {
     const cont = Object.fromEntries(series.map((s) => [s.id, fotos.filter((f) => f.serie === s.id).length]));
     const nSerie = {};
     const chip = (grupo, valor, texto, pulsado, n) => `<button type="button" class="chip" data-f="${grupo}" data-v="${valor}" aria-pressed="${pulsado}">${esc(texto)}${n != null ? ` <span class="n">${n}</span>` : ''}</button>`;
+    // objetivos: del más usado al menos; las fotos sin dato de objetivo solo salen en «Todos»
+    const cuentaObj = {};
+    for (const f of fotos) if (f.objetivo) cuentaObj[f.objetivo] = (cuentaObj[f.objetivo] || 0) + 1;
+    const objetivos = Object.entries(cuentaObj).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
     const filtros = `<div class="filtros" hidden>
   <div class="filtro-grupo"><p class="filtro-etiqueta" id="f-serie">${t.serie}</p><div class="chips" role="group" aria-labelledby="f-serie">
     ${chip('serie', 'todas', t.todas, 'true', fotos.length)}
     ${series.map((s) => chip('serie', s.id, nombres[s.id], 'false', cont[s.id])).join('\n    ')}
   </div></div>
-  <div class="filtro-grupo"><p class="filtro-etiqueta" id="f-formato">${t.formato}</p><div class="chips" role="group" aria-labelledby="f-formato">
-    ${chip('formato', 'todas', t.todas, 'true')}
-    ${chip('formato', 'h', t.horizontal, 'false')}
-    ${chip('formato', 'v', t.vertical, 'false')}
+  <div class="filtro-grupo"><p class="filtro-etiqueta" id="f-objetivo">${t.objetivo}</p><div class="chips" role="group" aria-labelledby="f-objetivo">
+    ${chip('objetivo', 'todas', t.todas, 'true')}
+    ${objetivos.map(([n, c]) => chip('objetivo', slug(n), n, 'false', c)).join('\n    ')}
   </div></div>
 </div>`;
     const items = fotos.map((f, i) => {
       nSerie[f.serie] = (nSerie[f.serie] || 0) + 1;
       const alt = `${nombres[f.serie]} · ${nSerie[f.serie]}`;
-      const formato = f.w >= f.h ? 'h' : 'v';
-      return `<li data-serie="${f.serie}" data-formato="${formato}" style="--a:${f.a}"><a class="zoom" href="${f.grande}" data-srcset="${f.srcset}" data-w="${f.w}" data-h="${f.h}" data-pie="${esc(nombres[f.serie])}" aria-label="${esc(UI[l].ampliar)}: ${esc(alt)}"><i></i><img src="${f.pequena}" srcset="${f.srcset}" sizes="(min-width: 960px) 28vw, 50vw" width="${f.w}" height="${f.h}" alt="${esc(alt)}"${i < 8 ? '' : ' loading="lazy"'} decoding="async"></a></li>`;
+      return `<li data-serie="${f.serie}" data-objetivo="${f.objetivo ? slug(f.objetivo) : ''}" style="--a:${f.a}"><a class="zoom" href="${f.grande}" data-srcset="${f.srcset}" data-w="${f.w}" data-h="${f.h}" data-pie="${esc(nombres[f.serie])}${f.objetivo ? ' · ' + esc(f.objetivo) : ''}" aria-label="${esc(UI[l].ampliar)}: ${esc(alt)}"><i></i><img src="${f.pequena}" srcset="${f.srcset}" sizes="(min-width: 960px) 28vw, 50vw" width="${f.w}" height="${f.h}" alt="${esc(alt)}"${i < 8 ? '' : ' loading="lazy"'} decoding="async"></a></li>`;
     }).join('\n');
     const cuerpo = `<section class="portfolio" aria-labelledby="h-portfolio" data-todas="${esc(t.todas)}">
   <h1 id="h-portfolio" class="titulo-pagina">${t.titulo}</h1>

@@ -1,0 +1,13 @@
+{
+  "_nota": "Nombre con el que sale cada objetivo en los filtros del portfolio. La clave es el «LensModel» que escribe la cámara en el EXIF. Corrige aquí cualquier marca o nombre que no sea el correcto y ejecuta python3 tools/optimizar_portfolio.py. Las cámaras con objetivo fijo (Sony ZV-1) cuentan como objetivo y se resuelven en el script.",
+  "XF23mmF2 R WR": "Fujifilm XF 23mm F2 R WR",
+  "Fujifilm Fujinon XF23mmF2 R WR": "Fujifilm XF 23mm F2 R WR",
+  "XF16mmF2.8 R WR": "Fujifilm XF 16mm F2.8 R WR",
+  "XF50mmF2 R WR": "Fujifilm XF 50mm F2 R WR",
+  "AF 23/1.8 XF": "TTArtisan AF 23mm F1.8",
+  "MJ56mm F1.8X DA DSM": "TTArtisan AF 56mm F1.8",
+  "TTARTISAN 35mm F1.8 X": "TTArtisan 35mm F1.8",
+  "MEKE 33mmF1.4X": "Meike 33mm F1.4",
+  "AF 27/2.8": "AF 27mm F2.8",
+  "AF 14/3.5": "AF 14mm F3.5"
+}

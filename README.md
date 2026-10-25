@@ -89,7 +89,12 @@ En `site/index.html`, justo antes del final, hay el snippet comentado. Crea el s
 
 ## Portfolio
 
-La página `/portfolio/` (y `/en/portfolio/`, `/zh/portfolio/`) enseña **las mismas fotos que el carrete de la portada** en un mosaico, con filtros por **serie** y por **formato** (horizontales / verticales) y el visor al pulsar una foto. No tiene ningún archivo propio que editar: para cambiar las fotos o las series se edita `tools/seleccion.json` y se ejecuta `python3 tools/optimizar_fotos.py`, y `build.mjs` genera la página en cada despliegue (las páginas generadas no se guardan en git). Una serie se puede abrir ya filtrada con `/portfolio/#noche`. Los textos de la página están en `tools/portfolio.mjs` (objeto `PF`).
+La página `/portfolio/` (y `/en/portfolio/`, `/zh/portfolio/`) enseña **todas las fotos de las carpetas de serie de `originales/`** (calle, noche, retratos-urbanos, hongkong, macao, arquitectura, detalles, retratos) en un mosaico, con filtros por **serie** (la carpeta) y por **objetivo** (se lee del EXIF de cada original; la Sony ZV-1 cuenta como objetivo y las cámaras no se filtran), y el visor al pulsar una foto. No se mira `capturas`, `personales`, `reviews` ni `varios`.
+
+- **Añadir fotos:** déjalas en su carpeta de `originales/` y ejecuta `python3 tools/optimizar_portfolio.py` (necesita ImageMagick y Pillow). Crea los WebP (sin EXIF) en `site/img/portfolio/` y `tools/portfolio-fotos.json`. Hacen falta ese commit y el push; `build.mjs` genera la página en cada despliegue.
+- **Orden:** primero las fotos elegidas en `tools/seleccion.json` (el carrete de la portada), después el resto por nombre.
+- **Nombres de los objetivos:** `tools/objetivos.json` traduce el nombre que escribe la cámara (p. ej. `AF 23/1.8 XF`) al nombre bonito. Si sale un objetivo con un nombre raro, añade una línea ahí y vuelve a ejecutar el script. Las fotos sin dato de objetivo solo salen en «Todos».
+- Una serie se abre ya filtrada con `/portfolio/#noche`. Los textos de la página están en `tools/portfolio.mjs` (objeto `PF`).
 
 ## Reviews (objetivo, ficha técnica y mi opinión)
 

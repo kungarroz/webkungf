@@ -1,0 +1,1641 @@
+[
+ {
+  "id": "calle14",
+  "serie": "calle",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "calle35",
+  "serie": "calle",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "AF 27mm F2.8"
+ },
+ {
+  "id": "calle11",
+  "serie": "calle",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "calle21",
+  "serie": "calle",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "AF 27mm F2.8"
+ },
+ {
+  "id": "calle25",
+  "serie": "calle",
+  "w": 714,
+  "h": 1100,
+  "anchos": [
+   480,
+   714
+  ],
+  "objetivo": "TTArtisan AF 56mm F1.8"
+ },
+ {
+  "id": "calle15",
+  "serie": "calle",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "AF 27mm F2.8"
+ },
+ {
+  "id": "calle7",
+  "serie": "calle",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "TTArtisan 35mm F1.8"
+ },
+ {
+  "id": "calle12",
+  "serie": "calle",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "calle32",
+  "serie": "calle",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "TTArtisan AF 56mm F1.8"
+ },
+ {
+  "id": "calle20",
+  "serie": "calle",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "calle4",
+  "serie": "calle",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "Fujifilm XF 16mm F2.8 R WR"
+ },
+ {
+  "id": "calle41",
+  "serie": "calle",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "TTArtisan AF 56mm F1.8"
+ },
+ {
+  "id": "calle1",
+  "serie": "calle",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "Fujifilm XF 50mm F2 R WR"
+ },
+ {
+  "id": "calle2",
+  "serie": "calle",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "AF 14mm F3.5"
+ },
+ {
+  "id": "calle3",
+  "serie": "calle",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "TTArtisan 35mm F1.8"
+ },
+ {
+  "id": "calle5",
+  "serie": "calle",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "AF 14mm F3.5"
+ },
+ {
+  "id": "calle6",
+  "serie": "calle",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "TTArtisan AF 56mm F1.8"
+ },
+ {
+  "id": "calle8",
+  "serie": "calle",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "Fujifilm XF 50mm F2 R WR"
+ },
+ {
+  "id": "calle9",
+  "serie": "calle",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "calle10",
+  "serie": "calle",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "TTArtisan 35mm F1.8"
+ },
+ {
+  "id": "calle13",
+  "serie": "calle",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "calle16",
+  "serie": "calle",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "calle17",
+  "serie": "calle",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "Sony ZV-1"
+ },
+ {
+  "id": "calle18",
+  "serie": "calle",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "calle19",
+  "serie": "calle",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": null
+ },
+ {
+  "id": "calle22",
+  "serie": "calle",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": null
+ },
+ {
+  "id": "calle23",
+  "serie": "calle",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": null
+ },
+ {
+  "id": "calle24",
+  "serie": "calle",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "calle26",
+  "serie": "calle",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "Sony ZV-1"
+ },
+ {
+  "id": "calle27",
+  "serie": "calle",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "TTArtisan AF 56mm F1.8"
+ },
+ {
+  "id": "calle28",
+  "serie": "calle",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "calle29",
+  "serie": "calle",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "TTArtisan AF 56mm F1.8"
+ },
+ {
+  "id": "calle30",
+  "serie": "calle",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "Sony ZV-1"
+ },
+ {
+  "id": "calle31",
+  "serie": "calle",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "TTArtisan AF 56mm F1.8"
+ },
+ {
+  "id": "calle33",
+  "serie": "calle",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": null
+ },
+ {
+  "id": "calle34",
+  "serie": "calle",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": null
+ },
+ {
+  "id": "calle36",
+  "serie": "calle",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "TTArtisan AF 56mm F1.8"
+ },
+ {
+  "id": "calle37",
+  "serie": "calle",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "TTArtisan AF 56mm F1.8"
+ },
+ {
+  "id": "calle38",
+  "serie": "calle",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": null
+ },
+ {
+  "id": "calle39",
+  "serie": "calle",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "TTArtisan AF 56mm F1.8"
+ },
+ {
+  "id": "calle40",
+  "serie": "calle",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "AF 27mm F2.8"
+ },
+ {
+  "id": "calle42",
+  "serie": "calle",
+  "w": 723,
+  "h": 1086,
+  "anchos": [
+   480,
+   723
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "calle43",
+  "serie": "calle",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "TTArtisan AF 56mm F1.8"
+ },
+ {
+  "id": "noche2",
+  "serie": "noche",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "noche6",
+  "serie": "noche",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "Sony ZV-1"
+ },
+ {
+  "id": "noche1",
+  "serie": "noche",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "noche3",
+  "serie": "noche",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "noche21",
+  "serie": "noche",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "TTArtisan AF 56mm F1.8"
+ },
+ {
+  "id": "noche5",
+  "serie": "noche",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "noche7",
+  "serie": "noche",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "Sony ZV-1"
+ },
+ {
+  "id": "noche18",
+  "serie": "noche",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "Sony ZV-1"
+ },
+ {
+  "id": "noche8",
+  "serie": "noche",
+  "w": 3657,
+  "h": 5485,
+  "anchos": [
+   480,
+   960,
+   1600
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "noche19",
+  "serie": "noche",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "noche4",
+  "serie": "noche",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "noche17",
+  "serie": "noche",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "noche20",
+  "serie": "noche",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "Sony ZV-1"
+ },
+ {
+  "id": "urbanportrait1",
+  "serie": "retratos-urbanos",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "TTArtisan AF 23mm F1.8"
+ },
+ {
+  "id": "urbanportrait4",
+  "serie": "retratos-urbanos",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "Meike 33mm F1.4"
+ },
+ {
+  "id": "urbanportrait5",
+  "serie": "retratos-urbanos",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "Meike 33mm F1.4"
+ },
+ {
+  "id": "urbanportrait2",
+  "serie": "retratos-urbanos",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "Fujifilm XF 16mm F2.8 R WR"
+ },
+ {
+  "id": "urbanportrait8",
+  "serie": "retratos-urbanos",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "urbanportrait6",
+  "serie": "retratos-urbanos",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "Meike 33mm F1.4"
+ },
+ {
+  "id": "urbanportrait3",
+  "serie": "retratos-urbanos",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "Fujifilm XF 16mm F2.8 R WR"
+ },
+ {
+  "id": "urbanportrait7",
+  "serie": "retratos-urbanos",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "urbanportrait10",
+  "serie": "retratos-urbanos",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "urbanportrait11",
+  "serie": "retratos-urbanos",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "urbanportrait9",
+  "serie": "retratos-urbanos",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "TTArtisan AF 56mm F1.8"
+ },
+ {
+  "id": "hongkong2",
+  "serie": "hongkong",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "hongkong18",
+  "serie": "hongkong",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "Sony ZV-1"
+ },
+ {
+  "id": "hongkong20",
+  "serie": "hongkong",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "Meike 33mm F1.4"
+ },
+ {
+  "id": "hongkong3",
+  "serie": "hongkong",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "hongkong12",
+  "serie": "hongkong",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "Sony ZV-1"
+ },
+ {
+  "id": "hongkong15",
+  "serie": "hongkong",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "hongkong4",
+  "serie": "hongkong",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "hongkong14",
+  "serie": "hongkong",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "hongkong19",
+  "serie": "hongkong",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "Meike 33mm F1.4"
+ },
+ {
+  "id": "hongkong7",
+  "serie": "hongkong",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "hongkong1",
+  "serie": "hongkong",
+  "w": 1086,
+  "h": 725,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "Meike 33mm F1.4"
+ },
+ {
+  "id": "hongkong5",
+  "serie": "hongkong",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "hongkong6",
+  "serie": "hongkong",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "hongkong8",
+  "serie": "hongkong",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "hongkong9",
+  "serie": "hongkong",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "hongkong10",
+  "serie": "hongkong",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "hongkong11",
+  "serie": "hongkong",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "hongkong13",
+  "serie": "hongkong",
+  "w": 725,
+  "h": 1086,
+  "anchos": [
+   480,
+   725
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "hongkong16",
+  "serie": "hongkong",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "hongkong17",
+  "serie": "hongkong",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "macao16",
+  "serie": "macao",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "AF 27mm F2.8"
+ },
+ {
+  "id": "macao9",
+  "serie": "macao",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": null
+ },
+ {
+  "id": "macao18",
+  "serie": "macao",
+  "w": 1448,
+  "h": 2172,
+  "anchos": [
+   480,
+   960,
+   1448
+  ],
+  "objetivo": "TTArtisan AF 23mm F1.8"
+ },
+ {
+  "id": "macao15",
+  "serie": "macao",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "TTArtisan AF 23mm F1.8"
+ },
+ {
+  "id": "macao6",
+  "serie": "macao",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "TTArtisan AF 23mm F1.8"
+ },
+ {
+  "id": "macao14",
+  "serie": "macao",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "AF 27mm F2.8"
+ },
+ {
+  "id": "macao1",
+  "serie": "macao",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "TTArtisan AF 23mm F1.8"
+ },
+ {
+  "id": "macao17",
+  "serie": "macao",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "macao12",
+  "serie": "macao",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "AF 27mm F2.8"
+ },
+ {
+  "id": "macao5",
+  "serie": "macao",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "macao2",
+  "serie": "macao",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "TTArtisan AF 23mm F1.8"
+ },
+ {
+  "id": "macao3",
+  "serie": "macao",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "TTArtisan AF 23mm F1.8"
+ },
+ {
+  "id": "macao4",
+  "serie": "macao",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "TTArtisan AF 23mm F1.8"
+ },
+ {
+  "id": "macao7",
+  "serie": "macao",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "AF 27mm F2.8"
+ },
+ {
+  "id": "macao8",
+  "serie": "macao",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "macao10",
+  "serie": "macao",
+  "w": 1024,
+  "h": 768,
+  "anchos": [
+   480,
+   960,
+   1024
+  ],
+  "objetivo": "AF 27mm F2.8"
+ },
+ {
+  "id": "macao11",
+  "serie": "macao",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "AF 27mm F2.8"
+ },
+ {
+  "id": "macao13",
+  "serie": "macao",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "TTArtisan AF 23mm F1.8"
+ },
+ {
+  "id": "arquitectura1",
+  "serie": "arquitectura",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "AF 14mm F3.5"
+ },
+ {
+  "id": "arquitectura13",
+  "serie": "arquitectura",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "AF 27mm F2.8"
+ },
+ {
+  "id": "arquitectura14",
+  "serie": "arquitectura",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": null
+ },
+ {
+  "id": "arquitectura10",
+  "serie": "arquitectura",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "Sony ZV-1"
+ },
+ {
+  "id": "arquitectura18",
+  "serie": "arquitectura",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": null
+ },
+ {
+  "id": "arquitectura17",
+  "serie": "arquitectura",
+  "w": 3441,
+  "h": 5161,
+  "anchos": [
+   480,
+   960,
+   1600
+  ],
+  "objetivo": "Sony ZV-1"
+ },
+ {
+  "id": "arquitectura19",
+  "serie": "arquitectura",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "AF 27mm F2.8"
+ },
+ {
+  "id": "arquitectura20",
+  "serie": "arquitectura",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": null
+ },
+ {
+  "id": "arquitectura21",
+  "serie": "arquitectura",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "AF 14mm F3.5"
+ },
+ {
+  "id": "arquitectura4",
+  "serie": "arquitectura",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "AF 14mm F3.5"
+ },
+ {
+  "id": "arquitectura8",
+  "serie": "arquitectura",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "TTArtisan AF 56mm F1.8"
+ },
+ {
+  "id": "arquitectura9",
+  "serie": "arquitectura",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "AF 14mm F3.5"
+ },
+ {
+  "id": "arquitectura2",
+  "serie": "arquitectura",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "AF 14mm F3.5"
+ },
+ {
+  "id": "arquitectura3",
+  "serie": "arquitectura",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "Meike 33mm F1.4"
+ },
+ {
+  "id": "arquitectura5",
+  "serie": "arquitectura",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "AF 14mm F3.5"
+ },
+ {
+  "id": "arquitectura6",
+  "serie": "arquitectura",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": null
+ },
+ {
+  "id": "arquitectura7",
+  "serie": "arquitectura",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "arquitectura11",
+  "serie": "arquitectura",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "AF 14mm F3.5"
+ },
+ {
+  "id": "arquitectura12",
+  "serie": "arquitectura",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "TTArtisan AF 56mm F1.8"
+ },
+ {
+  "id": "arquitectura15",
+  "serie": "arquitectura",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": null
+ },
+ {
+  "id": "arquitectura16",
+  "serie": "arquitectura",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "AF 27mm F2.8"
+ },
+ {
+  "id": "detalles1",
+  "serie": "detalles",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "detalles2",
+  "serie": "detalles",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "Meike 33mm F1.4"
+ },
+ {
+  "id": "detalles3",
+  "serie": "detalles",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "detalles4",
+  "serie": "detalles",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "TTArtisan AF 23mm F1.8"
+ },
+ {
+  "id": "detalles5",
+  "serie": "detalles",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": null
+ },
+ {
+  "id": "detalles6",
+  "serie": "detalles",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "Fujifilm XF 16mm F2.8 R WR"
+ },
+ {
+  "id": "detalles7",
+  "serie": "detalles",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "TTArtisan 35mm F1.8"
+ },
+ {
+  "id": "detalles8",
+  "serie": "detalles",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "Fujifilm XF 23mm F2 R WR"
+ },
+ {
+  "id": "detalles9",
+  "serie": "detalles",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "TTArtisan AF 56mm F1.8"
+ },
+ {
+  "id": "image97",
+  "serie": "retratos",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "TTArtisan AF 23mm F1.8"
+ },
+ {
+  "id": "image100",
+  "serie": "retratos",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "TTArtisan AF 23mm F1.8"
+ },
+ {
+  "id": "image101",
+  "serie": "retratos",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "TTArtisan AF 23mm F1.8"
+ },
+ {
+  "id": "image102",
+  "serie": "retratos",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "TTArtisan AF 23mm F1.8"
+ },
+ {
+  "id": "image103",
+  "serie": "retratos",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "TTArtisan AF 23mm F1.8"
+ },
+ {
+  "id": "image105",
+  "serie": "retratos",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "TTArtisan AF 23mm F1.8"
+ },
+ {
+  "id": "image98",
+  "serie": "retratos",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "TTArtisan AF 23mm F1.8"
+ },
+ {
+  "id": "image99",
+  "serie": "retratos",
+  "w": 724,
+  "h": 1086,
+  "anchos": [
+   480,
+   724
+  ],
+  "objetivo": "TTArtisan AF 23mm F1.8"
+ },
+ {
+  "id": "image104",
+  "serie": "retratos",
+  "w": 1086,
+  "h": 724,
+  "anchos": [
+   480,
+   960,
+   1086
+  ],
+  "objetivo": "TTArtisan AF 23mm F1.8"
+ }
+]
