@@ -566,7 +566,8 @@ html[lang="zh-Hans"] .filtro-etiqueta { font-size: .8125rem; letter-spacing: .12
 
 /* en el móvil, los filtros ocupan una sola fila que se desliza */
 @media (max-width: 699px) {
-  .filtros { margin-top: 22px; gap: 14px; }
+  .filtros { margin-top: 22px; gap: 14px; grid-template-columns: minmax(0, 1fr); }
+  .filtro-grupo { min-width: 0; }
   .chips { flex-wrap: nowrap; overflow-x: auto; margin-inline: calc(var(--lado) * -1); padding-inline: var(--lado); scrollbar-width: none; }
   .chips::-webkit-scrollbar { display: none; }
   .chip { flex: none; white-space: nowrap; }
