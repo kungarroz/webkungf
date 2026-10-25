@@ -52,9 +52,9 @@
   var img = document.getElementById('visor-img');
   var cuenta = document.getElementById('visor-cuenta');
   var texto = document.getElementById('visor-texto');
-  var i = 0;
+  var i = 0, lista = enlaces;
   function mostrar() {
-    var a = enlaces[i], mini = a.querySelector('img');
+    var a = lista[i], mini = a.querySelector('img');
     img.setAttribute('sizes', '100vw');
     img.setAttribute('srcset', a.getAttribute('data-srcset'));
     img.src = a.getAttribute('href');
@@ -62,15 +62,17 @@
     img.height = +a.getAttribute('data-h');
     img.alt = mini ? mini.alt : '';
     texto.textContent = a.getAttribute('data-pie') || '';
-    cuenta.textContent = (i + 1) + ' / ' + enlaces.length;
-    var vecina = enlaces[(i + 1) % enlaces.length];
+    cuenta.textContent = (i + 1) + ' / ' + lista.length;
+    var vecina = lista[(i + 1) % lista.length];
     if (vecina) { (new Image()).src = vecina.getAttribute('href'); }
   }
-  function mover(d) { i = (i + d + enlaces.length) % enlaces.length; mostrar(); }
+  function mover(d) { i = (i + d + lista.length) % lista.length; mostrar(); }
   enlaces.forEach(function (a, n) {
     a.addEventListener('click', function (e) {
       e.preventDefault();
-      i = n; mostrar();
+      // solo las fotos visibles (el portfolio las filtra)
+      lista = enlaces.filter(function (x) { return !x.closest('[hidden]'); });
+      i = lista.indexOf(a); mostrar();
       raiz.classList.add('visor-abierto');
       visor.showModal();
     });

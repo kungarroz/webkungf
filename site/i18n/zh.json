@@ -55,5 +55,6 @@
   "menu.reviews": "评测",
   "reviews.titulo": "评测",
   "reviews.texto": "在街头实际使用过的镜头和相机：规格参数、实拍照片，以及使用后的看法。",
-  "reviews.cta": "查看评测"
+  "reviews.cta": "查看评测",
+  "portfolio.cta": "查看完整作品集"
 }

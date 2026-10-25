@@ -83,6 +83,8 @@
     fechas(l);
     var rv = document.querySelector('a[data-reviews]');
     if (rv) { rv.setAttribute('href', l === 'es' ? '/reviews/' : '/' + l + '/reviews/'); }
+    var pf = document.querySelector('a[data-portfolio]');
+    if (pf) { pf.setAttribute('href', l === 'es' ? '/portfolio/' : '/' + l + '/portfolio/'); }
     Array.prototype.forEach.call(document.querySelectorAll('.idioma button'), function (b) {
       b.setAttribute('aria-pressed', b.getAttribute('data-idioma') === l ? 'true' : 'false');
     });

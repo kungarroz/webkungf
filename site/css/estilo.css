@@ -535,3 +535,39 @@ html[lang="zh-Hans"] .hoja .review-cuerpo p, html[lang="zh-Hans"] .hoja .review-
 @media (max-width: 959px) {
   .hoja { margin-top: 0; }
 }
+
+/* ───────── Portfolio: mosaico justificado con filtros ───────── */
+.portfolio { padding-top: 40px; --fila: 150px; }
+.filtros { margin-top: 28px; display: grid; gap: 18px; }
+.filtro-etiqueta { margin-bottom: 8px; font-size: .75rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--tenue); }
+html[lang="zh-Hans"] .filtro-etiqueta { font-size: .8125rem; letter-spacing: .12em; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; font: inherit; font-size: .875rem; letter-spacing: .03em; color: var(--tenue); background: none; border: 1px solid var(--filete); border-radius: 0; cursor: pointer; }
+.chip .n { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; color: var(--impreso); opacity: .85; }
+.chip:hover { color: var(--papel); border-color: rgba(241, 236, 226, .45); }
+.chip[aria-pressed="true"] { color: var(--papel); border-color: var(--ambar); box-shadow: inset 0 -2px 0 var(--ambar); }
+.filtro-cuenta { margin: 22px 0 14px; font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--impreso); }
+.sin-fotos { margin-bottom: 18px; color: var(--tenue); }
+.enlace-boton { padding: 0; font: inherit; color: var(--papel); background: none; border: 0; text-decoration: underline; text-decoration-color: var(--ambar); text-underline-offset: 3px; cursor: pointer; }
+.mosaico { list-style: none; margin: 0 calc(var(--lado) * -1); padding: 0 4px; display: flex; flex-wrap: wrap; gap: 4px; }
+.mosaico::after { content: ""; flex-grow: 1000000; }
+.mosaico li { flex: calc(var(--a) * 100) 1 calc(var(--a) * var(--fila)); min-width: 0; }
+.mosaico a { position: relative; display: block; background: var(--ventana); overflow: hidden; }
+.mosaico i { display: block; padding-bottom: calc(100% / var(--a)); }
+.mosaico img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .5s cubic-bezier(.2, .7, .3, 1), opacity .3s; }
+.mosaico a:hover img { transform: scale(1.03); }
+.mosaico a:focus-visible { outline: 2px solid var(--ambar); outline-offset: -2px; }
+@media (min-width: 700px) { .portfolio { --fila: 200px; } }
+@media (min-width: 960px) {
+  .portfolio { --fila: 250px; }
+  .mosaico { margin-inline: 0; padding-inline: 0; gap: 6px; }
+}
+@media (prefers-reduced-motion: reduce) { .mosaico img { transition: none; } .mosaico a:hover img { transform: none; } }
+
+/* en el móvil, los filtros ocupan una sola fila que se desliza */
+@media (max-width: 699px) {
+  .filtros { margin-top: 22px; gap: 14px; }
+  .chips { flex-wrap: nowrap; overflow-x: auto; margin-inline: calc(var(--lado) * -1); padding-inline: var(--lado); scrollbar-width: none; }
+  .chips::-webkit-scrollbar { display: none; }
+  .chip { flex: none; white-space: nowrap; }
+}

@@ -87,6 +87,10 @@ Alternativa sin Email Routing: `RESEND_API_KEY` (Secret); la función usa Resend
 
 En `site/index.html`, justo antes del final, hay el snippet comentado. Crea el sitio en **Analytics & Logs → Web Analytics**, pon tu token, descomenta la línea y amplía la política CSP de `site/_headers` (las dos líneas que hay que cambiar están anotadas al principio de ese archivo).
 
+## Portfolio
+
+La página `/portfolio/` (y `/en/portfolio/`, `/zh/portfolio/`) enseña **las mismas fotos que el carrete de la portada** en un mosaico, con filtros por **serie** y por **formato** (horizontales / verticales) y el visor al pulsar una foto. No tiene ningún archivo propio que editar: para cambiar las fotos o las series se edita `tools/seleccion.json` y se ejecuta `python3 tools/optimizar_fotos.py`, y `build.mjs` genera la página en cada despliegue (las páginas generadas no se guardan en git). Una serie se puede abrir ya filtrada con `/portfolio/#noche`. Los textos de la página están en `tools/portfolio.mjs` (objeto `PF`).
+
 ## Reviews (objetivo, ficha técnica y mi opinión)
 
 Cada review son tres textos en Markdown (uno por idioma) en `reviews/<nombre>/`:

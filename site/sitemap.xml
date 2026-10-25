@@ -10,6 +10,42 @@
     </image:image>
   </url>
   <url>
+    <loc>https://shandevilla.com/portfolio/</loc>
+    <lastmod>2026-10-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shandevilla.com/portfolio/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shandevilla.com/zh/portfolio/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shandevilla.com/en/portfolio/"/>
+    <image:image>
+      <image:loc>https://shandevilla.com/img/calle/calle14-724.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://shandevilla.com/zh/portfolio/</loc>
+    <lastmod>2026-10-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shandevilla.com/portfolio/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shandevilla.com/zh/portfolio/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shandevilla.com/en/portfolio/"/>
+    <image:image>
+      <image:loc>https://shandevilla.com/img/calle/calle14-724.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://shandevilla.com/en/portfolio/</loc>
+    <lastmod>2026-10-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shandevilla.com/portfolio/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shandevilla.com/zh/portfolio/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shandevilla.com/en/portfolio/"/>
+    <image:image>
+      <image:loc>https://shandevilla.com/img/calle/calle14-724.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
     <loc>https://shandevilla.com/reviews/</loc>
     <lastmod>2026-10-25</lastmod>
     <changefreq>monthly</changefreq>

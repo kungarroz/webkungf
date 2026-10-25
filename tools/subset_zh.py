@@ -50,9 +50,10 @@ def main():
         for linea in open(md, encoding="utf-8").read().splitlines():
             if linea.startswith(("#", "title:", "description:")):
                 fuentes.append(linea)
-    generador = os.path.join(RAIZ, "tools", "reviews.mjs")
-    if os.path.exists(generador):
-        fuentes.append(open(generador, encoding="utf-8").read())
+    for nombre in ("reviews.mjs", "portfolio.mjs"):
+        generador = os.path.join(RAIZ, "tools", nombre)
+        if os.path.exists(generador):
+            fuentes.append(open(generador, encoding="utf-8").read())
     caracteres = sorted(set(c for t in fuentes for c in CJK.findall(t)))
     if not caracteres:
         sys.exit("No hay caracteres chinos que subconjuntar")

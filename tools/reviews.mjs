@@ -9,15 +9,15 @@ const RAIZ = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SITIO = 'https://shandevilla.com';
 const VERSION_ARCHIVOS = ['css/estilo.css', 'js/review.js'];
 
-const IDIOMAS = {
+export const IDIOMAS = {
   es: { prefijo: '', html: 'es', og: 'es_ES', fecha: 'es-ES', etiquetaIdioma: 'Español', boton: 'ES' },
   zh: { prefijo: '/zh', html: 'zh-Hans', og: 'zh_CN', fecha: 'zh-CN', etiquetaIdioma: '中文', boton: '中文' },
   en: { prefijo: '/en', html: 'en', og: 'en_GB', fecha: 'en-GB', etiquetaIdioma: 'English', boton: 'EN' },
 };
-const ORDEN = ['es', 'zh', 'en'];
+export const ORDEN = ['es', 'zh', 'en'];
 
 // Textos de la interfaz de estas páginas (traducciones mías: están en REVISAR.md)
-const UI = {
+export const UI = {
   es: {
     inicio: 'Inicio', reviews: 'Reviews', menu: 'Menú', idioma: 'Idioma', saltar: 'Saltar al contenido',
     tituloIndice: 'Reviews', intro: 'Pruebas de objetivos y cámaras hechas en la calle: para qué sirven, qué dice la ficha técnica y qué opino después de usarlos.',
@@ -46,13 +46,13 @@ const UI = {
 
 // Mismas etiquetas que el menú de la portada (site/i18n/*.json); en español son las de index.html
 const MENU_ES = { redes: 'Redes', fotos: 'Fotos', reviews: 'Reviews', contacto: 'Contacto' };
-function etiquetasMenu(l) {
+export function etiquetasMenu(l) {
   if (l === 'es') return MENU_ES;
   const j = JSON.parse(readFileSync(join(RAIZ, 'site', 'i18n', `${l}.json`), 'utf8'));
   return { redes: j['menu.redes'], fotos: j['menu.fotos'], reviews: j['menu.reviews'], contacto: j['menu.contacto'] };
 }
 
-const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+export const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 // ───────── Front matter ─────────
 function separar(texto) {
@@ -212,7 +212,7 @@ function cuerpoHtml(md, ctx) {
 // ───────── Plantillas ─────────
 function versiones(v) { return v ? `?v=${v}` : ''; }
 
-function cabeza({ l, titulo, descripcion, canonico, alternativas, imagenOg, jsonld, tipo }) {
+export function cabeza({ l, titulo, descripcion, canonico, alternativas, imagenOg, jsonld, tipo }) {
   const I = IDIOMAS[l];
   const alt = alternativas.map(({ idioma, url }) => `<link rel="alternate" hreflang="${idioma === 'zh' ? 'zh-Hans' : idioma}" href="${SITIO}${url}">`).join('\n');
   const xdef = alternativas.find((a) => a.idioma === 'es');
@@ -244,7 +244,7 @@ ${alt}${xdef ? `\n<link rel="alternate" hreflang="x-default" href="${SITIO}${xde
 ${jsonld ? `<script type="application/ld+json">\n${JSON.stringify(jsonld, null, 2)}\n</script>` : ''}`;
 }
 
-function marco({ l, cuerpo, head, actual, enlacesIdioma, rutaIndice }) {
+export function marco({ l, cuerpo, head, actual, enlacesIdioma, rutaIndice, menuActual = 'reviews', rutaFotos = '/#fotos', scripts = [], clase = '' }) {
   const I = IDIOMAS[l];
   const t = UI[l];
   const m = etiquetasMenu(l);
@@ -255,7 +255,7 @@ function marco({ l, cuerpo, head, actual, enlacesIdioma, rutaIndice }) {
     return `<a data-idioma="${i}" href="${e.url}" lang="${k.html}" aria-label="${k.etiquetaIdioma}"${i === l ? ' aria-current="true"' : ''}>${k.boton}</a>`;
   }).join('\n    ');
   return `<!doctype html>
-<html lang="${I.html}" class="pagina-review">
+<html lang="${I.html}" class="pagina-review${clase ? ` ${clase}` : ''}">
 <head>
 ${head}
 </head>
@@ -270,8 +270,8 @@ ${head}
 <nav class="menu" aria-label="${t.menu}">
   <div class="menu-in">
     <a href="/#redes">${m.redes}</a>
-    <a href="/#fotos">${m.fotos}</a>
-    <a href="${rutaIndice}" aria-current="true">${m.reviews}</a>
+    <a href="${rutaFotos}"${menuActual === 'fotos' ? ' aria-current="true"' : ''}>${m.fotos}</a>
+    <a href="${rutaIndice}"${menuActual === 'reviews' ? ' aria-current="true"' : ''}>${m.reviews}</a>
     <a href="/#contacto">${m.contacto}</a>
   </div>
 </nav>
@@ -294,7 +294,8 @@ ${cuerpo}
     <button type="button" class="visor-sig" aria-label="${t.siguiente}">→</button>
   </div>
 </dialog>
-<script src="/js/review.js${versiones(globalThis.__v?.js)}" defer></script>
+<script src="/js/review.js${versiones(globalThis.__v?.js)}" defer></script>${scripts.map((x) => `
+<script src="${x.src}${versiones(x.v)}" defer></script>`).join('')}
 </body>
 </html>
 `;
@@ -306,6 +307,8 @@ function fechaLarga(iso, l) {
   if (Number.isNaN(d.getTime())) return String(iso);
   return new Intl.DateTimeFormat(IDIOMAS[l].fecha, { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(d);
 }
+
+export const fijarVersiones = (v) => { globalThis.__v = v; };
 
 export function generarReviews({ versionCss = '', versionJs = '' } = {}) {
   globalThis.__v = { css: versionCss, js: versionJs };

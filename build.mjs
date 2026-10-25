@@ -120,7 +120,15 @@ export async function reviews() {
   try {
     const r = generarReviews({ versionCss: h('css/estilo.css'), versionJs: h('js/review.js') });
     ok(`Reviews: ${r.reviews || 0} (${r.paginas.length} páginas)`);
-    return r.paginas;
+    let extra = [];
+    try {
+      const { generarPortfolio } = await import('./tools/portfolio.mjs');
+      extra = generarPortfolio({ versionCss: h('css/estilo.css') });
+      ok(`Portfolio: ${extra.length} páginas`);
+    } catch (err) {
+      aviso(`Portfolio: ${err.message}`);
+    }
+    return [...extra, ...r.paginas];
   } catch (err) {
     aviso(`Reviews: ${err.message}`);
     return [];

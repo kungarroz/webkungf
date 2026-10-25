@@ -105,3 +105,13 @@ Las dos reviews de TTArtisan (23 mm y 56 mm) son tus textos del blog antiguo en 
 | Botón | Ver las reviews | See the reviews | 查看评测 |
 | Introducción del listado | Pruebas de objetivos y cámaras hechas en la calle… | Lenses and cameras tested on the street… | 在街头实际使用后的镜头和相机评测… |
 | Menú / «volver» / «leer» | Reviews / Todas las reviews / Leer la review | Reviews / All reviews / Read the review | 评测 / 全部评测 / 阅读评测 |
+
+## Portfolio
+
+Todos los textos de `/portfolio/` en chino e inglés son traducción mía (están en `tools/portfolio.mjs`, objeto `PF`), igual que el botón de la portada:
+
+| Texto | Español | Inglés | Chino |
+|---|---|---|---|
+| Introducción | Una selección de mi trabajo en la calle de Guangzhou, Hong Kong y Macao. Filtra por serie o por formato y toca una foto para verla grande. | A selection of my street work in Guangzhou, Hong Kong and Macao. Filter by series or format and tap a photo to see it bigger. | 我在广州、香港和澳门街头拍摄的作品精选。可以按系列或画幅筛选，点一下照片可看大图。 |
+| Filtros | Serie / Formato / Todas / Horizontales / Verticales | Series / Format / All / Landscape / Portrait | 系列 / 画幅 / 全部 / 横幅 / 竖幅 |
+| Botón de la portada (`portfolio.cta`) | Ver el portfolio completo | See the full portfolio | 查看完整作品集 |
