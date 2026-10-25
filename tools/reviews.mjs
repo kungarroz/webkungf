@@ -23,7 +23,7 @@ const UI = {
     tituloIndice: 'Reviews', intro: 'Pruebas de objetivos y cámaras hechas en la calle: para qué sirven, qué dice la ficha técnica y qué opino después de usarlos.',
     metaIndice: 'Reviews de objetivos y cámaras para fotografía de calle — Shande Villa',
     descIndice: 'Reviews de objetivos y cámaras hechas en la calle: ficha técnica, resultados y mi opinión después de semanas de uso.',
-    volver: 'Todas las reviews', ampliar: 'Ampliar la foto', visor: 'Visor de fotos', cerrar: 'Cerrar', anterior: 'Foto anterior', siguiente: 'Foto siguiente', contenido: 'En esta review', catalogo: 'Todas, por marca y nombre', buscar: 'Buscar un objetivo', buscarEj: 'Ej.: 23mm, TTArtisan…', sinResultados: 'No hay ninguna review con ese nombre.', leer: 'Leer la review', vacio: 'Todavía no hay reviews en este idioma.',
+    volver: 'Todas las reviews', verTodas: 'Ver todas las reviews', ampliar: 'Ampliar la foto', visor: 'Visor de fotos', cerrar: 'Cerrar', anterior: 'Foto anterior', siguiente: 'Foto siguiente', contenido: 'En esta review', catalogo: 'Todas, por marca y nombre', buscar: 'Buscar un objetivo', buscarEj: 'Ej.: 23mm, TTArtisan…', sinResultados: 'No hay ninguna review con ese nombre.', leer: 'Leer la review', vacio: 'Todavía no hay reviews en este idioma.',
     pie: 'Todas las fotos son mías. Si quieres usar alguna, escríbeme antes.', sufijo: 'Shande Villa',
   },
   zh: {
@@ -31,7 +31,7 @@ const UI = {
     tituloIndice: '评测', intro: '在街头实际使用后的镜头和相机评测：规格参数，以及我的使用感受。',
     metaIndice: '街头摄影镜头与相机评测 — Shande Villa',
     descIndice: '在街头实际使用数周后的镜头和相机评测：规格参数、实拍结果和我的看法。',
-    volver: '全部评测', ampliar: '放大照片', visor: '照片查看器', cerrar: '关闭', anterior: '上一张', siguiente: '下一张', contenido: '本文目录', catalogo: '按品牌和名称查看全部', buscar: '搜索镜头', buscarEj: '例如：23mm、铭匠…', sinResultados: '没有找到相应的评测。', leer: '阅读评测', vacio: '这个语言下还没有评测。',
+    volver: '全部评测', verTodas: '查看全部评测', ampliar: '放大照片', visor: '照片查看器', cerrar: '关闭', anterior: '上一张', siguiente: '下一张', contenido: '本文目录', catalogo: '按品牌和名称查看全部', buscar: '搜索镜头', buscarEj: '例如：23mm、铭匠…', sinResultados: '没有找到相应的评测。', leer: '阅读评测', vacio: '这个语言下还没有评测。',
     pie: '所有照片均为本人拍摄。如需使用，请先联系我。', sufijo: 'Shande Villa',
   },
   en: {
@@ -39,7 +39,7 @@ const UI = {
     tituloIndice: 'Reviews', intro: 'Lenses and cameras tested on the street: what they are for, what the spec sheet says and what I think after using them.',
     metaIndice: 'Lens and camera reviews for street photography — Shande Villa',
     descIndice: 'Lens and camera reviews made on the street: specs, results and my verdict after weeks of use.',
-    volver: 'All reviews', ampliar: 'Enlarge photo', visor: 'Photo viewer', cerrar: 'Close', anterior: 'Previous photo', siguiente: 'Next photo', contenido: 'In this review', catalogo: 'All of them, by brand and name', buscar: 'Search for a lens', buscarEj: 'e.g. 23mm, TTArtisan…', sinResultados: 'No review matches that name.', leer: 'Read the review', vacio: 'There are no reviews in this language yet.',
+    volver: 'All reviews', verTodas: 'See all reviews', ampliar: 'Enlarge photo', visor: 'Photo viewer', cerrar: 'Close', anterior: 'Previous photo', siguiente: 'Next photo', contenido: 'In this review', catalogo: 'All of them, by brand and name', buscar: 'Search for a lens', buscarEj: 'e.g. 23mm, TTArtisan…', sinResultados: 'No review matches that name.', leer: 'Read the review', vacio: 'There are no reviews in this language yet.',
     pie: 'All photos are mine. If you’d like to use one, please ask me first.', sufijo: 'Shande Villa',
   },
 };
@@ -368,13 +368,15 @@ export function generarReviews({ versionCss = '', versionJs = '' } = {}) {
     }).join('\n');
     // con muchas reviews, las tarjetas grandes son solo las últimas y el resto va en un catálogo A–Z por marca, con buscador
     const marcas = [...new Set(enEste.map(marcaDe))].sort((a, b) => a.localeCompare(b, I.fecha));
-    const filas = (lista) => lista.sort((a, b) => nombreDe(a).localeCompare(nombreDe(b), I.fecha, { numeric: true }))
-      .map((r) => `<li data-buscar="${esc((nombreDe(r) + ' ' + marcaDe(r)).toLowerCase())}"><a href="${urlReview(l, r.slug)}"><span class="fila-nombre">${esc(nombreDe(r))}</span><span class="fila-fecha">${fechaLarga(r.porIdioma[l].meta.pubDate, l)}</span></a></li>`).join('\n');
-    const catalogo = enEste.length ? `<section class="catalogo" aria-labelledby="h-catalogo">
+    const filas = (lista, slugActual) => lista.sort((a, b) => nombreDe(a).localeCompare(nombreDe(b), I.fecha, { numeric: true }))
+      .map((r) => `<li data-buscar="${esc((nombreDe(r) + ' ' + marcaDe(r)).toLowerCase())}"><a href="${urlReview(l, r.slug)}"${r.slug === slugActual ? ' aria-current="page"' : ''}><span class="fila-nombre">${esc(nombreDe(r))}</span><span class="fila-fecha">${fechaLarga(r.porIdioma[l].meta.pubDate, l)}</span></a></li>`).join('\n');
+    // catálogo A–Z por marca, con buscador si hay muchas. En el listado va debajo; en cada review, en una columna a la izquierda (en móvil, al final)
+    const catalogoDe = (slugActual, etiqueta, id) => (enEste.length ? `<${etiqueta} class="catalogo${slugActual ? ' lateral' : ''}"${id ? ` id="${id}"` : ''} aria-labelledby="h-catalogo">
   <h2 id="h-catalogo" class="titulo-seccion">${t.catalogo}</h2>
 ${enEste.length > 8 ? `  <p class="buscador" hidden><label for="buscar-review">${t.buscar}</label><input id="buscar-review" type="search" autocomplete="off" placeholder="${t.buscarEj}"></p>\n` : ''}  <p class="sin-resultados" role="status" hidden>${t.sinResultados}</p>
-${marcas.map((m) => `  <div class="marca-grupo"><h3>${esc(m)}</h3><ul class="filas">\n${filas(enEste.filter((r) => marcaDe(r) === m))}\n</ul></div>`).join('\n')}
-</section>` : '';
+${marcas.map((m) => `  <div class="marca-grupo"><h3>${esc(m)}</h3><ul class="filas">\n${filas(enEste.filter((r) => marcaDe(r) === m), slugActual)}\n</ul></div>`).join('\n')}
+</${etiqueta}>` : '');
+    const catalogo = catalogoDe(null, 'section', null);
     const cuerpoIndice = `<section class="reviews-indice" aria-labelledby="h-reviews">
   <h1 id="h-reviews" class="titulo-pagina">${t.tituloIndice}</h1>
   <p class="entradilla">${t.intro}</p>
@@ -399,23 +401,27 @@ ${catalogo}
       const m = r.manifiesto[d.cover];
       const og = `/img/reviews/${r.slug}/${m.base}-${m.anchos.at(-1)}.webp`;
       const etiquetas = Array.isArray(d.meta.tags) ? d.meta.tags : [];
-      const cuerpo = `<article class="review" lang="${I.html}">
-  <p class="migas"><a href="${urlIndice(l)}"><span aria-hidden="true">←</span> ${t.volver}</a></p>
-  <header class="review-cab">
-    <p class="review-meta"><time datetime="${esc(d.meta.pubDate)}">${fechaLarga(d.meta.pubDate, l)}</time></p>
-    <h1>${inline(d.meta.title)}</h1>
-    <p class="entradilla">${inline(d.meta.description)}</p>
-    ${etiquetas.length ? `<ul class="etiquetas" aria-label="Tags">${etiquetas.map((e) => `<li>${esc(e)}</li>`).join('')}</ul>` : ''}
-  </header>
-  ${figura(r.manifiesto, r.slug, d.cover, d.meta.title, '', t, { eager: true, portada: true })}
+      const cuerpo = `<div class="review-layout">
+<article class="review" lang="${I.html}">
   <div class="hoja">
+    <p class="migas"><a href="${urlIndice(l)}"><span aria-hidden="true">←</span> ${t.volver}</a></p>
+    <header class="review-cab">
+      <p class="review-meta"><time datetime="${esc(d.meta.pubDate)}">${fechaLarga(d.meta.pubDate, l)}</time></p>
+      <h1>${inline(d.meta.title)}</h1>
+      <p class="entradilla">${inline(d.meta.description)}</p>
+      ${etiquetas.length ? `<ul class="etiquetas" aria-label="Tags">${etiquetas.map((e) => `<li>${esc(e)}</li>`).join('')}</ul>` : ''}
+    </header>
+    ${figura(r.manifiesto, r.slug, d.cover, d.meta.title, '', t, { eager: true, portada: true })}
+    <p class="boton-todas"><a class="contacto-fila" href="#todas"><span class="nombre">${t.verTodas}</span><span class="flecha abajo" aria-hidden="true"></span></a></p>
     ${ctx.indice.length > 2 ? `<details class="indice-review"><summary>${t.contenido}</summary><ol>${ctx.indice.map((x) => `<li><a href="#${x.id}">${inline(x.texto, false)}</a></li>`).join('')}</ol></details>` : ''}
     <div class="review-cuerpo">
 ${cuerpoMd}
     </div>
     <p class="migas migas-pie"><a href="${urlIndice(l)}"><span aria-hidden="true">←</span> ${t.volver}</a></p>
   </div>
-</article>`;
+</article>
+${catalogoDe(r.slug, 'aside', 'todas')}
+</div>`;
       const jsonld = {
         '@context': 'https://schema.org', '@type': 'Review', name: d.meta.title, description: d.meta.description,
         datePublished: String(d.meta.pubDate), inLanguage: I.html, image: `${SITIO}${og}`,

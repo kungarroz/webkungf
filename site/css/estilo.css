@@ -334,7 +334,7 @@ html[lang="zh-Hans"] .tarjeta-desc { font-weight: 400; }
   .tarjeta-review { grid-template-columns: 280px 1fr; gap: 24px; align-items: start; }
 }
 
-.review { padding-top: 28px; }
+.review { padding-top: 0; }
 .migas { font-size: .8125rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
 .migas a { display: inline-block; padding: 10px 0; color: var(--tenue); text-decoration: none; }
 .migas a:hover { color: var(--papel); }
@@ -492,13 +492,46 @@ html[lang="zh-Hans"] .hoja .review-cuerpo p, html[lang="zh-Hans"] .hoja .review-
 
 /* ordenador: la web de reviews es más ancha; el texto mantiene un ancho cómodo y las fotos aprovechan el resto */
 @media (min-width: 960px) {
-  html.pagina-review { --col: 1120px; --lado: 40px; }
+  html.pagina-review { --col: 1240px; --lado: 40px; }
   .hoja { padding-block: 24px 72px; }
   .tarjeta-review { grid-template-columns: 360px 1fr; gap: 32px; }
   .lista-reviews { gap: 44px; }
 }
 
 /* columna de lectura centrada (títulos, texto, índice); las fotos horizontales pueden ser más anchas que ella */
-.review > .migas, .review-cab, .hoja .review-cuerpo, .hoja .indice-review, .hoja .migas-pie { max-width: 42rem; margin-inline: auto; }
+.hoja > .migas, .hoja .review-cab, .hoja .review-cuerpo, .hoja .indice-review, .hoja .migas-pie { max-width: 42rem; margin-inline: auto; }
 .hoja .review-cuerpo { margin-top: 28px; }
 .hoja .indice-review { margin-top: 28px; }
+
+/* ───────── Review: hoja clara con título y foto, y catálogo lateral ───────── */
+.hoja { padding-top: 12px; }
+.hoja .review-meta { color: var(--tinta-tenue); }
+.hoja .review-cab h1 { color: var(--tinta); }
+.hoja .entradilla { color: var(--tinta-tenue); font-weight: 400; }
+.hoja .etiquetas li { color: var(--tinta-tenue); border-color: var(--tinta-filete); }
+.hoja .portada-review .ventana, .hoja .foto-review .ventana { background: #E4DED2; border-color: rgba(29, 23, 18, .35); }
+.hoja .portada-review .zoom:hover .ventana, .hoja .foto-review .zoom:hover .ventana { border-color: #B85C14; }
+.hoja .review-cab { margin-top: 10px; }
+.hoja .boton-todas { max-width: 42rem; margin: 26px auto 0; }
+.hoja .boton-todas .contacto-fila { color: var(--tinta); border-block-color: var(--tinta-filete); }
+.flecha.abajo { transform: rotate(135deg); }
+
+.review-layout .catalogo.lateral { margin-top: 56px; scroll-margin-top: 66px; }
+.catalogo.lateral .filas a[aria-current="page"] { box-shadow: inset 3px 0 0 var(--ambar); padding-left: 12px; }
+.catalogo.lateral .filas a[aria-current="page"] .fila-nombre { color: var(--impreso); }
+
+@media (min-width: 960px) {
+  .boton-todas { display: none; }
+  .review-layout { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 36px; align-items: start; }
+  .review-layout .catalogo.lateral { order: -1; margin-top: 28px; position: sticky; top: 66px; max-height: calc(100vh - 86px); overflow-y: auto; padding-right: 6px; scrollbar-width: thin; }
+  .catalogo.lateral .titulo-seccion { font-size: .6875rem; letter-spacing: .18em; margin-bottom: 14px; }
+  .catalogo.lateral .fila-fecha { display: none; }
+  .catalogo.lateral .filas a { min-height: 40px; padding-block: 9px; }
+  .catalogo.lateral .fila-nombre { font-size: .9375rem; }
+  .catalogo.lateral .marca-grupo h3 { font-size: 1.25rem; }
+  .hoja { margin-inline: 0; padding-inline: 40px; }
+  html.pagina-review .review > .hoja { margin-top: 28px; }
+}
+@media (max-width: 959px) {
+  .hoja { margin-top: 0; }
+}
