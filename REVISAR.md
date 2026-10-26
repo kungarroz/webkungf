@@ -116,4 +116,4 @@ Todos los textos de `/portfolio/` en chino e inglés son traducción mía (está
 | Filtros | Serie / Objetivo / Todas / Todos | Series / Lens / All | 系列 / 镜头 / 全部 |
 | Botón de la portada (`portfolio.cta`) | Ver el portfolio completo | See the full portfolio | 查看完整作品集 |
 
-**Nombres de objetivos (`tools/objetivos.json`).** Los he deducido del texto que escribe tu cámara en cada foto; los que no estoy seguro de la marca los he dejado sin marca: «AF 27mm F2.8» y «AF 14mm F3.5». «Meike 33mm F1.4», «TTArtisan AF 23mm F1.8» y «TTArtisan AF 56mm F1.8» también son deducidos. Corrígelos ahí y dímelo.
+**Nombres de objetivos (`tools/objetivos.json`).** Los he deducido del texto que escribe tu cámara en cada foto. «TTArtisan AF 27mm F2.8» y «TTArtisan AF 14mm F3.5» me los confirmaste tú; «Meike 33mm F1.4», «TTArtisan AF 23mm F1.8» y «TTArtisan AF 56mm F1.8» los he deducido yo. Corrígelos ahí y dímelo.
