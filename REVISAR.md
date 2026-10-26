@@ -117,3 +117,14 @@ Todos los textos de `/portfolio/` en chino e inglés son traducción mía (está
 | Botón de la portada (`portfolio.cta`) | Ver el portfolio completo | See the full portfolio | 查看完整作品集 |
 
 **Nombres de objetivos (`tools/objetivos.json`).** Los he deducido del texto que escribe tu cámara en cada foto. «TTArtisan AF 27mm F2.8» y «TTArtisan AF 14mm F3.5» me los confirmaste tú; «Meike 33mm F1.4», «TTArtisan AF 23mm F1.8» y «TTArtisan AF 56mm F1.8» los he deducido yo. Corrígelos ahí y dímelo.
+
+## Web más sencilla (menú con Portfolio y Reviews)
+
+| Texto | Español | Inglés | Chino |
+|---|---|---|---|
+| `menu.portfolio` | Portfolio | Portfolio | 作品集 |
+| Introducción del portfolio | Calle, noche y gente en Guangzhou, Hong Kong y Macao. | Streets, nights and people in Guangzhou, Hong Kong and Macao. | 广州、香港和澳门的街头、夜色与人。 |
+| Botón de filtros | Filtrar / Cerrar | Filter / Close | 筛选 / 收起 |
+| Introducción de las reviews | Objetivos probados en la calle: ficha técnica, fotos reales y mi opinión. | Lenses tested on the street: specs, real photos and my verdict. | 在街头实拍测试的镜头：规格参数、实拍照片和我的看法。 |
+
+Ya no se usan `reviews.texto`, `reviews.cta`, `portfolio.cta`, `menu.fotos` ni las claves del carrete y del visor de la portada (las he quitado de los JSON).

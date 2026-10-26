@@ -11,7 +11,7 @@
   var campo = document.getElementById('buscar-review');
   if (!caja || !campo) { return; }
   caja.hidden = false;
-  var filas = Array.prototype.slice.call(document.querySelectorAll('.catalogo .filas li'));
+  var filas = Array.prototype.slice.call(document.querySelectorAll('[data-buscar]'));
   var grupos = Array.prototype.slice.call(document.querySelectorAll('.catalogo .marca-grupo'));
   var aviso = document.querySelector('.sin-resultados');
   campo.addEventListener('input', function () {

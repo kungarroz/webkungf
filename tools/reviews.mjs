@@ -20,7 +20,7 @@ export const ORDEN = ['es', 'zh', 'en'];
 export const UI = {
   es: {
     inicio: 'Inicio', reviews: 'Reviews', menu: 'Menú', idioma: 'Idioma', saltar: 'Saltar al contenido',
-    tituloIndice: 'Reviews', intro: 'Pruebas de objetivos y cámaras hechas en la calle: para qué sirven, qué dice la ficha técnica y qué opino después de usarlos.',
+    tituloIndice: 'Reviews', intro: 'Objetivos probados en la calle: ficha técnica, fotos reales y mi opinión.',
     metaIndice: 'Reviews de objetivos y cámaras para fotografía de calle — Shande Villa',
     descIndice: 'Reviews de objetivos y cámaras hechas en la calle: ficha técnica, resultados y mi opinión después de semanas de uso.',
     volver: 'Todas las reviews', verTodas: 'Ver todas las reviews', ampliar: 'Ampliar la foto', visor: 'Visor de fotos', cerrar: 'Cerrar', anterior: 'Foto anterior', siguiente: 'Foto siguiente', contenido: 'En esta review', catalogo: 'Todas, por marca y nombre', buscar: 'Buscar un objetivo', buscarEj: 'Ej.: 23mm, TTArtisan…', sinResultados: 'No hay ninguna review con ese nombre.', leer: 'Leer la review', vacio: 'Todavía no hay reviews en este idioma.',
@@ -28,7 +28,7 @@ export const UI = {
   },
   zh: {
     inicio: '首页', reviews: '评测', menu: '菜单', idioma: '语言', saltar: '跳到内容',
-    tituloIndice: '评测', intro: '在街头实际使用后的镜头和相机评测：规格参数，以及我的使用感受。',
+    tituloIndice: '评测', intro: '在街头实拍测试的镜头：规格参数、实拍照片和我的看法。',
     metaIndice: '街头摄影镜头与相机评测 — Shande Villa',
     descIndice: '在街头实际使用数周后的镜头和相机评测：规格参数、实拍结果和我的看法。',
     volver: '全部评测', verTodas: '查看全部评测', ampliar: '放大照片', visor: '照片查看器', cerrar: '关闭', anterior: '上一张', siguiente: '下一张', contenido: '本文目录', catalogo: '按品牌和名称查看全部', buscar: '搜索镜头', buscarEj: '例如：23mm、铭匠…', sinResultados: '没有找到相应的评测。', leer: '阅读评测', vacio: '这个语言下还没有评测。',
@@ -36,7 +36,7 @@ export const UI = {
   },
   en: {
     inicio: 'Home', reviews: 'Reviews', menu: 'Menu', idioma: 'Language', saltar: 'Skip to content',
-    tituloIndice: 'Reviews', intro: 'Lenses and cameras tested on the street: what they are for, what the spec sheet says and what I think after using them.',
+    tituloIndice: 'Reviews', intro: 'Lenses tested on the street: specs, real photos and my verdict.',
     metaIndice: 'Lens and camera reviews for street photography — Shande Villa',
     descIndice: 'Lens and camera reviews made on the street: specs, results and my verdict after weeks of use.',
     volver: 'All reviews', verTodas: 'See all reviews', ampliar: 'Enlarge photo', visor: 'Photo viewer', cerrar: 'Close', anterior: 'Previous photo', siguiente: 'Next photo', contenido: 'In this review', catalogo: 'All of them, by brand and name', buscar: 'Search for a lens', buscarEj: 'e.g. 23mm, TTArtisan…', sinResultados: 'No review matches that name.', leer: 'Read the review', vacio: 'There are no reviews in this language yet.',
@@ -45,11 +45,11 @@ export const UI = {
 };
 
 // Mismas etiquetas que el menú de la portada (site/i18n/*.json); en español son las de index.html
-const MENU_ES = { redes: 'Redes', fotos: 'Fotos', reviews: 'Reviews', contacto: 'Contacto' };
+const MENU_ES = { portfolio: 'Portfolio', reviews: 'Reviews', redes: 'Redes', contacto: 'Contacto' };
 export function etiquetasMenu(l) {
   if (l === 'es') return MENU_ES;
   const j = JSON.parse(readFileSync(join(RAIZ, 'site', 'i18n', `${l}.json`), 'utf8'));
-  return { redes: j['menu.redes'], fotos: j['menu.fotos'], reviews: j['menu.reviews'], contacto: j['menu.contacto'] };
+  return { portfolio: j['menu.portfolio'], reviews: j['menu.reviews'], redes: j['menu.redes'], contacto: j['menu.contacto'] };
 }
 
 export const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -244,7 +244,7 @@ ${alt}${xdef ? `\n<link rel="alternate" hreflang="x-default" href="${SITIO}${xde
 ${jsonld ? `<script type="application/ld+json">\n${JSON.stringify(jsonld, null, 2)}\n</script>` : ''}`;
 }
 
-export function marco({ l, cuerpo, head, actual, enlacesIdioma, rutaIndice, menuActual = 'reviews', rutaFotos = '/#fotos', scripts = [], clase = '' }) {
+export function marco({ l, cuerpo, head, actual, enlacesIdioma, rutaIndice, menuActual = 'reviews', scripts = [], clase = '' }) {
   const I = IDIOMAS[l];
   const t = UI[l];
   const m = etiquetasMenu(l);
@@ -269,9 +269,9 @@ ${head}
 </header>
 <nav class="menu" aria-label="${t.menu}">
   <div class="menu-in">
-    <a href="/#redes">${m.redes}</a>
-    <a href="${rutaFotos}"${menuActual === 'fotos' ? ' aria-current="true"' : ''}>${m.fotos}</a>
+    <a href="${I.prefijo}/portfolio/"${menuActual === 'portfolio' ? ' aria-current="true"' : ''}>${m.portfolio}</a>
     <a href="${rutaIndice}"${menuActual === 'reviews' ? ' aria-current="true"' : ''}>${m.reviews}</a>
+    <a href="/#redes">${m.redes}</a>
     <a href="/#contacto">${m.contacto}</a>
   </div>
 </nav>
@@ -302,6 +302,12 @@ ${cuerpo}
 }
 
 // ───────── Programa ─────────
+function fechaCorta(iso, l) {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return String(iso);
+  return new Intl.DateTimeFormat(IDIOMAS[l].fecha, { month: 'short', year: 'numeric', timeZone: 'UTC' }).format(d);
+}
+
 function fechaLarga(iso, l) {
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return String(iso);
@@ -356,16 +362,15 @@ export function generarReviews({ versionCss = '', versionJs = '' } = {}) {
     const indicesEn = ORDEN.filter((x) => reviews.some((r) => r.porIdioma[x]));
 
     // índice
-    const MAX_TARJETAS = 4;
-    const tarjetas = enEste.slice(0, MAX_TARJETAS).map((r) => {
+    // listado: una fila por review (miniatura, marca y fecha, título), de la más nueva a la más antigua
+    const tarjetas = enEste.map((r, n) => {
       const d = r.porIdioma[l];
-      return `<li><a class="tarjeta-review" href="${urlReview(l, r.slug)}">
-  <span class="ventana">${imagen(r.manifiesto, r.slug, d.cover, '', { sizes: '(min-width: 760px) 280px, 100vw' })}</span>
-  <span class="tarjeta-texto">
-    <span class="review-meta">${fechaLarga(d.meta.pubDate, l)}</span>
-    <span class="tarjeta-titulo">${esc(d.meta.title)}</span>
-    <span class="tarjeta-desc">${esc(d.meta.description)}</span>
-    <span class="tarjeta-leer">${t.leer} <span class="flecha" aria-hidden="true"></span></span>
+      return `<li data-buscar="${esc((nombreDe(r) + ' ' + marcaDe(r) + ' ' + d.meta.title).toLowerCase())}" style="--i:${n}"><a class="fila-review" href="${urlReview(l, r.slug)}">
+  <span class="fila-foto">${imagen(r.manifiesto, r.slug, d.cover, '', { sizes: '(min-width: 960px) 240px, 120px' })}</span>
+  <span class="fila-texto">
+    <span class="review-meta">${esc(marcaDe(r))} · ${fechaCorta(d.meta.pubDate, l)}</span>
+    <span class="fila-titulo">${esc(nombreDe(r))}</span>
+    <span class="fila-desc">${esc(d.meta.description)}</span>
   </span>
 </a></li>`;
     }).join('\n');
@@ -379,12 +384,10 @@ export function generarReviews({ versionCss = '', versionJs = '' } = {}) {
 ${enEste.length > 8 ? `  <p class="buscador" hidden><label for="buscar-review">${t.buscar}</label><input id="buscar-review" type="search" autocomplete="off" placeholder="${t.buscarEj}"></p>\n` : ''}  <p class="sin-resultados" role="status" hidden>${t.sinResultados}</p>
 ${marcas.map((m) => `  <div class="marca-grupo"><h3>${esc(m)}</h3><ul class="filas">\n${filas(enEste.filter((r) => marcaDe(r) === m), slugActual)}\n</ul></div>`).join('\n')}
 </${etiqueta}>` : '');
-    const catalogo = catalogoDe(null, 'section', null);
     const cuerpoIndice = `<section class="reviews-indice" aria-labelledby="h-reviews">
   <h1 id="h-reviews" class="titulo-pagina">${t.tituloIndice}</h1>
   <p class="entradilla">${t.intro}</p>
-  ${enEste.length ? `<ul class="lista-reviews">\n${tarjetas}\n</ul>` : `<p>${t.vacio}</p>`}
-${catalogo}
+${enEste.length > 8 ? `  <p class="buscador" hidden><label for="buscar-review">${t.buscar}</label><input id="buscar-review" type="search" autocomplete="off" placeholder="${t.buscarEj}"></p>\n  <p class="sin-resultados" role="status" hidden>${t.sinResultados}</p>\n` : ''}  ${enEste.length ? `<ul class="lista-reviews">\n${tarjetas}\n</ul>` : `<p>${t.vacio}</p>`}
 </section>`;
     const primera = enEste[0];
     const ogIndice = primera ? `/img/reviews/${primera.slug}/${primera.manifiesto[primera.porIdioma[l].cover].base}-${primera.manifiesto[primera.porIdioma[l].cover].anchos.at(-1)}.webp` : '/og.jpg';
@@ -412,10 +415,9 @@ ${catalogo}
       <p class="review-meta"><time datetime="${esc(d.meta.pubDate)}">${fechaLarga(d.meta.pubDate, l)}</time></p>
       <h1>${inline(d.meta.title)}</h1>
       <p class="entradilla">${inline(d.meta.description)}</p>
-      ${etiquetas.length ? `<ul class="etiquetas" aria-label="Tags">${etiquetas.map((e) => `<li>${esc(e)}</li>`).join('')}</ul>` : ''}
+      ${etiquetas.length ? `<p class="etiquetas">${etiquetas.map((e) => esc(e)).join(' · ')}</p>` : ''}
     </header>
     ${figura(r.manifiesto, r.slug, d.cover, d.meta.title, '', t, { eager: true, portada: true })}
-    <p class="boton-todas"><a class="contacto-fila" href="#todas"><span class="nombre">${t.verTodas}</span><span class="flecha abajo" aria-hidden="true"></span></a></p>
     ${ctx.indice.length > 2 ? `<details class="indice-review"><summary>${t.contenido}</summary><ol>${ctx.indice.map((x) => `<li><a href="#${x.id}">${inline(x.texto, false)}</a></li>`).join('')}</ol></details>` : ''}
     <div class="review-cuerpo">
 ${cuerpoMd}

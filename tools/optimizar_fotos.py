@@ -8,7 +8,7 @@ Uso:  python3 tools/optimizar_fotos.py
    (480, 960 y 1600 px, más el ancho nativo si queda lejos; nunca amplía).
 3. Borra de site/img lo que ya no está en la selección (los originales no se tocan).
 4. Reescribe en site/index.html los bloques entre
-      <!--PORTADA-->, <!--POLAROID--> y <!--GALERIA--> (cada uno con su <!--/…-->)
+      <!--PORTADA--> y <!--POLAROID--> (cada uno con su <!--/…-->)
 
 Requiere ImageMagick (convert) con soporte WebP. Los originales viven en originales/,
 fuera de site/, y no se despliegan.
@@ -145,7 +145,9 @@ def reemplazar(texto, marca, contenido):
 
 def main():
     seleccion = json.load(open(os.path.join(RAIZ, "tools", "seleccion.json"), encoding="utf-8"))
-    tareas = {(r["id"], n.lower()): (r["id"], n, None) for r in seleccion["rollos"] for n in r["fotos"]}
+    # La portada solo usa la foto grande y la polaroid. Las series («rollos») las usa el portfolio
+    # (tools/optimizar_portfolio.py), que tiene sus propias imágenes en site/img/portfolio/.
+    tareas = {}
     g, p = seleccion["foto_grande"], seleccion["polaroid"]
     # la foto grande puede llevar un recorte propio (por ejemplo, para quitar un borde negro); el original no se toca
     tareas[(g["serie"], g["foto"].lower() + "-portada")] = (g["serie"], g["foto"], g.get("recorte"))
@@ -156,7 +158,10 @@ def main():
 
     vigentes = {os.path.join(SALIDA, r["serie"], f"{r['nombre']}-{a}.webp")
                 for r in resultados for a in r["tamanos"]}
+    propias = (os.path.join(SALIDA, "portfolio"), os.path.join(SALIDA, "reviews"))  # de otros scripts: no se tocan
     for d, _, fs in os.walk(SALIDA, topdown=False):
+        if d.startswith(propias):
+            continue
         for f in fs:
             ruta = os.path.join(d, f)
             if ruta not in vigentes:
@@ -169,7 +174,6 @@ def main():
         r, p = seleccion["foto_grande"], seleccion["polaroid"]
         texto = reemplazar(texto, "PORTADA", bloque_portada(info[(r["serie"], r["foto"].lower() + "-portada")]))
         texto = reemplazar(texto, "POLAROID", bloque_polaroid(info[(p["serie"], p["foto"].lower())]))
-        texto = reemplazar(texto, "GALERIA", bloque_galeria(seleccion, info))
         open(INDEX, "w", encoding="utf-8").write(texto)
 
     total = sum(os.path.getsize(os.path.join(d, f)) for d, _, fs in os.walk(SALIDA) for f in fs)

@@ -10,7 +10,7 @@ HTML y CSS estáticos, sin frameworks, sin dependencias en el navegador y sin co
 site/                 ← lo único que se despliega (directorio de salida)
   index.html          texto en español (funciona sin JavaScript y es lo que ve Google)
   css/estilo.css      todo el diseño
-  js/                 selector de idioma y visor de fotos (sin dependencias)
+  js/                 idioma, menú, formulario, filtros del portfolio, visor de fotos (sin dependencias)
   i18n/zh.json, en.json   textos en chino e inglés
   img/                fotos optimizadas (WebP, varios tamaños)
   fonts/              fuentes autoalojadas (+ sus licencias)
@@ -92,9 +92,9 @@ En `site/index.html`, justo antes del final, hay el snippet comentado. Crea el s
 La página `/portfolio/` (y `/en/portfolio/`, `/zh/portfolio/`) enseña **todas las fotos de las carpetas de serie de `originales/`** (calle, noche, retratos-urbanos, hongkong, macao, arquitectura, detalles, retratos) en un mosaico, con filtros por **serie** (la carpeta) y por **objetivo** (se lee del EXIF de cada original; la Sony ZV-1 cuenta como objetivo y las cámaras no se filtran), y el visor al pulsar una foto. No se mira `capturas`, `personales`, `reviews` ni `varios`.
 
 - **Añadir fotos:** déjalas en su carpeta de `originales/` y ejecuta `python3 tools/optimizar_portfolio.py` (necesita ImageMagick y Pillow). Crea los WebP (sin EXIF) en `site/img/portfolio/` y `tools/portfolio-fotos.json`. Hacen falta ese commit y el push; `build.mjs` genera la página en cada despliegue.
-- **Orden:** primero las fotos elegidas en `tools/seleccion.json` (el carrete de la portada), después el resto por nombre.
+- **Orden y series:** las series y su orden salen de `"rollos"` en `tools/seleccion.json`; dentro de cada serie van primero las fotos de esa lista y después el resto por nombre.
 - **Nombres de los objetivos:** `tools/objetivos.json` traduce el nombre que escribe la cámara (p. ej. `AF 23/1.8 XF`) al nombre bonito. Si sale un objetivo con un nombre raro, añade una línea ahí y vuelve a ejecutar el script. Las fotos sin dato de objetivo solo salen en «Todos».
-- Una serie se abre ya filtrada con `/portfolio/#noche`. Los textos de la página están en `tools/portfolio.mjs` (objeto `PF`).
+- Los filtros están plegados detrás de «Filtrar». Una serie se abre ya filtrada con `/portfolio/#noche`. Los textos de la página están en `tools/portfolio.mjs` (objeto `PF`).
 
 ## Reviews (objetivo, ficha técnica y mi opinión)
 
@@ -141,8 +141,8 @@ Las redes están en dos «carretes» de `index.html`: **Fuera de China** (franja
 
 ### Fotos
 1. Deja los originales en `originales/<serie>/`.
-2. Edita `tools/seleccion.json`: `"foto_grande"` es la foto a sangre del principio (con `"recorte"` opcional, `"AnchoxAlto+X+Y"`, para quitar bordes: el original no se toca), `"polaroid"` la polaroid con tu retrato que se le superpone y `"rollos"` los carretes (de 8 a 12 fotos cada uno, en el orden en que se ven).
-3. Ejecuta `python3 tools/optimizar_fotos.py` (necesita ImageMagick con WebP). Crea las versiones WebP de 480, 960 y 1600 px (y el ancho nativo si es otro; nunca amplía), borra de `site/img` las que ya no se usan y reescribe la portada y los carretes en `index.html`.
+2. Edita `tools/seleccion.json`: `"foto_grande"` es la foto a sangre del principio (con `"recorte"` opcional, `"AnchoxAlto+X+Y"`, para quitar bordes: el original no se toca) y `"polaroid"` la polaroid con tu retrato. `"rollos"` son las series del portfolio (ver «Portfolio»).
+3. Ejecuta `python3 tools/optimizar_fotos.py` (necesita ImageMagick con WebP). Crea las versiones WebP de la portada y la polaroid y reescribe ese trozo de `index.html`. No toca `site/img/portfolio` ni `site/img/reviews`.
 
 Los originales **nunca** se despliegan: solo se publica `site/`.
 
@@ -169,12 +169,12 @@ La fuente china **solo se descarga cuando el visitante elige chino**. Todas las 
 
 ## Accesibilidad y rendimiento
 - Contraste: papel `#F1ECE2` sobre el fondo `#120D0A` y sobre las ventanas oscuras de la tira, más de 15:1; texto secundario `#C4B8A8` 10:1; ámbar `#F5A03A` 9:1. Pasa AA con margen y axe-core no da avisos.
-- El único movimiento es el carrete de fotos, que entra deslizándose la primera vez que se ve; con `prefers-reduced-motion` no se mueve. La fuga de luz de la foto grande es decorativa.
+- Movimiento: la foto grande «se revela» al cargar y la polaroid cae encima; las secciones aparecen al llegar a ellas; las fotos del portfolio se revelan al cargarse; las páginas cambian con un fundido. Con `prefers-reduced-motion` no se mueve nada.
 - El formulario es un `<dialog>` modal: foco atrapado, Esc cierra, mensajes de estado con `role=status`.
 - Foco visible, enlace «Saltar al contenido», HTML semántico y `lang` que cambia con el idioma.
 - `prefers-reduced-motion`: sin el avance de la tira al cargar.
 - Imágenes con `width` y `height`, `srcset` y carga diferida (salvo la portada).
 
 ## Limitaciones conocidas
-- Los textos alternativos de las fotos de los carretes son genéricos («Calle · 3»). Mejorarlos con una descripción de cada foto está pendiente.
+- Los textos alternativos de las fotos del portfolio son genéricos («Calle · 3»). Mejorarlos con una descripción de cada foto está pendiente.
 - Casi todas las fotos originales miden unos 1086 px de lado largo, así que ese es el máximo al ampliar.

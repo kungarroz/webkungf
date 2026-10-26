@@ -11,15 +11,15 @@ const RAIZ = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SITIO = 'https://shandevilla.com';
 
 const PF = {
-  es: { titulo: 'Portfolio', intro: 'Una selección de mi trabajo en la calle de Guangzhou, Hong Kong y Macao. Filtra por serie o por objetivo y toca una foto para verla grande.',
+  es: { titulo: 'Portfolio', intro: 'Calle, noche y gente en Guangzhou, Hong Kong y Macao.',
     meta: 'Portfolio de fotografía de calle en China — Shande Villa', desc: 'Fotografía de calle en Guangzhou, Hong Kong y Macao: calle, noche, retratos urbanos, arquitectura y detalles.',
-    filtros: 'Filtros', serie: 'Serie', objetivo: 'Objetivo', todas: 'Todas', cuenta: (n) => `${n} ${n === 1 ? 'foto' : 'fotos'}`, vacio: 'No hay fotos con esa combinación.', quitar: 'Quitar filtros' },
-  zh: { titulo: '作品集', intro: '我在广州、香港和澳门街头拍摄的作品精选。可以按系列或镜头筛选，点一下照片可看大图。',
+    filtros: 'Filtrar', cerrarFiltros: 'Cerrar', serie: 'Serie', objetivo: 'Objetivo', todas: 'Todas', cuenta: (n) => `${n} ${n === 1 ? 'foto' : 'fotos'}`, vacio: 'No hay fotos con esa combinación.', quitar: 'Quitar filtros' },
+  zh: { titulo: '作品集', intro: '广州、香港和澳门的街头、夜色与人。',
     meta: '中国街头摄影作品集 — Shande Villa', desc: '广州、香港和澳门的街头摄影：街头、夜晚、城市人像、建筑和细节。',
-    filtros: '筛选', serie: '系列', objetivo: '镜头', todas: '全部', cuenta: (n) => `${n} 张照片`, vacio: '没有符合条件的照片。', quitar: '清除筛选' },
-  en: { titulo: 'Portfolio', intro: 'A selection of my street work in Guangzhou, Hong Kong and Macao. Filter by series or lens and tap a photo to see it bigger.',
+    filtros: '筛选', cerrarFiltros: '收起', serie: '系列', objetivo: '镜头', todas: '全部', cuenta: (n) => `${n} 张照片`, vacio: '没有符合条件的照片。', quitar: '清除筛选' },
+  en: { titulo: 'Portfolio', intro: 'Streets, nights and people in Guangzhou, Hong Kong and Macao.',
     meta: 'Street photography portfolio in China — Shande Villa', desc: 'Street photography in Guangzhou, Hong Kong and Macao: street, night, urban portraits, architecture and details.',
-    filtros: 'Filters', serie: 'Series', objetivo: 'Lens', todas: 'All', cuenta: (n) => `${n} ${n === 1 ? 'photo' : 'photos'}`, vacio: 'No photos match that combination.', quitar: 'Clear filters' },
+    filtros: 'Filter', cerrarFiltros: 'Close', serie: 'Series', objetivo: 'Lens', todas: 'All', cuenta: (n) => `${n} ${n === 1 ? 'photo' : 'photos'}`, vacio: 'No photos match that combination.', quitar: 'Clear filters' },
 };
 
 // ───────── Fotos: todas las de las carpetas de originales (las prepara tools/optimizar_portfolio.py) ─────────
@@ -60,20 +60,27 @@ export function generarPortfolio({ versionCss = '' } = {}) {
       : Object.fromEntries(series.map((s) => [s.id, JSON.parse(readFileSync(join(RAIZ, 'site', 'i18n', `${l}.json`), 'utf8'))[`rollo.${s.id}`] || s.es]));
     const cont = Object.fromEntries(series.map((s) => [s.id, fotos.filter((f) => f.serie === s.id).length]));
     const nSerie = {};
-    const chip = (grupo, valor, texto, pulsado, n) => `<button type="button" class="chip" data-f="${grupo}" data-v="${valor}" aria-pressed="${pulsado}">${esc(texto)}${n != null ? ` <span class="n">${n}</span>` : ''}</button>`;
-    // objetivos: del más usado al menos; las fotos sin dato de objetivo solo salen en «Todos»
+    const opcion = (grupo, valor, texto, pulsado, n) => `<li><button type="button" data-f="${grupo}" data-v="${valor}" aria-pressed="${pulsado}"><span class="op-nombre">${esc(texto)}</span>${n != null ? `<span class="n">${n}</span>` : ''}</button></li>`;
+    // objetivos: del más usado al menos; las fotos sin dato de objetivo solo salen en «Todas»
     const cuentaObj = {};
     for (const f of fotos) if (f.objetivo) cuentaObj[f.objetivo] = (cuentaObj[f.objetivo] || 0) + 1;
     const objetivos = Object.entries(cuentaObj).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
-    const filtros = `<div class="filtros" hidden>
-  <div class="filtro-grupo"><p class="filtro-etiqueta" id="f-serie">${t.serie}</p><div class="chips" role="group" aria-labelledby="f-serie">
-    ${chip('serie', 'todas', t.todas, 'true', fotos.length)}
-    ${series.map((s) => chip('serie', s.id, nombres[s.id], 'false', cont[s.id])).join('\n    ')}
-  </div></div>
-  <div class="filtro-grupo"><p class="filtro-etiqueta" id="f-objetivo">${t.objetivo}</p><div class="chips" role="group" aria-labelledby="f-objetivo">
-    ${chip('objetivo', 'todas', t.todas, 'true')}
-    ${objetivos.map(([n, c]) => chip('objetivo', slug(n), n, 'false', c)).join('\n    ')}
-  </div></div>
+    // los filtros están plegados detrás de «Filtrar»; sin JavaScript no se ven y salen todas las fotos
+    const filtros = `<div class="pf-barra">
+  <p class="filtro-cuenta" role="status" aria-live="polite" data-uno="${esc(t.cuenta(1))}" data-plantilla="${esc(t.cuenta('{n}'))}"><span class="pf-n">${t.cuenta(fotos.length)}</span><span class="pf-activos"></span></p>
+  <button type="button" class="pf-filtrar" aria-expanded="false" aria-controls="pf-panel" data-abrir="${esc(t.filtros)}" data-cerrar="${esc(t.cerrarFiltros)}" hidden><span class="pf-filtrar-txt">${t.filtros}</span><span class="pf-signo" aria-hidden="true"></span></button>
+</div>
+<div class="pf-panel" id="pf-panel" hidden>
+  <div class="pf-panel-in">
+    <div class="pf-col"><p class="filtro-etiqueta" id="f-serie">${t.serie}</p><ul class="pf-lista" aria-labelledby="f-serie">
+      ${opcion('serie', 'todas', t.todas, 'true', fotos.length)}
+      ${series.map((s) => opcion('serie', s.id, nombres[s.id], 'false', cont[s.id])).join('\n      ')}
+    </ul></div>
+    <div class="pf-col"><p class="filtro-etiqueta" id="f-objetivo">${t.objetivo}</p><ul class="pf-lista pf-lista-objetivos" aria-labelledby="f-objetivo">
+      ${opcion('objetivo', 'todas', t.todas, 'true')}
+      ${objetivos.map(([n, c]) => opcion('objetivo', slug(n), n, 'false', c)).join('\n      ')}
+    </ul></div>
+  </div>
 </div>`;
     const items = fotos.map((f, i) => {
       nSerie[f.serie] = (nSerie[f.serie] || 0) + 1;
@@ -84,7 +91,6 @@ export function generarPortfolio({ versionCss = '' } = {}) {
   <h1 id="h-portfolio" class="titulo-pagina">${t.titulo}</h1>
   <p class="entradilla">${t.intro}</p>
 ${filtros}
-  <p class="filtro-cuenta" role="status" aria-live="polite" data-uno="${esc(t.cuenta(1))}" data-plantilla="${esc(t.cuenta('{n}'))}">${t.cuenta(fotos.length)}</p>
   <p class="sin-fotos" hidden>${t.vacio} <button type="button" class="enlace-boton" data-quitar>${t.quitar}</button></p>
   <ul class="mosaico">
 ${items}
@@ -95,7 +101,7 @@ ${items}
     const f = join(RAIZ, 'site', I.prefijo.replace(/^\//, ''), 'portfolio', 'index.html');
     mkdirSync(dirname(f), { recursive: true });
     writeFileSync(f, marco({
-      l, cuerpo, actual: 'portfolio', menuActual: 'fotos', rutaFotos: url(l), rutaIndice: `${I.prefijo}/reviews/`, enlacesIdioma: alternativas,
+      l, cuerpo, actual: 'portfolio', menuActual: 'portfolio', rutaIndice: `${I.prefijo}/reviews/`, enlacesIdioma: alternativas,
       scripts: [{ src: '/js/portfolio.js', v: vJs }], clase: 'pagina-portfolio',
       head: cabeza({ l, titulo: t.meta, descripcion: t.desc, canonico: url(l), alternativas, imagenOg: og, jsonld, tipo: 'website' }),
     }));

@@ -88,7 +88,7 @@ html.js .idioma { display: flex; }
 .idioma button { min-width: 44px; min-height: 44px; padding: 0 10px; font-size: .9375rem; letter-spacing: .06em; color: var(--papel); background: none; border: 0; cursor: pointer; }
 .idioma button[aria-pressed="true"] { color: var(--papel); text-decoration: underline; text-decoration-color: var(--ambar); text-decoration-thickness: 2px; text-underline-offset: 7px; }
 
-/* El menú se queda arriba y marca dónde estás; sus números son los mismos de los títulos de sección */
+/* El menú se queda arriba y marca dónde estás; los números son de fotograma */
 .menu { position: sticky; top: 0; z-index: 20; background: var(--mesa); border-block: 1px solid var(--filete); }
 .menu::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 106% -20%, rgba(255, 160, 70, .22) 0, transparent 4.2rem); }
 .menu-in { position: relative; display: flex; gap: 4px 16px; overflow-x: auto; scrollbar-width: none; counter-reset: menu; }
@@ -111,7 +111,6 @@ html[lang="zh-Hans"] .menu a { font-size: .875rem; letter-spacing: .12em; }
   counter-increment: seccion; display: flex; align-items: center; gap: 14px; margin-bottom: 22px;
   font-size: .75rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--tenue); line-height: 1.4;
 }
-.titulo::before { content: counter(seccion, decimal-leading-zero); font-family: var(--mono); font-weight: 400; font-size: 10.5px; letter-spacing: .1em; color: var(--impreso); }
 .titulo::after { content: ""; flex: 1; height: 1px; background: var(--filete); }
 html[lang="zh-Hans"] .titulo { font-size: .875rem; letter-spacing: .14em; }
 
@@ -137,9 +136,10 @@ html[lang="zh-Hans"] .titulo { font-size: .875rem; letter-spacing: .14em; }
 .frase { font-size: clamp(1.9rem, 8.6vw, 2.6rem); font-style: italic; line-height: 1; letter-spacing: -.01em; text-wrap: balance; }
 html[lang="zh-Hans"] .frase { font-style: normal; font-size: clamp(1.75rem, 7.6vw, 2.3rem); letter-spacing: .04em; line-height: 1.25; }
 /* Texto corrido: la presentación y el párrafo de contacto comparten estilo */
-.bio, .contacto p, .reviews-portada p { font-size: 1.0625rem; line-height: 1.6; font-weight: 300; text-wrap: pretty; }
+.bio, .contacto p { font-size: 1.0625rem; line-height: 1.6; font-weight: 300; text-wrap: pretty; }
 .bio { margin-top: 24px; }
-html[lang="zh-Hans"] .bio, 
+html[lang="zh-Hans"] .bio { font-weight: 400; }
+
 /* ───────── Redes: dos carretes. Fuera de China (amarillo y rojo) y en China (verde) ───────── */
 .enlaces { counter-reset: enlace; }
 .grupo { margin-top: 18px; border: 1px solid var(--borde-g); border-radius: 4px; overflow: hidden; }
@@ -177,78 +177,9 @@ html[lang="zh-Hans"] .redes-lista .glosa { display: none; }
 .grupo-cn .redes-lista .n { display: none; }
 .grupo-cn .redes-lista .flecha { width: 1.1rem; height: 1.1rem; }
 
-/* ───────── Fotos: el selector de categoría ───────── */
-.selector-carrete { display: none; }
-html.js .selector-carrete {
-  display: flex; gap: 24px; margin: -6px calc(var(--lado) * -1) 14px; padding-inline: var(--lado);
-  overflow-x: auto; scrollbar-width: none; scroll-padding-inline: var(--lado);
-}
-.selector-carrete::-webkit-scrollbar { display: none; }
-.selector-carrete button {
-  flex: none; display: inline-flex; align-items: center; min-height: 44px; padding: 0 2px;
-  color: var(--tenue); background: none; border: 0; font-size: .9375rem; white-space: nowrap; cursor: pointer;
-}
-.selector-carrete button:hover { color: var(--papel); }
-.selector-carrete button[aria-selected="true"] { color: var(--papel); }
-.selector-carrete button[aria-selected="true"] span {
-  text-decoration: underline; text-decoration-color: var(--ambar); text-decoration-thickness: 2px; text-underline-offset: 8px;
-}
-
-.rollo { margin: 0 calc(var(--lado) * -1) 0; padding-inline: var(--lado); overflow: hidden; } /* sangra con el carrete; el recorte es para la animación de entrada */
-.rollo[hidden] { display: none; }
-.rollo-titulo { font-size: 1.125rem; font-weight: 500; margin: 2px 0 8px; }
-html.js .rollo-titulo { display: none; }
-
-.carrete {
-  overflow-x: auto; overflow-y: hidden; scroll-snap-type: x proximity; overscroll-behavior-x: contain;
-  scrollbar-width: none; cursor: grab; -webkit-overflow-scrolling: touch; scroll-padding-left: 16px;
-  /* el carrete es una tira más oscura */
-  background-color: #3A1D0C;
-  margin-inline: calc(var(--lado) * -1); /* a sangre: se ve que el carrete sigue */
-  border-block: 1px solid #1f0f06;
-}
-.carrete::-webkit-scrollbar { display: none; }
-.carrete.arrastrando { cursor: grabbing; scroll-snap-type: none; }
-.carrete:focus-visible { outline-offset: -3px; }
-.cinta { position: relative; display: flex; gap: 10px; width: max-content; padding: 30px 16px 46px; counter-reset: f; }
-.cinta::before, .cinta::after {
-  content: ""; position: absolute; left: 0; right: 0; height: 16px;
-  background: url("perforacion-h.svg") repeat-x left center / 22px 16px;
-}
-.cinta::before { top: 7px; }
-.cinta::after { bottom: 7px; }
-.foto { position: relative; counter-increment: f; flex: none; scroll-snap-align: start; }
-.foto a {
-  display: block; height: var(--hf); width: calc(var(--a) * var(--hf)); overflow: hidden;
-  background: #000; outline: 1px solid #1f0f06;
-}
-.foto img { width: 100%; height: 100%; object-fit: cover; }
-.foto a:focus-visible { outline-offset: 2px; }
-.foto a:hover img { opacity: .85; }
-.foto .num {
-  display: block; margin-top: 7px; height: 12px; line-height: 12px;
-  font-family: var(--mono); font-size: 10px; letter-spacing: .1em; color: var(--ambar);
-}
-.foto .num::before { content: counter(f) "   " counter(f) "A"; }
-
-.mandos { display: none; }
-html.js .mandos { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; }
-.mandos button {
-  width: 46px; height: 46px; padding: 0; font-size: 1.15rem; line-height: 1; color: var(--papel);
-  background: none; border: 1px solid rgba(241, 236, 226, .42); border-radius: 50%; cursor: pointer;
-}
-.mandos button:hover { border-color: var(--ambar); color: var(--ambar); }
-.mandos .cuenta { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--impreso); }
-
-/* el carrete nuevo entra deslizándose, como si lo enrollaras */
-@media (prefers-reduced-motion: no-preference) {
-  .rollo.entra .carrete { animation: enrolla .9s cubic-bezier(.16, .84, .3, 1) both; }
-}
-@keyframes enrolla { from { transform: translateX(70%); } to { transform: none; } }
-
 /* ───────── Contacto ───────── */
-.contacto p, .reviews-portada p { max-width: 34rem; }
-html[lang="zh-Hans"] .contacto p, html[lang="zh-Hans"] .reviews-portada p { font-weight: 400; }
+.contacto p { max-width: 34rem; }
+html[lang="zh-Hans"] .contacto p { font-weight: 400; }
 .accion { margin-top: 20px; }
 .contacto-fila {
   width: 100%; background: none; border-inline: 0; font: inherit; text-align: left; cursor: pointer;
@@ -306,97 +237,6 @@ html[lang="zh-Hans"] .f-campo label { font-size: .8125rem; letter-spacing: .1em;
 .f-alt a { text-decoration-color: var(--ambar); text-decoration-thickness: 2px; text-underline-offset: 3px; }
 html.formulario-abierto { overflow: hidden; }
 
-/* ───────── Reviews (páginas generadas por tools/reviews.mjs) ───────── */
-html.pagina-review { --col: 760px; --tinta: #1D1712; --tinta-tenue: #5A4E42; --tinta-filete: rgba(29, 23, 18, .2); }
-html.pagina-review .idioma { display: flex; }
-.idioma a, .idioma .idioma-no { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; padding: 0 10px; font-size: .9375rem; letter-spacing: .06em; color: var(--papel); text-decoration: none; }
-.idioma a[aria-current="true"] { text-decoration: underline; text-decoration-color: var(--ambar); text-decoration-thickness: 2px; text-underline-offset: 7px; }
-.idioma .idioma-no { opacity: .45; }
-.marca a { color: inherit; text-decoration: none; }
-
-.titulo-pagina { font-family: var(--display), var(--cjk-display); font-weight: 400; font-style: italic; font-size: clamp(2.2rem, 9vw, 3.2rem); line-height: 1; letter-spacing: -.01em; }
-html[lang="zh-Hans"] .titulo-pagina { font-style: normal; letter-spacing: .04em; }
-.entradilla { max-width: 36rem; margin-top: 14px; font-size: 1.0625rem; line-height: 1.6; font-weight: 300; color: var(--tenue); text-wrap: pretty; }
-html[lang="zh-Hans"] .entradilla, html[lang="zh-Hans"] .review-cuerpo p, html[lang="zh-Hans"] .review-cuerpo li { font-weight: 400; }
-.reviews-indice { padding-top: 40px; }
-.lista-reviews { list-style: none; margin: 36px 0 0; padding: 0; display: grid; gap: 34px; }
-.tarjeta-review { display: grid; gap: 14px; color: var(--papel); text-decoration: none; }
-.tarjeta-review .ventana { display: block; aspect-ratio: 3 / 2; overflow: hidden; border: 1px solid var(--filete); }
-.tarjeta-review .ventana img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.tarjeta-texto { display: grid; gap: 8px; }
-.review-meta { font-size: .75rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--tenue); }
-.tarjeta-titulo { font-family: var(--display), var(--cjk-display); font-size: 1.65rem; line-height: 1.12; }
-.tarjeta-desc { font-size: .9375rem; line-height: 1.55; font-weight: 300; color: var(--tenue); }
-html[lang="zh-Hans"] .tarjeta-desc { font-weight: 400; }
-.tarjeta-leer { display: inline-flex; align-items: center; gap: 8px; font-size: .8125rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--ambar); }
-.tarjeta-review:hover .tarjeta-titulo { text-decoration: underline; text-decoration-color: var(--ambar); text-underline-offset: 5px; }
-@media (min-width: 760px) {
-  .tarjeta-review { grid-template-columns: 280px 1fr; gap: 24px; align-items: start; }
-}
-
-.review { padding-top: 0; }
-.migas { font-size: .8125rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
-.migas a { display: inline-block; padding: 10px 0; color: var(--tenue); text-decoration: none; }
-.migas a:hover { color: var(--papel); }
-.migas-pie { margin-top: 48px; }
-.review-cab { margin-top: 18px; }
-.review-cab h1 { margin-top: 10px; font-family: var(--display), var(--cjk-display); font-weight: 400; font-size: clamp(2rem, 8vw, 2.9rem); line-height: 1.05; letter-spacing: -.005em; text-wrap: balance; }
-html[lang="zh-Hans"] .review-cab h1 { letter-spacing: .03em; line-height: 1.25; }
-.etiquetas { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 0; padding: 0; list-style: none; }
-.etiquetas li { padding: 5px 10px; border: 1px solid var(--filete); font-size: .75rem; letter-spacing: .08em; color: var(--tenue); }
-
-.review-cuerpo { margin-top: 36px; }
-.review-cuerpo > * + * { margin-top: 18px; }
-.review-cuerpo p, .review-cuerpo li { font-size: 1.0625rem; line-height: 1.65; font-weight: 300; text-wrap: pretty; }
-.review-cuerpo strong { font-weight: 600; color: var(--papel); }
-.review-cuerpo a { color: var(--papel); text-decoration-color: var(--ambar); text-underline-offset: 3px; }
-.review-cuerpo h2 {
-  display: flex; align-items: center; gap: 14px; margin-top: 54px; font-size: .75rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--tenue); line-height: 1.4;
-}
-.review-cuerpo h2::after { content: ""; flex: 1; height: 1px; background: var(--filete); }
-html[lang="zh-Hans"] .review-cuerpo h2 { font-size: .875rem; letter-spacing: .14em; }
-.review-cuerpo h3 { margin-top: 34px; font-family: var(--display), var(--cjk-display); font-weight: 400; font-size: 1.5rem; line-height: 1.2; }
-.review-cuerpo h4 { margin-top: 26px; font-size: .9375rem; font-weight: 600; letter-spacing: .04em; }
-.review-cuerpo h2 + *, .review-cuerpo h3 + * { margin-top: 14px; }
-.review-cuerpo ul, .review-cuerpo ol { padding-left: 1.25em; }
-.review-cuerpo li + li { margin-top: 8px; }
-.review-cuerpo li::marker { color: var(--impreso); }
-.review-cuerpo hr { border: 0; height: 1px; margin-block: 42px 0; background: var(--filete); }
-.review-cuerpo blockquote { margin-inline: 0; padding-left: 16px; border-left: 2px solid var(--ambar); color: var(--tenue); }
-
-/* catálogo de reviews: lista compacta A–Z por marca, con buscador */
-.catalogo { margin-top: 64px; }
-.titulo-seccion { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; font-size: .75rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--tenue); line-height: 1.4; }
-.titulo-seccion::after { content: ""; flex: 1; height: 1px; background: var(--filete); }
-html[lang="zh-Hans"] .titulo-seccion { font-size: .875rem; letter-spacing: .14em; }
-.buscador { margin: 0 0 22px; }
-.buscador label { display: block; margin-bottom: 8px; font-size: .75rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--tenue); }
-.buscador input { width: 100%; min-height: 48px; padding: 0 14px; font: inherit; font-size: 1rem; color: var(--papel); background: var(--ventana); border: 1px solid var(--filete); border-radius: 0; }
-.buscador input::placeholder { color: var(--tenue); opacity: .8; }
-.buscador input:focus { outline: 2px solid var(--ambar); outline-offset: 2px; }
-.sin-resultados { margin-bottom: 18px; color: var(--tenue); }
-.marca-grupo + .marca-grupo { margin-top: 26px; }
-.marca-grupo h3 { margin-bottom: 4px; font-family: var(--display), var(--cjk-display); font-weight: 400; font-size: 1.5rem; line-height: 1.2; }
-.filas { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--filete); }
-.filas li { border-bottom: 1px solid var(--filete); }
-.filas a { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; min-height: 48px; padding: 12px 0; color: var(--papel); text-decoration: none; }
-.filas a:hover .fila-nombre { text-decoration: underline; text-decoration-color: var(--ambar); text-underline-offset: 4px; }
-.fila-nombre { font-size: 1.0625rem; line-height: 1.35; }
-.fila-fecha { flex: none; font-size: .8125rem; letter-spacing: .06em; color: var(--tenue); }
-[hidden] { display: none !important; }
-
-/* ficha técnica y comparativas: como la hoja de datos de un carrete */
-.tabla { overflow-x: auto; border-block: 1px solid var(--filete); -webkit-overflow-scrolling: touch; }
-.tabla table { width: 100%; border-collapse: collapse; font-size: .9375rem; line-height: 1.45; }
-.tabla th, .tabla td { padding: 12px 12px 12px 0; text-align: left; vertical-align: top; border-bottom: 1px solid var(--filete); font-weight: 300; }
-.tabla tr:last-child > * { border-bottom: 0; }
-.tabla thead th { font-size: .75rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--tenue); }
-.tabla tbody th { font-weight: 600; color: var(--papel); }
-html[lang="zh-Hans"] .tabla td, html[lang="zh-Hans"] .tabla th { font-weight: 400; }
-html[lang="zh-Hans"] .tabla thead th { font-weight: 600; }
-
-}
-
 /* ───────── Visor ───────── */
 .visor {
   width: 100vw; max-width: none; height: 100vh; height: 100dvh; max-height: none;
@@ -444,131 +284,198 @@ html.visor-abierto { overflow: hidden; }
   }
 }
 
-/* ───────── Review: la lectura larga sobre «papel» (fondo claro, tinta oscura) ─────────
-   El texto claro sobre negro cansa en un artículo largo; aquí el cuerpo va sobre papel fotográfico y las fotos
-   quedan como ventanas oscuras. Cabecera, menú y pie siguen en oscuro. */
-.hoja { margin: 0 calc(var(--lado) * -1); padding: 12px var(--lado) 56px; background: var(--papel); color: var(--tinta); }
-.hoja .review-cuerpo { margin-top: 28px; }
-.hoja .review-cuerpo p, .hoja .review-cuerpo li { font-size: 1.125rem; line-height: 1.72; font-weight: 400; color: var(--tinta); }
-html[lang="zh-Hans"] .hoja .review-cuerpo p, html[lang="zh-Hans"] .hoja .review-cuerpo li { line-height: 1.95; letter-spacing: .02em; }
-.hoja .review-cuerpo strong { color: #000; font-weight: 700; }
-.hoja .review-cuerpo a { color: var(--tinta); text-decoration-color: #B85C14; text-decoration-thickness: 2px; }
-.hoja .review-cuerpo h2 { margin-top: 56px; color: var(--tinta-tenue); font-size: .8125rem; scroll-margin-top: 70px; }
-.hoja .review-cuerpo h2::after { background: var(--tinta-filete); }
-.hoja .review-cuerpo h3 { margin-top: 36px; color: var(--tinta); font-size: 1.65rem; }
-.hoja .review-cuerpo h4 { color: var(--tinta); }
-.hoja .review-cuerpo hr { background: var(--tinta-filete); }
-.hoja .review-cuerpo li::marker { color: #B85C14; }
-.hoja .review-cuerpo blockquote { border-left-color: #B85C14; color: var(--tinta-tenue); }
-.hoja .tabla { border-block-color: var(--tinta-filete); }
-.hoja .tabla th, .hoja .tabla td { border-bottom-color: var(--tinta-filete); font-weight: 400; color: var(--tinta); }
-.hoja .tabla thead th { color: var(--tinta-tenue); }
-.hoja .tabla tbody th { font-weight: 700; color: #000; }
-.hoja .foto-review .ventana { border-color: rgba(0, 0, 0, .5); }
-.hoja .foto-review figcaption { color: var(--tinta-tenue); }
-.hoja .migas a { color: var(--tinta-tenue); }
-.hoja .migas a:hover { color: var(--tinta); }
+/* ───────── Movimiento de la portada ─────────
+   La foto grande «se revela» como en la cubeta, la polaroid cae encima y el resto aparece al llegar a él. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js .ventana.grande img { animation: revela 1.8s cubic-bezier(.2, .6, .2, 1) both; }
+  html.js .polaroid { animation: cae .9s .45s cubic-bezier(.2, .8, .25, 1) both; }
+  html.js .titulos { animation: aparece .8s .75s ease both; }
+  html.js .revela { opacity: 0; transform: translateY(18px); transition: opacity .8s ease, transform .8s cubic-bezier(.2, .7, .3, 1); }
+  html.js .revela.visible { opacity: 1; transform: none; }
+}
+@keyframes revela { from { opacity: 0; filter: brightness(1.9) sepia(.55) blur(6px); } 55% { opacity: 1; } to { opacity: 1; filter: none; } }
+@keyframes cae { from { opacity: 0; transform: translateY(-28px) rotate(-9deg); } to { opacity: 1; transform: rotate(-3deg); } }
+@keyframes aparece { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 
-.hoja :focus-visible { outline-color: #8A3F08; }
-.indice-review { margin: 28px 0 0; border: 1px solid var(--tinta-filete); }
-.indice-review summary { display: flex; align-items: center; min-height: 48px; padding: 0 16px; cursor: pointer; font-size: .8125rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--tinta-tenue); list-style: none; }
+/* ───────── Páginas del portfolio y de las reviews (las generan tools/portfolio.mjs y tools/reviews.mjs) ───────── */
+html.pagina-review { --col: 760px; --tinta: #1D1712; --tinta-tenue: #5A4E42; --tinta-filete: rgba(29, 23, 18, .2); }
+html.pagina-review .idioma { display: flex; }
+.idioma a, .idioma .idioma-no { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; padding: 0 10px; font-size: .9375rem; letter-spacing: .06em; color: var(--papel); text-decoration: none; }
+.idioma a[aria-current="true"] { text-decoration: underline; text-decoration-color: var(--ambar); text-decoration-thickness: 2px; text-underline-offset: 7px; }
+.idioma .idioma-no { opacity: .45; }
+.marca a { color: inherit; text-decoration: none; }
+[hidden] { display: none !important; }
+
+.titulo-pagina { font-family: var(--display), var(--cjk-display); font-weight: 400; font-style: italic; font-size: clamp(2.4rem, 10vw, 3.6rem); line-height: 1; letter-spacing: -.01em; }
+html[lang="zh-Hans"] .titulo-pagina { font-style: normal; letter-spacing: .04em; }
+.entradilla { max-width: 36rem; margin-top: 12px; font-size: 1.0625rem; line-height: 1.6; font-weight: 300; color: var(--tenue); text-wrap: pretty; }
+html[lang="zh-Hans"] .entradilla { font-weight: 400; }
+.review-meta, .filtro-etiqueta { font-size: .6875rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--tenue); }
+html[lang="zh-Hans"] .review-meta, html[lang="zh-Hans"] .filtro-etiqueta { font-size: .8125rem; letter-spacing: .1em; }
+.titulo-seccion { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; font-size: .6875rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--tenue); line-height: 1.4; }
+.titulo-seccion::after { content: ""; flex: 1; height: 1px; background: var(--filete); }
+html[lang="zh-Hans"] .titulo-seccion { font-size: .8125rem; letter-spacing: .12em; }
+.enlace-boton { padding: 0; font: inherit; color: var(--papel); background: none; border: 0; text-decoration: underline; text-decoration-color: var(--ambar); text-underline-offset: 3px; cursor: pointer; }
+
+/* buscador (solo aparece con más de 8 reviews) */
+.buscador { margin: 26px 0 0; }
+.buscador label { display: block; margin-bottom: 8px; font-size: .6875rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--tenue); }
+.buscador input { width: 100%; min-height: 46px; padding: 0 2px; font: inherit; font-size: 1rem; color: var(--papel); background: none; border: 0; border-bottom: 1px solid var(--filete); border-radius: 0; }
+.buscador input::placeholder { color: var(--tenue); opacity: .7; }
+.buscador input:focus { outline: none; border-bottom-color: var(--ambar); }
+.sin-resultados { margin-top: 14px; color: var(--tenue); }
+
+/* ── Portfolio: mosaico justificado; los filtros están plegados detrás de «Filtrar» ── */
+.portfolio { padding-top: 44px; --fila: 150px; }
+.pf-barra { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 28px; border-bottom: 1px solid var(--filete); }
+.filtro-cuenta { min-width: 0; font-size: .875rem; color: var(--tenue); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pf-n { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--impreso); }
+.pf-activos { color: var(--papel); }
+.pf-filtrar { flex: none; display: inline-flex; align-items: center; gap: 10px; min-height: 46px; padding: 0; font: inherit; font-size: .6875rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--papel); background: none; border: 0; cursor: pointer; }
+html[lang="zh-Hans"] .pf-filtrar { font-size: .875rem; letter-spacing: .1em; }
+.pf-signo { position: relative; width: 11px; height: 11px; }
+.pf-signo::before, .pf-signo::after { content: ""; position: absolute; left: 0; top: 5px; width: 11px; height: 1px; background: var(--ambar); transition: transform .3s ease; }
+.pf-signo::after { transform: rotate(90deg); }
+.pf-filtrar[aria-expanded="true"] .pf-signo::before { transform: rotate(45deg); }
+.pf-filtrar[aria-expanded="true"] .pf-signo::after { transform: rotate(135deg); }
+.pf-filtrar:hover { color: var(--ambar); }
+.pf-panel { border-bottom: 1px solid var(--filete); }
+.pf-panel-in { display: grid; gap: 22px; padding: 20px 0 24px; }
+.pf-lista { list-style: none; margin: 8px 0 0; padding: 0; columns: 2; column-gap: 20px; }
+.pf-lista li { break-inside: avoid; }
+.pf-lista button { display: flex; align-items: baseline; gap: 10px; width: 100%; min-height: 38px; padding: 6px 0; font: inherit; font-size: .9375rem; text-align: left; color: var(--tenue); background: none; border: 0; cursor: pointer; }
+.pf-lista button::before { content: ""; flex: none; width: 5px; height: 5px; border-radius: 50%; background: transparent; transform: translateY(-2px); transition: background .2s; }
+.pf-lista button:hover { color: var(--papel); }
+.pf-lista button[aria-pressed="true"] { color: var(--papel); }
+.pf-lista button[aria-pressed="true"]::before { background: var(--ambar); }
+.pf-lista .n { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; color: var(--impreso); opacity: .75; }
+.sin-fotos { margin-top: 18px; color: var(--tenue); }
+.mosaico { list-style: none; margin: 20px calc(var(--lado) * -1) 0; padding: 0 4px; display: flex; flex-wrap: wrap; gap: 4px; }
+.mosaico::after { content: ""; flex-grow: 1000000; }
+.mosaico li { flex: calc(var(--a) * 100) 1 calc(var(--a) * var(--fila)); min-width: 0; }
+.mosaico a { position: relative; display: block; overflow: hidden; background: var(--ventana); }
+.mosaico i { display: block; padding-bottom: calc(100% / var(--a)); }
+.mosaico img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .7s cubic-bezier(.2, .7, .3, 1); }
+.mosaico a:hover img { transform: scale(1.035); }
+.mosaico a:focus-visible { outline: 2px solid var(--ambar); outline-offset: -2px; }
+@media (prefers-reduced-motion: no-preference) {
+  .pf-panel:not([hidden]) .pf-panel-in { animation: despliega .35s cubic-bezier(.2, .7, .3, 1) both; }
+  /* revelado: la foto aparece clara y velada y se asienta, como en la cubeta */
+  .revelando .mosaico img:not(.revelada) { opacity: 0; filter: brightness(1.8) sepia(.5) blur(5px); }
+  .revelando .mosaico img.revelada { transition: opacity .9s ease, filter 1.4s ease, transform .7s cubic-bezier(.2, .7, .3, 1); }
+  .revelando .mosaico img.sin-transicion { transition: transform .7s cubic-bezier(.2, .7, .3, 1); }
+  .mosaico li.entra { animation: aparece .55s calc(min(var(--i, 0), 24) * 28ms) cubic-bezier(.2, .7, .3, 1) both; }
+}
+@keyframes despliega { from { opacity: 0; transform: translateY(-8px); } }
+@media (min-width: 700px) {
+  .portfolio { --fila: 210px; }
+  .pf-panel-in { grid-template-columns: 1fr 2fr; gap: 40px; }
+  .pf-lista { columns: 1; }
+  .pf-lista-objetivos { columns: 2; column-gap: 32px; }
+}
+@media (min-width: 960px) {
+  .portfolio { --fila: 260px; }
+  .mosaico { margin-inline: 0; padding-inline: 0; gap: 6px; }
+}
+
+/* ── Listado de reviews: una fila por review ── */
+.reviews-indice { padding-top: 44px; }
+.lista-reviews { list-style: none; margin: 30px 0 0; padding: 0; border-top: 1px solid var(--filete); }
+.lista-reviews li { border-bottom: 1px solid var(--filete); }
+.fila-review { display: grid; grid-template-columns: 120px 1fr; gap: 16px; align-items: center; padding: 16px 0; color: var(--papel); text-decoration: none; }
+.fila-foto { display: block; aspect-ratio: 3 / 2; overflow: hidden; background: var(--ventana); }
+.fila-foto img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .7s cubic-bezier(.2, .7, .3, 1); }
+.fila-texto { display: grid; gap: 6px; min-width: 0; }
+.fila-titulo { font-family: var(--display), var(--cjk-display); font-size: 1.45rem; line-height: 1.1; transition: color .2s; }
+.fila-desc { display: none; font-size: .9375rem; line-height: 1.55; font-weight: 300; color: var(--tenue); }
+.fila-review:hover .fila-titulo { color: var(--ambar); }
+.fila-review:hover .fila-foto img { transform: scale(1.05); }
+@media (prefers-reduced-motion: no-preference) {
+  .lista-reviews li { animation: aparece .6s calc(min(var(--i, 0), 12) * 70ms + .1s) cubic-bezier(.2, .7, .3, 1) both; }
+}
+@media (min-width: 760px) {
+  .fila-review { grid-template-columns: 240px 1fr; gap: 28px; padding: 22px 0; }
+  .fila-titulo { font-size: 1.9rem; }
+  .fila-desc { display: block; max-width: 34rem; }
+}
+
+/* ── Review: título, foto y texto sobre «papel» (el texto claro sobre negro cansa en una lectura larga) ── */
+.review { padding-top: 0; }
+.hoja { margin: 0 calc(var(--lado) * -1); padding: 12px var(--lado) 56px; background: var(--papel); color: var(--tinta); }
+.hoja > .migas, .hoja .review-cab, .hoja .review-cuerpo, .hoja .indice-review, .hoja .migas-pie { max-width: 42rem; margin-inline: auto; }
+.migas { font-size: .75rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+.migas a { display: inline-block; padding: 10px 0; color: var(--tinta-tenue); text-decoration: none; }
+.migas a:hover { color: var(--tinta); }
+.migas-pie { margin-top: 48px; }
+.review-cab { margin-top: 10px; }
+.hoja .review-meta { color: var(--tinta-tenue); }
+.review-cab h1 { margin-top: 10px; font-family: var(--display), var(--cjk-display); font-weight: 400; font-size: clamp(2rem, 8vw, 3rem); line-height: 1.05; letter-spacing: -.005em; text-wrap: balance; color: var(--tinta); }
+html[lang="zh-Hans"] .review-cab h1 { letter-spacing: .03em; line-height: 1.25; }
+.hoja .entradilla { color: var(--tinta-tenue); font-weight: 400; }
+.etiquetas { margin-top: 14px; font-size: .8125rem; letter-spacing: .04em; color: var(--tinta-tenue); }
+.indice-review { margin-top: 28px; border-block: 1px solid var(--tinta-filete); }
+.indice-review summary { display: flex; align-items: center; min-height: 46px; cursor: pointer; font-size: .6875rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--tinta-tenue); list-style: none; }
 .indice-review summary::-webkit-details-marker { display: none; }
-.indice-review summary::after { content: "+"; margin-left: auto; font-size: 1.25rem; font-weight: 400; }
+.indice-review summary::after { content: "+"; margin-left: auto; font-size: 1.2rem; font-weight: 400; }
 .indice-review[open] summary::after { content: "–"; }
-.indice-review ol { margin: 0; padding: 4px 16px 14px 40px; }
-.indice-review li { padding: 3px 0; font-size: 1rem; line-height: 1.45; color: var(--tinta); }
+.indice-review ol { margin: 0; padding: 0 0 14px 1.4em; }
+.indice-review li { padding: 3px 0; font-size: 1rem; line-height: 1.45; }
 .indice-review a { color: var(--tinta); text-decoration-color: #B85C14; text-underline-offset: 3px; }
 
-/* ───────── Fotos de las reviews: dentro de la columna, nunca a sangre; las verticales, más pequeñas; todas se amplían ───────── */
+.review-cuerpo { margin-top: 28px; }
+.review-cuerpo > * + * { margin-top: 18px; }
+.review-cuerpo p, .review-cuerpo li { font-size: 1.125rem; line-height: 1.72; color: var(--tinta); text-wrap: pretty; }
+html[lang="zh-Hans"] .review-cuerpo p, html[lang="zh-Hans"] .review-cuerpo li { line-height: 1.95; letter-spacing: .02em; }
+.review-cuerpo strong { color: #000; font-weight: 700; }
+.review-cuerpo a { color: var(--tinta); text-decoration-color: #B85C14; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.review-cuerpo h2 { display: flex; align-items: center; gap: 14px; margin-top: 56px; font-size: .75rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--tinta-tenue); line-height: 1.4; scroll-margin-top: 70px; }
+.review-cuerpo h2::after { content: ""; flex: 1; height: 1px; background: var(--tinta-filete); }
+html[lang="zh-Hans"] .review-cuerpo h2 { font-size: .875rem; letter-spacing: .12em; }
+.review-cuerpo h3 { margin-top: 36px; font-family: var(--display), var(--cjk-display); font-weight: 400; font-size: 1.65rem; line-height: 1.2; color: var(--tinta); }
+.review-cuerpo h4 { margin-top: 26px; font-size: .9375rem; font-weight: 600; letter-spacing: .04em; }
+.review-cuerpo h2 + *, .review-cuerpo h3 + * { margin-top: 14px; }
+.review-cuerpo ul, .review-cuerpo ol { padding-left: 1.25em; }
+.review-cuerpo li + li { margin-top: 8px; }
+.review-cuerpo li::marker { color: #B85C14; }
+.review-cuerpo hr { border: 0; height: 1px; margin-block: 42px 0; background: var(--tinta-filete); }
+.review-cuerpo blockquote { margin-inline: 0; padding-left: 16px; border-left: 2px solid #B85C14; color: var(--tinta-tenue); }
+.hoja :focus-visible { outline-color: #8A3F08; }
+
+/* ficha técnica y comparativas */
+.tabla { overflow-x: auto; border-block: 1px solid var(--tinta-filete); }
+.tabla table { width: 100%; border-collapse: collapse; font-size: .9375rem; line-height: 1.45; }
+.tabla th, .tabla td { padding: 12px 12px 12px 0; text-align: left; vertical-align: top; border-bottom: 1px solid var(--tinta-filete); font-weight: 400; color: var(--tinta); }
+.tabla tr:last-child > * { border-bottom: 0; }
+.tabla thead th { font-size: .6875rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--tinta-tenue); }
+.tabla tbody th { font-weight: 700; color: #000; }
+
+/* fotos de la review: dentro de la columna; las verticales, más pequeñas; todas se amplían */
 .foto-review, .portada-review { --alto: 78vh; margin: 34px auto 0; max-width: min(100%, 56rem, calc(var(--alto) * var(--ar, 1.5))); }
 .portada-review { --alto: 68vh; margin-top: 26px; }
 .foto-review.vertical { max-width: min(100%, 21rem, calc(var(--alto) * var(--ar, .7))); }
-.foto-review .ventana, .portada-review .ventana { background: var(--ventana); border: 1px solid var(--filete); }
+.foto-review .ventana, .portada-review .ventana { background: #E4DED2; border: 1px solid rgba(29, 23, 18, .3); }
 .foto-review img, .portada-review img { display: block; width: 100%; height: auto; }
-.foto-review .zoom, .portada-review .zoom { display: block; cursor: zoom-in; color: inherit; }
-.foto-review .zoom:hover .ventana, .portada-review .zoom:hover .ventana { border-color: var(--ambar); }
-.foto-review figcaption { padding: 10px 2px 0; font-size: .875rem; line-height: 1.5; color: var(--tenue); }
+.zoom { display: block; cursor: zoom-in; color: inherit; }
+.zoom:hover .ventana { border-color: #B85C14; }
+.foto-review figcaption { padding: 10px 2px 0; font-size: .875rem; line-height: 1.5; color: var(--tinta-tenue); }
 .visor-texto { margin: 0; padding: 0 16px; color: var(--tenue); font-size: .875rem; text-align: center; }
 
-/* ordenador: la web de reviews es más ancha; el texto mantiene un ancho cómodo y las fotos aprovechan el resto */
+/* catálogo A–Z por marca: columna izquierda en ordenador, final de la página en el móvil */
+.catalogo.lateral { margin-top: 48px; scroll-margin-top: 66px; }
+.marca-grupo + .marca-grupo { margin-top: 22px; }
+.marca-grupo h3 { margin-bottom: 4px; font-family: var(--display), var(--cjk-display); font-weight: 400; font-size: 1.35rem; line-height: 1.2; }
+.filas { list-style: none; margin: 0; padding: 0; }
+.filas a { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; min-height: 42px; padding: 9px 0; color: var(--tenue); text-decoration: none; border-bottom: 1px solid var(--filete); }
+.filas a:hover { color: var(--papel); }
+.filas a[aria-current="page"] { color: var(--papel); }
+.filas a[aria-current="page"] .fila-nombre::before { content: ""; display: inline-block; width: 5px; height: 5px; margin-right: 10px; border-radius: 50%; background: var(--ambar); transform: translateY(-3px); }
+.fila-nombre { font-size: .9375rem; line-height: 1.35; }
+.fila-fecha { flex: none; font-size: .75rem; letter-spacing: .04em; color: var(--tenue); }
+
 @media (min-width: 960px) {
   html.pagina-review { --col: 1240px; --lado: 40px; }
-  .hoja { padding-block: 24px 72px; }
-  .tarjeta-review { grid-template-columns: 360px 1fr; gap: 32px; }
-  .lista-reviews { gap: 44px; }
-}
-
-/* columna de lectura centrada (títulos, texto, índice); las fotos horizontales pueden ser más anchas que ella */
-.hoja > .migas, .hoja .review-cab, .hoja .review-cuerpo, .hoja .indice-review, .hoja .migas-pie { max-width: 42rem; margin-inline: auto; }
-.hoja .review-cuerpo { margin-top: 28px; }
-.hoja .indice-review { margin-top: 28px; }
-
-/* ───────── Review: hoja clara con título y foto, y catálogo lateral ───────── */
-.hoja { padding-top: 12px; }
-.hoja .review-meta { color: var(--tinta-tenue); }
-.hoja .review-cab h1 { color: var(--tinta); }
-.hoja .entradilla { color: var(--tinta-tenue); font-weight: 400; }
-.hoja .etiquetas li { color: var(--tinta-tenue); border-color: var(--tinta-filete); }
-.hoja .portada-review .ventana, .hoja .foto-review .ventana { background: #E4DED2; border-color: rgba(29, 23, 18, .35); }
-.hoja .portada-review .zoom:hover .ventana, .hoja .foto-review .zoom:hover .ventana { border-color: #B85C14; }
-.hoja .review-cab { margin-top: 10px; }
-.hoja .boton-todas { max-width: 42rem; margin: 26px auto 0; }
-.hoja .boton-todas .contacto-fila { color: var(--tinta); border-block-color: var(--tinta-filete); }
-.flecha.abajo { transform: rotate(135deg); }
-
-.review-layout .catalogo.lateral { margin-top: 56px; scroll-margin-top: 66px; }
-.catalogo.lateral .filas a[aria-current="page"] { box-shadow: inset 3px 0 0 var(--ambar); padding-left: 12px; }
-.catalogo.lateral .filas a[aria-current="page"] .fila-nombre { color: var(--impreso); }
-
-@media (min-width: 960px) {
-  .boton-todas { display: none; }
-  .review-layout { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 36px; align-items: start; }
-  .review-layout .catalogo.lateral { order: -1; margin-top: 28px; position: sticky; top: 66px; max-height: calc(100vh - 86px); overflow-y: auto; padding-right: 6px; scrollbar-width: thin; }
-  .catalogo.lateral .titulo-seccion { font-size: .6875rem; letter-spacing: .18em; margin-bottom: 14px; }
+  .review-layout { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 40px; align-items: start; }
+  .catalogo.lateral { order: -1; margin-top: 28px; position: sticky; top: 70px; max-height: calc(100vh - 90px); overflow-y: auto; scrollbar-width: thin; }
   .catalogo.lateral .fila-fecha { display: none; }
-  .catalogo.lateral .filas a { min-height: 40px; padding-block: 9px; }
-  .catalogo.lateral .fila-nombre { font-size: .9375rem; }
-  .catalogo.lateral .marca-grupo h3 { font-size: 1.25rem; }
-  .hoja { margin-inline: 0; padding-inline: 40px; }
-  html.pagina-review .review > .hoja { margin-top: 28px; }
-}
-@media (max-width: 959px) {
-  .hoja { margin-top: 0; }
-}
-
-/* ───────── Portfolio: mosaico justificado con filtros ───────── */
-.portfolio { padding-top: 40px; --fila: 150px; }
-.filtros { margin-top: 28px; display: grid; gap: 18px; }
-.filtro-etiqueta { margin-bottom: 8px; font-size: .75rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--tenue); }
-html[lang="zh-Hans"] .filtro-etiqueta { font-size: .8125rem; letter-spacing: .12em; }
-.chips { display: flex; flex-wrap: wrap; gap: 8px; }
-.chip { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; font: inherit; font-size: .875rem; letter-spacing: .03em; color: var(--tenue); background: none; border: 1px solid var(--filete); border-radius: 0; cursor: pointer; }
-.chip .n { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; color: var(--impreso); opacity: .85; }
-.chip:hover { color: var(--papel); border-color: rgba(241, 236, 226, .45); }
-.chip[aria-pressed="true"] { color: var(--papel); border-color: var(--ambar); box-shadow: inset 0 -2px 0 var(--ambar); }
-.filtro-cuenta { margin: 22px 0 14px; font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--impreso); }
-.sin-fotos { margin-bottom: 18px; color: var(--tenue); }
-.enlace-boton { padding: 0; font: inherit; color: var(--papel); background: none; border: 0; text-decoration: underline; text-decoration-color: var(--ambar); text-underline-offset: 3px; cursor: pointer; }
-.mosaico { list-style: none; margin: 0 calc(var(--lado) * -1); padding: 0 4px; display: flex; flex-wrap: wrap; gap: 4px; }
-.mosaico::after { content: ""; flex-grow: 1000000; }
-.mosaico li { flex: calc(var(--a) * 100) 1 calc(var(--a) * var(--fila)); min-width: 0; }
-.mosaico a { position: relative; display: block; background: var(--ventana); overflow: hidden; }
-.mosaico i { display: block; padding-bottom: calc(100% / var(--a)); }
-.mosaico img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .5s cubic-bezier(.2, .7, .3, 1), opacity .3s; }
-.mosaico a:hover img { transform: scale(1.03); }
-.mosaico a:focus-visible { outline: 2px solid var(--ambar); outline-offset: -2px; }
-@media (min-width: 700px) { .portfolio { --fila: 200px; } }
-@media (min-width: 960px) {
-  .portfolio { --fila: 250px; }
-  .mosaico { margin-inline: 0; padding-inline: 0; gap: 6px; }
-}
-@media (prefers-reduced-motion: reduce) { .mosaico img { transition: none; } .mosaico a:hover img { transform: none; } }
-
-/* en el móvil, los filtros ocupan una sola fila que se desliza */
-@media (max-width: 699px) {
-  .filtros { margin-top: 22px; gap: 14px; grid-template-columns: minmax(0, 1fr); }
-  .filtro-grupo { min-width: 0; }
-  .chips { flex-wrap: nowrap; overflow-x: auto; margin-inline: calc(var(--lado) * -1); padding-inline: var(--lado); scrollbar-width: none; }
-  .chips::-webkit-scrollbar { display: none; }
-  .chip { flex: none; white-space: nowrap; }
+  .hoja { margin: 28px 0 0; padding: 24px 40px 72px; }
 }
