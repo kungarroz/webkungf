@@ -122,7 +122,9 @@ html[lang="zh-Hans"] .titulo { font-size: .875rem; letter-spacing: .14em; }
 
 /* ───────── Portada: una sola composición ───────── */
 .ventana { background: #000; }
-.ventana.grande { position: relative; aspect-ratio: 4 / 3; margin-inline: calc(var(--lado) * -1); }
+.ventana.grande { position: relative; aspect-ratio: 3 / 2; margin-inline: calc(var(--lado) * -1); }
+/* la parte de abajo de la foto se oscurece para que el título se lea encima */
+.ventana.grande::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to bottom, transparent 42%, rgba(18, 13, 10, .55) 70%, rgba(18, 13, 10, .92) 100%); }
 .ventana.grande img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
 /* la polaroid nace de la foto y el título se apoya a su lado */
 .rotulo { position: relative; z-index: 2; display: flex; align-items: flex-start; gap: 20px; margin-top: -112px; }
@@ -132,12 +134,12 @@ html[lang="zh-Hans"] .titulo { font-size: .875rem; letter-spacing: .14em; }
   display: block; padding: 6px 0 10px; text-align: center; transform: rotate(-2deg);
   font-family: "SV Mano", "Long Cang", "Kaiti SC", "STKaiti", cursive; font-size: 2rem; line-height: 1.1; letter-spacing: .08em; color: #2a211b;
 }
-.titulos { padding-top: 128px; min-width: 0; }
+.titulos { padding-top: 40px; min-width: 0; }
 .frase { font-size: clamp(1.9rem, 8.6vw, 2.6rem); font-style: italic; line-height: 1; letter-spacing: -.01em; text-wrap: balance; }
 html[lang="zh-Hans"] .frase { font-style: normal; font-size: clamp(1.75rem, 7.6vw, 2.3rem); letter-spacing: .04em; line-height: 1.25; }
 /* Texto corrido: la presentación y el párrafo de contacto comparten estilo */
 .bio, .contacto p { font-size: 1.0625rem; line-height: 1.6; font-weight: 300; text-wrap: pretty; }
-.bio { margin-top: 24px; }
+.titulos .bio { margin-top: 14px; font-size: 1rem; line-height: 1.5; color: var(--papel); }
 html[lang="zh-Hans"] .bio { font-weight: 400; }
 
 /* ───────── Redes: dos carretes. Fuera de China (amarillo y rojo) y en China (verde) ───────── */
@@ -262,7 +264,8 @@ html.visor-abierto { overflow: hidden; }
   :root { --hf: 300px; --lado: 28px; }
   .ventana.grande { aspect-ratio: 2 / 1; margin-inline: 0; }
   .rotulo { margin-top: -124px; }
-  .titulos { padding-top: 144px; }
+  .titulos { padding-top: 52px; }
+  .titulos .bio { font-size: 1.0625rem; }
 }
 
 /* ───────── Transición entre páginas ─────────

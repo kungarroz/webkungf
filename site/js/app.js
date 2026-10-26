@@ -124,7 +124,7 @@
       entradas.forEach(function (e) {
         if (e.isIntersecting) { e.target.classList.add('visible'); vigia.unobserve(e.target); }
       });
-    }, { rootMargin: '0px 0px -8% 0px' });
+    }, { threshold: 0 });
     aparecen.forEach(function (el, i) { el.classList.add('revela'); el.style.transitionDelay = (i % 3) * 80 + 'ms'; vigia.observe(el); });
   }
 
