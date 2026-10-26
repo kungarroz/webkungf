@@ -105,10 +105,10 @@ html[lang="zh-Hans"] .menu a { font-size: .875rem; letter-spacing: .12em; }
 
 /* ───────── Estructura de secciones ───────── */
 .pagina { counter-reset: seccion; }
-.pagina > section { padding-top: 56px; scroll-margin-top: 46px; }
+.pagina > section { padding-top: 40px; scroll-margin-top: 46px; }
 .pagina > section.portada { padding-top: 0; }
 .titulo {
-  counter-increment: seccion; display: flex; align-items: center; gap: 14px; margin-bottom: 22px;
+  counter-increment: seccion; display: flex; align-items: center; gap: 14px; margin-bottom: 16px;
   font-size: .75rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--tenue); line-height: 1.4;
 }
 .titulo::after { content: ""; flex: 1; height: 1px; background: var(--filete); }
@@ -182,7 +182,7 @@ html[lang="zh-Hans"] .redes-lista .glosa { display: none; }
 /* ───────── Contacto ───────── */
 .contacto p { max-width: 34rem; }
 html[lang="zh-Hans"] .contacto p { font-weight: 400; }
-.accion { margin-top: 20px; }
+.accion { margin-top: 12px; }
 .contacto-fila {
   width: 100%; background: none; border-inline: 0; font: inherit; text-align: left; cursor: pointer;
   display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 18px 0;

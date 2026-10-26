@@ -14,7 +14,7 @@ site/                 ← lo único que se despliega (directorio de salida)
   i18n/zh.json, en.json   textos en chino e inglés
   img/                fotos optimizadas (WebP, varios tamaños)
   fonts/              fuentes autoalojadas (+ sus licencias)
-  og.jpg, favicon.svg, apple-touch-icon.png
+  og.jpg, favicon.ico, icon-192.png, icon-512.png, apple-touch-icon.png (el logo 山德)
   sitemap.xml, robots.txt, _redirects, _headers
 originales/           fotos originales, FUERA del despliegue
 tools/                herramientas para quien edita (no se despliegan)

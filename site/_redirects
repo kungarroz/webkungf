@@ -35,5 +35,5 @@
 # Sitemap y logo de la web anterior
 /sitemap-index.xml /sitemap.xml 301
 /sitemap-0.xml /sitemap.xml 301
-/logo.svg /favicon.svg 301
+/logo.svg /icon-512.png 301
 /ogp.png /og.jpg 301
