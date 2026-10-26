@@ -139,7 +139,7 @@ html[lang="zh-Hans"] .titulo { font-size: .875rem; letter-spacing: .14em; }
 html[lang="zh-Hans"] .frase { font-style: normal; font-size: clamp(1.75rem, 7.6vw, 2.3rem); letter-spacing: .04em; line-height: 1.25; }
 /* Texto corrido: la presentación y el párrafo de contacto comparten estilo */
 .bio, .contacto p { font-size: 1.0625rem; line-height: 1.6; font-weight: 300; text-wrap: pretty; }
-.titulos .bio { margin-top: 14px; font-size: 1rem; line-height: 1.5; color: var(--papel); }
+.titulos .bio { margin-top: 14px; }
 html[lang="zh-Hans"] .bio { font-weight: 400; }
 
 /* ───────── Redes: dos carretes. Fuera de China (amarillo y rojo) y en China (verde) ───────── */
@@ -265,7 +265,6 @@ html.visor-abierto { overflow: hidden; }
   .ventana.grande { aspect-ratio: 2 / 1; margin-inline: 0; }
   .rotulo { margin-top: -124px; }
   .titulos { padding-top: 52px; }
-  .titulos .bio { font-size: 1.0625rem; }
 }
 
 /* ───────── Transición entre páginas ─────────
