@@ -45,5 +45,7 @@
   "form.msg.carga": "The verification couldn't be loaded.",
   "menu.reviews": "Reviews",
   "reviews.titulo": "Reviews",
-  "menu.portfolio": "Portfolio"
+  "menu.portfolio": "Portfolio",
+  "menu.blog": "Blog",
+  "contacto.newsletter": "Subscribe to the newsletter"
 }

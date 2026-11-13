@@ -96,6 +96,13 @@ La página `/portfolio/` (y `/en/portfolio/`, `/zh/portfolio/`) enseña **todas 
 - **Nombres de los objetivos:** `tools/objetivos.json` traduce el nombre que escribe la cámara (p. ej. `AF 23/1.8 XF`) al nombre bonito. Si sale un objetivo con un nombre raro, añade una línea ahí y vuelve a ejecutar el script. Las fotos sin dato de objetivo solo salen en «Todos».
 - Los filtros están plegados detrás de «Filtrar». Una serie se abre ya filtrada con `/portfolio/#noche`. Los textos de la página están en `tools/portfolio.mjs` (objeto `PF`).
 
+## Blog (notas) y Reviews
+
+- **Reviews** (`/reviews/`): solo las reviews de objetivos. **Blog** (`/blog/`): las notas y las reviews juntas, de la más nueva a la más antigua.
+- Una **nota** es una carpeta `blog/<nombre>/` con `es.md` (y `en.md`, `zh.md` si la quieres en esos idiomas) y sus fotos en `originales/blog/<nombre>/`. La cabecera es la de una review (`title`, `description`, `pubDate`, `cover` opcional, `tags`), sin `marca` ni `producto`. Después ejecuta `python3 tools/optimizar_reviews.py` (hace también las fotos de las notas) y haz commit y push.
+- La nota sale en `/blog/<nombre>/` (`/en/blog/…`, `/zh/blog/…`) y en el listado del blog. Las páginas se generan en cada despliegue y no se guardan en git.
+- **Newsletter:** la fila «Suscríbete a la newsletter» de Contacto lleva a la página de suscripción de tu Substack (`https://shandevilla.substack.com/subscribe`).
+
 ## Reviews (objetivo, ficha técnica y mi opinión)
 
 Cada review son tres textos en Markdown (uno por idioma) en `reviews/<nombre>/`:

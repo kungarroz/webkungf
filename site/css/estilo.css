@@ -256,9 +256,10 @@ html.formulario-abierto { overflow: hidden; }
 html.visor-abierto { overflow: hidden; }
 
 /* en móviles estrechos el menú cabe entero: tipo y espacios algo más cerrados */
-@media (max-width: 400px) {
-  .menu-in { gap: 4px 14px; }
-  .menu a { font-size: .65rem; letter-spacing: .11em; gap: 5px; }
+@media (max-width: 440px) {
+  .menu-in { gap: 4px 13px; }
+  .menu a { font-size: .65rem; letter-spacing: .1em; gap: 4px; }
+  .menu a::before { display: none; } /* con cinco entradas, en el móvil el menú no lleva los números de fotograma */
 }
 @media (min-width: 700px) {
   :root { --hf: 300px; --lado: 28px; }
@@ -477,7 +478,11 @@ html[lang="zh-Hans"] .review-cuerpo h2 { font-size: .875rem; letter-spacing: .12
 @media (min-width: 960px) {
   html.pagina-review { --col: 1240px; --lado: 40px; }
   .review-layout { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 40px; align-items: start; }
+  .review-layout.solo { display: block; }
   .catalogo.lateral { order: -1; margin-top: 28px; position: sticky; top: 70px; max-height: calc(100vh - 90px); overflow-y: auto; scrollbar-width: thin; }
   .catalogo.lateral .fila-fecha { display: none; }
   .hoja { margin: 28px 0 0; padding: 24px 40px 72px; }
 }
+
+/* entradas del blog sin foto */
+.fila-review.sin-foto { grid-template-columns: 1fr; }

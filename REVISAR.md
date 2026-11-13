@@ -128,3 +128,14 @@ Todos los textos de `/portfolio/` en chino e inglés son traducción mía (está
 | Introducción de las reviews | Objetivos probados en la calle: ficha técnica, fotos reales y mi opinión. | Lenses tested on the street: specs, real photos and my verdict. | 在街头实拍测试的镜头：规格参数、实拍照片和我的看法。 |
 
 Ya no se usan `reviews.texto`, `reviews.cta`, `portfolio.cta`, `menu.fotos` ni las claves del carrete y del visor de la portada (las he quitado de los JSON).
+
+## Blog y newsletter
+
+| Texto | Español | Inglés | Chino |
+|---|---|---|---|
+| Menú (`menu.blog`) | Blog | Blog | 博客 |
+| Introducción del blog | Notas, reviews y lo que voy encontrando por la calle. | Notes, reviews and whatever I find on the street. | 笔记、评测，以及我在街头遇到的一切。 |
+| Etiquetas del listado | Nota / Review | Note / Review | 笔记 / 评测 |
+| Fila de Contacto (`contacto.newsletter`) | Suscríbete a la newsletter | Subscribe to the newsletter | 订阅通讯 |
+
+Los textos están en `tools/blog.mjs` (objeto `BL`) y en los JSON de idioma.

@@ -45,5 +45,7 @@
   "form.msg.carga": "无法加载验证。",
   "menu.reviews": "评测",
   "reviews.titulo": "评测",
-  "menu.portfolio": "作品集"
+  "menu.portfolio": "作品集",
+  "menu.blog": "博客",
+  "contacto.newsletter": "订阅通讯"
 }

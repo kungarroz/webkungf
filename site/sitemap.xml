@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://shandevilla.com/</loc>
-    <lastmod>2026-10-26</lastmod>
+    <lastmod>2026-11-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -10,8 +10,44 @@
     </image:image>
   </url>
   <url>
+    <loc>https://shandevilla.com/blog/</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shandevilla.com/blog/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shandevilla.com/zh/blog/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shandevilla.com/en/blog/"/>
+    <image:image>
+      <image:loc>https://shandevilla.com/img/reviews/ttartisan-23mm/cover-1000.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://shandevilla.com/zh/blog/</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shandevilla.com/blog/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shandevilla.com/zh/blog/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shandevilla.com/en/blog/"/>
+    <image:image>
+      <image:loc>https://shandevilla.com/img/reviews/ttartisan-23mm/cover-1000.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://shandevilla.com/en/blog/</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://shandevilla.com/blog/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://shandevilla.com/zh/blog/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shandevilla.com/en/blog/"/>
+    <image:image>
+      <image:loc>https://shandevilla.com/img/reviews/ttartisan-23mm/cover-1000.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
     <loc>https://shandevilla.com/portfolio/</loc>
-    <lastmod>2026-10-26</lastmod>
+    <lastmod>2026-11-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://shandevilla.com/portfolio/"/>
@@ -23,7 +59,7 @@
   </url>
   <url>
     <loc>https://shandevilla.com/zh/portfolio/</loc>
-    <lastmod>2026-10-26</lastmod>
+    <lastmod>2026-11-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://shandevilla.com/portfolio/"/>
@@ -35,7 +71,7 @@
   </url>
   <url>
     <loc>https://shandevilla.com/en/portfolio/</loc>
-    <lastmod>2026-10-26</lastmod>
+    <lastmod>2026-11-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://shandevilla.com/portfolio/"/>
@@ -47,7 +83,7 @@
   </url>
   <url>
     <loc>https://shandevilla.com/reviews/</loc>
-    <lastmod>2026-10-26</lastmod>
+    <lastmod>2026-11-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://shandevilla.com/reviews/"/>
@@ -83,7 +119,7 @@
   </url>
   <url>
     <loc>https://shandevilla.com/zh/reviews/</loc>
-    <lastmod>2026-10-26</lastmod>
+    <lastmod>2026-11-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://shandevilla.com/reviews/"/>
@@ -119,7 +155,7 @@
   </url>
   <url>
     <loc>https://shandevilla.com/en/reviews/</loc>
-    <lastmod>2026-10-26</lastmod>
+    <lastmod>2026-11-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://shandevilla.com/reviews/"/>

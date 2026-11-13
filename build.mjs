@@ -122,9 +122,17 @@ export async function reviews() {
     ok(`Reviews: ${r.reviews || 0} (${r.paginas.length} páginas)`);
     let extra = [];
     try {
+      const { generarBlog } = await import('./tools/blog.mjs');
+      const b = generarBlog({ versionCss: h('css/estilo.css'), versionJs: h('js/review.js'), reviews: r.datos });
+      extra.push(...b.paginas);
+      ok(`Blog: ${b.notas} notas (${b.paginas.length} páginas)`);
+    } catch (err) {
+      aviso(`Blog: ${err.message}`);
+    }
+    try {
       const { generarPortfolio } = await import('./tools/portfolio.mjs');
-      extra = generarPortfolio({ versionCss: h('css/estilo.css') });
-      ok(`Portfolio: ${extra.length} páginas`);
+      extra.push(...generarPortfolio({ versionCss: h('css/estilo.css') }));
+      ok('Portfolio listo');
     } catch (err) {
       aviso(`Portfolio: ${err.message}`);
     }

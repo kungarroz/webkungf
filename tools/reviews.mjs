@@ -6,7 +6,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const RAIZ = join(dirname(fileURLToPath(import.meta.url)), '..');
-const SITIO = 'https://shandevilla.com';
+export const SITIO = 'https://shandevilla.com';
 const VERSION_ARCHIVOS = ['css/estilo.css', 'js/review.js'];
 
 export const IDIOMAS = {
@@ -45,11 +45,11 @@ export const UI = {
 };
 
 // Mismas etiquetas que el menú de la portada (site/i18n/*.json); en español son las de index.html
-const MENU_ES = { portfolio: 'Portfolio', reviews: 'Reviews', redes: 'Redes', contacto: 'Contacto' };
+const MENU_ES = { portfolio: 'Portfolio', reviews: 'Reviews', blog: 'Blog', redes: 'Redes', contacto: 'Contacto' };
 export function etiquetasMenu(l) {
   if (l === 'es') return MENU_ES;
   const j = JSON.parse(readFileSync(join(RAIZ, 'site', 'i18n', `${l}.json`), 'utf8'));
-  return { portfolio: j['menu.portfolio'], reviews: j['menu.reviews'], redes: j['menu.redes'], contacto: j['menu.contacto'] };
+  return { portfolio: j['menu.portfolio'], reviews: j['menu.reviews'], blog: j['menu.blog'], redes: j['menu.redes'], contacto: j['menu.contacto'] };
 }
 
 export const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -71,7 +71,7 @@ function separar(texto) {
 }
 
 // ───────── Markdown (el subconjunto que usan las reviews) ─────────
-function inline(t, enlaceExterno = true) {
+export function inline(t, enlaceExterno = true) {
   const guardado = [];
   let s = t.replace(/`([^`]+)`/g, (_, c) => { guardado.push(`<code>${esc(c)}</code>`); return `\u0000${guardado.length - 1}\u0000`; });
   s = esc(s);
@@ -150,10 +150,10 @@ function bloques(md) {
 }
 
 // ───────── Imágenes ─────────
-function imagen(manifiesto, slug, archivo, alt, { eager = false, sizes = '(min-width: 760px) 720px, 100vw' } = {}) {
+export function imagen(manifiesto, slug, archivo, alt, { eager = false, sizes = '(min-width: 760px) 720px, 100vw' } = {}) {
   const d = manifiesto[archivo];
   if (!d) throw new Error(`la imagen ${archivo} no está en imagenes.json (ejecuta python3 tools/optimizar_reviews.py)`);
-  const url = (a) => `/img/reviews/${slug}/${d.base}-${a}.webp`;
+  const url = (a) => `/img/${slug.startsWith('blog/') ? '' : 'reviews/'}${slug}/${d.base}-${a}.webp`;
   const mayor = d.anchos[d.anchos.length - 1];
   const alto = Math.round((d.h * mayor) / d.w);
   const srcset = d.anchos.map((a) => `${url(a)} ${a}w`).join(', ');
@@ -169,10 +169,10 @@ const idDe = (texto, usados) => {
 };
 
 // Foto ampliable: un enlace a la versión grande (el visor la abre en una ventana) alrededor de la imagen
-function figura(manifiesto, slug, archivo, alt, pie, t, { eager = false, portada = false } = {}) {
+export function figura(manifiesto, slug, archivo, alt, pie, t, { eager = false, portada = false } = {}) {
   const d = manifiesto[archivo];
   if (!d) throw new Error(`la imagen ${archivo} no está en imagenes.json (ejecuta python3 tools/optimizar_reviews.py)`);
-  const url = (a) => `/img/reviews/${slug}/${d.base}-${a}.webp`;
+  const url = (a) => `/img/${slug.startsWith('blog/') ? '' : 'reviews/'}${slug}/${d.base}-${a}.webp`;
   const mayor = d.anchos[d.anchos.length - 1];
   const srcset = d.anchos.map((a) => `${url(a)} ${a}w`).join(', ');
   const ar = (d.w / d.h).toFixed(3);
@@ -182,7 +182,7 @@ function figura(manifiesto, slug, archivo, alt, pie, t, { eager = false, portada
   return `<figure class="${clase}" style="--ar:${ar}"><a class="zoom" href="${url(mayor)}" data-srcset="${srcset}" data-w="${d.w}" data-h="${d.h}" aria-label="${esc(t.ampliar)}${alt ? ': ' + esc(alt) : ''}" data-pie="${esc(pie || '')}"><div class="ventana">${imagen(manifiesto, slug, archivo, alt, { eager, sizes })}</div></a>${pie ? `<figcaption>${inline(pie)}</figcaption>` : ''}</figure>`;
 }
 
-function cuerpoHtml(md, ctx) {
+export function cuerpoHtml(md, ctx) {
   let primeraImagen = true;
   return bloques(md).map((b) => {
     switch (b.t) {
@@ -272,6 +272,7 @@ ${head}
   <div class="menu-in">
     <a href="${I.prefijo}/portfolio/"${menuActual === 'portfolio' ? ' aria-current="true"' : ''}>${m.portfolio}</a>
     <a href="${rutaIndice}"${menuActual === 'reviews' ? ' aria-current="true"' : ''}>${m.reviews}</a>
+    <a href="${I.prefijo}/blog/"${menuActual === 'blog' ? ' aria-current="true"' : ''}>${m.blog}</a>
     <a href="/#redes">${m.redes}</a>
     <a href="/#contacto">${m.contacto}</a>
   </div>
@@ -303,16 +304,41 @@ ${cuerpo}
 }
 
 // ───────── Programa ─────────
-function fechaCorta(iso, l) {
+export function fechaCorta(iso, l) {
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return String(iso);
   return new Intl.DateTimeFormat(IDIOMAS[l].fecha, { month: 'short', year: 'numeric', timeZone: 'UTC' }).format(d);
 }
 
-function fechaLarga(iso, l) {
+export function fechaLarga(iso, l) {
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return String(iso);
   return new Intl.DateTimeFormat(IDIOMAS[l].fecha, { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(d);
+}
+
+// Lee reviews/<slug>/{es,en,zh}.md (o blog/<slug>/…) y el imagenes.json de cada carpeta
+export function leerContenido(nombre) {
+  const dir = join(RAIZ, nombre);
+  if (!existsSync(dir)) return [];
+  const lista = [];
+  for (const slug of readdirSync(dir, { withFileTypes: true }).filter((e) => e.isDirectory()).map((e) => e.name).sort()) {
+    const carpeta = join(dir, slug);
+    const manifiestoRuta = join(carpeta, 'imagenes.json');
+    const manifiesto = existsSync(manifiestoRuta) ? JSON.parse(readFileSync(manifiestoRuta, 'utf8')) : {};
+    const porIdioma = {};
+    for (const l of ORDEN) {
+      const f = join(carpeta, `${l}.md`);
+      if (!existsSync(f)) continue;
+      const { meta, cuerpo } = separar(readFileSync(f, 'utf8'));
+      if (!meta.title || !meta.description || !meta.pubDate) throw new Error(`${nombre}/${slug}/${l}.md: faltan title, description o pubDate`);
+      const cover = String(meta.cover || '').replace(/^\.\//, '');
+      if (cover && !manifiesto[cover]) throw new Error(`${nombre}/${slug}: falta la imagen ${cover} en imagenes.json (ejecuta python3 tools/optimizar_reviews.py)`);
+      porIdioma[l] = { meta, cuerpo, cover };
+    }
+    if (!Object.keys(porIdioma).length) continue;
+    lista.push({ slug, manifiesto, porIdioma, fecha: Object.values(porIdioma)[0].meta.pubDate });
+  }
+  return lista;
 }
 
 export const fijarVersiones = (v) => { globalThis.__v = v; };
@@ -325,24 +351,7 @@ export function generarReviews({ versionCss = '', versionJs = '' } = {}) {
   // limpiar lo generado antes
   for (const d of ['reviews', 'en/reviews', 'zh/reviews']) rmSync(join(RAIZ, 'site', d), { recursive: true, force: true });
 
-  const reviews = [];
-  for (const slug of readdirSync(dirReviews, { withFileTypes: true }).filter((e) => e.isDirectory()).map((e) => e.name).sort()) {
-    const carpeta = join(dirReviews, slug);
-    const manifiestoRuta = join(carpeta, 'imagenes.json');
-    if (!existsSync(manifiestoRuta)) throw new Error(`reviews/${slug}: falta imagenes.json (ejecuta python3 tools/optimizar_reviews.py)`);
-    const manifiesto = JSON.parse(readFileSync(manifiestoRuta, 'utf8'));
-    const porIdioma = {};
-    for (const l of ORDEN) {
-      const f = join(carpeta, `${l}.md`);
-      if (!existsSync(f)) continue;
-      const { meta, cuerpo } = separar(readFileSync(f, 'utf8'));
-      if (!meta.title || !meta.description || !meta.pubDate) throw new Error(`reviews/${slug}/${l}.md: faltan title, description o pubDate`);
-      const cover = String(meta.cover || '').replace(/^\.\//, '');
-      porIdioma[l] = { meta, cuerpo, cover };
-    }
-    if (!Object.keys(porIdioma).length) continue;
-    reviews.push({ slug, manifiesto, porIdioma, fecha: Object.values(porIdioma)[0].meta.pubDate });
-  }
+  const reviews = leerContenido('reviews');
   reviews.sort((a, b) => String(b.fecha).localeCompare(String(a.fecha)));
 
   const paginas = [];
@@ -441,7 +450,7 @@ ${catalogoDe(r.slug, 'aside', 'todas')}
       paginas.push({ url: urlReview(l, r.slug), idiomas: alternativas, imagen: og, fecha: String(d.meta.pubDate) });
     }
   }
-  return { paginas, reviews: reviews.length };
+  return { paginas, reviews: reviews.length, datos: reviews };
 }
 
 // Texto chino de las reviews, para recortar la fuente china (lo lee tools/subset_zh.py)

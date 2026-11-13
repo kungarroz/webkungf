@@ -83,6 +83,8 @@
     fechas(l);
     var rv = document.querySelector('a[data-reviews]');
     if (rv) { rv.setAttribute('href', l === 'es' ? '/reviews/' : '/' + l + '/reviews/'); }
+    var bl = document.querySelector('a[data-blog]');
+    if (bl) { bl.setAttribute('href', l === 'es' ? '/blog/' : '/' + l + '/blog/'); }
     var pf = document.querySelector('a[data-portfolio]');
     if (pf) { pf.setAttribute('href', l === 'es' ? '/portfolio/' : '/' + l + '/portfolio/'); }
     Array.prototype.forEach.call(document.querySelectorAll('.idioma button'), function (b) {

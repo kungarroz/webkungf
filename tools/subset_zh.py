@@ -50,7 +50,11 @@ def main():
         for linea in open(md, encoding="utf-8").read().splitlines():
             if linea.startswith(("#", "title:", "description:")):
                 fuentes.append(linea)
-    for nombre in ("reviews.mjs", "portfolio.mjs"):
+    for md in glob.glob(os.path.join(RAIZ, "blog", "*", "zh.md")):
+        for linea in open(md, encoding="utf-8").read().splitlines():
+            if linea.startswith(("#", "title:", "description:")):
+                fuentes.append(linea)
+    for nombre in ("reviews.mjs", "portfolio.mjs", "blog.mjs"):
         generador = os.path.join(RAIZ, "tools", nombre)
         if os.path.exists(generador):
             fuentes.append(open(generador, encoding="utf-8").read())
