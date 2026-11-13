@@ -96,6 +96,26 @@ La página `/portfolio/` (y `/en/portfolio/`, `/zh/portfolio/`) enseña **todas 
 - **Nombres de los objetivos:** `tools/objetivos.json` traduce el nombre que escribe la cámara (p. ej. `AF 23/1.8 XF`) al nombre bonito. Si sale un objetivo con un nombre raro, añade una línea ahí y vuelve a ejecutar el script. Las fotos sin dato de objetivo solo salen en «Todos».
 - Los filtros están plegados detrás de «Filtrar». Una serie se abre ya filtrada con `/portfolio/#noche`. Los textos de la página están en `tools/portfolio.mjs` (objeto `PF`).
 
+## Panel de publicación (`/admin/`)
+
+Una página privada para crear y editar **reviews** y **notas** del blog sin pasar por GitHub: título, descripción, fecha, etiquetas, fotos (arrastradas), texto con botones de formato, y opcionalmente inglés y chino (con traducción automática por Claude). Al pulsar «Publicar» guarda todo en GitHub en un solo commit y Cloudflare vuelve a desplegar la web (1–2 minutos).
+
+- Las fotos se reducen (800 y 1600 px) y se les quita el EXIF y el GPS **en el navegador** antes de subirlas, así que no hace falta ImageMagick ni Python. Los originales no se guardan: conserva los tuyos.
+- Se puede editar una entrada existente (elige «Editar una existente» y pulsa «Cargar») y añadir más fotos.
+- Una traducción automática se marca en el archivo (`_traducido: 'claude'`) hasta que marcas «He revisado esta traducción».
+- El texto del borrador se guarda en el navegador por si se cierra la página; las fotos no.
+
+**Activarlo (una sola vez):**
+1. **Token de GitHub:** GitHub → tu foto → *Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token*. *Repository access*: *Only select repositories* → `webkungf`. *Permissions → Repository permissions → Contents: Read and write*. Caducidad a un año; cópialo.
+2. En el Worker → *Settings → Variables and Secrets*, tres secretos:
+   - `ADMIN_PASSWORD`: la contraseña del panel (una frase larga, 20 caracteres o más).
+   - `GITHUB_TOKEN`: el token del paso 1.
+   - `ANTHROPIC_API_KEY` (opcional, solo para el botón «Traducir con Claude»): clave de la API de Anthropic.
+   Opcionales: `GITHUB_REPO` (por defecto `kungarroz/webkungf`), `GITHUB_BRANCH` (por defecto `main`), `TRANSLATE_MODEL`.
+3. Vuelve a desplegar y abre `https://shandevilla.com/admin/`.
+
+**Seguridad:** el panel pide la contraseña en cada petición, cada intento fallido tarda 1,5 s y solo acepta peticiones de la propia web. Para más protección, en Cloudflare: *Zero Trust → Access → Applications* sobre `/admin*` y `/api/admin*` (gratis) y una regla de *Rate limiting* sobre `/api/admin/*`. Si cambias el token o la contraseña, solo hay que cambiar el secreto.
+
 ## Blog (notas) y Reviews
 
 - **Reviews** (`/reviews/`): solo las reviews de objetivos. **Blog** (`/blog/`): las notas y las reviews juntas, de la más nueva a la más antigua.

@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="es" class="js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Panel — Shande Villa</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#15110D">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/estilo.css">
+<link rel="stylesheet" href="/admin/admin.css">
+</head>
+<body class="admin">
+<header class="cabecera">
+  <p class="marca"><a href="/">Shande Villa</a></p>
+  <p class="admin-etiqueta">Panel</p>
+</header>
+
+<main id="contenido" class="admin-main">
+
+  <!-- ACCESO -->
+  <section id="a-acceso" class="a-bloque">
+    <h1 class="titulo-pagina">Panel</h1>
+    <p class="entradilla">Publica reviews y notas sin pasar por GitHub.</p>
+    <form id="a-form-acceso" class="a-campos" novalidate>
+      <div class="a-campo">
+        <label for="a-clave">Contraseña</label>
+        <input id="a-clave" type="password" autocomplete="current-password" required>
+      </div>
+      <p id="a-estado-acceso" class="a-estado" role="status"></p>
+      <button type="submit" class="a-boton">Entrar</button>
+    </form>
+  </section>
+
+  <!-- EDITOR -->
+  <section id="a-editor" class="a-bloque" hidden>
+    <div class="a-barra">
+      <h1 class="titulo-pagina">Panel</h1>
+      <button type="button" id="a-salir" class="a-enlace">Salir</button>
+    </div>
+
+    <div class="a-que">
+      <div class="a-grupo" role="group" aria-labelledby="a-l-modo">
+        <p id="a-l-modo" class="a-etiqueta">Qué quieres hacer</p>
+        <div class="a-opciones">
+          <label><input type="radio" name="modo" value="nueva" checked> <span>Entrada nueva</span></label>
+          <label><input type="radio" name="modo" value="editar"> <span>Editar una existente</span></label>
+        </div>
+      </div>
+      <div id="a-editar-caja" class="a-campo" hidden>
+        <label for="a-existentes">Entrada</label>
+        <select id="a-existentes"></select>
+        <button type="button" id="a-cargar" class="a-boton a-secundario">Cargar</button>
+      </div>
+    </div>
+
+    <form id="a-form" class="a-campos" novalidate>
+      <div class="a-grupo" role="group" aria-labelledby="a-l-tipo">
+        <p id="a-l-tipo" class="a-etiqueta">Tipo</p>
+        <div class="a-opciones">
+          <label><input type="radio" name="tipo" value="nota" checked> <span>Nota (blog)</span></label>
+          <label><input type="radio" name="tipo" value="review"> <span>Review de objetivo</span></label>
+        </div>
+      </div>
+
+      <div class="a-campo">
+        <label for="a-titulo">Título</label>
+        <input id="a-titulo" type="text" maxlength="200" autocomplete="off" required>
+      </div>
+      <div class="a-campo">
+        <label for="a-desc">Descripción <span class="a-ayuda">(una o dos frases; sale en el listado y en Google)</span></label>
+        <textarea id="a-desc" rows="2" maxlength="400" required></textarea>
+      </div>
+      <div class="a-dos">
+        <div class="a-campo">
+          <label for="a-fecha">Fecha</label>
+          <input id="a-fecha" type="date" required>
+        </div>
+        <div class="a-campo">
+          <label for="a-tags">Etiquetas <span class="a-ayuda">(separadas por comas)</span></label>
+          <input id="a-tags" type="text" autocomplete="off" placeholder="Review, Fujifilm, Calle">
+        </div>
+      </div>
+      <div id="a-solo-review" class="a-dos" hidden>
+        <div class="a-campo">
+          <label for="a-marca">Marca</label>
+          <input id="a-marca" type="text" maxlength="60" autocomplete="off" placeholder="TTArtisan">
+        </div>
+        <div class="a-campo">
+          <label for="a-producto">Objetivo</label>
+          <input id="a-producto" type="text" maxlength="100" autocomplete="off" placeholder="TTArtisan AF 35mm F1.8">
+        </div>
+      </div>
+
+      <!-- FOTOS -->
+      <div class="a-campo">
+        <p class="a-etiqueta" id="a-l-fotos">Fotos</p>
+        <div id="a-zona" class="a-zona" tabindex="0" role="button" aria-labelledby="a-l-fotos" aria-describedby="a-zona-txt">
+          <span id="a-zona-txt">Arrastra las fotos aquí o pulsa para elegirlas</span>
+          <input id="a-fotos" type="file" accept="image/jpeg,image/png,image/webp,image/heic" multiple hidden>
+        </div>
+        <p class="a-ayuda">Se reducen en tu dispositivo y se les quitan los datos de la cámara y el GPS antes de subirlas. Máximo 14 fotos por publicación.</p>
+        <ul id="a-lista-fotos" class="a-fotos"></ul>
+      </div>
+
+      <!-- TEXTO EN ESPAÑOL -->
+      <div class="a-campo">
+        <div class="a-etiquetaFila">
+          <label for="a-cuerpo-es">Texto</label>
+          <div class="a-herramientas" role="group" aria-label="Formato">
+            <button type="button" data-fmt="h2">Sección</button>
+            <button type="button" data-fmt="h3">Subsección</button>
+            <button type="button" data-fmt="negrita">Negrita</button>
+            <button type="button" data-fmt="lista">Lista</button>
+            <button type="button" data-fmt="tabla" id="a-fmt-tabla" hidden>Ficha técnica</button>
+            <button type="button" data-fmt="linea">Línea</button>
+          </div>
+        </div>
+        <textarea id="a-cuerpo-es" rows="16" required></textarea>
+        <p class="a-ayuda">Escribe normal. Las secciones se marcan con «Sección»; las fotos se colocan con «Insertar» en cada foto de arriba.</p>
+      </div>
+
+      <!-- IDIOMAS -->
+      <div class="a-grupo" role="group" aria-labelledby="a-l-idiomas">
+        <p id="a-l-idiomas" class="a-etiqueta">Otros idiomas</p>
+        <div class="a-opciones">
+          <label><input type="checkbox" id="a-usa-en"> <span>Inglés</span></label>
+          <label><input type="checkbox" id="a-usa-zh"> <span>Chino</span></label>
+        </div>
+      </div>
+      <div id="a-idiomas"></div>
+
+      <p id="a-estado" class="a-estado" role="status"></p>
+      <div class="a-acciones">
+        <button type="submit" id="a-publicar" class="a-boton">Publicar</button>
+        <button type="button" id="a-descartar" class="a-enlace">Descartar borrador</button>
+      </div>
+      <p id="a-resultado" class="a-resultado" hidden></p>
+    </form>
+  </section>
+</main>
+
+<script src="/admin/admin.js"></script>
+</body>
+</html>

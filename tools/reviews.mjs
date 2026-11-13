@@ -153,7 +153,7 @@ function bloques(md) {
 export function imagen(manifiesto, slug, archivo, alt, { eager = false, sizes = '(min-width: 760px) 720px, 100vw' } = {}) {
   const d = manifiesto[archivo];
   if (!d) throw new Error(`la imagen ${archivo} no está en imagenes.json (ejecuta python3 tools/optimizar_reviews.py)`);
-  const url = (a) => `/img/${slug.startsWith('blog/') ? '' : 'reviews/'}${slug}/${d.base}-${a}.webp`;
+  const url = (a) => `/img/${slug.startsWith('blog/') ? '' : 'reviews/'}${slug}/${d.base}-${a}.${d.ext || 'webp'}`;
   const mayor = d.anchos[d.anchos.length - 1];
   const alto = Math.round((d.h * mayor) / d.w);
   const srcset = d.anchos.map((a) => `${url(a)} ${a}w`).join(', ');
@@ -172,7 +172,7 @@ const idDe = (texto, usados) => {
 export function figura(manifiesto, slug, archivo, alt, pie, t, { eager = false, portada = false } = {}) {
   const d = manifiesto[archivo];
   if (!d) throw new Error(`la imagen ${archivo} no está en imagenes.json (ejecuta python3 tools/optimizar_reviews.py)`);
-  const url = (a) => `/img/${slug.startsWith('blog/') ? '' : 'reviews/'}${slug}/${d.base}-${a}.webp`;
+  const url = (a) => `/img/${slug.startsWith('blog/') ? '' : 'reviews/'}${slug}/${d.base}-${a}.${d.ext || 'webp'}`;
   const mayor = d.anchos[d.anchos.length - 1];
   const srcset = d.anchos.map((a) => `${url(a)} ${a}w`).join(', ');
   const ar = (d.w / d.h).toFixed(3);
@@ -400,7 +400,7 @@ ${marcas.map((m) => `  <div class="marca-grupo"><h3>${esc(m)}</h3><ul class="fil
 ${enEste.length > 8 ? `  <p class="buscador" hidden><label for="buscar-review">${t.buscar}</label><input id="buscar-review" type="search" autocomplete="off" placeholder="${t.buscarEj}"></p>\n  <p class="sin-resultados" role="status" hidden>${t.sinResultados}</p>\n` : ''}  ${enEste.length ? `<ul class="lista-reviews">\n${tarjetas}\n</ul>` : `<p>${t.vacio}</p>`}
 </section>`;
     const primera = enEste[0];
-    const ogIndice = primera ? `/img/reviews/${primera.slug}/${primera.manifiesto[primera.porIdioma[l].cover].base}-${primera.manifiesto[primera.porIdioma[l].cover].anchos.at(-1)}.webp` : '/og.jpg';
+    const ogIndice = primera ? `/img/reviews/${primera.slug}/${primera.manifiesto[primera.porIdioma[l].cover].base}-${primera.manifiesto[primera.porIdioma[l].cover].anchos.at(-1)}.${primera.manifiesto[primera.porIdioma[l].cover].ext || 'webp'}` : '/og.jpg';
     const altIndice = indicesEn.map((x) => ({ idioma: x, url: urlIndice(x) }));
     escribir(`${I.prefijo}/reviews`.replace(/^\//, ''), marco({
       l, cuerpo: cuerpoIndice, actual: 'indice', rutaIndice: urlIndice(l), enlacesIdioma: altIndice,
@@ -415,7 +415,7 @@ ${enEste.length > 8 ? `  <p class="buscador" hidden><label for="buscar-review">$
       const cuerpoMd = cuerpoHtml(d.cuerpo, ctx);
       const alternativas = ORDEN.filter((x) => r.porIdioma[x]).map((x) => ({ idioma: x, url: urlReview(x, r.slug) }));
       const m = r.manifiesto[d.cover];
-      const og = `/img/reviews/${r.slug}/${m.base}-${m.anchos.at(-1)}.webp`;
+      const og = `/img/reviews/${r.slug}/${m.base}-${m.anchos.at(-1)}.${m.ext || 'webp'}`;
       const etiquetas = Array.isArray(d.meta.tags) ? d.meta.tags : [];
       const cuerpo = `<div class="review-layout">
 <article class="review" lang="${I.html}">

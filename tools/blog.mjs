@@ -57,7 +57,7 @@ ${e.d.cover ? `  <span class="fila-foto">${imagen(e.manifiesto, e.carpeta, e.d.c
 ${entradas.length > 8 ? `  <p class="buscador" hidden><label for="buscar-review">${t.buscar}</label><input id="buscar-review" type="search" autocomplete="off" placeholder="${t.buscarEj}"></p>\n  <p class="sin-resultados" role="status" hidden>${t.sinResultados}</p>\n` : ''}  ${entradas.length ? `<ul class="lista-reviews">\n${filas}\n</ul>` : `<p>${b.vacio}</p>`}
 </section>`;
     const primera = entradas.find((e) => e.d.cover);
-    const urlImg = (e) => { const m = e.manifiesto[e.d.cover]; return `/img/${e.tipo === 'nota' ? e.carpeta : `reviews/${e.carpeta}`}/${m.base}-${m.anchos.at(-1)}.webp`; };
+    const urlImg = (e) => { const m = e.manifiesto[e.d.cover]; return `/img/${e.tipo === 'nota' ? e.carpeta : `reviews/${e.carpeta}`}/${m.base}-${m.anchos.at(-1)}.${m.ext || 'webp'}`; };
     const ogIndice = primera ? urlImg(primera) : '/og.jpg';
     escribir(`${I.prefijo}/blog`.replace(/^\//, ''), marco({
       l, cuerpo: cuerpoIndice, actual: 'blog', menuActual: 'blog', rutaIndice: `${I.prefijo}/reviews/`, enlacesIdioma: altIndice,
